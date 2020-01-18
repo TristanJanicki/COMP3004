@@ -1,0 +1,859 @@
+consumes:
+  - application/json
+info:
+
+  description: A microservice for managing AWS cognito user accounts
+  title: User Accounts Service
+  version: 0.1.0
+produces:
+  - application/json
+schemes:
+  - http
+swagger: "2.0"
+
+definitions:
+  ###########################
+  ##### Base Types Definitions
+  ###########################
+
+  phoneNumber:
+    type: object
+    required:
+      - country
+      - code
+      - number
+    properties:
+      country:
+        type: string
+        minLength: 1
+      code:
+        type: string
+        minLength: 1
+      number:
+        type: string
+        minLength: 1
+
+  ###########################
+  ##### Profile definitions
+  ###########################
+
+  userProfile:
+    type: object
+    required:
+      - firstName
+      - lastName
+      - email
+    properties:
+      firstName:
+        type: string
+        minLength: 1
+        maxLength: 50
+      lastName:
+        type: string
+        minLength: 1
+        maxLength: 50
+      nickName:
+        type: string
+        minLength: 1
+        maxLength: 50
+      email:
+        type: string
+        format: email
+      title:
+        type: string
+        maxLength: 50
+      phone:
+        $ref: "#/definitions/phoneNumber"
+
+  existingUserProfile:
+    type: object
+    properties:
+      firstName:
+        type: string
+        minLength: 1
+        maxLength: 50
+      lastName:
+        type: string
+        minLength: 1
+        maxLength: 50
+      nickName:
+        type: string
+        minLength: 1
+        maxLength: 50
+      title:
+        type: string
+        maxLength: 50
+      phone:
+        $ref: "#/definitions/phoneNumber"
+
+  userNotificationSettings:
+    type: object
+    required:
+      - sendDailyDigest
+      - notifyEmailsSendLimitWarning
+      - notifyEmailsBounceRateWarning
+    properties:
+      sendDailyDigest:
+        type: boolean
+      notifyEmailsSendLimitWarning:
+        type: boolean
+      notifyEmailsBounceRateWarning:
+        type: boolean
+
+  userAccount:
+    type: object
+    required:
+      - profile
+      - governanceProfile
+    properties:
+      profile:
+        $ref: "#/definitions/userProfile"
+      settings:
+        $ref: "#/definitions/userNotificationSettings"
+
+  existingUserAccount:
+    type: object
+    required:
+      - profile
+    properties:
+      profile:
+        $ref: "#/definitions/existingUserProfile"
+      settings:
+        $ref: "#/definitions/userNotificationSettings"
+
+  userAccountResult:
+    type: object
+    required:
+      - id
+      - userAccount
+    properties:
+      id:
+        type: string
+        maxLength: 36
+      userAccount:
+        $ref: "#/definitions/userAccount"
+
+  userAccountResults:
+    type: object
+    required:
+      - users
+    properties:
+      users:
+        type: array
+        items:
+          $ref: "#/definitions/userAccountResult"
+
+  ###########################
+  ##### Sign up/in and account creation
+  ###########################
+
+  loginCredentials:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        format: email
+      password:
+        type: string
+        format: password
+
+  # User for first-time sign ups
+  signUpData:
+    type: object
+    required:
+      - email
+      - firstName
+      - lastName
+      - companyName
+      - companyWebsite
+      - country
+      - accountType
+    properties:
+      email:
+        type: string
+        format: email
+      firstName:
+        type: string
+      lastName:
+        type: string
+      companyName:
+        type: string
+      companyWebsite:
+        type: string
+        format: uri
+      country:
+        type: string
+      accountType:
+        type: string
+        enum: [agency, sales]
+        default: agency
+
+  ###########################
+  ##### Auth challenge and password change definitions
+  ###########################
+
+  authChallengeCredentials:
+    type: object
+    required:
+      - email
+      - sessionId
+      - newPassword
+    properties:
+      email:
+        type: string
+        format: email
+      sessionId:
+        type: string
+      newPassword:
+        type: string
+
+  authChallengeRequiredResult:
+    type: object
+    required:
+      - email
+      - sessionId
+      - challengeName
+    properties:
+      email:
+        type: string
+      sessionId:
+        type: string
+      challengeName:
+        type: string
+
+  changePasswordInput:
+    type: object
+    required:
+      - oldPassword
+      - newPassword
+      - accessToken
+    properties:
+      oldPassword:
+        type: string
+      newPassword:
+        type: string
+      accessToken:
+        type: string
+
+  confirmRecoverPasswordInput:
+    type: object
+    required:
+      - email
+      - newPassword
+      - confirmationCode
+    properties:
+      email:
+        type: string
+        format: email
+      newPassword:
+        type: string
+      confirmationCode:
+        type: string
+
+  ###########################
+  ##### Response definitions
+  ###########################
+
+  ## Error response
+  errorResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Internal error"
+
+  ## Not found response
+  notFoundResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Not found"
+
+  ## Not allowed response
+  notAllowedResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Not allowed"
+
+  ## Already exists response
+  alreadyExistsResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Entity already exists"
+
+  ## Bad input response
+  badInputResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Bad input"
+
+  ## OK response
+  okResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "OK"
+
+  ## OK response
+  postOkResponse:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        maxLength: 36
+
+  ## Token ID response. This is received upon successful sign-in
+  tokenResponse:
+    type: object
+    required:
+      - idToken
+      - accessToken
+      - refreshToken
+    properties:
+      idToken:
+        type: string
+      accessToken: 
+        type: string
+      refreshToken:
+        type: string
+
+paths:
+  ###########################
+  ##### Authentication operations
+  ###########################
+  /v1/users/signup:
+    post:
+      description: "Create new customer and first (admin) user"
+      operationId: "SignUp"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "body"
+          name: "signUpData"
+          schema:
+            $ref: "#/definitions/signUpData"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/postOkResponse"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+  /v1/users/signin:
+    post:
+      description: "Sign in"
+      operationId: "SignIn"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "body"
+          name: "loginCredentials"
+          schema:
+            $ref: "#/definitions/loginCredentials"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/tokenResponse"
+        307:
+          description: "Authentication challenge required"
+          schema:
+            $ref: "#/definitions/authChallengeRequiredResult"
+        401:
+          description: "Incorrect username or password"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+  /v1/users/signout:
+    get:
+      description: "Sign out"
+      operationId: "SignOut"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "idToken"
+          required: true
+          type: string
+          description: "Cognito provided id token"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "Unauthorized, most likely invalid refresh token."
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+  /v1/users/authchallenge:
+    post:
+      description: "Attempts to complete the AWS NEW_PASSWORD_REQUIRED challenge"
+      operationId: "CompleteAuthChallenge"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "body"
+          name: "authChallengeCredentials"
+          schema:
+            $ref: "#/definitions/authChallengeCredentials"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+  /v1/users/verifyJwt:
+    get:
+      description: "Validates a JWT Token"
+      operationId: "VerifyJwt"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+        - in: "header"
+          name: "token"
+          type: string
+          required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "Not Allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+  /v1/users/refresh:
+    get:
+      description: "Refreshes the users JWT token"
+      operationId: "refreshTokens"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+        - in: "header"
+          name: "Refresh-Token"
+          type: string
+          required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/tokenResponse"
+        401:
+          description: "Not Allowed, most likely invalid token"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+                    
+  /v1/users/recovery:
+    get:
+      description: "Attempts to perform a password change in the case a user forgets their password (emails a new one to them)."
+      operationId: "RequestPasswordRecovery"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "query"
+          name: "email"
+          required: true
+          type: string
+          format: email
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+    post:
+      description: "Submit password recovery parameters to complete the process"
+      operationId: "CompletePasswordRecovery"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "body"
+          name: "confirmRecoverPasswordInput"
+          schema:
+            $ref: "#/definitions/confirmRecoverPasswordInput"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+  /v1/users/password:
+    patch:
+      description: "Used when a user wants to change their password"
+      operationId: "changePassword"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "idToken"
+          required: true
+          type: string
+          description: "Cognito provided id token"
+        - in: "body"
+          name: "changePasswordInput"
+          schema:
+            $ref: "#/definitions/changePasswordInput"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "Not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+  ###########################
+  ##### Standard crud operations
+  ###########################
+
+  /v1/users/accounts:
+    post:
+      description: "Create a user account and invite them to the app. Only admins are allowed to perform this function"
+      operationId: "CreateUserAccount"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "proelium-customer-id"
+          type: string
+          required: true
+          description: "Proelium customer id"
+        - in: "header"
+          name: "proelium-user-id"
+          type: string
+          required: true
+          description: "Proelium user id for the user who is making the request"
+        - in: "body"
+          name: "userAccount"
+          schema:
+            $ref: "#/definitions/userAccount"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/postOkResponse"
+        400:
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/badInputResponse"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+    get:
+      description: "Returns all the users. This function is only allowed for users who have the permission to view other users profiles."
+      operationId: "GetAllUserAccounts"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "proelium-customer-id"
+          type: string
+          required: true
+          description: "Proelium customer id"
+        - in: "header"
+          name: "proelium-user-id"
+          type: string
+          required: true
+          description: "Proelium user id for the user who is making the request"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/userAccountResults"
+        401:
+          description: "Not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+  /v1/users/accounts/{user_id}:
+    get:
+      description: "Returns user account"
+      operationId: "GetUserAccount"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "proelium-customer-id"
+          type: string
+          required: true
+          description: "Proelium customer id"
+        - in: "header"
+          name: "proelium-user-id"
+          type: string
+          required: true
+          description: "Proelium user id for the user who is making the request"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+          description: "Proelium user id of account to be gotten"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/userAccountResult"
+        401:
+          description: "Not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+    patch:
+      operationId: "UpdateUserAccount"
+      description: "Update the user account. Only admin users and the owner of the account can update their account."
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "proelium-customer-id"
+          type: string
+          required: true
+          description: "Proelium customer id (customer_id)"
+        - in: "header"
+          name: "proelium-user-id"
+          type: string
+          required: true
+          description: "Proelium user id for the user who is making the request"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+          description: "Proelium user id of account to be updated"
+        - in: "body"
+          name: "user_account"
+          required: true
+          schema:
+            $ref: "#/definitions/existingUserAccount"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "Update not permitted"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+            
+    delete:
+      operationId: "DeleteUserAccount"
+      description: "Deletes the user with the given their ID. Only admin users are allowed to perform this action"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "proelium-customer-id"
+          type: string
+          required: true
+          description: "Proelium customer id (customer_id)"
+        - in: "header"
+          name: "proelium-user-id"
+          type: string
+          required: true
+          description: "Proelium user id for the user who is making the request"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+          description: "Proelium user id of account to be deleted"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "Delete not permitted"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
