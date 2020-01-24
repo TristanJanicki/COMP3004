@@ -1,1 +1,284 @@
+consumes:
+  - application/json
+info:
+  description: A microservice for managing notifications sent to a user about their experiments
+  title: Notifications Service
+  version: 0.1.0
+produces:
+  - application/json
+schemes:
+  - http
+swagger: "2.0"
 
+definitions:
+
+  newNotification:
+    type: object
+    required: 
+      - user_id
+    properties:
+      user_id:
+        type: string
+      message:
+        type: string
+      experiment_id:
+        type: string
+      text:
+        type: boolean
+      email:
+        type: boolean
+      push:
+        type: boolean
+  
+  existingNotification:
+    type: object
+    properties:
+      message:
+        type: string
+      experiment_id:
+        type: string
+      text:
+        type: boolean
+      email:
+        type: boolean
+      push:
+        type: boolean
+
+  getNotificationsResult:
+    required:
+      - notifications
+    properties:
+      notifications:
+        type: array
+        items:
+          $ref: "#/definitions/existingNotification"
+
+  ## Error response
+  errorResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Internal error"
+
+  ## Not found response
+  notFoundResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Not found"
+
+  ## Not allowed response
+  notAllowedResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Not allowed"
+
+  ## Already exists response
+  alreadyExistsResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Entity already exists"
+
+  ## Bad input response
+  badInputResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Bad input"
+
+  ## OK response
+  okResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "OK"
+
+  ## OK response
+  postOkResponse:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        maxLength: 36
+
+paths:
+  /v1/notifications/{user_id}:
+    get:
+      description: "Get all the notifications associated/owned by a user"
+      operationId: "getAllNotifications"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "access-token"
+          type: string
+          required: true
+          description: "access token obtained from AWS Cognito"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/getNotificationsResult"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+    post:
+      description: "Add a new notification to a users account"
+      operationId: "createNotification"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "access-token"
+          type: string
+          required: true
+          description: "access token obtained from AWS Cognito"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+        - in: "body"
+          name: "notification"
+          schema:
+            $ref: "#/definitions/newNotification"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+    put:
+      description: "Update a notification"
+      operationId: "updateNotification"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "access-token"
+          type: string
+          required: true
+          description: "access token obtained from AWS Cognito"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+        - in: "body"
+          name: "notification"
+          schema:
+            $ref: "#/definitions/existingNotification"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+    delete:
+      description: "Delete a notification"
+      operationId: "deleteNotification"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "access-token"
+          type: string
+          required: true
+          description: "access token obtained from AWS Cognito"
+        - in: "header"
+          name: "notificationID"
+          type: string
+          required: true
+          description: "The database ID of the notification"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
