@@ -142,17 +142,6 @@ function getUserID(r) {
     return "";
 }
 
-function getCustomerID(r) {
-    for (var h in r.headersIn) {
-        if (h == "idToken") {
-            var customerID = parseIDToken(r.headersIn[h], r)["custom:customer_id"];
-            return customerID;
-        }
-    }
-
-    return "";
-}
-
 function verifyJWT(r) {
     for (var h in r.headersIn) {
         if (h == "idToken") {
