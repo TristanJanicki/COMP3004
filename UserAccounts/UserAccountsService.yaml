@@ -650,15 +650,10 @@ paths:
           required: true
           description: "Request id"
         - in: "header"
-          name: "proelium-customer-id"
+          name: "user-id"
           type: string
           required: true
-          description: "Proelium customer id"
-        - in: "header"
-          name: "proelium-user-id"
-          type: string
-          required: true
-          description: "Proelium user id for the user who is making the request"
+          description: "Stock Advisor user id for the user who is making the request"
         - in: "body"
           name: "userAccount"
           schema:
@@ -696,15 +691,10 @@ paths:
           required: true
           description: "Request id"
         - in: "header"
-          name: "proelium-customer-id"
+          name: "user-id"
           type: string
           required: true
-          description: "Proelium customer id"
-        - in: "header"
-          name: "proelium-user-id"
-          type: string
-          required: true
-          description: "Proelium user id for the user who is making the request"
+          description: "Stock Advisor user id for the user who is making the request"
       responses:
         200:
           description: "OK"
@@ -735,20 +725,15 @@ paths:
           required: true
           description: "Request id"
         - in: "header"
-          name: "proelium-customer-id"
+          name: "user-id"
           type: string
           required: true
-          description: "Proelium customer id"
-        - in: "header"
-          name: "proelium-user-id"
-          type: string
-          required: true
-          description: "Proelium user id for the user who is making the request"
+          description: "Stock Advisor user id for the user who is making the request"
         - in: "path"
           name: "user_id"
           type: string
           required: true
-          description: "Proelium user id of account to be gotten"
+          description: "Stock Advisor user id of account to be gotten"
       responses:
         200:
           description: "OK"
@@ -778,20 +763,15 @@ paths:
           required: true
           description: "Request id"
         - in: "header"
-          name: "proelium-customer-id"
+          name: "user-id"
           type: string
           required: true
-          description: "Proelium customer id (customer_id)"
-        - in: "header"
-          name: "proelium-user-id"
-          type: string
-          required: true
-          description: "Proelium user id for the user who is making the request"
+          description: "Stock Advisor user id for the user who is making the request"
         - in: "path"
           name: "user_id"
           type: string
           required: true
-          description: "Proelium user id of account to be updated"
+          description: "Stock Advisor user id of account to be updated"
         - in: "body"
           name: "user_account"
           required: true
@@ -826,20 +806,15 @@ paths:
           required: true
           description: "Request id"
         - in: "header"
-          name: "proelium-customer-id"
+          name: "user-id"
           type: string
           required: true
-          description: "Proelium customer id (customer_id)"
-        - in: "header"
-          name: "proelium-user-id"
-          type: string
-          required: true
-          description: "Proelium user id for the user who is making the request"
+          description: "Stock Advisor user id for the user who is making the request"
         - in: "path"
           name: "user_id"
           type: string
           required: true
-          description: "Proelium user id of account to be deleted"
+          description: "Stock Advisor user id of account to be deleted"
       responses:
         200:
           description: "OK"
