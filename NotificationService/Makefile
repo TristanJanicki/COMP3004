@@ -11,3 +11,5 @@ clean:
 gen:
 	@mkdir -p ./pkg/gen
 	@swagger generate server --target ./pkg/gen --name SwaggerRest --spec swagger.yaml
+deps:
+	# TODO: replace with something specific to your language of choice go get ./...
