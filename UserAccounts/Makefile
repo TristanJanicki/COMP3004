@@ -10,7 +10,7 @@ clean:
 .PHONY: gen
 gen:
 	@mkdir -p ./pkg/gen
-	@swagger generate server --target ./pkg/gen --name SwaggerRest --spec swagger.yaml
+	@swagger generate server --target ./pkg/gen --name SwaggerRest --spec UserAccountsService.yaml
 
 .PHONY: deps
 deps:
