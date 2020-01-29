@@ -1,0 +1,4 @@
+Set up Cognito user pool
+Set up AWS EC2 instances (1 per service)
+Set up AWS VPC (W.I.P)
+Set up Pritunl (W.I.P)
