@@ -64,7 +64,7 @@ func Run(service Service) error {
 	flag.Parse()
 
 	// Setup env config
-	viper.BindEnv("consul_address", "CONSUL_ADDRESS")
+	// viper.BindEnv("consul_address", "CONSUL_ADDRESS")
 	viper.BindEnv("listen_address", "LISTEN_ADDRESS")
 	viper.BindEnv("listen_port", "LISTEN_PORT")
 	viper.BindEnv("log_level", "LOG_LEVEL")
