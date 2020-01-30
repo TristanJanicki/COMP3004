@@ -184,10 +184,10 @@ func Run(service Service) error {
 	select {
 	case <-osSig:
 	case <-service.ShutdownChan():
-		err := consulClient.Deregister(serviceId)
-		if err != nil {
-			logger.WithError(err).Warn("Error deregistering service")
-		}
+		// err := consulClient.Deregister(serviceId)
+		// if err != nil {
+		// 	logger.WithError(err).Warn("Error deregistering service")
+		// }
 		logger.Info("Service shutdown")
 	}
 
