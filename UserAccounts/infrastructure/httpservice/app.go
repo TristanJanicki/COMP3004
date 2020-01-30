@@ -14,7 +14,6 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
-	"github.com/COMP3004/UserAccounts/infrastructure/consul"
 	"github.com/COMP3004/UserAccounts/infrastructure/env"
 )
 
@@ -166,12 +165,12 @@ func Run(service Service) error {
 		os.Exit(1)
 	}
 
-	//Register with Consul
-	consulClient, serviceId, err := consul.RegisterConsul(config.ListenPort)
-	if err != nil {
-		logger.WithError(err).Error("failed to register consul")
-		os.Exit(1)
-	}
+	// //Register with Consul NOT IN USE SINCE WE PROBABLY WON'T BOTHER WITH MULTIPLE INSTANCES OF EACH SERVICE
+	// consulClient, serviceId, err := consul.RegisterConsul(config.ListenPort)
+	// if err != nil {
+	// 	logger.WithError(err).Error("failed to register consul")
+	// 	os.Exit(1)
+	// }
 
 	// Start service (including http server)
 	go func() {
