@@ -19,16 +19,16 @@ import (
 	"github.com/COMP3004/UserAccounts/pkg/server"
 )
 
-type MgmtUserAccountsService struct {
+type UserAccountsService struct {
 	log *log.Logger
 
 	sqlDbManager *mysql.SqlDbManager
 
 	server *server.HttpServer
 
-	cognitoHandler         *cognito.AwsCognitoHandler
-	userAccountsHandler    *handlers.UserAccountsHandler
-	authHandler            *handlers.AuthenticationHandler
+	cognitoHandler      *cognito.AwsCognitoHandler
+	userAccountsHandler *handlers.UserAccountsHandler
+	authHandler         *handlers.AuthenticationHandler
 
 	awsSession *session.Session
 	awsConfig  *aws.Config
@@ -37,7 +37,7 @@ type MgmtUserAccountsService struct {
 }
 
 // Init initializes member variables and links handlers
-func (s *MgmtUserAccountsService) Init(config httpservice.ServiceConfig, listenAddress string, listenPort int) (err error) {
+func (s *UserAccountsService) Init(config httpservice.ServiceConfig, listenAddress string, listenPort int) (err error) {
 	s.log = log.StandardLogger()
 	s.shutdownChan = make(chan struct{})
 
@@ -92,6 +92,10 @@ func (s *MgmtUserAccountsService) Init(config httpservice.ServiceConfig, listenA
 	api.DeleteUserAccountHandler = operations.DeleteUserAccountHandlerFunc(s.userAccountsHandler.DeleteUserAccount)
 
 	// Init http server
+
+	listenAddress = "0.0.0.0"
+	listenPort = 8080
+
 	s.server, err = server.New(api, listenAddress, listenPort)
 	if err != nil {
 		log.WithError(err).Error("Failed to initialize http server")
@@ -121,15 +125,15 @@ func NewAwsSession() (s *session.Session, c *aws.Config) {
 	return sess, config
 }
 
-func (s *MgmtUserAccountsService) ShutdownChan() <-chan struct{} {
+func (s *UserAccountsService) ShutdownChan() <-chan struct{} {
 	return s.shutdownChan
 }
 
-func (s *MgmtUserAccountsService) Start() {
+func (s *UserAccountsService) Start() {
 	s.server.Start()
 }
 
-func (s *MgmtUserAccountsService) Stop() error {
+func (s *UserAccountsService) Stop() error {
 	var err error
 	err = s.server.Shutdown()
 
@@ -139,5 +143,5 @@ func (s *MgmtUserAccountsService) Stop() error {
 }
 
 func main() {
-	httpservice.Run(&MgmtUserAccountsService{})
+	httpservice.Run(&UserAccountsService{})
 }
