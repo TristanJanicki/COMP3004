@@ -74,29 +74,26 @@ func (s *UserAccountsService) Init(config httpservice.ServiceConfig, listenAddre
 	}
 	api := operations.NewSwaggerRestAPI(swaggerSpec)
 
-	// // Link handlers
-	// api.SignUpHandler = operations.SignUpHandlerFunc(s.authHandler.SignUp)
-	// api.RequestPasswordRecoveryHandler = operations.RequestPasswordRecoveryHandlerFunc(s.authHandler.RequestPasswordRecovery)
-	// api.CompletePasswordRecoveryHandler = operations.CompletePasswordRecoveryHandlerFunc(s.authHandler.CompletePasswordRecovery)
-	// api.ChangePasswordHandler = operations.ChangePasswordHandlerFunc(s.authHandler.ChangePassword)
-	// api.SignInHandler = operations.SignInHandlerFunc(s.authHandler.SignIn)
-	// api.SignOutHandler = operations.SignOutHandlerFunc(s.authHandler.SignOut)
-	// api.CompleteAuthChallengeHandler = operations.CompleteAuthChallengeHandlerFunc(s.authHandler.CompletePasswordChallenge)
-	// api.RefreshTokensHandler = operations.RefreshTokensHandlerFunc(s.authHandler.RefreshTokens)
-	// api.VerifyJwtHandler = operations.VerifyJwtHandlerFunc(s.authHandler.VerifyJwt)
+	// Link handlers
+	api.SignUpHandler = operations.SignUpHandlerFunc(s.authHandler.SignUp)
+	api.RequestPasswordRecoveryHandler = operations.RequestPasswordRecoveryHandlerFunc(s.authHandler.RequestPasswordRecovery)
+	api.CompletePasswordRecoveryHandler = operations.CompletePasswordRecoveryHandlerFunc(s.authHandler.CompletePasswordRecovery)
+	api.ChangePasswordHandler = operations.ChangePasswordHandlerFunc(s.authHandler.ChangePassword)
+	api.SignInHandler = operations.SignInHandlerFunc(s.authHandler.SignIn)
+	api.SignOutHandler = operations.SignOutHandlerFunc(s.authHandler.SignOut)
+	api.CompleteAuthChallengeHandler = operations.CompleteAuthChallengeHandlerFunc(s.authHandler.CompletePasswordChallenge)
+	api.RefreshTokensHandler = operations.RefreshTokensHandlerFunc(s.authHandler.RefreshTokens)
+	api.VerifyJwtHandler = operations.VerifyJwtHandlerFunc(s.authHandler.VerifyJwt)
 
-	// api.CreateUserAccountHandler = operations.CreateUserAccountHandlerFunc(s.userAccountsHandler.CreateUserAccount)
-	// api.UpdateUserAccountHandler = operations.UpdateUserAccountHandlerFunc(s.userAccountsHandler.UpdateUserAccount)
-	// api.GetUserAccountHandler = operations.GetUserAccountHandlerFunc(s.userAccountsHandler.GetUserAccount)
-	// api.GetAllUserAccountsHandler = operations.GetAllUserAccountsHandlerFunc(s.userAccountsHandler.GetAllUserAccounts)
-	// api.DeleteUserAccountHandler = operations.DeleteUserAccountHandlerFunc(s.userAccountsHandler.DeleteUserAccount)
+	api.CreateUserAccountHandler = operations.CreateUserAccountHandlerFunc(s.userAccountsHandler.CreateUserAccount)
+	api.UpdateUserAccountHandler = operations.UpdateUserAccountHandlerFunc(s.userAccountsHandler.UpdateUserAccount)
+	api.GetUserAccountHandler = operations.GetUserAccountHandlerFunc(s.userAccountsHandler.GetUserAccount)
+	api.GetAllUserAccountsHandler = operations.GetAllUserAccountsHandlerFunc(s.userAccountsHandler.GetAllUserAccounts)
+	api.DeleteUserAccountHandler = operations.DeleteUserAccountHandlerFunc(s.userAccountsHandler.DeleteUserAccount)
 
 	// Init http server
 
-	// listenAddress = "0.0.0.0"
-	// listenPort = 8080
-
-	s.server, err = server.New(api, listenAddress, listenPort)
+	s.server, err = server.New(api, "0.0.0.0", 8080)
 	if err != nil {
 		log.WithError(err).Error("Failed to initialize http server")
 		return errors.Wrapf(err, "Failed to initialize http server")
