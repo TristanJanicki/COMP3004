@@ -724,7 +724,7 @@ paths:
           required: true
           description: "Request id"
         - in: "header"
-          name: "user-id"
+          name: "caller-user-id"
           type: string
           required: true
           description: "Stock Advisor user id for the user who is making the request"
@@ -762,7 +762,7 @@ paths:
           required: true
           description: "Request id"
         - in: "header"
-          name: "user-id"
+          name: "caller-user-id"
           type: string
           required: true
           description: "Stock Advisor user id for the user who is making the request"
@@ -805,7 +805,7 @@ paths:
           required: true
           description: "Request id"
         - in: "header"
-          name: "user-id"
+          name: "caller-user-id"
           type: string
           required: true
           description: "Stock Advisor user id for the user who is making the request"

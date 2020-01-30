@@ -30,7 +30,7 @@ func NewAwsCognitoHandler(awsSession *session.Session, awsConfig *aws.Config, us
 }
 
 // RegisterUserWithCognito handles the logic for creating a user profile with AWS cognito
-func (c *AwsCognitoHandler) RegisterUserWithCognito(customerId *string, email *string) (*string, error) {
+func (c *AwsCognitoHandler) RegisterUserWithCognito(email *string) (*string, error) {
 	log := c.log.WithFields(logrus.Fields{
 		"method": "RegisterUserWithCognito",
 	})
@@ -45,7 +45,7 @@ func (c *AwsCognitoHandler) RegisterUserWithCognito(customerId *string, email *s
 		UserAttributes: []*cognitoidentityprovider.AttributeType{
 			{
 				Name:  aws.String("first"),
-				Value: customerId,
+				Value: aws.String("XXX"),
 			},
 		},
 	}
@@ -124,6 +124,8 @@ func (c *AwsCognitoHandler) RequestPasswordRecovery(loginEmail *string) error {
 	log := c.log.WithFields(logrus.Fields{
 		"method": "RequestPasswordRecovery",
 	})
+
+	// TODO: make db query for user id as that is the username in the user pool
 
 	input := &cognitoidentityprovider.AdminResetUserPasswordInput{
 		UserPoolId: c.userPoolId,
@@ -204,7 +206,7 @@ func (c *AwsCognitoHandler) RefreshTokens(refreshToken *string) (*string, *strin
 	return out.AuthenticationResult.IdToken, out.AuthenticationResult.RefreshToken, out.AuthenticationResult.AccessToken, nil
 }
 
-func (c *AwsCognitoHandler) DeleteUserFromCognito(customerId *string, email *string) error {
+func (c *AwsCognitoHandler) DeleteUserFromCognito(email *string) error {
 	log := c.log.WithFields(logrus.Fields{
 		"method": "DeleteUserFromCognito",
 	})

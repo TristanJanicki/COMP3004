@@ -34,276 +34,6 @@ func init() {
     "version": "0.1.0"
   },
   "paths": {
-    "/internal/v1/users/verifyJwt": {
-      "get": {
-        "description": "Validates a JWT Token",
-        "operationId": "VerifyJwt",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "name": "token",
-            "in": "header",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/okResponse"
-            }
-          },
-          "401": {
-            "description": "Not Allowed",
-            "schema": {
-              "$ref": "#/definitions/notAllowedResponse"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/internal/v1/users/{user_id}/permissions/agencyclients": {
-      "get": {
-        "description": "Get users agency clients permissions",
-        "operationId": "GetAgencyClientsPermissions",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "Request id",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id",
-            "name": "user_id",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/agencyClientsPermissions"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/internal/v1/users/{user_id}/stats": {
-      "patch": {
-        "description": "Update user stats",
-        "operationId": "UpdateUserStats",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "Request id",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id",
-            "name": "user_id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "stats",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/userStatsData"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v1/customers/accounts/": {
-      "get": {
-        "description": "Returns a customer",
-        "operationId": "GetCustomerAccount",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "Request id",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/customerAccount"
-            }
-          },
-          "401": {
-            "description": "Not allowed",
-            "schema": {
-              "$ref": "#/definitions/notAllowedResponse"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      },
-      "patch": {
-        "description": "Update customer account",
-        "operationId": "UpdateCustomerAccount",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "Request id",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "name": "account",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/existingCustomerAccount"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/okResponse"
-            }
-          },
-          "401": {
-            "description": "Update not permitted",
-            "schema": {
-              "$ref": "#/definitions/notAllowedResponse"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
     "/v1/users/accounts": {
       "get": {
         "description": "Returns all the users. This function is only allowed for users who have the permission to view other users profiles.",
@@ -319,15 +49,8 @@ func init() {
           },
           {
             "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
+            "description": "Stock Advisor user id for the user who is making the request",
+            "name": "user-id",
             "in": "header",
             "required": true
           }
@@ -373,15 +96,8 @@ func init() {
           },
           {
             "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
+            "description": "Stock Advisor user id for the user who is making the request",
+            "name": "user-id",
             "in": "header",
             "required": true
           },
@@ -442,32 +158,17 @@ func init() {
           },
           {
             "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
+            "description": "Stock Advisor user id for the user who is making the request",
+            "name": "caller-user-id",
             "in": "header",
             "required": true
           },
           {
             "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id of account to be gotten",
+            "description": "Stock Advisor user id of account to be gotten",
             "name": "user_id",
             "in": "path",
             "required": true
-          },
-          {
-            "description": "Optional date range. Default is last 7 days starting current day. Maximum range is 30 days at a time",
-            "name": "date_range",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/dateRange"
-            }
           }
         ],
         "responses": {
@@ -511,21 +212,14 @@ func init() {
           },
           {
             "type": "string",
-            "description": "Proelium customer id (customer_id)",
-            "name": "proelium-customer-id",
+            "description": "Stock Advisor user id for the user who is making the request",
+            "name": "caller-user-id",
             "in": "header",
             "required": true
           },
           {
             "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id of account to be deleted",
+            "description": "Stock Advisor user id of account to be deleted",
             "name": "user_id",
             "in": "path",
             "required": true
@@ -572,21 +266,14 @@ func init() {
           },
           {
             "type": "string",
-            "description": "Proelium customer id (customer_id)",
-            "name": "proelium-customer-id",
+            "description": "Stock Advisor user id for the user who is making the request",
+            "name": "caller-user-id",
             "in": "header",
             "required": true
           },
           {
             "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id of account to be updated",
+            "description": "Stock Advisor user id of account to be updated",
             "name": "user_id",
             "in": "path",
             "required": true
@@ -609,77 +296,6 @@ func init() {
           },
           "401": {
             "description": "Update not permitted",
-            "schema": {
-              "$ref": "#/definitions/notAllowedResponse"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v1/users/accounts/{user_id}/stats": {
-      "get": {
-        "description": "Returns user stats. Only admin can view all user stats, and non-admin can only view their own stats",
-        "operationId": "GetUserStats",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "Request id",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id of account to be gotten",
-            "name": "user_id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "description": "Optional date range. Default is last 7 days starting current day. Maximum range is 30 days at a time",
-            "name": "date_range",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/dateRange"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/userStats"
-            }
-          },
-          "401": {
-            "description": "Not allowed",
             "schema": {
               "$ref": "#/definitions/notAllowedResponse"
             }
@@ -905,7 +521,7 @@ func init() {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/refreshTokensResponse"
+              "$ref": "#/definitions/tokenResponse"
             }
           },
           "401": {
@@ -954,7 +570,7 @@ func init() {
           "201": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/signInTokensResponse"
+              "$ref": "#/definitions/tokenResponse"
             }
           },
           "307": {
@@ -1055,12 +671,6 @@ func init() {
               "$ref": "#/definitions/postOkResponse"
             }
           },
-          "400": {
-            "description": "Bad request",
-            "schema": {
-              "$ref": "#/definitions/badInputResponse"
-            }
-          },
           "401": {
             "description": "insufficient permissions/not allowed",
             "schema": {
@@ -1081,35 +691,56 @@ func init() {
           }
         }
       }
+    },
+    "/v1/users/verifyJwt": {
+      "get": {
+        "description": "Validates a JWT Token",
+        "operationId": "VerifyJwt",
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "name": "X-Request-ID",
+            "in": "header",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/okResponse"
+            }
+          },
+          "401": {
+            "description": "Not Allowed",
+            "schema": {
+              "$ref": "#/definitions/notAllowedResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/notFoundResponse"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "$ref": "#/definitions/errorResponse"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
-    "administrationPermissions": {
-      "type": "object",
-      "required": [
-        "canAddTeamMember"
-      ],
-      "properties": {
-        "canAddTeamMember": {
-          "type": "boolean"
-        }
-      }
-    },
-    "agencyClientsPermissions": {
-      "type": "object",
-      "required": [
-        "isAdmin",
-        "canAssignClient"
-      ],
-      "properties": {
-        "canAssignClient": {
-          "type": "boolean"
-        },
-        "isAdmin": {
-          "type": "boolean"
-        }
-      }
-    },
     "alreadyExistsResponse": {
       "type": "object",
       "required": [
@@ -1192,17 +823,6 @@ func init() {
         }
       }
     },
-    "clientsPermissions": {
-      "type": "object",
-      "required": [
-        "canAssignTeamMemberToClient"
-      ],
-      "properties": {
-        "canAssignTeamMemberToClient": {
-          "type": "boolean"
-        }
-      }
-    },
     "confirmRecoverPasswordInput": {
       "type": "object",
       "required": [
@@ -1223,79 +843,6 @@ func init() {
         }
       }
     },
-    "customerAccount": {
-      "type": "object",
-      "required": [
-        "profile",
-        "settings"
-      ],
-      "properties": {
-        "profile": {
-          "$ref": "#/definitions/customerProfile"
-        },
-        "settings": {
-          "$ref": "#/definitions/customerSettings"
-        }
-      }
-    },
-    "customerProfile": {
-      "type": "object",
-      "required": [
-        "name",
-        "website"
-      ],
-      "properties": {
-        "country": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "timezone": {
-          "type": "string"
-        },
-        "website": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
-    },
-    "customerSettings": {
-      "type": "object",
-      "required": [
-        "maxEmailsPerUserPerDay",
-        "maxEmailsPerProspectPerDay"
-      ],
-      "properties": {
-        "maxEmailsPerProspectPerDay": {
-          "type": "integer",
-          "format": "int64",
-          "minimum": 1
-        },
-        "maxEmailsPerUserPerDay": {
-          "type": "integer",
-          "format": "int64",
-          "minimum": 1
-        }
-      }
-    },
-    "dateRange": {
-      "type": "object",
-      "required": [
-        "startDate",
-        "endDate"
-      ],
-      "properties": {
-        "endDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "startDate": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "errorResponse": {
       "type": "object",
       "required": [
@@ -1308,44 +855,12 @@ func init() {
         }
       }
     },
-    "existingCustomerAccount": {
-      "type": "object",
-      "required": [
-        "profile",
-        "settings"
-      ],
-      "properties": {
-        "profile": {
-          "$ref": "#/definitions/existingCustomerProfile"
-        },
-        "settings": {
-          "$ref": "#/definitions/customerSettings"
-        }
-      }
-    },
-    "existingCustomerProfile": {
-      "type": "object",
-      "properties": {
-        "country": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "timezone": {
-          "type": "string"
-        }
-      }
-    },
     "existingUserAccount": {
       "type": "object",
       "required": [
         "profile"
       ],
       "properties": {
-        "governanceProfile": {
-          "$ref": "#/definitions/governanceProfile"
-        },
         "profile": {
           "$ref": "#/definitions/existingUserProfile"
         },
@@ -1376,24 +891,6 @@ func init() {
           "$ref": "#/definitions/phoneNumber"
         },
         "title": {
-          "type": "string",
-          "maxLength": 50
-        }
-      }
-    },
-    "governanceProfile": {
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "administrationPermissions": {
-          "$ref": "#/definitions/administrationPermissions"
-        },
-        "clientsPermissions": {
-          "$ref": "#/definitions/clientsPermissions"
-        },
-        "name": {
           "type": "string",
           "maxLength": 50
         }
@@ -1486,40 +983,6 @@ func init() {
         }
       }
     },
-    "refreshTokensResponse": {
-      "type": "object",
-      "required": [
-        "idToken",
-        "accessToken"
-      ],
-      "properties": {
-        "accessToken": {
-          "type": "string"
-        },
-        "idToken": {
-          "type": "string"
-        }
-      }
-    },
-    "signInTokensResponse": {
-      "type": "object",
-      "required": [
-        "idToken",
-        "accessToken",
-        "refreshToken"
-      ],
-      "properties": {
-        "accessToken": {
-          "type": "string"
-        },
-        "idToken": {
-          "type": "string"
-        },
-        "refreshToken": {
-          "type": "string"
-        }
-      }
-    },
     "signUpData": {
       "type": "object",
       "required": [
@@ -1528,6 +991,7 @@ func init() {
         "lastName",
         "companyName",
         "companyWebsite",
+        "country",
         "accountType"
       ],
       "properties": {
@@ -1561,16 +1025,31 @@ func init() {
         }
       }
     },
+    "tokenResponse": {
+      "type": "object",
+      "required": [
+        "idToken",
+        "accessToken",
+        "refreshToken"
+      ],
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "idToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
     "userAccount": {
       "type": "object",
       "required": [
-        "profile",
-        "governanceProfile"
+        "profile"
       ],
       "properties": {
-        "governanceProfile": {
-          "$ref": "#/definitions/governanceProfile"
-        },
         "profile": {
           "$ref": "#/definitions/userProfile"
         },
@@ -1592,15 +1071,6 @@ func init() {
         },
         "userAccount": {
           "$ref": "#/definitions/userAccount"
-        },
-        "userAssignedClients": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/userAssignedClient"
-          }
-        },
-        "userStats": {
-          "$ref": "#/definitions/userStats"
         }
       }
     },
@@ -1615,18 +1085,6 @@ func init() {
           "items": {
             "$ref": "#/definitions/userAccountResult"
           }
-        }
-      }
-    },
-    "userAssignedClient": {
-      "type": "object",
-      "required": [
-        "clientId"
-      ],
-      "properties": {
-        "clientId": {
-          "type": "string",
-          "maxLength": 36
         }
       }
     },
@@ -1682,59 +1140,6 @@ func init() {
         "title": {
           "type": "string",
           "maxLength": 50
-        }
-      }
-    },
-    "userStats": {
-      "type": "object",
-      "required": [
-        "emailsSent",
-        "emailsSentInSequence",
-        "activeSequencesCount",
-        "emailReplies",
-        "meetingsBooked",
-        "upcomingTasksCount"
-      ],
-      "properties": {
-        "activeSequencesCount": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "emailReplies": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "emailsSent": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "emailsSentInSequence": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "meetingsBooked": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "upcomingTasksCount": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "userStatsData": {
-      "type": "object",
-      "required": [
-        "date",
-        "stats"
-      ],
-      "properties": {
-        "date": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "stats": {
-          "$ref": "#/definitions/userStats"
         }
       }
     }
@@ -1757,276 +1162,6 @@ func init() {
     "version": "0.1.0"
   },
   "paths": {
-    "/internal/v1/users/verifyJwt": {
-      "get": {
-        "description": "Validates a JWT Token",
-        "operationId": "VerifyJwt",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "name": "token",
-            "in": "header",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/okResponse"
-            }
-          },
-          "401": {
-            "description": "Not Allowed",
-            "schema": {
-              "$ref": "#/definitions/notAllowedResponse"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/internal/v1/users/{user_id}/permissions/agencyclients": {
-      "get": {
-        "description": "Get users agency clients permissions",
-        "operationId": "GetAgencyClientsPermissions",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "Request id",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id",
-            "name": "user_id",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/agencyClientsPermissions"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/internal/v1/users/{user_id}/stats": {
-      "patch": {
-        "description": "Update user stats",
-        "operationId": "UpdateUserStats",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "Request id",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id",
-            "name": "user_id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "name": "stats",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/userStatsData"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v1/customers/accounts/": {
-      "get": {
-        "description": "Returns a customer",
-        "operationId": "GetCustomerAccount",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "Request id",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/customerAccount"
-            }
-          },
-          "401": {
-            "description": "Not allowed",
-            "schema": {
-              "$ref": "#/definitions/notAllowedResponse"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      },
-      "patch": {
-        "description": "Update customer account",
-        "operationId": "UpdateCustomerAccount",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "Request id",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "name": "account",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/existingCustomerAccount"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/okResponse"
-            }
-          },
-          "401": {
-            "description": "Update not permitted",
-            "schema": {
-              "$ref": "#/definitions/notAllowedResponse"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
     "/v1/users/accounts": {
       "get": {
         "description": "Returns all the users. This function is only allowed for users who have the permission to view other users profiles.",
@@ -2042,15 +1177,8 @@ func init() {
           },
           {
             "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
+            "description": "Stock Advisor user id for the user who is making the request",
+            "name": "user-id",
             "in": "header",
             "required": true
           }
@@ -2096,15 +1224,8 @@ func init() {
           },
           {
             "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
+            "description": "Stock Advisor user id for the user who is making the request",
+            "name": "user-id",
             "in": "header",
             "required": true
           },
@@ -2165,32 +1286,17 @@ func init() {
           },
           {
             "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
+            "description": "Stock Advisor user id for the user who is making the request",
+            "name": "caller-user-id",
             "in": "header",
             "required": true
           },
           {
             "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id of account to be gotten",
+            "description": "Stock Advisor user id of account to be gotten",
             "name": "user_id",
             "in": "path",
             "required": true
-          },
-          {
-            "description": "Optional date range. Default is last 7 days starting current day. Maximum range is 30 days at a time",
-            "name": "date_range",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/dateRange"
-            }
           }
         ],
         "responses": {
@@ -2234,21 +1340,14 @@ func init() {
           },
           {
             "type": "string",
-            "description": "Proelium customer id (customer_id)",
-            "name": "proelium-customer-id",
+            "description": "Stock Advisor user id for the user who is making the request",
+            "name": "caller-user-id",
             "in": "header",
             "required": true
           },
           {
             "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id of account to be deleted",
+            "description": "Stock Advisor user id of account to be deleted",
             "name": "user_id",
             "in": "path",
             "required": true
@@ -2295,21 +1394,14 @@ func init() {
           },
           {
             "type": "string",
-            "description": "Proelium customer id (customer_id)",
-            "name": "proelium-customer-id",
+            "description": "Stock Advisor user id for the user who is making the request",
+            "name": "caller-user-id",
             "in": "header",
             "required": true
           },
           {
             "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id of account to be updated",
+            "description": "Stock Advisor user id of account to be updated",
             "name": "user_id",
             "in": "path",
             "required": true
@@ -2332,77 +1424,6 @@ func init() {
           },
           "401": {
             "description": "Update not permitted",
-            "schema": {
-              "$ref": "#/definitions/notAllowedResponse"
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "schema": {
-              "$ref": "#/definitions/notFoundResponse"
-            }
-          },
-          "500": {
-            "description": "Internal error",
-            "schema": {
-              "$ref": "#/definitions/errorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v1/users/accounts/{user_id}/stats": {
-      "get": {
-        "description": "Returns user stats. Only admin can view all user stats, and non-admin can only view their own stats",
-        "operationId": "GetUserStats",
-        "parameters": [
-          {
-            "type": "string",
-            "format": "uuid",
-            "description": "Request id",
-            "name": "X-Request-ID",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium customer id",
-            "name": "proelium-customer-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id for the user who is making the request",
-            "name": "proelium-user-id",
-            "in": "header",
-            "required": true
-          },
-          {
-            "type": "string",
-            "description": "Proelium user id of account to be gotten",
-            "name": "user_id",
-            "in": "path",
-            "required": true
-          },
-          {
-            "description": "Optional date range. Default is last 7 days starting current day. Maximum range is 30 days at a time",
-            "name": "date_range",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/dateRange"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/userStats"
-            }
-          },
-          "401": {
-            "description": "Not allowed",
             "schema": {
               "$ref": "#/definitions/notAllowedResponse"
             }
@@ -2628,7 +1649,7 @@ func init() {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/refreshTokensResponse"
+              "$ref": "#/definitions/tokenResponse"
             }
           },
           "401": {
@@ -2677,7 +1698,7 @@ func init() {
           "201": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/signInTokensResponse"
+              "$ref": "#/definitions/tokenResponse"
             }
           },
           "307": {
@@ -2778,12 +1799,6 @@ func init() {
               "$ref": "#/definitions/postOkResponse"
             }
           },
-          "400": {
-            "description": "Bad request",
-            "schema": {
-              "$ref": "#/definitions/badInputResponse"
-            }
-          },
           "401": {
             "description": "insufficient permissions/not allowed",
             "schema": {
@@ -2804,35 +1819,56 @@ func init() {
           }
         }
       }
+    },
+    "/v1/users/verifyJwt": {
+      "get": {
+        "description": "Validates a JWT Token",
+        "operationId": "VerifyJwt",
+        "parameters": [
+          {
+            "type": "string",
+            "format": "uuid",
+            "name": "X-Request-ID",
+            "in": "header",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/okResponse"
+            }
+          },
+          "401": {
+            "description": "Not Allowed",
+            "schema": {
+              "$ref": "#/definitions/notAllowedResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/notFoundResponse"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "$ref": "#/definitions/errorResponse"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
-    "administrationPermissions": {
-      "type": "object",
-      "required": [
-        "canAddTeamMember"
-      ],
-      "properties": {
-        "canAddTeamMember": {
-          "type": "boolean"
-        }
-      }
-    },
-    "agencyClientsPermissions": {
-      "type": "object",
-      "required": [
-        "isAdmin",
-        "canAssignClient"
-      ],
-      "properties": {
-        "canAssignClient": {
-          "type": "boolean"
-        },
-        "isAdmin": {
-          "type": "boolean"
-        }
-      }
-    },
     "alreadyExistsResponse": {
       "type": "object",
       "required": [
@@ -2915,17 +1951,6 @@ func init() {
         }
       }
     },
-    "clientsPermissions": {
-      "type": "object",
-      "required": [
-        "canAssignTeamMemberToClient"
-      ],
-      "properties": {
-        "canAssignTeamMemberToClient": {
-          "type": "boolean"
-        }
-      }
-    },
     "confirmRecoverPasswordInput": {
       "type": "object",
       "required": [
@@ -2946,79 +1971,6 @@ func init() {
         }
       }
     },
-    "customerAccount": {
-      "type": "object",
-      "required": [
-        "profile",
-        "settings"
-      ],
-      "properties": {
-        "profile": {
-          "$ref": "#/definitions/customerProfile"
-        },
-        "settings": {
-          "$ref": "#/definitions/customerSettings"
-        }
-      }
-    },
-    "customerProfile": {
-      "type": "object",
-      "required": [
-        "name",
-        "website"
-      ],
-      "properties": {
-        "country": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "timezone": {
-          "type": "string"
-        },
-        "website": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
-    },
-    "customerSettings": {
-      "type": "object",
-      "required": [
-        "maxEmailsPerUserPerDay",
-        "maxEmailsPerProspectPerDay"
-      ],
-      "properties": {
-        "maxEmailsPerProspectPerDay": {
-          "type": "integer",
-          "format": "int64",
-          "minimum": 1
-        },
-        "maxEmailsPerUserPerDay": {
-          "type": "integer",
-          "format": "int64",
-          "minimum": 1
-        }
-      }
-    },
-    "dateRange": {
-      "type": "object",
-      "required": [
-        "startDate",
-        "endDate"
-      ],
-      "properties": {
-        "endDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "startDate": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "errorResponse": {
       "type": "object",
       "required": [
@@ -3031,44 +1983,12 @@ func init() {
         }
       }
     },
-    "existingCustomerAccount": {
-      "type": "object",
-      "required": [
-        "profile",
-        "settings"
-      ],
-      "properties": {
-        "profile": {
-          "$ref": "#/definitions/existingCustomerProfile"
-        },
-        "settings": {
-          "$ref": "#/definitions/customerSettings"
-        }
-      }
-    },
-    "existingCustomerProfile": {
-      "type": "object",
-      "properties": {
-        "country": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "timezone": {
-          "type": "string"
-        }
-      }
-    },
     "existingUserAccount": {
       "type": "object",
       "required": [
         "profile"
       ],
       "properties": {
-        "governanceProfile": {
-          "$ref": "#/definitions/governanceProfile"
-        },
         "profile": {
           "$ref": "#/definitions/existingUserProfile"
         },
@@ -3099,24 +2019,6 @@ func init() {
           "$ref": "#/definitions/phoneNumber"
         },
         "title": {
-          "type": "string",
-          "maxLength": 50
-        }
-      }
-    },
-    "governanceProfile": {
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "administrationPermissions": {
-          "$ref": "#/definitions/administrationPermissions"
-        },
-        "clientsPermissions": {
-          "$ref": "#/definitions/clientsPermissions"
-        },
-        "name": {
           "type": "string",
           "maxLength": 50
         }
@@ -3209,40 +2111,6 @@ func init() {
         }
       }
     },
-    "refreshTokensResponse": {
-      "type": "object",
-      "required": [
-        "idToken",
-        "accessToken"
-      ],
-      "properties": {
-        "accessToken": {
-          "type": "string"
-        },
-        "idToken": {
-          "type": "string"
-        }
-      }
-    },
-    "signInTokensResponse": {
-      "type": "object",
-      "required": [
-        "idToken",
-        "accessToken",
-        "refreshToken"
-      ],
-      "properties": {
-        "accessToken": {
-          "type": "string"
-        },
-        "idToken": {
-          "type": "string"
-        },
-        "refreshToken": {
-          "type": "string"
-        }
-      }
-    },
     "signUpData": {
       "type": "object",
       "required": [
@@ -3251,6 +2119,7 @@ func init() {
         "lastName",
         "companyName",
         "companyWebsite",
+        "country",
         "accountType"
       ],
       "properties": {
@@ -3284,16 +2153,31 @@ func init() {
         }
       }
     },
+    "tokenResponse": {
+      "type": "object",
+      "required": [
+        "idToken",
+        "accessToken",
+        "refreshToken"
+      ],
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "idToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
     "userAccount": {
       "type": "object",
       "required": [
-        "profile",
-        "governanceProfile"
+        "profile"
       ],
       "properties": {
-        "governanceProfile": {
-          "$ref": "#/definitions/governanceProfile"
-        },
         "profile": {
           "$ref": "#/definitions/userProfile"
         },
@@ -3315,15 +2199,6 @@ func init() {
         },
         "userAccount": {
           "$ref": "#/definitions/userAccount"
-        },
-        "userAssignedClients": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/userAssignedClient"
-          }
-        },
-        "userStats": {
-          "$ref": "#/definitions/userStats"
         }
       }
     },
@@ -3338,18 +2213,6 @@ func init() {
           "items": {
             "$ref": "#/definitions/userAccountResult"
           }
-        }
-      }
-    },
-    "userAssignedClient": {
-      "type": "object",
-      "required": [
-        "clientId"
-      ],
-      "properties": {
-        "clientId": {
-          "type": "string",
-          "maxLength": 36
         }
       }
     },
@@ -3405,65 +2268,6 @@ func init() {
         "title": {
           "type": "string",
           "maxLength": 50
-        }
-      }
-    },
-    "userStats": {
-      "type": "object",
-      "required": [
-        "emailsSent",
-        "emailsSentInSequence",
-        "activeSequencesCount",
-        "emailReplies",
-        "meetingsBooked",
-        "upcomingTasksCount"
-      ],
-      "properties": {
-        "activeSequencesCount": {
-          "type": "integer",
-          "format": "int64",
-          "minimum": 0
-        },
-        "emailReplies": {
-          "type": "integer",
-          "format": "int64",
-          "minimum": 0
-        },
-        "emailsSent": {
-          "type": "integer",
-          "format": "int64",
-          "minimum": 0
-        },
-        "emailsSentInSequence": {
-          "type": "integer",
-          "format": "int64",
-          "minimum": 0
-        },
-        "meetingsBooked": {
-          "type": "integer",
-          "format": "int64",
-          "minimum": 0
-        },
-        "upcomingTasksCount": {
-          "type": "integer",
-          "format": "int64",
-          "minimum": 0
-        }
-      }
-    },
-    "userStatsData": {
-      "type": "object",
-      "required": [
-        "date",
-        "stats"
-      ],
-      "properties": {
-        "date": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "stats": {
-          "$ref": "#/definitions/userStats"
         }
       }
     }

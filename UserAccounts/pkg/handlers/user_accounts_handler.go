@@ -9,7 +9,6 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"github.com/COMP3004/UserAccounts/infrastructure/db/mysql"
-	"github.com/COMP3004/UserAccounts/infrastructure/utils"
 	"github.com/COMP3004/UserAccounts/pkg/aws/cognito"
 	genModels "github.com/COMP3004/UserAccounts/pkg/gen/models"
 	"github.com/COMP3004/UserAccounts/pkg/gen/restapi/operations"
@@ -29,8 +28,6 @@ func NewUserAccountsHandler(db *mysql.SqlDbManager, c *cognito.AwsCognitoHandler
 		cognitoHandler: c,
 	}
 	handler.dbManager.Db = handler.dbManager.Db.AutoMigrate(&dbModels.UserAccount{})
-	handler.dbManager.Db.Model(&dbModels.EmbeddedUserGovernanceProfile{}).AddForeignKey("proelium_user_id",
-		"user_accounts(proelium_user_id)", "CASCADE", "RESTRICT")
 
 	if handler.dbManager.Db.Error != nil {
 		handler.log.WithError(handler.dbManager.Db.Error).Warn("Failed to initialize user accounts handler")
@@ -48,9 +45,8 @@ func (m *UserAccountsHandler) CreateUserAccount(params operations.CreateUserAcco
 	// TODO: verify with license and billing service that this agency is allowed another user and that this user is in a role that allows for creating other users (admins only)
 	// Fetch call user account and check if they are an admin
 	var callerUserProfileDb dbModels.UserAccount
-	queryResult := m.dbManager.Db.Where("proelium_customer_id = ? AND proelium_user_id = ?",
-		params.ProeliumCustomerID,
-		params.ProeliumUserID).First(&callerUserProfileDb)
+	queryResult := m.dbManager.Db.Where("proelium_user_id = ?",
+		params.UserID).First(&callerUserProfileDb)
 	if queryResult.Error != nil && !strings.Contains(queryResult.Error.Error(), "record not found") {
 		log.WithError(queryResult.Error).Warn("Error fetching caller user account")
 		return operations.NewCreateUserAccountInternalServerError()
@@ -59,36 +55,10 @@ func (m *UserAccountsHandler) CreateUserAccount(params operations.CreateUserAcco
 		log.Warn("Caller user account not found. Operation not authorized")
 		return operations.NewCreateUserAccountUnauthorized()
 	}
-	// Check if caller is admin or has the permission to perform this operation
-	if !*callerUserProfileDb.IsAdmin {
-		log.Warn("Non admin user tried to create a user account")
-		return operations.NewCreateUserAccountUnauthorized()
-	}
-
-	// Fetch customer account and check for domain
-	var customerProfileDb dbModels.CustomerAccount
-	queryResult = m.dbManager.Db.Where("proelium_customer_id = ?", params.ProeliumCustomerID).First(&customerProfileDb)
-	if queryResult.RecordNotFound() {
-		log.Warn("Customer not found. Operation not authorized")
-		return operations.NewCreateUserAccountUnauthorized()
-	}
-	if queryResult.Error != nil && !strings.Contains(queryResult.Error.Error(), "record not found") {
-		return operations.NewCreateUserAccountUnauthorized()
-	}
-
-	// Check that user email domain is a match with client domain
-	if !utils.CompareDomain(params.UserAccount.Profile.Email.String(), *customerProfileDb.Domain) {
-		log.Warn("User email domain does not match customer domain")
-		return operations.NewCreateUserAccountBadRequest().WithPayload(&genModels.BadInputResponse{
-			Message: aws.String("User email domain does not match customer domain"),
-		})
-	}
 
 	// Check if a user with same email pre-exists
 	userEmail := params.UserAccount.Profile.Email.String()
-	queryResult = m.dbManager.Db.Where("proelium_customer_id = ? AND email = ?",
-		params.ProeliumCustomerID,
-		userEmail).First(&dbModels.UserAccount{})
+	queryResult = m.dbManager.Db.Where("email = ?", userEmail).First(&dbModels.UserAccount{})
 	if !queryResult.RecordNotFound() {
 		log.Info("User account already exists")
 		return operations.NewCreateUserAccountConflict().WithPayload(&genModels.AlreadyExistsResponse{
@@ -97,7 +67,7 @@ func (m *UserAccountsHandler) CreateUserAccount(params operations.CreateUserAcco
 	}
 
 	// Create cognito profile
-	userId, err := m.cognitoHandler.RegisterUserWithCognito(&params.ProeliumCustomerID, &userEmail)
+	userId, err := m.cognitoHandler.RegisterUserWithCognito(&userEmail)
 	if err != nil {
 		log.WithError(err).Warn("User account creation failed")
 		if strings.Contains(err.Error(), "UsernameExistsException") == true {
@@ -108,7 +78,7 @@ func (m *UserAccountsHandler) CreateUserAccount(params operations.CreateUserAcco
 		return operations.NewCreateUserAccountInternalServerError()
 	}
 
-	newUserProfileDb, governanceProfileDb, err := dbModels.ConvertToDbModelUserAccount(params.ProeliumCustomerID, *userId, params.UserAccount)
+	newUserProfileDb, err := dbModels.ConvertToDbModelUserAccount(*userId, params.UserAccount)
 	if err != nil {
 		log.WithError(err).Warn("Bad input")
 		return operations.NewCreateUserAccountBadRequest()
@@ -119,20 +89,15 @@ func (m *UserAccountsHandler) CreateUserAccount(params operations.CreateUserAcco
 	if err := tx.Create(newUserProfileDb).Error; err != nil {
 		log.WithError(err).Warn("Failed to create new user account")
 		tx.Rollback()
-		m.cognitoHandler.DeleteUserFromCognito(&params.ProeliumCustomerID, &userEmail)
+		m.cognitoHandler.DeleteUserFromCognito(&userEmail)
 		return operations.NewCreateUserAccountInternalServerError()
 	}
-	if err := tx.Create(governanceProfileDb).Error; err != nil {
-		log.WithError(err).Warn("Failed to create new user governance profile")
-		tx.Rollback()
-		m.cognitoHandler.DeleteUserFromCognito(&params.ProeliumCustomerID, &userEmail)
-		return operations.NewCreateUserAccountInternalServerError()
-	}
+
 	// Commit transaction
 	if err := tx.Commit().Error; err != nil {
 		log.WithError(err).Warn("Failed to commit to db")
 		tx.Rollback()
-		m.cognitoHandler.DeleteUserFromCognito(&params.ProeliumCustomerID, &userEmail)
+		m.cognitoHandler.DeleteUserFromCognito(&userEmail)
 		return operations.NewCreateUserAccountInternalServerError()
 	}
 
@@ -153,9 +118,8 @@ func (m *UserAccountsHandler) GetUserAccount(params operations.GetUserAccountPar
 	var callerUserProfileDb = &dbModels.UserAccount{}
 	var targetUserProfileDb = &dbModels.UserAccount{}
 
-	queryResult := m.dbManager.Db.Where("proelium_customer_id = ? AND proelium_user_id = ?",
-		params.ProeliumCustomerID,
-		params.ProeliumUserID).First(&callerUserProfileDb)
+	queryResult := m.dbManager.Db.Where("user_id = ?",
+		params.UserID).First(&callerUserProfileDb)
 	if queryResult.Error != nil && !strings.Contains(queryResult.Error.Error(), "record not found") {
 		log.WithError(queryResult.Error).Warn("Error fetching caller user account")
 		return operations.NewGetUserAccountInternalServerError()
@@ -164,23 +128,17 @@ func (m *UserAccountsHandler) GetUserAccount(params operations.GetUserAccountPar
 		log.Warn("Caller user not found. Operation not authorized")
 		return operations.NewGetUserAccountUnauthorized()
 	}
-	// Check if caller is admin or is the owner of the profile
-	if !*callerUserProfileDb.IsAdmin && (params.ProeliumUserID != params.UserID) {
-		log.Warn("Non admin user or non owner tried to fetch profile")
-		return operations.NewGetUserAccountUnauthorized()
-	}
 
 	var userProfile *genModels.UserAccountResult
-	if params.ProeliumUserID == params.UserID {
+	if params.UserID == params.UserID {
 		var err error
-		userProfile, err = m.convertUserAccount(callerUserProfileDb, true)
+		userProfile, err = m.convertUserAccount(callerUserProfileDb)
 		if err != nil {
 			log.WithError(err).Warn("Error converting caller models")
 			return operations.NewGetUserAccountInternalServerError()
 		}
 	} else {
-		queryResult := m.dbManager.Db.Where("proelium_customer_id = ? AND proelium_user_id = ?",
-			params.ProeliumCustomerID,
+		queryResult := m.dbManager.Db.Where("user_id = ?",
 			params.UserID).First(&targetUserProfileDb)
 		if queryResult.RecordNotFound() {
 			log.Warn("User not found")
@@ -188,7 +146,7 @@ func (m *UserAccountsHandler) GetUserAccount(params operations.GetUserAccountPar
 		}
 
 		var err error
-		userProfile, err = m.convertUserAccount(targetUserProfileDb, true)
+		userProfile, err = m.convertUserAccount(targetUserProfileDb)
 		if err != nil {
 			log.WithError(err).Warn("Error converting target models")
 			return operations.NewGetUserAccountInternalServerError()
@@ -206,26 +164,11 @@ func (m *UserAccountsHandler) GetAllUserAccounts(params operations.GetAllUserAcc
 		"method": "GetAllUserAccounts",
 	})
 
-	// Fetch call user account
-	var callerUserProfileDb dbModels.UserAccount
-	queryResult := m.dbManager.Db.Where("proelium_customer_id = ? AND proelium_user_id = ?",
-		params.ProeliumCustomerID,
-		params.ProeliumUserID).First(&callerUserProfileDb)
-	if queryResult.Error != nil && !strings.Contains(queryResult.Error.Error(), "record not found") {
-		log.WithError(queryResult.Error).Warn("Error fetching caller user account")
-		return operations.NewGetAllUserAccountsInternalServerError()
-	}
-	if queryResult.RecordNotFound() {
-		log.Warn("Call user not found. Operation not authorized")
-		return operations.NewGetAllUserAccountsUnauthorized()
-	}
-
-	// Retrieve user profile
+	// Retrieve user profiles
 	var userProfilesDb []*dbModels.UserAccount
 
-	queryResult = m.dbManager.Db.
-		Order("updated_at desc").
-		Where("proelium_customer_id = ?", params.ProeliumCustomerID).Find(&userProfilesDb)
+	queryResult := m.dbManager.Db.
+		Order("updated_at desc").Select("*").Find(&userProfilesDb)
 	if queryResult.RecordNotFound() {
 		log.Info("No users found")
 		return operations.NewGetAllUserAccountsNotFound()
@@ -239,9 +182,8 @@ func (m *UserAccountsHandler) GetAllUserAccounts(params operations.GetAllUserAcc
 	var userProfiles []*genModels.UserAccountResult
 	for _, userProfileDb := range userProfilesDb {
 		// Only include stats if caller user is an admin or the owner of the profile
-		statsVisible := *callerUserProfileDb.IsAdmin || (userProfileDb.ProeliumUserId == params.ProeliumUserID)
-		log.Info("Stats ", statsVisible)
-		tmp, err := m.convertUserAccount(userProfileDb, statsVisible)
+
+		tmp, err := m.convertUserAccount(userProfileDb)
 		if err != nil {
 			log.WithError(err).Warn("Failed to convert models")
 			return operations.NewGetAllUserAccountsInternalServerError()
@@ -263,9 +205,8 @@ func (m *UserAccountsHandler) UpdateUserAccount(params operations.UpdateUserAcco
 	// Fetch call user account and check if they are an admin
 	var callerUserProfileDb dbModels.UserAccount
 
-	queryResult := m.dbManager.Db.Where("proelium_customer_id = ? AND proelium_user_id = ?",
-		params.ProeliumCustomerID,
-		params.ProeliumUserID).First(&callerUserProfileDb)
+	queryResult := m.dbManager.Db.Where("user_id = ?",
+		params.UserID).First(&callerUserProfileDb)
 	if queryResult.Error != nil && !strings.Contains(queryResult.Error.Error(), "record not found") {
 		log.WithError(queryResult.Error).Warn("Error fetching caller user account")
 		return operations.NewUpdateUserAccountInternalServerError()
@@ -275,53 +216,20 @@ func (m *UserAccountsHandler) UpdateUserAccount(params operations.UpdateUserAcco
 		return operations.NewUpdateUserAccountUnauthorized()
 	}
 
-	// Check if caller is admin or is the owner of the profile
-	if !*callerUserProfileDb.IsAdmin && (params.ProeliumUserID != params.UserID) {
-		log.Warn("Non admin user or non owner tried to edit profile")
-		return operations.NewUpdateUserAccountUnauthorized()
-	}
-
-	// Users cannot edit their own permissions and admins cannot downgrade their own accounts
-	if params.UserAccount.GovernanceProfile != nil {
-		if (*callerUserProfileDb.IsAdmin && (params.ProeliumUserID == params.UserID)) || !*callerUserProfileDb.IsAdmin {
-			log.Warn("User not allowed to change permissions")
-			return operations.NewUpdateUserAccountUnauthorized()
-		}
-	}
-
 	var currUserProfileDb *dbModels.UserAccount
-	if params.ProeliumUserID == params.UserID {
+	if params.CallerUserID == params.UserID {
 		currUserProfileDb = &callerUserProfileDb
 	} else {
-		var tmp dbModels.UserAccount
-
-		queryResult := m.dbManager.Db.Where("proelium_customer_id = ? AND proelium_user_id = ?",
-			params.ProeliumCustomerID,
-			params.UserID).First(&tmp)
-		if queryResult.RecordNotFound() {
-			log.Warn("User bot found")
-			return operations.NewUpdateUserAccountNotFound()
-		}
-		currUserProfileDb = &tmp
-	}
-	// Retrieve governance profile
-	var currGovernanceProfileDb dbModels.EmbeddedUserGovernanceProfile
-	queryResult = m.dbManager.Db.Where("proelium_customer_id = ? AND proelium_user_id = ?",
-		params.ProeliumCustomerID,
-		params.ProeliumUserID).First(&currGovernanceProfileDb)
-	if queryResult.RecordNotFound() {
-		log.Warn("No governance profile found")
-		return operations.NewUpdateUserAccountNotFound()
+		return operations.NewUpdateUserAccountUnauthorized() // users aren't allowed to update other users' accounts.
 	}
 
-	newUserProfileDb, newGovernanceProfileDb, err := dbModels.ConvertToDbModelExistingUserAccount(params.ProeliumCustomerID, params.ProeliumUserID, currGovernanceProfileDb.Name, params.UserAccount)
+	newUserProfileDb, err := dbModels.ConvertToDbModelExistingUserAccount(params.UserID, params.UserAccount)
 	if err != nil {
 		log.WithError(err).Warn("Failed to update user account")
 		return operations.NewUpdateUserAccountInternalServerError()
 	}
 
 	profileUpdates := m.getUserProfileUpdates(currUserProfileDb, newUserProfileDb)
-	governanceProfileUpdates := m.getGovernanceProfileUpdates(&currGovernanceProfileDb, newGovernanceProfileDb)
 
 	// Start db transaction
 	tx := m.dbManager.Db.Begin()
@@ -332,16 +240,9 @@ func (m *UserAccountsHandler) UpdateUserAccount(params operations.UpdateUserAcco
 			return operations.NewUpdateUserAccountInternalServerError()
 		}
 	}
-	if len(*governanceProfileUpdates) > 0 {
-		if err := tx.Model(currGovernanceProfileDb).Updates(*governanceProfileUpdates).Error; err != nil {
-			log.WithError(err).Warn("Failed to update user governance profile")
-			tx.Rollback()
-			return operations.NewUpdateUserAccountInternalServerError()
-		}
-	}
 
 	// Commit transaction
-	if len(*profileUpdates) > 0 || len(*governanceProfileUpdates) > 0 {
+	if len(*profileUpdates) > 0 {
 		if err := tx.Commit().Error; err != nil {
 			log.WithError(err).Warn("Failed to commit schedule to db")
 			tx.Rollback()
@@ -364,63 +265,27 @@ func (m *UserAccountsHandler) DeleteUserAccount(params operations.DeleteUserAcco
 	return operations.NewDeleteUserAccountOK()
 }
 
-func (m *UserAccountsHandler) convertUserAccount(profile *dbModels.UserAccount, statsVisible bool) (*genModels.UserAccountResult, error) {
+func (m *UserAccountsHandler) convertUserAccount(profile *dbModels.UserAccount) (*genModels.UserAccountResult, error) {
 	log := m.log.WithFields(logrus.Fields{
 		"method": "convertUserAccount",
 	})
 	var userAccount *genModels.UserAccount
-	var userStats *genModels.UserStats
 	//	var assignedClients []*genModels.UserAssignedClient
 
-	// Retrieve governance profile
-	var governanceProfileDb dbModels.EmbeddedUserGovernanceProfile
-	queryResult := m.dbManager.Db.Where("proelium_customer_id = ? AND proelium_user_id = ?",
-		profile.ProeliumCustomerId,
-		profile.ProeliumUserId).First(&governanceProfileDb)
+	queryResult := m.dbManager.Db.Where("user_id = ?",
+		profile.UserId).First(&userAccount)
 	if !queryResult.RecordNotFound() {
-		userAccount = dbModels.ConvertToSwaggerModelUserAccount(profile, &governanceProfileDb)
+		userAccount = dbModels.ConvertToSwaggerModelUserAccount(profile)
 	} else if queryResult.Error != nil && !strings.Contains(queryResult.Error.Error(), "record not found") {
 		return nil, queryResult.Error
 	} else {
-		return nil, errors.New("failed to retrieve governance profile")
+		log.WithError(queryResult.Error).Info("error converting user account")
+		return nil, errors.New("error converting user account")
 	}
-
-	// Fetch stats
-	// TODO Get stats properly with date range
-	if statsVisible {
-		var statsDb dbModels.UserStats
-		queryResult := m.dbManager.Db.Where("proelium_customer_id = ? AND proelium_user_id = ?",
-			profile.ProeliumCustomerId,
-			profile.ProeliumUserId).First(&statsDb)
-		if !queryResult.RecordNotFound() {
-			userStats = dbModels.ConvertToSwaggerModelUserStats(&statsDb)
-		}
-		if queryResult.Error != nil {
-			// if the error is not simply that the record was not found then return an error
-			if !strings.Contains(queryResult.Error.Error(), "record not found") {
-				return nil, queryResult.Error
-			}
-			log.Info("No stats record found for user: ", profile.ProeliumUserId)
-		}
-
-		// Create mock stats object for now
-		userStats = &genModels.UserStats{
-			ActiveSequencesCount: aws.Int64(5),
-			EmailReplies:         aws.Int64(4),
-			EmailsSent:           aws.Int64(900),
-			EmailsSentInSequence: aws.Int64(700),
-			MeetingsBooked:       aws.Int64(6),
-			UpcomingTasksCount:   aws.Int64(12),
-		}
-	}
-
-	// TODO Fetch user assigned agency clients
 
 	return &genModels.UserAccountResult{
-		ID:                  &profile.ProeliumUserId,
-		UserAccount:         userAccount,
-		UserAssignedClients: nil,
-		UserStats:           userStats,
+		ID:          &profile.UserId,
+		UserAccount: userAccount,
 	}, nil
 }
 
@@ -428,9 +293,6 @@ func (m *UserAccountsHandler) getUserProfileUpdates(currModel *dbModels.UserAcco
 	var result = make(map[string]interface{})
 
 	// Profile
-	if newModel.IsAdmin != nil && *currModel.IsAdmin != *newModel.IsAdmin {
-		result["is_admin"] = newModel.IsAdmin
-	}
 	if newModel.FirstName != nil && *currModel.FirstName != *newModel.FirstName {
 		result["first_name"] = newModel.FirstName
 	}

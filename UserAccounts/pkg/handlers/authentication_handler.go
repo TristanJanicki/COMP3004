@@ -11,7 +11,6 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"github.com/COMP3004/UserAccounts/infrastructure/db/mysql"
-	utils2 "github.com/COMP3004/UserAccounts/infrastructure/utils"
 	"github.com/COMP3004/UserAccounts/pkg/aws/cognito"
 	genModels "github.com/COMP3004/UserAccounts/pkg/gen/models"
 	"github.com/COMP3004/UserAccounts/pkg/gen/restapi/operations"
@@ -44,10 +43,8 @@ func (handler *AuthenticationHandler) SignUp(params operations.SignUpParams) mid
 		"method": "SignUp",
 	})
 
-	customerId := utils2.CreateCustomerId()
-
 	email := params.SignUpData.Email.String()
-	userId, err := handler.cognitoHandler.RegisterUserWithCognito(&customerId, &email)
+	userId, err := handler.cognitoHandler.RegisterUserWithCognito(&email)
 	if err != nil {
 		log.WithError(err).Warn("Sign up fail")
 		if strings.Contains(err.Error(), "UsernameExistsException") == true {
@@ -59,59 +56,23 @@ func (handler *AuthenticationHandler) SignUp(params operations.SignUpParams) mid
 		return operations.NewSignUpInternalServerError()
 	}
 
-	userAccountDb := models.ConvertToDbModelUserAccountSignUp(customerId, *userId, params.SignUpData)
-	customerAccountDb, err := models.ConvertToDbModelCustomerAccountSignUp(customerId, *userId, params.SignUpData)
-	if err != nil {
-		log.WithError(err).Warn("Failed to create customer account")
-		return operations.NewSignUpInternalServerError().WithPayload(&genModels.ErrorResponse{
-			Message: aws.String(err.Error()),
-		})
-	}
-	// Check that company domain matches that of first user
-	if utils2.CompareDomain(*userAccountDb.Email, *customerAccountDb.Domain) == false {
-		log.Warn("user email domain does not match company domain")
-		handler.cognitoHandler.DeleteUserFromCognito(userId, &email)
-		return operations.NewSignUpBadRequest().WithPayload(&genModels.BadInputResponse{
-			Message: aws.String("user email domain does not match company domain"),
-		})
-	}
+	userAccountDb := models.ConvertToDbModelUserAccountSignUp(*userId, params.SignUpData)
 
 	// Create admin governance profile for first user
-	entityId := utils2.CreateEntityId()
-	governanceProfileDb := models.ConvertToDbModelEmbeddedUserGovernanceProfile(entityId, customerId, *userId, &genModels.GovernanceProfile{
-		Name: aws.String(models.NameAdmin),
-		AdministrationPermissions: &genModels.AdministrationPermissions{
-			CanAddTeamMember: aws.Bool(true),
-		},
-		ClientsPermissions: &genModels.ClientsPermissions{
-			CanAssignTeamMemberToClient: aws.Bool(true),
-		},
-	})
 
 	tx := handler.dbManager.Db.Begin()
 	if err := tx.Create(userAccountDb).Error; err != nil {
 		log.WithError(err).Warn("Failed to create new user account")
 		tx.Rollback()
-		handler.cognitoHandler.DeleteUserFromCognito(&customerId, &email)
+		handler.cognitoHandler.DeleteUserFromCognito(&email)
 		return operations.NewSignUpInternalServerError()
 	}
-	if err := tx.Create(customerAccountDb).Error; err != nil {
-		log.WithError(err).Warn("Failed to create new customer account")
-		tx.Rollback()
-		handler.cognitoHandler.DeleteUserFromCognito(&customerId, &email)
-		return operations.NewSignUpInternalServerError()
-	}
-	if err := tx.Create(governanceProfileDb).Error; err != nil {
-		log.WithError(err).Warn("Failed to create governance profile")
-		tx.Rollback()
-		handler.cognitoHandler.DeleteUserFromCognito(&customerId, &email)
-		return operations.NewSignUpInternalServerError()
-	}
+
 	// Commit transaction
 	if err := tx.Commit().Error; err != nil {
 		log.WithError(err).Warn("Failed to commit to db")
 		tx.Rollback()
-		handler.cognitoHandler.DeleteUserFromCognito(&customerId, &email)
+		handler.cognitoHandler.DeleteUserFromCognito(&email)
 		return operations.NewSignUpInternalServerError()
 	}
 
@@ -217,7 +178,7 @@ func (handler *AuthenticationHandler) SignIn(params operations.SignInParams) mid
 
 	cognitoOutput.AuthenticationResult.SetExpiresIn(AuthResultExpiry)
 
-	return operations.NewSignInCreated().WithPayload(&genModels.SignInTokensResponse{
+	return operations.NewSignInCreated().WithPayload(&genModels.TokenResponse{
 		IDToken:      cognitoOutput.AuthenticationResult.IdToken,
 		AccessToken:  cognitoOutput.AuthenticationResult.AccessToken,
 		RefreshToken: cognitoOutput.AuthenticationResult.RefreshToken,
@@ -330,7 +291,7 @@ func (handler *AuthenticationHandler) RequestPasswordRecovery(params operations.
 		return operations.NewChangePasswordInternalServerError()
 	}
 
-	err := handler.cognitoHandler.RequestPasswordRecovery(&userProfile.ProeliumUserId)
+	err := handler.cognitoHandler.RequestPasswordRecovery(&userProfile.UserId)
 
 	if err != nil {
 		log.WithError(err).Warn("Failed password recovery")
@@ -387,7 +348,7 @@ func (handler *AuthenticationHandler) RefreshTokens(params operations.RefreshTok
 		return operations.NewRefreshTokensInternalServerError()
 	}
 
-	return operations.NewRefreshTokensOK().WithPayload(&genModels.RefreshTokensResponse{
+	return operations.NewRefreshTokensOK().WithPayload(&genModels.TokenResponse{
 		IDToken:     idToken,
 		AccessToken: accessToken,
 	})

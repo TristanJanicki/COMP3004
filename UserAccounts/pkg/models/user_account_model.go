@@ -1,19 +1,15 @@
 package models
 
 import (
-	"errors"
 	"time"
 
-	"github.com/aws/aws-sdk-go/aws"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/COMP3004/UserAccounts/infrastructure/utils"
 	"github.com/COMP3004/UserAccounts/pkg/gen/models"
 )
 
 type UserAccount struct {
-	ProeliumUserId     string `gorm:"primary_key;column:proelium_user_id"`
-	ProeliumCustomerId string `gorm:"type:varchar(36);not null;column:proelium_customer_id"`
+	UserId string `gorm:"primary_key;column:user_id"`
 
 	// Profile
 	FirstName *string `gorm:"type:nvarchar(50);not null;column:first_name"`
@@ -28,25 +24,21 @@ type UserAccount struct {
 	PhoneNumber *string `gorm:"type:varchar(25);column:phone_number"`
 
 	// Settings
-	sendDailyDigest               *bool `gorm:"type:boolean;;column:send_daily_digest"`
+	sendDailyDigest *bool `gorm:"type:boolean;;column:send_daily_digest"`
 
 	CreatedAt *time.Time
 	UpdatedAt *time.Time
 	DeletedAt *time.Time
 }
 
-func ConvertToDbModelUserAccount(customerId string, userId string, account *models.UserAccount) (*UserAccount, *EmbeddedUserGovernanceProfile, error) {
-
-	entityId := utils.CreateEntityId()
+func ConvertToDbModelUserAccount(userId string, account *models.UserAccount) (*UserAccount, error) {
 
 	email := account.Profile.Email.String()
 	modelDb := &UserAccount{
-		ProeliumCustomerId: customerId,
-		ProeliumUserId:     userId,
-		IsAdmin:            aws.Bool(isAdmin),
-		FirstName:          account.Profile.FirstName,
-		LastName:           account.Profile.LastName,
-		Email:              &email,
+		UserId:    userId,
+		FirstName: account.Profile.FirstName,
+		LastName:  account.Profile.LastName,
+		Email:     &email,
 	}
 
 	if len(account.Profile.NickName) > 0 {
@@ -65,13 +57,12 @@ func ConvertToDbModelUserAccount(customerId string, userId string, account *mode
 		modelDb.sendDailyDigest = account.Settings.SendDailyDigest
 	}
 
-	return modelDb, governanceProfileDb, nil
+	return modelDb, nil
 }
 
-func ConvertToDbModelExistingUserAccount(customerId string, userId string, governanceProfileId string, account *models.ExistingUserAccount) (*UserAccount, *EmbeddedUserGovernanceProfile, error) {
+func ConvertToDbModelExistingUserAccount(userId string, account *models.ExistingUserAccount) (*UserAccount, error) {
 	modelDb := &UserAccount{
-		ProeliumCustomerId: customerId,
-		ProeliumUserId:     userId,
+		UserId: userId,
 	}
 
 	if len(account.Profile.FirstName) > 0 {
@@ -97,24 +88,22 @@ func ConvertToDbModelExistingUserAccount(customerId string, userId string, gover
 		modelDb.sendDailyDigest = account.Settings.SendDailyDigest
 	}
 
-	return modelDb, governanceProfileDb, nil
+	return modelDb, nil
 }
 
 // Convert user profile for newly signed up user. This will be used once at sign-up
-func ConvertToDbModelUserAccountSignUp(customerId string, userId string, signUpData *models.SignUpData) *UserAccount {
+func ConvertToDbModelUserAccountSignUp(userId string, signUpData *models.SignUpData) *UserAccount {
 	email := signUpData.Email.String()
 	return &UserAccount{
-		ProeliumCustomerId: customerId,
-		ProeliumUserId:     userId,
-		IsAdmin:            aws.Bool(true),
-		FirstName:          signUpData.FirstName,
-		LastName:           signUpData.LastName,
-		Email:              &email,
+		UserId:    userId,
+		FirstName: signUpData.FirstName,
+		LastName:  signUpData.LastName,
+		Email:     &email,
 	}
 }
 
 // ConvertToSwagger converts the object it is invoked on to a swagger api model and returns that model
-func ConvertToSwaggerModelUserAccount(profileDb *UserAccount, governanceProfileDb *EmbeddedUserGovernanceProfile) *models.UserAccount {
+func ConvertToSwaggerModelUserAccount(profileDb *UserAccount) *models.UserAccount {
 	email := strfmt.Email(*profileDb.Email)
 
 	userProfile := &models.UserProfile{
@@ -141,12 +130,12 @@ func ConvertToSwaggerModelUserAccount(profileDb *UserAccount, governanceProfileD
 	var settings *models.UserNotificationSettings
 	if profileDb.sendDailyDigest != nil {
 		settings = &models.UserNotificationSettings{
-			SendDailyDigest:               profileDb.sendDailyDigest,
+			SendDailyDigest: profileDb.sendDailyDigest,
 		}
 	}
 
 	return &models.UserAccount{
-		Profile:           userProfile,
-		Settings:          settings,
+		Profile:  userProfile,
+		Settings: settings,
 	}
 }

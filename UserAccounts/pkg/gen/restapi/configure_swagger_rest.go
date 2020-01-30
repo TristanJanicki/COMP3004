@@ -9,12 +9,11 @@ import (
 	errors "github.com/go-openapi/errors"
 	runtime "github.com/go-openapi/runtime"
 	middleware "github.com/go-openapi/runtime/middleware"
-	"github.com/rs/cors"
 
 	"github.com/COMP3004/UserAccounts/pkg/gen/restapi/operations"
 )
 
-//go:generate swagger generate server --target ..\..\gen --name SwaggerRest --spec ..\..\..\swagger.yaml
+//go:generate swagger generate server --target ..\..\gen --name SwaggerRest --spec ..\..\..\UserAccountsService.yaml
 
 func configureFlags(api *operations.SwaggerRestAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
@@ -59,11 +58,6 @@ func configureAPI(api *operations.SwaggerRestAPI) http.Handler {
 			return middleware.NotImplemented("operation .GetAllUserAccounts has not yet been implemented")
 		})
 	}
-	if api.GetCustomerAccountHandler == nil {
-		api.GetCustomerAccountHandler = operations.GetCustomerAccountHandlerFunc(func(params operations.GetCustomerAccountParams) middleware.Responder {
-			return middleware.NotImplemented("operation .GetCustomerAccount has not yet been implemented")
-		})
-	}
 	if api.GetUserAccountHandler == nil {
 		api.GetUserAccountHandler = operations.GetUserAccountHandlerFunc(func(params operations.GetUserAccountParams) middleware.Responder {
 			return middleware.NotImplemented("operation .GetUserAccount has not yet been implemented")
@@ -87,11 +81,6 @@ func configureAPI(api *operations.SwaggerRestAPI) http.Handler {
 	if api.SignUpHandler == nil {
 		api.SignUpHandler = operations.SignUpHandlerFunc(func(params operations.SignUpParams) middleware.Responder {
 			return middleware.NotImplemented("operation .SignUp has not yet been implemented")
-		})
-	}
-	if api.UpdateCustomerAccountHandler == nil {
-		api.UpdateCustomerAccountHandler = operations.UpdateCustomerAccountHandlerFunc(func(params operations.UpdateCustomerAccountParams) middleware.Responder {
-			return middleware.NotImplemented("operation .UpdateCustomerAccount has not yet been implemented")
 		})
 	}
 	if api.UpdateUserAccountHandler == nil {
@@ -141,12 +130,5 @@ func setupMiddlewares(handler http.Handler) http.Handler {
 // The middleware configuration happens before anything, this middleware also applies to serving the swagger.json document.
 // So this is a good place to plug in a panic handling middleware, logging and metrics
 func setupGlobalMiddleware(handler http.Handler) http.Handler {
-	corsHandler := cors.New(cors.Options{
-		Debug:          false,
-		AllowedHeaders: []string{"*"},
-		AllowedOrigins: []string{"*"},
-		AllowedMethods: []string{"*"},
-		MaxAge:         1000,
-	})
-	return corsHandler.Handler(handler)
+	return handler
 }
