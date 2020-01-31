@@ -52,19 +52,19 @@ func (s *UserAccountsService) Init(config httpservice.ServiceConfig, listenAddre
 	s.cognitoHandler = cognito.NewAwsCognitoHandler(s.awsSession, s.awsConfig, &userPoolId, &appClientId)
 
 	// // Initialize DB manager
-	// s.sqlDbManager, err = mysql.New(config)
-	// if err != nil {
-	// 	log.WithError(err).Error("Failed to initialize database connection")
-	// 	return errors.Wrapf(err, "Failed to initialize database connection")
-	// }
+	s.sqlDbManager, err = mysql.New(config)
+	if err != nil {
+		log.WithError(err).Error("Failed to initialize database connection")
+		return errors.Wrapf(err, "Failed to initialize database connection")
+	}
 
-	// // Initialize handlers
-	// s.authHandler = handlers.NewAuthenticationHandler(s.sqlDbManager, s.cognitoHandler)
-	// s.userAccountsHandler, err = handlers.NewUserAccountsHandler(s.sqlDbManager, s.cognitoHandler)
-	// if err != nil {
-	// 	log.WithError(err).Error("Failed to initialize user accounts handler")
-	// 	return errors.Wrapf(err, "Failed to initialize user accounts handler")
-	// }
+	// Initialize handlers
+	s.authHandler = handlers.NewAuthenticationHandler(s.sqlDbManager, s.cognitoHandler)
+	s.userAccountsHandler, err = handlers.NewUserAccountsHandler(s.sqlDbManager, s.cognitoHandler)
+	if err != nil {
+		log.WithError(err).Error("Failed to initialize user accounts handler")
+		return errors.Wrapf(err, "Failed to initialize user accounts handler")
+	}
 
 	// Initialize API
 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
