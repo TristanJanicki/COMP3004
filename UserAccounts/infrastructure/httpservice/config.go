@@ -66,11 +66,11 @@ var DefaultConfig = Config{
 }
 
 var DefaultServiceConfig = ServiceConfig{
-	SqlDbHost:     "stock-advisor.cii6qa7deotz.us-east-1.rds.amazonaws.com",
+	SqlDbHost:     "quantr.cii6qa7deotz.us-east-1.rds.amazonaws.com",
 	SqlDbPort:     3306,
 	SqlDbName:     "stock-advisor",
 	SqlDbUser:     "admin",
-	SqlDbPassword: "K25dWY4U8HEUunNx",
+	SqlDbPassword: "5efPemPEwZrBfhvQ",
 
 	DynamoDbDbEndpoint: "http://localhost:8000",
 }

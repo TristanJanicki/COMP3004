@@ -93,7 +93,7 @@ func (s *UserAccountsService) Init(config httpservice.ServiceConfig, listenAddre
 
 	// Init http server
 
-	s.server, err = server.New(api, "0.0.0.0", 80)
+	s.server, err = server.New(api, "0.0.0.0", 8080)
 	if err != nil {
 		log.WithError(err).Error("Failed to initialize http server")
 		return errors.Wrapf(err, "Failed to initialize http server")
