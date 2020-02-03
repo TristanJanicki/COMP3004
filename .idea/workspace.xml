@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fb4ef1cf-2425-472c-9eb8-78d33121625f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/DataSerivce/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSerivce/api.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSerivce/options.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSerivce/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataSerivce/technicals.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExperimentsService/ExperimentsService.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExperimentsService/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExperimentsService/options.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExperimentsService/optionsLearner.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NotificationService/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NotificationService/NotificationService.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NotificationService/notification.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Quant.r_App/Login_SignUp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReverseProxy/header_injector.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReverseProxy/nginx.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/UserAccountsService.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/infrastructure/consul/consul.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/infrastructure/consul/register.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/infrastructure/db/dynamodb/manager.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/infrastructure/db/mysql/manager.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/infrastructure/env/proelium_env.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/infrastructure/env/service_env.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/infrastructure/httpservice/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/infrastructure/httpservice/config.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/infrastructure/utils/utils.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/aws/cognito/cognito_handler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/cmd/swagger-rest-server/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/already_exists_response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/auth_challenge_credentials.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/auth_challenge_required_result.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/bad_input_response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/change_password_input.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/confirm_recover_password_input.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/error_response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/existing_user_account.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/existing_user_profile.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/login_credentials.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/not_allowed_response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/not_found_response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/ok_response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/phone_number.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/post_ok_response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/sign_up_data.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/token_response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/user_account.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/user_account_result.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/user_account_results.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/user_notification_settings.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/models/user_profile.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/configure_swagger_rest.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/embedded_spec.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/change_password.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/change_password_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/change_password_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/change_password_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/complete_auth_challenge.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/complete_auth_challenge_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/complete_auth_challenge_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/complete_auth_challenge_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/complete_password_recovery.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/complete_password_recovery_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/complete_password_recovery_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/complete_password_recovery_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/create_user_account.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/create_user_account_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/create_user_account_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/create_user_account_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/delete_user_account.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/delete_user_account_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/delete_user_account_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/delete_user_account_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/get_all_user_accounts.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/get_all_user_accounts_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/get_all_user_accounts_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/get_all_user_accounts_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/get_user_account.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/get_user_account_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/get_user_account_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/get_user_account_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/refresh_tokens.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/refresh_tokens_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/refresh_tokens_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/refresh_tokens_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/request_password_recovery.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/request_password_recovery_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/request_password_recovery_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/request_password_recovery_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_in.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_in_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_in_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_in_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_out.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_out_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_out_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_out_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_up.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_up_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_up_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/sign_up_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/swagger_rest_api.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/update_user_account.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/update_user_account_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/update_user_account_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/update_user_account_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/verify_jwt.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/verify_jwt_parameters.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/verify_jwt_responses.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/operations/verify_jwt_urlbuilder.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/gen/restapi/server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/handlers/authentication_handler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/handlers/user_accounts_handler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/models/cognito_attributes.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/models/user_account_model.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/server/server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/pkg/utils/jwt.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/service/user-accounts-service/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/service/user-accounts-service/service.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserAccounts/service/user-accounts-service/service.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/awslogin.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cf-template-vpc-dev-simple.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev_logs/log_AwabSafieldin_wk1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev_logs/log_FarzalKhan_wk1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev_logs/log_FarzalKhan_wk2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev_logs/log_TristanJanicki_wk0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev_logs/log_TristanJanicki_wk1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev_logs/log_TristanJanicki_wk2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev_logs/log_youssefeljaji_wk1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev_logs/log_youssefeljaji_wk2" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/gradle.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="y" value="22" />
+    <option name="width" value="1207" />
+    <option name="height" value="712" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="AndroidView" />
+    </panes>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fb4ef1cf-2425-472c-9eb8-78d33121625f" name="Default Changelist" comment="" />
+      <created>1580706792838</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1580706792838</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.32956383" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Build Variants" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="Resources Explorer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Logcat" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Android Profiler" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Build" visible="true" weight="0.32876712" />
+      <window_info anchor="right" id="Device File Explorer" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Gradle" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Palette&#9;" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantr/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+  </component>
+</project>
