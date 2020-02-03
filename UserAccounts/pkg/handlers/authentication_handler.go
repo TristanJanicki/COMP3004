@@ -213,19 +213,6 @@ func (handler *AuthenticationHandler) SignOut(params operations.SignOutParams) m
 		"method": "SignOut",
 	})
 
-	_, err := utils.VerifyJwtToken(params.IDToken)
-	if err != nil {
-		log.Warn(err.Error())
-
-		if strings.Contains(err.Error(), "NotAuthorizedException") == true {
-			return operations.NewSignOutUnauthorized()
-		}
-		if strings.Contains(strings.ToLower(err.Error()), "expired") == true {
-			return operations.NewSignOutUnauthorized()
-		}
-		return operations.NewSignOutInternalServerError()
-	}
-
 	cognitoAttrs := &models.CognitoAttributes{}
 	parsedToken, err := parseCognitoIdToken(params.IDToken) // replace with looked up username
 	if err != nil {

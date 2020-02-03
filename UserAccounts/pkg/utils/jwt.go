@@ -34,7 +34,7 @@ func getKey(token *jwt.Token) (interface{}, error) {
 	// TODO: cache response by storing it in memory when the service starts
 	// we want to verify a JWT
 
-	userPoolID := os.Getenv("userPoolID")
+	userPoolID := os.Getenv("quantrUserPoolID")
 	if userPoolID == "" {
 		log.Warn("userPoolID Env Variable not set")
 		return nil, errors.New("userPoolID Env Variable not set")
