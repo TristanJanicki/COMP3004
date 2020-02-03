@@ -68,7 +68,7 @@ var DefaultConfig = Config{
 var DefaultServiceConfig = ServiceConfig{
 	SqlDbHost:     "quantr.cii6qa7deotz.us-east-1.rds.amazonaws.com",
 	SqlDbPort:     3306,
-	SqlDbName:     "",
+	SqlDbName:     "quantr",
 	SqlDbUser:     "admin",
 	SqlDbPassword: "5efPemPEwZrBfhvQ",
 
