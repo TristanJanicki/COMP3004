@@ -4,7 +4,6 @@ import (
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/go-openapi/loads"
 	"github.com/pkg/errors"
@@ -104,20 +103,14 @@ func (s *UserAccountsService) Init(config httpservice.ServiceConfig, listenAddre
 
 // NewAwsSession create a new aws session using the credentials of the profile tristan
 func NewAwsSession() (s *session.Session, c *aws.Config) {
-	// cfg, _ := external.LoadDefaultAWSConfig()
-	// cfg.EndpointResolver = aws.ResolveWithEndpointURL(config[httpservice.DynamoDbDbEndpoint].(string))
-
-	config := &aws.Config{
-		CredentialsChainVerboseErrors: aws.Bool(true),
-		Region:                        aws.String("us-east-1"),
-		Credentials:                   credentials.NewSharedCredentials("", "tristan"),
-	}
-
 	sess, err := session.NewSession()
 
 	if err != nil {
 		panic(err)
 	}
+
+	config := sess.Config.Copy()
+	config.Region = aws.String("us-east-1")
 
 	return sess, config
 }
