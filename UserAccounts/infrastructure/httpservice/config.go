@@ -51,7 +51,7 @@ var DefaultConfig = Config{
 	LogType:  "json",
 
 	ListenAddress: "0.0.0.0",
-	ListenPort:    8080,
+	ListenPort:    80,
 
 	ConsulAddress: "0.0.0.0",
 	ConsulPort:    8000,
