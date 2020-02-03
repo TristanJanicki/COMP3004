@@ -281,7 +281,7 @@ func (m *UserAccountsHandler) DeleteUserAccount(params operations.DeleteUserAcco
 
 	m.cognitoHandler.DeleteUserFromCognito(userAccount.Email)
 
-	queryResult = m.dbManager.Db.Delete("user_id = ?", params.UserID)
+	queryResult = m.dbManager.Db.Delete(userAccount)
 
 	if queryResult.Error != nil && !strings.Contains(queryResult.Error.Error(), "record not found") {
 		log.WithError(queryResult.Error).Warn("Error deleting user account")
