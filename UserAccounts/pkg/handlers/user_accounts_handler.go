@@ -299,7 +299,7 @@ func (m *UserAccountsHandler) convertUserAccount(profile *dbModels.UserAccount) 
 	log := m.log.WithFields(logrus.Fields{
 		"method": "convertUserAccount",
 	})
-	var userAccount *genModels.UserAccount
+	userAccount := &genModels.UserAccount{}
 	//	var assignedClients []*genModels.UserAssignedClient
 
 	queryResult := m.dbManager.Db.Where("user_id = ?",
