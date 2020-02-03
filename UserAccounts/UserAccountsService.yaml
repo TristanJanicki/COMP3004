@@ -166,10 +166,6 @@ definitions:
       - email
       - firstName
       - lastName
-      - companyName
-      - companyWebsite
-      - country
-      - accountType
     properties:
       email:
         type: string
@@ -178,17 +174,6 @@ definitions:
         type: string
       lastName:
         type: string
-      companyName:
-        type: string
-      companyWebsite:
-        type: string
-        format: uri
-      country:
-        type: string
-      accountType:
-        type: string
-        enum: [agency, sales]
-        default: agency
 
   ###########################
   ##### Auth challenge and password change definitions
