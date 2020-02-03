@@ -42,12 +42,6 @@ func (c *AwsCognitoHandler) RegisterUserWithCognito(email *string) (*string, err
 		},
 		Username:   email,
 		UserPoolId: c.userPoolId,
-		UserAttributes: []*cognitoidentityprovider.AttributeType{
-			{
-				Name:  aws.String("first"),
-				Value: aws.String("XXX"),
-			},
-		},
 	}
 
 	out, err := c.identityProvider.AdminCreateUser(newUserData)
