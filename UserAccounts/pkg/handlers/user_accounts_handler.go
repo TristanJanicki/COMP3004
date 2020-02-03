@@ -260,7 +260,37 @@ func (m *UserAccountsHandler) DeleteUserAccount(params operations.DeleteUserAcco
 
 	log.Info("DeleteUserAccount")
 
-	// TODO Implement and update
+	if params.UserID != params.CallerUserID {
+		return operations.NewDeleteUserAccountUnauthorized().WithPayload(&genModels.NotAllowedResponse{
+			Message: aws.String("you're only allowed to delete your own account"),
+		})
+	}
+
+	userAccount := &dbModels.UserAccount{}
+
+	queryResult := m.dbManager.Db.Where("user_id = ?", params.UserID).First(userAccount)
+
+	if queryResult.Error != nil && !strings.Contains(queryResult.Error.Error(), "record not found") {
+		log.WithError(queryResult.Error).Warn("Error fetching user account to delete")
+		return operations.NewUpdateUserAccountInternalServerError()
+	}
+	if queryResult.RecordNotFound() {
+		log.Warn("Call user not found. Operation not authorized")
+		return operations.NewUpdateUserAccountUnauthorized()
+	}
+
+	m.cognitoHandler.DeleteUserFromCognito(userAccount.Email)
+
+	queryResult = m.dbManager.Db.Delete("user_id = ?", params.UserID)
+
+	if queryResult.Error != nil && !strings.Contains(queryResult.Error.Error(), "record not found") {
+		log.WithError(queryResult.Error).Warn("Error deleting user account")
+		return operations.NewDeleteUserAccountInternalServerError()
+	}
+	if queryResult.RecordNotFound() {
+		log.Warn("Couldn't find account to be deleted")
+		return operations.NewDeleteUserAccountNotFound()
+	}
 
 	return operations.NewDeleteUserAccountOK()
 }
