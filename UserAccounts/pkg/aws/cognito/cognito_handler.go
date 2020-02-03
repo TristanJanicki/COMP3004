@@ -174,6 +174,24 @@ func (c *AwsCognitoHandler) PasswordChallenge(sessionId *string, username *strin
 		return err
 	}
 
+	// Mark user email as verified
+	attributesInput := &cognitoidentityprovider.AdminUpdateUserAttributesInput{
+		UserAttributes: []*cognitoidentityprovider.AttributeType{
+			{
+				Name:  aws.String("email_verified"),
+				Value: aws.String("true"),
+			},
+		},
+		UserPoolId: c.userPoolId,
+		Username:   username,
+	}
+
+	_, err = c.identityProvider.AdminUpdateUserAttributes(attributesInput)
+	if err != nil {
+		log.WithError(err).Warn("Failed to update user attributes")
+		return err
+	}
+
 	return nil
 }
 
@@ -215,7 +233,6 @@ func (c *AwsCognitoHandler) DeleteUserFromCognito(email *string) error {
 		log.WithError(err).Warn("Failed to delete user from aws cognito")
 		return err
 	}
-	// TODO Add to DLQ for offline processing
 
 	return nil
 }

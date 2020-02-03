@@ -284,7 +284,7 @@ func (m *UserAccountsHandler) DeleteUserAccount(params operations.DeleteUserAcco
 	queryResult = m.dbManager.Db.Delete(userAccount)
 
 	if queryResult.Error != nil && !strings.Contains(queryResult.Error.Error(), "record not found") {
-		log.WithError(queryResult.Error).Warn("Error deleting user account")
+		log.WithError(queryResult.Error).Warn("Error deleting user account from database")
 		return operations.NewDeleteUserAccountInternalServerError()
 	}
 	if queryResult.RecordNotFound() {
