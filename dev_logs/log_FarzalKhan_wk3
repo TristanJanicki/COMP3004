@@ -1,0 +1,6 @@
+- Setup local service testing environment for future testing (with help from Tristan)
+  - Postman (for testing the service workability)
+  - HeidiSQL (to store and retrieve information from a database)
+  
+- planned with group members on which pars of the app gui we are responsible for
+
