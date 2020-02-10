@@ -1,0 +1,9 @@
+Finalized UserAccounts service, tested & working.
+Showed the teammates how to set up EC2 instances, ssh in, create the correct security group with the correct ports open.
+Showed the teammates how to use postman to test http endpoints (import swagger api and create environment variables/how to inject them into postman parts).
+Reviewed the purpose of swagger/openapi 2.0 specs and why we need them/why they're useful.
+Assigned services to teammates.
+Assigned gui views from the app to teammates.
+Explained jwt tokens to the team and why they're useful.
+Explained AWS Cognito and what it does/doesn't do.
+Worked on the internal auth flow for nginx to validate jwt tokens.
