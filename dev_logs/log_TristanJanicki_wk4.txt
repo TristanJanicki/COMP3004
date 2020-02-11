@@ -1,0 +1,2 @@
+Set up nginx and explained it to the group. 
+Blocked incomming traffic to the security group used by our services from everywhere but our nginx location.
