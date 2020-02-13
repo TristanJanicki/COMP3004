@@ -4,13 +4,13 @@
 .PHONY: clean
 clean:
 	@rm -rf pkg/gen/
-	@rm -rf service/experiments-service/build/
+	@rm -rf service/mgmt-user-accounts-service/build/
 	@rm -f coverage.txt
 
 .PHONY: gen
 gen:
 	@mkdir -p ./pkg/gen
-	@swagger generate server -l python-flask --target ./pkg/gen --name SwaggerRest --spec swagger.yaml
+	@swagger generate server --target ./pkg/gen --name SwaggerRest --spec swagger.yaml
 
 .PHONY: deps
 deps:
