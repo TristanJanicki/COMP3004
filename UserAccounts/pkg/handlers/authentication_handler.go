@@ -264,7 +264,7 @@ func (handler *AuthenticationHandler) cachedSignedOutToken(token string, expiry 
 				N: &expiryStr,
 			},
 		},
-		TableName: aws.String("token_cache"),
+		TableName: aws.String("CachedTokens"),
 	}
 	_, err := handler.dynamoManager.PutItem(input)
 
@@ -284,6 +284,7 @@ func (handler *AuthenticationHandler) isTokenCached(token string) (bool, error) 
 				S: &token,
 			},
 		},
+		TableName: aws.String("CachedTokens"),
 	}
 
 	out, err := handler.dynamoManager.GetItem(input)
