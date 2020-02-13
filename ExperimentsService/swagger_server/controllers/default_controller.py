@@ -20,7 +20,7 @@ def create_experiment(X_Request_ID, access_token, user_id, experiment=None):  # 
     :type X_Request_ID: 
     :param access_token: access token obtained from AWS Cognito
     :type access_token: str
-    :param user_id: 
+    :param user_id: the users ID to associate the experiment with
     :type user_id: str
     :param experiment: 
     :type experiment: dict | bytes
@@ -43,7 +43,7 @@ def delete_experiment(X_Request_ID, access_token, experimentID, user_id):  # noq
     :type access_token: str
     :param experimentID: The database ID of the experiment
     :type experimentID: str
-    :param user_id: 
+    :param user_id: the users ID to associate the experiment with
     :type user_id: str
 
     :rtype: OkResponse
@@ -51,11 +51,17 @@ def delete_experiment(X_Request_ID, access_token, experimentID, user_id):  # noq
     return 'do some magic!'
 
 
-def get_all_experiments():  # noqa: E501
+def get_all_experiments(X_Request_ID, access_token, user_id):  # noqa: E501
     """get_all_experiments
 
     Get all experiments associated/owned by a user # noqa: E501
 
+    :param X_Request_ID: Request id
+    :type X_Request_ID: 
+    :param access_token: access token obtained from AWS Cognito
+    :type access_token: str
+    :param user_id: the users ID to associate the experiment with
+    :type user_id: str
 
     :rtype: GetExperimentResult
     """
@@ -71,7 +77,7 @@ def update_experiment(X_Request_ID, access_token, user_id, experiment=None):  # 
     :type X_Request_ID: 
     :param access_token: access token obtained from AWS Cognito
     :type access_token: str
-    :param user_id: 
+    :param user_id: the users ID to associate the experiment with
     :type user_id: str
     :param experiment: 
     :type experiment: dict | bytes

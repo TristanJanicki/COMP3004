@@ -179,24 +179,25 @@ definitions:
         maxLength: 36
 
 paths:
-  /v1/experiments/{user_id}:
+  /v1/experiments:
     get:
       description: "Get all experiments associated/owned by a user"
       operationId: "getAllExperiments"
-      parametetrs:
+      parameters:
         - in: "header"
-          name: "X-Request-ID"
+          name: "X_Request_ID"
           type: string
           format: uuid
           required: true
           description: "Request id"
         - in: "header"
-          name: "access-token"
+          name: "idToken"
           type: string
           required: true
           description: "access token obtained from AWS Cognito"
-        - in: "path"
+        - in: "header"
           name: "user_id"
+          description: "the users ID to associate the experiment with"
           type: string
           required: true
       responses:
@@ -222,19 +223,20 @@ paths:
       operationId: "createExperiment"
       parameters:
         - in: "header"
-          name: "X-Request-ID"
+          name: "X_Request_ID"
           type: string
           format: uuid
           required: true
           description: "Request id"
         - in: "header"
-          name: "access-token"
+          name: "idToken"
           type: string
           required: true
           description: "access token obtained from AWS Cognito"
-        - in: "path"
+        - in: "header"
           name: "user_id"
           type: string
+          description: "the users ID to associate the experiment with"
           required: true
         - in: "body"
           name: "experiment"
@@ -262,18 +264,19 @@ paths:
       operationId: "updateExperiment"
       parameters:
         - in: "header"
-          name: "X-Request-ID"
+          name: "X_Request_ID"
           type: string
           format: uuid
           required: true
           description: "Request id"
         - in: "header"
-          name: "access-token"
+          name: "idToken"
           type: string
           required: true
           description: "access token obtained from AWS Cognito"
-        - in: "path"
+        - in: "header"
           name: "user_id"
+          description: "the users ID to associate the experiment with"
           type: string
           required: true
         - in: "body"
@@ -302,13 +305,13 @@ paths:
       operationId: "deleteExperiment"
       parameters:
         - in: "header"
-          name: "X-Request-ID"
+          name: "X_Request_ID"
           type: string
           format: uuid
           required: true
           description: "Request id"
         - in: "header"
-          name: "access-token"
+          name: "idToken"
           type: string
           required: true
           description: "access token obtained from AWS Cognito"
@@ -317,9 +320,10 @@ paths:
           type: string
           required: true
           description: "The database ID of the experiment"
-        - in: "path"
+        - in: "header"
           name: "user_id"
           type: string
+          description: "the users ID to associate the experiment with"
           required: true
       responses:
         200:

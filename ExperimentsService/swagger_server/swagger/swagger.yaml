@@ -11,11 +11,27 @@ consumes:
 produces:
 - "application/json"
 paths:
-  /v1/experiments/{user_id}:
+  /v1/experiments:
     get:
       description: "Get all experiments associated/owned by a user"
       operationId: "get_all_experiments"
-      parameters: []
+      parameters:
+      - name: "X_Request_ID"
+        in: "header"
+        description: "Request id"
+        required: true
+        type: "string"
+        format: "uuid"
+      - name: "access_token"
+        in: "header"
+        description: "access token obtained from AWS Cognito"
+        required: true
+        type: "string"
+      - name: "user_id"
+        in: "header"
+        description: "the users ID to associate the experiment with"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "OK"
@@ -50,7 +66,8 @@ paths:
         required: true
         type: "string"
       - name: "user_id"
-        in: "path"
+        in: "header"
+        description: "the users ID to associate the experiment with"
         required: true
         type: "string"
       - in: "body"
@@ -92,7 +109,8 @@ paths:
         required: true
         type: "string"
       - name: "user_id"
-        in: "path"
+        in: "header"
+        description: "the users ID to associate the experiment with"
         required: true
         type: "string"
       - in: "body"
@@ -139,7 +157,8 @@ paths:
         required: true
         type: "string"
       - name: "user_id"
-        in: "path"
+        in: "header"
+        description: "the users ID to associate the experiment with"
         required: true
         type: "string"
       responses:

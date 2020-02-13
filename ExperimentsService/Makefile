@@ -8,3 +8,6 @@ gen:
 .PHONY: deps
 deps:
 	# TODO: replace with something specific to your language of choice @go get ./...
+	python setup.py install
+run:
+	python -m swagger_server
