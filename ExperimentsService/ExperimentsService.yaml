@@ -1,1 +1,340 @@
-ExperimentsService.yaml
+consumes:
+  - application/json
+info:
+  description: A microservice for managing a users experiments
+  title: Experiments Service
+  version: 0.1.0
+produces:
+  - application/json
+schemes:
+  - http
+swagger: "2.0"
+
+definitions:
+  newExperimentPost:
+    required:
+      - experiments
+    properties:
+      experiments:
+        type: array
+        items:
+          allOf:
+            - $ref: "#/definitions/existingExperimentThreshold"
+            - $ref: "#/definitions/existingExperimentCorrelation"
+
+  newExperimentThreshold:
+    type: object
+    required:
+      - userID
+      - indicator
+      - threshold
+      - ticker
+    properties:
+      userID:
+        type: string
+      indicator:
+        type: string
+      threshold:
+        type: integer
+      ticker:
+        type: string
+
+  newExperimentCorrelation:
+    type: object
+    required:
+      - user_id
+      - indicator
+      - correlation
+      - ticker
+    properties:
+      user_id:
+        type: string
+      indicator:
+        type: string
+      correlation:
+        type: integer
+      ticker:
+        type: string
+
+  existingExperimentPost:
+    required:
+      - experiments
+    properties:
+      experiments:
+        type: array
+        items:
+          allOf:
+            - $ref: "#/definitions/existingExperimentThreshold"
+            - $ref: "#/definitions/existingExperimentCorrelation"
+
+
+  existingExperimentThreshold:
+    type: object
+    properties:
+      experiment_id:
+        type: string
+      userID:
+        type: string
+      indicator:
+        type: string
+      threshold:
+        type: string
+      ticker:
+        type: string
+
+  existingExperimentCorrelation:
+    type: object
+    properties:
+      experiment_id:
+        type: string
+      userID:
+        type: string
+      indicator:
+        type: string
+      correlation:
+        type: string
+      ticker:
+        type: string
+
+  getExperimentResult:
+    required:
+      - experiments
+    properties:
+      experiments:
+        type: array
+        items:
+          allOf:
+            - $ref: "#/definitions/existingExperimentThreshold"
+            - $ref: "#/definitions/existingExperimentCorrelation"
+
+
+  ## Error response
+  errorResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Internal error"
+
+  ## Not found response
+  notFoundResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Not found"
+
+  ## Not allowed response
+  notAllowedResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Not allowed"
+
+  ## Already exists response
+  alreadyExistsResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Entity already exists"
+
+  ## Bad input response
+  badInputResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "Bad input"
+
+  ## OK response
+  okResponse:
+    type: object
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        default: "OK"
+
+  ## OK response
+  postOkResponse:
+    type: object
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        maxLength: 36
+
+paths:
+  /v1/experiments/{user_id}:
+    get:
+      description: "Get all experiments associated/owned by a user"
+      operationId: "getAllExperiments"
+      parametetrs:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "access-token"
+          type: string
+          required: true
+          description: "access token obtained from AWS Cognito"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/getExperimentResult"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+    post:
+      description: "Add a new experiment to a users account"
+      operationId: "createExperiment"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "access-token"
+          type: string
+          required: true
+          description: "access token obtained from AWS Cognito"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+        - in: "body"
+          name: "experiment"
+          schema:
+            $ref: "#/definitions/newExperimentPost"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+    put:
+      description: "Update a experiment"
+      operationId: "updateExperiment"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "access-token"
+          type: string
+          required: true
+          description: "access token obtained from AWS Cognito"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+        - in: "body"
+          name: "experiment"
+          schema:
+            $ref: "#/definitions/existingExperimentPost"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+    delete:
+      description: "Delete a experiment"
+      operationId: "deleteExperiment"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "header"
+          name: "access-token"
+          type: string
+          required: true
+          description: "access token obtained from AWS Cognito"
+        - in: "header"
+          name: "experimentID"
+          type: string
+          required: true
+          description: "The database ID of the experiment"
+        - in: "path"
+          name: "user_id"
+          type: string
+          required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
