@@ -182,7 +182,7 @@ paths:
   /v1/experiments:
     get:
       description: "Get all experiments associated/owned by a user"
-      operationId: "getAllExperiments"
+      operationId: "Experiments.getAll"
       parameters:
         - in: "header"
           name: "X_Request_ID"
@@ -217,10 +217,9 @@ paths:
           description: "Internal error"
           schema:
             $ref: "#/definitions/errorResponse"
-
     post:
       description: "Add a new experiment to a users account"
-      operationId: "createExperiment"
+      operationId: "Experiments.create"
       parameters:
         - in: "header"
           name: "X_Request_ID"
@@ -261,7 +260,7 @@ paths:
             $ref: "#/definitions/errorResponse"
     put:
       description: "Update a experiment"
-      operationId: "updateExperiment"
+      operationId: "Experiments.update"
       parameters:
         - in: "header"
           name: "X_Request_ID"
@@ -302,7 +301,7 @@ paths:
             $ref: "#/definitions/errorResponse"
     delete:
       description: "Delete a experiment"
-      operationId: "deleteExperiment"
+      operationId: "Experiments.delete"
       parameters:
         - in: "header"
           name: "X_Request_ID"

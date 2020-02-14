@@ -11,15 +11,15 @@ from swagger_server.models.ok_response import OkResponse  # noqa: E501
 from swagger_server import util
 
 
-def create_experiment(X_Request_ID, access_token, user_id, experiment=None):  # noqa: E501
-    """create_experiment
+def experiments_create(X_Request_ID, idToken, user_id, experiment=None):  # noqa: E501
+    """experiments_create
 
     Add a new experiment to a users account # noqa: E501
 
     :param X_Request_ID: Request id
-    :type X_Request_ID: 
-    :param access_token: access token obtained from AWS Cognito
-    :type access_token: str
+    :type X_Request_ID:
+    :param idToken: access token obtained from AWS Cognito
+    :type idToken: str
     :param user_id: the users ID to associate the experiment with
     :type user_id: str
     :param experiment: 
@@ -32,15 +32,15 @@ def create_experiment(X_Request_ID, access_token, user_id, experiment=None):  # 
     return 'do some magic!'
 
 
-def delete_experiment(X_Request_ID, access_token, experimentID, user_id):  # noqa: E501
-    """delete_experiment
+def experiments_delete(X_Request_ID, idToken, experimentID, user_id):  # noqa: E501
+    """experiments_delete
 
     Delete a experiment # noqa: E501
 
     :param X_Request_ID: Request id
     :type X_Request_ID: 
-    :param access_token: access token obtained from AWS Cognito
-    :type access_token: str
+    :param idToken: access token obtained from AWS Cognito
+    :type idToken: str
     :param experimentID: The database ID of the experiment
     :type experimentID: str
     :param user_id: the users ID to associate the experiment with
@@ -51,15 +51,15 @@ def delete_experiment(X_Request_ID, access_token, experimentID, user_id):  # noq
     return 'do some magic!'
 
 
-def get_all_experiments(X_Request_ID, access_token, user_id):  # noqa: E501
-    """get_all_experiments
+def experiments_get_all(X_Request_ID, idToken, user_id):  # noqa: E501
+    """experiments_get_all
 
     Get all experiments associated/owned by a user # noqa: E501
 
     :param X_Request_ID: Request id
     :type X_Request_ID: 
-    :param access_token: access token obtained from AWS Cognito
-    :type access_token: str
+    :param idToken: access token obtained from AWS Cognito
+    :type idToken: str
     :param user_id: the users ID to associate the experiment with
     :type user_id: str
 
@@ -68,15 +68,15 @@ def get_all_experiments(X_Request_ID, access_token, user_id):  # noqa: E501
     return 'do some magic!'
 
 
-def update_experiment(X_Request_ID, access_token, user_id, experiment=None):  # noqa: E501
-    """update_experiment
+def experiments_update(X_Request_ID, idToken, user_id, experiment=None):  # noqa: E501
+    """experiments_update
 
     Update a experiment # noqa: E501
 
     :param X_Request_ID: Request id
     :type X_Request_ID: 
-    :param access_token: access token obtained from AWS Cognito
-    :type access_token: str
+    :param idToken: access token obtained from AWS Cognito
+    :type idToken: str
     :param user_id: the users ID to associate the experiment with
     :type user_id: str
     :param experiment: 

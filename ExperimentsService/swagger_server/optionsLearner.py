@@ -600,7 +600,7 @@ def get_EMA(closingPrice,lastEmaValue, period):
 
 def get_MACD_threshold_move_distribution(tickers, year, macd_threshold):
 	#todo: complete the MACD calculation 
-	 		
+	return ""
 def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False):
     history = []
     price_deltas = []
