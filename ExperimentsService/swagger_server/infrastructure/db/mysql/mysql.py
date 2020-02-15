@@ -1,5 +1,5 @@
 import sqlalchemy as db
-
+from sqlalchemy.orm import sessionmaker
 
 class SqlManager:
 
@@ -7,6 +7,7 @@ class SqlManager:
     connection = None
     engine = None
     db = db
+    session = None
 
     def __init__(self):
         # super().__init__()
@@ -18,9 +19,14 @@ class SqlManager:
         self.engine = db.create_engine(
             "mysql+pymysql://"+self.user+":"+self.password+"@"+self.endpoint+":"+self.port+"/"+self.database)
         self.connection = self.engine.connect()
+        Session = sessionmaker(bind=self.engine)
+        self.session = Session()
 
     def selectAll(self, model):
         query = db.select(model)
         queryResult = self.connection.execute(query)
         resultSet = queryResult.fetchall()
         return resultSet
+
+    def insert(self, model):
+        self.Session.add(model)

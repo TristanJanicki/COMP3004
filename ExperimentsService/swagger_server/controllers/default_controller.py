@@ -82,16 +82,12 @@ def experiments_get_all():  # noqa: E501
     correlationExperiment = sqlManager.db.Table(
         'correlation_experiments', sqlManager.metadata, autoload=True, autoload_with=sqlManager.engine)
 
-   # idToken = connexion.request.headers['idToken']
-    resultset = sqlManager.selectAll(
-        [correlationExperiment])
-
-    print(resultset)
-
     experiments = []
 
+   # idToken = connexion.request.headers['idToken']
+    resultset = sqlManager.selectAll([correlationExperiment])
+
     for result in resultset:
-        print(result)
         if result["correlation"] != None:
             # its a correlation experiment
             experiments.append(
