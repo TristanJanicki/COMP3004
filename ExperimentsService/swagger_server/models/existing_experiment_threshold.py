@@ -15,7 +15,7 @@ class ExistingExperimentThreshold(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, user_id: str=None, indicator: str=None, threshold: str=None, ticker: str=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, user_id: str=None, indicator: str=None, ticker: str=None):  # noqa: E501
         """ExistingExperimentThreshold - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingExperimentThreshold.  # noqa: E501
@@ -24,8 +24,6 @@ class ExistingExperimentThreshold(Model):
         :type user_id: str
         :param indicator: The indicator of this ExistingExperimentThreshold.  # noqa: E501
         :type indicator: str
-        :param threshold: The threshold of this ExistingExperimentThreshold.  # noqa: E501
-        :type threshold: str
         :param ticker: The ticker of this ExistingExperimentThreshold.  # noqa: E501
         :type ticker: str
         """
@@ -33,7 +31,6 @@ class ExistingExperimentThreshold(Model):
             'experiment_id': str,
             'user_id': str,
             'indicator': str,
-            'threshold': str,
             'ticker': str
         }
 
@@ -41,14 +38,12 @@ class ExistingExperimentThreshold(Model):
             'experiment_id': 'experiment_id',
             'user_id': 'userID',
             'indicator': 'indicator',
-            'threshold': 'threshold',
             'ticker': 'ticker'
         }
 
         self._experiment_id = experiment_id
         self._user_id = user_id
         self._indicator = indicator
-        self._threshold = threshold
         self._ticker = ticker
 
     @classmethod
@@ -124,27 +119,6 @@ class ExistingExperimentThreshold(Model):
         """
 
         self._indicator = indicator
-
-    @property
-    def threshold(self) -> str:
-        """Gets the threshold of this ExistingExperimentThreshold.
-
-
-        :return: The threshold of this ExistingExperimentThreshold.
-        :rtype: str
-        """
-        return self._threshold
-
-    @threshold.setter
-    def threshold(self, threshold: str):
-        """Sets the threshold of this ExistingExperimentThreshold.
-
-
-        :param threshold: The threshold of this ExistingExperimentThreshold.
-        :type threshold: str
-        """
-
-        self._threshold = threshold
 
     @property
     def ticker(self) -> str:

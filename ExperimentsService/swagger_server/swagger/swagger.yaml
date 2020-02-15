@@ -16,12 +16,6 @@ paths:
       description: "Get all experiments associated/owned by a user"
       operationId: "experiments_get_all"
       parameters:
-      - name: "X_Request_ID"
-        in: "header"
-        description: "Request id"
-        required: true
-        type: "string"
-        format: "uuid"
       - name: "idToken"
         in: "header"
         description: "access token obtained from AWS Cognito"
@@ -54,12 +48,6 @@ paths:
       description: "Add a new experiment to a users account"
       operationId: "experiments_create"
       parameters:
-      - name: "X_Request_ID"
-        in: "header"
-        description: "Request id"
-        required: true
-        type: "string"
-        format: "uuid"
       - name: "idToken"
         in: "header"
         description: "access token obtained from AWS Cognito"
@@ -97,12 +85,6 @@ paths:
       description: "Update a experiment"
       operationId: "experiments_update"
       parameters:
-      - name: "X_Request_ID"
-        in: "header"
-        description: "Request id"
-        required: true
-        type: "string"
-        format: "uuid"
       - name: "idToken"
         in: "header"
         description: "access token obtained from AWS Cognito"
@@ -140,12 +122,6 @@ paths:
       description: "Delete a experiment"
       operationId: "experiments_delete"
       parameters:
-      - name: "X_Request_ID"
-        in: "header"
-        description: "Request id"
-        required: true
-        type: "string"
-        format: "uuid"
       - name: "idToken"
         in: "header"
         description: "access token obtained from AWS Cognito"
@@ -234,6 +210,25 @@ definitions:
           allOf:
           - $ref: "#/definitions/existingExperimentThreshold"
           - $ref: "#/definitions/existingExperimentCorrelation"
+  existingExperimentCorrelation:
+    type: "object"
+    required:
+    - "asset_1"
+    - "asset_2"
+    - "correlation"
+    - "experiment_id"
+    - "userID"
+    properties:
+      experiment_id:
+        type: "string"
+      userID:
+        type: "string"
+      asset_1:
+        type: "string"
+      asset_2:
+        type: "string"
+      correlation:
+        type: "number"
   existingExperimentThreshold:
     type: "object"
     properties:
@@ -242,21 +237,6 @@ definitions:
       userID:
         type: "string"
       indicator:
-        type: "string"
-      threshold:
-        type: "string"
-      ticker:
-        type: "string"
-  existingExperimentCorrelation:
-    type: "object"
-    properties:
-      experiment_id:
-        type: "string"
-      userID:
-        type: "string"
-      indicator:
-        type: "string"
-      correlation:
         type: "string"
       ticker:
         type: "string"

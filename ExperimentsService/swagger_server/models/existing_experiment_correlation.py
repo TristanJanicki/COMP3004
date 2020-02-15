@@ -15,41 +15,41 @@ class ExistingExperimentCorrelation(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, user_id: str=None, indicator: str=None, correlation: str=None, ticker: str=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, user_id: str=None, asset_1: str=None, asset_2: str=None, correlation: float=None):  # noqa: E501
         """ExistingExperimentCorrelation - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingExperimentCorrelation.  # noqa: E501
         :type experiment_id: str
         :param user_id: The user_id of this ExistingExperimentCorrelation.  # noqa: E501
         :type user_id: str
-        :param indicator: The indicator of this ExistingExperimentCorrelation.  # noqa: E501
-        :type indicator: str
+        :param asset_1: The asset_1 of this ExistingExperimentCorrelation.  # noqa: E501
+        :type asset_1: str
+        :param asset_2: The asset_2 of this ExistingExperimentCorrelation.  # noqa: E501
+        :type asset_2: str
         :param correlation: The correlation of this ExistingExperimentCorrelation.  # noqa: E501
-        :type correlation: str
-        :param ticker: The ticker of this ExistingExperimentCorrelation.  # noqa: E501
-        :type ticker: str
+        :type correlation: float
         """
         self.swagger_types = {
             'experiment_id': str,
             'user_id': str,
-            'indicator': str,
-            'correlation': str,
-            'ticker': str
+            'asset_1': str,
+            'asset_2': str,
+            'correlation': float
         }
 
         self.attribute_map = {
             'experiment_id': 'experiment_id',
             'user_id': 'userID',
-            'indicator': 'indicator',
-            'correlation': 'correlation',
-            'ticker': 'ticker'
+            'asset_1': 'asset_1',
+            'asset_2': 'asset_2',
+            'correlation': 'correlation'
         }
 
         self._experiment_id = experiment_id
         self._user_id = user_id
-        self._indicator = indicator
+        self._asset_1 = asset_1
+        self._asset_2 = asset_2
         self._correlation = correlation
-        self._ticker = ticker
 
     @classmethod
     def from_dict(cls, dikt) -> 'ExistingExperimentCorrelation':
@@ -80,6 +80,8 @@ class ExistingExperimentCorrelation(Model):
         :param experiment_id: The experiment_id of this ExistingExperimentCorrelation.
         :type experiment_id: str
         """
+        if experiment_id is None:
+            raise ValueError("Invalid value for `experiment_id`, must not be `None`")  # noqa: E501
 
         self._experiment_id = experiment_id
 
@@ -101,68 +103,76 @@ class ExistingExperimentCorrelation(Model):
         :param user_id: The user_id of this ExistingExperimentCorrelation.
         :type user_id: str
         """
+        if user_id is None:
+            raise ValueError("Invalid value for `user_id`, must not be `None`")  # noqa: E501
 
         self._user_id = user_id
 
     @property
-    def indicator(self) -> str:
-        """Gets the indicator of this ExistingExperimentCorrelation.
+    def asset_1(self) -> str:
+        """Gets the asset_1 of this ExistingExperimentCorrelation.
 
 
-        :return: The indicator of this ExistingExperimentCorrelation.
+        :return: The asset_1 of this ExistingExperimentCorrelation.
         :rtype: str
         """
-        return self._indicator
+        return self._asset_1
 
-    @indicator.setter
-    def indicator(self, indicator: str):
-        """Sets the indicator of this ExistingExperimentCorrelation.
+    @asset_1.setter
+    def asset_1(self, asset_1: str):
+        """Sets the asset_1 of this ExistingExperimentCorrelation.
 
 
-        :param indicator: The indicator of this ExistingExperimentCorrelation.
-        :type indicator: str
+        :param asset_1: The asset_1 of this ExistingExperimentCorrelation.
+        :type asset_1: str
         """
+        if asset_1 is None:
+            raise ValueError("Invalid value for `asset_1`, must not be `None`")  # noqa: E501
 
-        self._indicator = indicator
+        self._asset_1 = asset_1
 
     @property
-    def correlation(self) -> str:
+    def asset_2(self) -> str:
+        """Gets the asset_2 of this ExistingExperimentCorrelation.
+
+
+        :return: The asset_2 of this ExistingExperimentCorrelation.
+        :rtype: str
+        """
+        return self._asset_2
+
+    @asset_2.setter
+    def asset_2(self, asset_2: str):
+        """Sets the asset_2 of this ExistingExperimentCorrelation.
+
+
+        :param asset_2: The asset_2 of this ExistingExperimentCorrelation.
+        :type asset_2: str
+        """
+        if asset_2 is None:
+            raise ValueError("Invalid value for `asset_2`, must not be `None`")  # noqa: E501
+
+        self._asset_2 = asset_2
+
+    @property
+    def correlation(self) -> float:
         """Gets the correlation of this ExistingExperimentCorrelation.
 
 
         :return: The correlation of this ExistingExperimentCorrelation.
-        :rtype: str
+        :rtype: float
         """
         return self._correlation
 
     @correlation.setter
-    def correlation(self, correlation: str):
+    def correlation(self, correlation: float):
         """Sets the correlation of this ExistingExperimentCorrelation.
 
 
         :param correlation: The correlation of this ExistingExperimentCorrelation.
-        :type correlation: str
+        :type correlation: float
         """
+        if correlation is None:
+            raise ValueError("Invalid value for `correlation`, must not be `None`")  # noqa: E501
 
         self._correlation = correlation
-
-    @property
-    def ticker(self) -> str:
-        """Gets the ticker of this ExistingExperimentCorrelation.
-
-
-        :return: The ticker of this ExistingExperimentCorrelation.
-        :rtype: str
-        """
-        return self._ticker
-
-    @ticker.setter
-    def ticker(self, ticker: str):
-        """Sets the ticker of this ExistingExperimentCorrelation.
-
-
-        :param ticker: The ticker of this ExistingExperimentCorrelation.
-        :type ticker: str
-        """
-
-        self._ticker = ticker
