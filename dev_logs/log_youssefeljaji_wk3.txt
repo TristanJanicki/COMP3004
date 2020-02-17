@@ -1,0 +1,2 @@
+Created the UI in the app for creating a new signal
+This has been implemented into a new branch named app
