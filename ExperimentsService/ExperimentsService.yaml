@@ -19,19 +19,16 @@ definitions:
         type: array
         items:
           allOf:
-            - $ref: "#/definitions/existingExperimentThreshold"
-            - $ref: "#/definitions/existingExperimentCorrelation"
+            - $ref: "#/definitions/newExperimentThreshold"
+            - $ref: "#/definitions/newExperimentCorrelation"
 
   newExperimentThreshold:
     type: object
     required:
-      - userID
       - indicator
       - threshold
       - ticker
     properties:
-      userID:
-        type: string
       indicator:
         type: string
       threshold:
@@ -42,17 +39,11 @@ definitions:
   newExperimentCorrelation:
     type: object
     required:
-      - user_id
       - indicator
-      - correlation
       - ticker
     properties:
-      user_id:
-        type: string
       indicator:
         type: string
-      correlation:
-        type: integer
       ticker:
         type: string
 
@@ -233,7 +224,7 @@ paths:
           name: "idToken"
           type: string
           required: true
-          description: "access token obtained from AWS Cognito"
+          description: "id token obtained from AWS Cognito"
         - in: "header"
           name: "user_id"
           type: string

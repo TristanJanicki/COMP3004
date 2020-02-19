@@ -15,35 +15,25 @@ class NewExperimentCorrelation(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, user_id: str=None, indicator: str=None, correlation: int=None, ticker: str=None):  # noqa: E501
+    def __init__(self, indicator: str=None, ticker: str=None):  # noqa: E501
         """NewExperimentCorrelation - a model defined in Swagger
 
-        :param user_id: The user_id of this NewExperimentCorrelation.  # noqa: E501
-        :type user_id: str
         :param indicator: The indicator of this NewExperimentCorrelation.  # noqa: E501
         :type indicator: str
-        :param correlation: The correlation of this NewExperimentCorrelation.  # noqa: E501
-        :type correlation: int
         :param ticker: The ticker of this NewExperimentCorrelation.  # noqa: E501
         :type ticker: str
         """
         self.swagger_types = {
-            'user_id': str,
             'indicator': str,
-            'correlation': int,
             'ticker': str
         }
 
         self.attribute_map = {
-            'user_id': 'user_id',
             'indicator': 'indicator',
-            'correlation': 'correlation',
             'ticker': 'ticker'
         }
 
-        self._user_id = user_id
         self._indicator = indicator
-        self._correlation = correlation
         self._ticker = ticker
 
     @classmethod
@@ -56,29 +46,6 @@ class NewExperimentCorrelation(Model):
         :rtype: NewExperimentCorrelation
         """
         return util.deserialize_model(dikt, cls)
-
-    @property
-    def user_id(self) -> str:
-        """Gets the user_id of this NewExperimentCorrelation.
-
-
-        :return: The user_id of this NewExperimentCorrelation.
-        :rtype: str
-        """
-        return self._user_id
-
-    @user_id.setter
-    def user_id(self, user_id: str):
-        """Sets the user_id of this NewExperimentCorrelation.
-
-
-        :param user_id: The user_id of this NewExperimentCorrelation.
-        :type user_id: str
-        """
-        if user_id is None:
-            raise ValueError("Invalid value for `user_id`, must not be `None`")  # noqa: E501
-
-        self._user_id = user_id
 
     @property
     def indicator(self) -> str:
@@ -102,29 +69,6 @@ class NewExperimentCorrelation(Model):
             raise ValueError("Invalid value for `indicator`, must not be `None`")  # noqa: E501
 
         self._indicator = indicator
-
-    @property
-    def correlation(self) -> int:
-        """Gets the correlation of this NewExperimentCorrelation.
-
-
-        :return: The correlation of this NewExperimentCorrelation.
-        :rtype: int
-        """
-        return self._correlation
-
-    @correlation.setter
-    def correlation(self, correlation: int):
-        """Sets the correlation of this NewExperimentCorrelation.
-
-
-        :param correlation: The correlation of this NewExperimentCorrelation.
-        :type correlation: int
-        """
-        if correlation is None:
-            raise ValueError("Invalid value for `correlation`, must not be `None`")  # noqa: E501
-
-        self._correlation = correlation
 
     @property
     def ticker(self) -> str:

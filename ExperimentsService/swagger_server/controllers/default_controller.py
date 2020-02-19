@@ -38,9 +38,29 @@ def experiments_create():  # noqa: E501
 
     :rtype: OkResponse
     """
-    if connexion.request.is_json:
-        experiment = NewExperimentPost.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+
+    userID = connexion.request.headers['user_id']
+
+    user = sqlManager.session.query(User).filter_by(user_id=userID)
+
+    for experiment in connexion.request.json["experiments"]:
+        print(experiment)
+        existingCopy = None
+        if experiment["correlation"] != None:
+            existingCopy = sqlManager.session.query(CorrelationExperiment).filter_by(asset_1=experiment["asset_1"], asset_2=experiment["asset_2"]).one()
+        else:
+            existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(indicator=experiment["inidicator"], threshold=experiment["threshold"]).one()
+        sqlManager.session.commit()
+        if existingCopy != None:
+            if existingCopy.status == "up_to_date":
+                return OkResponse()
+
+        dbExperiment = ThresholdExperiment.ThresholdExperiment(userID, experiment["indicator"], experiment["threshold"], experiment["ticker"])
+        sqlManager.session.add(dbExperiment)
+        sqlManager.session.commit()
+
+    
+    return OkResponse()
 
 
 def experiments_delete():  # noqa: E501
@@ -77,32 +97,29 @@ def experiments_get_all():  # noqa: E501
     :rtype: GetExperimentResult
     """
 
-    thresholdExperiment = sqlManager.db.Table(
-        'threshold_experiments', sqlManager.metadata, autoload=True, autoload_with=sqlManager.engine)
-    correlationExperiment = sqlManager.db.Table(
-        'correlation_experiments', sqlManager.metadata, autoload=True, autoload_with=sqlManager.engine)
+    thresholdExperiment=sqlManager.db.Table(
+        'threshold_experiments', sqlManager.metadata, autoload = True, autoload_with = sqlManager.engine)
+    correlationExperiment=sqlManager.db.Table(
+        'correlation_experiments', sqlManager.metadata, autoload = True, autoload_with = sqlManager.engine)
 
-    experiments = []
+    experiments=[]
 
    # idToken = connexion.request.headers['idToken']
-    resultset = sqlManager.selectAll([correlationExperiment])
+    resultset=sqlManager.selectAll([correlationExperiment])
 
     for result in resultset:
         if result["correlation"] != None:
             # its a correlation experiment
             experiments.append(
                 converter.convertDbCorrelationExperimentToSwaggerExperiment(result))
-    
-    resultset = sqlManager.selectAll([thresholdExperiment])
+
+    resultset=sqlManager.selectAll([thresholdExperiment])
     for result in resultset:
         # its a threshold experiment
         experiments.append(
             converter.convertDbThresholdExperimentToSwaggerExperiment(result))
 
-    result = GetExperimentResult(experiments=experiments)
-
-    return result
-
+    return GetExperimentResult(experiments=experiments)
 
 def experiments_update():  # noqa: E501
     """experiments_update

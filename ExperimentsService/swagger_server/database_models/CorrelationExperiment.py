@@ -1,6 +1,7 @@
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
-from sqlalchemy import Column, Integer, String, Float
+
 
 class CorrelationExperiment(Base):
     __tablename__ = 'threshold_experiments'
@@ -9,3 +10,5 @@ class CorrelationExperiment(Base):
     asset_1 = Column(String)
     asset_2 = Column(String)
     correlation = Column(Float)
+    update_requested = Column(Boolean)
+    update_requested_at = Column(DateTime)

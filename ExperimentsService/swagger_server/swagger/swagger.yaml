@@ -50,7 +50,7 @@ paths:
       parameters:
       - name: "idToken"
         in: "header"
-        description: "access token obtained from AWS Cognito"
+        description: "id token obtained from AWS Cognito"
         required: true
         type: "string"
       - name: "user_id"
@@ -165,18 +165,15 @@ definitions:
         items:
           type: "object"
           allOf:
-          - $ref: "#/definitions/existingExperimentThreshold"
-          - $ref: "#/definitions/existingExperimentCorrelation"
+          - $ref: "#/definitions/newExperimentThreshold"
+          - $ref: "#/definitions/newExperimentCorrelation"
   newExperimentThreshold:
     type: "object"
     required:
     - "indicator"
     - "threshold"
     - "ticker"
-    - "userID"
     properties:
-      userID:
-        type: "string"
       indicator:
         type: "string"
       threshold:
@@ -186,17 +183,11 @@ definitions:
   newExperimentCorrelation:
     type: "object"
     required:
-    - "correlation"
     - "indicator"
     - "ticker"
-    - "user_id"
     properties:
-      user_id:
-        type: "string"
       indicator:
         type: "string"
-      correlation:
-        type: "integer"
       ticker:
         type: "string"
   existingExperimentPost:

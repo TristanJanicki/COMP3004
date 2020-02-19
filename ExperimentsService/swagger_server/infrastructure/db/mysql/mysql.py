@@ -1,5 +1,6 @@
 import sqlalchemy as db
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
 class SqlManager:
 
@@ -8,6 +9,7 @@ class SqlManager:
     engine = None
     db = db
     session = None
+    Base = None
 
     def __init__(self):
         # super().__init__()
@@ -21,12 +23,12 @@ class SqlManager:
         self.connection = self.engine.connect()
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
+        Base = declarative_base()
+        self.Base = Base
+        self.Base.metadata.create_all(self.engine)
 
     def selectAll(self, model):
         query = db.select(model)
         queryResult = self.connection.execute(query)
         resultSet = queryResult.fetchall()
-        return resultSet
-
-    def insert(self, model):
-        self.Session.add(model)
+        return resultSet 
