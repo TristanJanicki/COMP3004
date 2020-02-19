@@ -30,7 +30,7 @@ paths:
         name: "experiment"
         required: false
         schema:
-          $ref: "#/definitions/newThresholdExperiment"
+          $ref: "#/definitions/newThresholdPost"
       responses:
         "200":
           description: "OK"
@@ -276,11 +276,8 @@ definitions:
     - "asset_2"
     - "correlation"
     - "experiment_id"
-    - "userID"
     properties:
       experiment_id:
-        type: "string"
-      userID:
         type: "string"
       asset_1:
         type: "string"
@@ -291,15 +288,12 @@ definitions:
     example:
       correlation: 0.80082819046101150206595775671303272247314453125
       experiment_id: "experiment_id"
-      userID: "userID"
       asset_2: "asset_2"
       asset_1: "asset_1"
   existingThresholdExperiment:
     type: "object"
     properties:
       experiment_id:
-        type: "string"
-      userID:
         type: "string"
       indicator:
         type: "string"
@@ -309,7 +303,6 @@ definitions:
       indicator: "indicator"
       ticker: "ticker"
       experiment_id: "experiment_id"
-      userID: "userID"
   getExperimentsResult:
     properties:
       correlations:
@@ -325,20 +318,16 @@ definitions:
       - indicator: "indicator"
         ticker: "ticker"
         experiment_id: "experiment_id"
-        userID: "userID"
       - indicator: "indicator"
         ticker: "ticker"
         experiment_id: "experiment_id"
-        userID: "userID"
       correlations:
       - correlation: 0.80082819046101150206595775671303272247314453125
         experiment_id: "experiment_id"
-        userID: "userID"
         asset_2: "asset_2"
         asset_1: "asset_1"
       - correlation: 0.80082819046101150206595775671303272247314453125
         experiment_id: "experiment_id"
-        userID: "userID"
         asset_2: "asset_2"
         asset_1: "asset_1"
   errorResponse:

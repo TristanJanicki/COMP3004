@@ -15,13 +15,11 @@ class ExistingThresholdExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, user_id: str=None, indicator: str=None, ticker: str=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None):  # noqa: E501
         """ExistingThresholdExperiment - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingThresholdExperiment.  # noqa: E501
         :type experiment_id: str
-        :param user_id: The user_id of this ExistingThresholdExperiment.  # noqa: E501
-        :type user_id: str
         :param indicator: The indicator of this ExistingThresholdExperiment.  # noqa: E501
         :type indicator: str
         :param ticker: The ticker of this ExistingThresholdExperiment.  # noqa: E501
@@ -29,20 +27,17 @@ class ExistingThresholdExperiment(Model):
         """
         self.swagger_types = {
             'experiment_id': str,
-            'user_id': str,
             'indicator': str,
             'ticker': str
         }
 
         self.attribute_map = {
             'experiment_id': 'experiment_id',
-            'user_id': 'userID',
             'indicator': 'indicator',
             'ticker': 'ticker'
         }
 
         self._experiment_id = experiment_id
-        self._user_id = user_id
         self._indicator = indicator
         self._ticker = ticker
 
@@ -77,27 +72,6 @@ class ExistingThresholdExperiment(Model):
         """
 
         self._experiment_id = experiment_id
-
-    @property
-    def user_id(self) -> str:
-        """Gets the user_id of this ExistingThresholdExperiment.
-
-
-        :return: The user_id of this ExistingThresholdExperiment.
-        :rtype: str
-        """
-        return self._user_id
-
-    @user_id.setter
-    def user_id(self, user_id: str):
-        """Sets the user_id of this ExistingThresholdExperiment.
-
-
-        :param user_id: The user_id of this ExistingThresholdExperiment.
-        :type user_id: str
-        """
-
-        self._user_id = user_id
 
     @property
     def indicator(self) -> str:

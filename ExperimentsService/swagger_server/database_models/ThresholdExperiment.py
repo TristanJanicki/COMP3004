@@ -14,7 +14,7 @@ class ThresholdExperiment(Base):
     update_requested_at = Column(DateTime)
     last_updated_at = Column(DateTime)
 
-    def __init__(self, experiment_id, userID, indicator, threshold, ticker, status="up_to_date", update_requested_at=None, last_updated_at=None):
+    def __init__(self, experiment_id, indicator, threshold, ticker, status="up_to_date", update_requested_at=None, last_updated_at=None):
         self.experiment_id = experiment_id
         self.indicator = indicator
         self.threshold = threshold

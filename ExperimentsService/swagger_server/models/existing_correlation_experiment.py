@@ -15,13 +15,11 @@ class ExistingCorrelationExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, user_id: str=None, asset_1: str=None, asset_2: str=None, correlation: float=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, asset_1: str=None, asset_2: str=None, correlation: float=None):  # noqa: E501
         """ExistingCorrelationExperiment - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingCorrelationExperiment.  # noqa: E501
         :type experiment_id: str
-        :param user_id: The user_id of this ExistingCorrelationExperiment.  # noqa: E501
-        :type user_id: str
         :param asset_1: The asset_1 of this ExistingCorrelationExperiment.  # noqa: E501
         :type asset_1: str
         :param asset_2: The asset_2 of this ExistingCorrelationExperiment.  # noqa: E501
@@ -31,7 +29,6 @@ class ExistingCorrelationExperiment(Model):
         """
         self.swagger_types = {
             'experiment_id': str,
-            'user_id': str,
             'asset_1': str,
             'asset_2': str,
             'correlation': float
@@ -39,14 +36,12 @@ class ExistingCorrelationExperiment(Model):
 
         self.attribute_map = {
             'experiment_id': 'experiment_id',
-            'user_id': 'userID',
             'asset_1': 'asset_1',
             'asset_2': 'asset_2',
             'correlation': 'correlation'
         }
 
         self._experiment_id = experiment_id
-        self._user_id = user_id
         self._asset_1 = asset_1
         self._asset_2 = asset_2
         self._correlation = correlation
@@ -84,29 +79,6 @@ class ExistingCorrelationExperiment(Model):
             raise ValueError("Invalid value for `experiment_id`, must not be `None`")  # noqa: E501
 
         self._experiment_id = experiment_id
-
-    @property
-    def user_id(self) -> str:
-        """Gets the user_id of this ExistingCorrelationExperiment.
-
-
-        :return: The user_id of this ExistingCorrelationExperiment.
-        :rtype: str
-        """
-        return self._user_id
-
-    @user_id.setter
-    def user_id(self, user_id: str):
-        """Sets the user_id of this ExistingCorrelationExperiment.
-
-
-        :param user_id: The user_id of this ExistingCorrelationExperiment.
-        :type user_id: str
-        """
-        if user_id is None:
-            raise ValueError("Invalid value for `user_id`, must not be `None`")  # noqa: E501
-
-        self._user_id = user_id
 
     @property
     def asset_1(self) -> str:

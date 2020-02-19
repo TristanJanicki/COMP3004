@@ -57,15 +57,12 @@ definitions:
   existingCorrelationExperiment:
     type: object
     required:
-      - userID
       - experiment_id
       - asset_1
       - asset_2
       - correlation
     properties:
       experiment_id:
-        type: string
-      userID:
         type: string
       asset_1:
         type: string
@@ -78,8 +75,6 @@ definitions:
     type: object
     properties:
       experiment_id:
-        type: string
-      userID:
         type: string
       indicator:
         type: string
@@ -195,7 +190,7 @@ paths:
         - in: "body"
           name: "experiment"
           schema:
-            $ref: "#/definitions/newThresholdExperiment"
+            $ref: "#/definitions/newThresholdPost"
       responses:
         200:
           description: "OK"
