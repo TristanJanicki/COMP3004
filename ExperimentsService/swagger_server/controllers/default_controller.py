@@ -1,13 +1,20 @@
+# native imports
 import connexion
 import six
 import logging
+import uuid
+from datetime import datetime, timedelta
+import dateutil.parser
 
+# project imports
 ################################## GENERATED IMPORTS ########################################
 from swagger_server.models.already_exists_response import AlreadyExistsResponse  # noqa: E501
 from swagger_server.models.error_response import ErrorResponse  # noqa: E501
-from swagger_server.models.existing_experiment_post import ExistingExperimentPost  # noqa: E501
-from swagger_server.models.get_experiment_result import GetExperimentResult  # noqa: E501
-from swagger_server.models.new_experiment_post import NewExperimentPost  # noqa: E501
+from swagger_server.models.existing_correlation_experiment import ExistingCorrelationExperiment  # noqa: E501
+from swagger_server.models.existing_threshold_experiment import ExistingThresholdExperiment  # noqa: E501
+from swagger_server.models.get_experiments_result import GetExperimentsResult  # noqa: E501
+from swagger_server.models.new_correlation_post import NewCorrelationPost  # noqa: E501
+from swagger_server.models.new_threshold_experiment import NewThresholdExperiment  # noqa: E501
 from swagger_server.models.not_allowed_response import NotAllowedResponse  # noqa: E501
 from swagger_server.models.ok_response import OkResponse  # noqa: E501
 from swagger_server import util
@@ -18,11 +25,166 @@ from swagger_server.database_models.ThresholdExperiment import ThresholdExperime
 from swagger_server.database_models.CorrelationExperiment import CorrelationExperiment
 from swagger_server.database_models.User import User
 
+# external library imports
+
+# initializing loggers and sql manager
 sqlManager = mysql.SqlManager()
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
+def experiments_correlation_create(experiment=None):  # noqa: E501
+    """experiments_correlation_create
+
+    Add a new experiment to a users account # noqa: E501
+
+    :param idToken: id token obtained from AWS Cognito
+    :type idToken: str
+    :param user_id: the users ID to associate the experiment with
+    :type user_id: str
+    :param experiment: 
+    :type experiment: dict | bytes
+
+    :rtype: OkResponse
+    """
+
+    if experiment == None:
+        print("experiment was None")
+        return OkResponse("Experiment was None")
+
+    userID = connexion.request.headers['user_id']
+
+    user = sqlManager.session.query(User).filter_by(user_id=userID).one()
+    usersExperiments = []
+    if user.experiments != None:
+        usersExperiments = user.experiments.split(",")
+
+    experiment = connexion.request.json["experiment"]
+    existingCopy = None
+    try:
+        existingCopy = sqlManager.session.query(CorrelationExperiment).filter_by(
+            asset_1=experiment["asset_1"], asset_2=experiment["asset_2"]).one()
+    except:
+        pass
+    # fill existing copy with a value from the db if there is one
+    sqlManager.session.commit()
+
+    # the experiment already exists, lets check if it needs to be updated (last updated needs to be older than 1 day)
+    if existingCopy != None:
+        last_updated_at = existingCopy.last_updated_at
+        days_since_update = datetime.now() - last_updated_at
+
+        if days_since_update.days > 1:
+            existingCopy.status = "update_requested"
+            existingCopy.update_requested_at = datetime.now()
+
+        if existingCopy.experiment_id not in usersExperiments:
+            usersExperiments.append(existingCopy.experiment_id)
+        else:
+            return AlreadyExistsResponse()
+    else:  # The experiment doesn't exist, lets create it
+        experiment_id = str(uuid.uuid4())
+        dbExperiment = CorrelationExperiment(
+            experiment_id=experiment_id, asset_1=experiment["asset_1"], asset_2=experiment["asset_2"], correlation=0, status="update_requested", update_requested_at=datetime.now(), last_updated_at=datetime.now())
+        sqlManager.session.add(dbExperiment)        
+        usersExperiments.append(experiment_id)
+    
+    user.experiments = ','.join(usersExperiments)
+    sqlManager.session.commit()
+
+    return OkResponse()
+
+
+def experiments_correlation_update(experiment=None):  # noqa: E501
+    """experiments_correlation_update
+
+    Update a experiment # noqa: E501
+
+    :param idToken: access token obtained from AWS Cognito
+    :type idToken: str
+    :param user_id: the users ID to associate the experiment with
+    :type user_id: str
+    :param experiment: 
+    :type experiment: dict | bytes
+
+    :rtype: OkResponse
+    """
+    if connexion.request.is_json:
+        experiment = ExistingCorrelationExperiment.from_dict(connexion.request.get_json())  # noqa: E501
+    return 'do some magic!'
+
+
+def experiments_threshold_create(experiment=None):  # noqa: E501
+    """experiments_threshold_create
+
+    Add a new experiment to a users account # noqa: E501
+
+    :param idToken: id token obtained from AWS Cognito
+    :type idToken: str
+    :param user_id: the users ID to associate the experiment with
+    :type user_id: str
+    :param experiment: 
+    :type experiment: dict | bytes
+
+    :rtype: OkResponse
+    """
+    if connexion.request.is_json:
+        experiment = NewThresholdExperiment.from_dict(connexion.request.get_json())  # noqa: E501
+    return 'do some magic!'
+
+
+def experiments_threshold_update(experiment=None):  # noqa: E501
+    """experiments_threshold_update
+
+    Update a experiment # noqa: E501
+
+    :param idToken: access token obtained from AWS Cognito
+    :type idToken: str
+    :param user_id: the users ID to associate the experiment with
+    :type user_id: str
+    :param experiment: 
+    :type experiment: dict | bytes
+
+    :rtype: OkResponse
+    """
+    if connexion.request.is_json:
+        experiment = ExistingThresholdExperiment.from_dict(connexion.request.get_json())  # noqa: E501
+    return 'do some magic!'
+
+
+def user_experiments_delete():  # noqa: E501
+    """user_experiments_delete
+
+    Delete a experiment from a users experiments list # noqa: E501
+
+    :param idToken: access token obtained from AWS Cognito
+    :type idToken: str
+    :param experimentID: The database ID of the experiment
+    :type experimentID: str
+    :param user_id: the users ID to associate the experiment with
+    :type user_id: str
+
+    :rtype: OkResponse
+    """
+    return 'do some magic!'
+
+
+def user_experiments_get_all():  # noqa: E501
+    """user_experiments_get_all
+
+    Get all experiments associated/owned by a user # noqa: E501
+
+    :param idToken: access token obtained from AWS Cognito
+    :type idToken: str
+    :param user_id: the users ID to associate the experiment with
+    :type user_id: str
+
+    :rtype: GetExperimentsResult
+    """
+    return 'do some magic!'
+
+
+# BELOW ARE FROM PREVIOUS ITERATION, TO BE INSERTED INTO ABOVE MESSAGES
 def experiments_create():  # noqa: E501
     """experiments_create
 
@@ -48,20 +210,42 @@ def experiments_create():  # noqa: E501
         print(experiment)
         existingCopy = None
         if "correlation" in experiment:
-            existingCopy = sqlManager.session.query(CorrelationExperiment).filter_by(asset_1=experiment["asset_1"], asset_2=experiment["asset_2"]).one()
+            try:
+                existingCopy = sqlManager.session.query(CorrelationExperiment).filter_by(
+                    asset_1=experiment["asset_1"], asset_2=experiment["asset_2"]).one()
+            except:
+                pass  # TODO: implement better error handling, maybe hadnle the ResultNotFound error
         else:
-            existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(ticker=experiment["ticker"], indicator=experiment["indicator"], threshold=experiment["threshold"]).one()
+            try:
+                existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(
+                    ticker=experiment["ticker"], indicator=experiment["indicator"], threshold=experiment["threshold"]).one()
+            except:
+                pass  # TODO: implement better error handling, maybe hadnle the ResultNotFound error
+        # fill existing copy with a value from the db if there is one
         sqlManager.session.commit()
+        # the experiment already exists, lets check if it needs to be updated (last updated needs to be older than 1 day)
         if existingCopy != None:
-            if existingCopy.status == "up_to_date":
-                # TODO: add this experiment to the user's list of experiments
-                return OkResponse()
+            last_updated_at = dateutil.parser.parse(
+                existingCopy["last_updated_at"])
+            days_since_update = datetime.now() - last_updated_at
 
-        dbExperiment = ThresholdExperiment.ThresholdExperiment(userID, experiment["indicator"], experiment["threshold"], experiment["ticker"])
-        sqlManager.session.add(dbExperiment)
-        sqlManager.session.commit()
+            if days_since_update.days > 1:
+                existingCopy.status = "update_requested"
+                existingCopy.update_requested_at = datetime.now()
+            else:
+                user.experiments.append(existingCopy.experiment_id)
 
-    
+            sqlManager.session.commit()
+            return OkResponse()  # A copy of this experiment exists and is up to date, add it to the users experiments and send OK response
+        else:
+            experiment_id = str(uuid.uuid4())
+            # TODO: add this experiment to the user's list of experiments
+            dbExperiment = ThresholdExperiment(
+                experiment_id, userID, experiment["indicator"], experiment["threshold"], experiment["ticker"], "update_requested", datetime.now())
+            sqlManager.session.add(dbExperiment)
+            sqlManager.session.commit()
+            user.experiments.append(experiment_id)
+
     return OkResponse()
 
 
@@ -99,15 +283,15 @@ def experiments_get_all():  # noqa: E501
     :rtype: GetExperimentResult
     """
 
-    thresholdExperiment=sqlManager.db.Table(
-        'threshold_experiments', sqlManager.metadata, autoload = True, autoload_with = sqlManager.engine)
-    correlationExperiment=sqlManager.db.Table(
-        'correlation_experiments', sqlManager.metadata, autoload = True, autoload_with = sqlManager.engine)
+    thresholdExperiment = sqlManager.db.Table(
+        'threshold_experiments', sqlManager.metadata, autoload=True, autoload_with=sqlManager.engine)
+    correlationExperiment = sqlManager.db.Table(
+        'correlation_experiments', sqlManager.metadata, autoload=True, autoload_with=sqlManager.engine)
 
-    experiments=[]
+    experiments = []
 
    # idToken = connexion.request.headers['idToken']
-    resultset=sqlManager.selectAll([correlationExperiment])
+    resultset = sqlManager.selectAll([correlationExperiment])
 
     for result in resultset:
         if result["correlation"] != None:
@@ -115,13 +299,14 @@ def experiments_get_all():  # noqa: E501
             experiments.append(
                 converter.convertDbCorrelationExperimentToSwaggerExperiment(result))
 
-    resultset=sqlManager.selectAll([thresholdExperiment])
+    resultset = sqlManager.selectAll([thresholdExperiment])
     for result in resultset:
         # its a threshold experiment
         experiments.append(
             converter.convertDbThresholdExperimentToSwaggerExperiment(result))
 
     return GetExperimentResult(experiments=experiments)
+
 
 def experiments_update():  # noqa: E501
     """experiments_update

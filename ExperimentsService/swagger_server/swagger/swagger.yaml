@@ -11,42 +11,10 @@ consumes:
 produces:
 - "application/json"
 paths:
-  /v1/experiments:
-    get:
-      description: "Get all experiments associated/owned by a user"
-      operationId: "experiments_get_all"
-      parameters:
-      - name: "idToken"
-        in: "header"
-        description: "access token obtained from AWS Cognito"
-        required: true
-        type: "string"
-      - name: "user_id"
-        in: "header"
-        description: "the users ID to associate the experiment with"
-        required: true
-        type: "string"
-      responses:
-        "200":
-          description: "OK"
-          schema:
-            $ref: "#/definitions/getExperimentResult"
-        "401":
-          description: "insufficient permissions/not allowed"
-          schema:
-            $ref: "#/definitions/notAllowedResponse"
-        "409":
-          description: "Already exists"
-          schema:
-            $ref: "#/definitions/alreadyExistsResponse"
-        "500":
-          description: "Internal error"
-          schema:
-            $ref: "#/definitions/errorResponse"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /v1/experiments/threshold:
     post:
       description: "Add a new experiment to a users account"
-      operationId: "experiments_create"
+      operationId: "experiments_threshold_create"
       parameters:
       - name: "idToken"
         in: "header"
@@ -62,7 +30,7 @@ paths:
         name: "experiment"
         required: false
         schema:
-          $ref: "#/definitions/newExperimentPost"
+          $ref: "#/definitions/newThresholdExperiment"
       responses:
         "200":
           description: "OK"
@@ -83,7 +51,7 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
     put:
       description: "Update a experiment"
-      operationId: "experiments_update"
+      operationId: "experiments_threshold_update"
       parameters:
       - name: "idToken"
         in: "header"
@@ -99,7 +67,7 @@ paths:
         name: "experiment"
         required: false
         schema:
-          $ref: "#/definitions/existingExperimentPost"
+          $ref: "#/definitions/existingThresholdExperiment"
       responses:
         "200":
           description: "OK"
@@ -118,9 +86,117 @@ paths:
           schema:
             $ref: "#/definitions/errorResponse"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /v1/experiments/correlation:
+    post:
+      description: "Add a new experiment to a users account"
+      operationId: "experiments_correlation_create"
+      parameters:
+      - name: "idToken"
+        in: "header"
+        description: "id token obtained from AWS Cognito"
+        required: true
+        type: "string"
+      - name: "user_id"
+        in: "header"
+        description: "the users ID to associate the experiment with"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "experiment"
+        required: false
+        schema:
+          $ref: "#/definitions/newCorrelationPost"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        "401":
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        "409":
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        "500":
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    put:
+      description: "Update a experiment"
+      operationId: "experiments_correlation_update"
+      parameters:
+      - name: "idToken"
+        in: "header"
+        description: "access token obtained from AWS Cognito"
+        required: true
+        type: "string"
+      - name: "user_id"
+        in: "header"
+        description: "the users ID to associate the experiment with"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "experiment"
+        required: false
+        schema:
+          $ref: "#/definitions/existingCorrelationExperiment"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        "401":
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        "409":
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        "500":
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /v1/users/experiments:
+    get:
+      description: "Get all experiments associated/owned by a user"
+      operationId: "user_experiments_get_all"
+      parameters:
+      - name: "idToken"
+        in: "header"
+        description: "access token obtained from AWS Cognito"
+        required: true
+        type: "string"
+      - name: "user_id"
+        in: "header"
+        description: "the users ID to associate the experiment with"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/getExperimentsResult"
+        "401":
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        "409":
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        "500":
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
     delete:
-      description: "Delete a experiment"
-      operationId: "experiments_delete"
+      description: "Delete a experiment from a users experiments list"
+      operationId: "user_experiments_delete"
       parameters:
       - name: "idToken"
         in: "header"
@@ -156,18 +232,21 @@ paths:
             $ref: "#/definitions/errorResponse"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
 definitions:
-  newExperimentPost:
+  newCorrelationPost:
     required:
-    - "experiments"
+    - "experiment"
     properties:
-      experiments:
-        type: "array"
-        items:
-          type: "object"
-          allOf:
-          - $ref: "#/definitions/newExperimentThreshold"
-          - $ref: "#/definitions/newExperimentCorrelation"
-  newExperimentThreshold:
+      experiment:
+        type: "object"
+        properties: {}
+  newThresholdPost:
+    required:
+    - "experiment"
+    properties:
+      experiment:
+        type: "object"
+        properties: {}
+  newThresholdExperiment:
     type: "object"
     required:
     - "indicator"
@@ -180,28 +259,17 @@ definitions:
         type: "integer"
       ticker:
         type: "string"
-  newExperimentCorrelation:
+  newCorrelationExperiment:
     type: "object"
     required:
-    - "indicator"
-    - "ticker"
+    - "asset_1"
+    - "asset_2"
     properties:
-      indicator:
+      asset_1:
         type: "string"
-      ticker:
+      asset_2:
         type: "string"
-  existingExperimentPost:
-    required:
-    - "experiments"
-    properties:
-      experiments:
-        type: "array"
-        items:
-          type: "object"
-          allOf:
-          - $ref: "#/definitions/existingExperimentThreshold"
-          - $ref: "#/definitions/existingExperimentCorrelation"
-  existingExperimentCorrelation:
+  existingCorrelationExperiment:
     type: "object"
     required:
     - "asset_1"
@@ -220,7 +288,13 @@ definitions:
         type: "string"
       correlation:
         type: "number"
-  existingExperimentThreshold:
+    example:
+      correlation: 0.80082819046101150206595775671303272247314453125
+      experiment_id: "experiment_id"
+      userID: "userID"
+      asset_2: "asset_2"
+      asset_1: "asset_1"
+  existingThresholdExperiment:
     type: "object"
     properties:
       experiment_id:
@@ -231,21 +305,42 @@ definitions:
         type: "string"
       ticker:
         type: "string"
-  getExperimentResult:
-    required:
-    - "experiments"
+    example:
+      indicator: "indicator"
+      ticker: "ticker"
+      experiment_id: "experiment_id"
+      userID: "userID"
+  getExperimentsResult:
     properties:
-      experiments:
+      correlations:
         type: "array"
         items:
-          type: "object"
-          allOf:
-          - $ref: "#/definitions/existingExperimentThreshold"
-          - $ref: "#/definitions/existingExperimentCorrelation"
+          $ref: "#/definitions/existingCorrelationExperiment"
+      thresholds:
+        type: "array"
+        items:
+          $ref: "#/definitions/existingThresholdExperiment"
     example:
-      experiments:
-      - ""
-      - ""
+      thresholds:
+      - indicator: "indicator"
+        ticker: "ticker"
+        experiment_id: "experiment_id"
+        userID: "userID"
+      - indicator: "indicator"
+        ticker: "ticker"
+        experiment_id: "experiment_id"
+        userID: "userID"
+      correlations:
+      - correlation: 0.80082819046101150206595775671303272247314453125
+        experiment_id: "experiment_id"
+        userID: "userID"
+        asset_2: "asset_2"
+        asset_1: "asset_1"
+      - correlation: 0.80082819046101150206595775671303272247314453125
+        experiment_id: "experiment_id"
+        userID: "userID"
+        asset_2: "asset_2"
+        asset_1: "asset_1"
   errorResponse:
     type: "object"
     required:

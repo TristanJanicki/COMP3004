@@ -11,18 +11,25 @@ schemes:
 swagger: "2.0"
 
 definitions:
-  newExperimentPost:
+  newCorrelationPost:
     required:
-      - experiments
+      - experiment
     properties:
-      experiments:
-        type: array
-        items:
-          allOf:
-            - $ref: "#/definitions/newExperimentThreshold"
-            - $ref: "#/definitions/newExperimentCorrelation"
+      experiment:
+        type: object
+        schema:
+          $ref: "#/definitions/newCorrelationExperiment"
 
-  newExperimentThreshold:
+  newThresholdPost:
+    required:
+      - experiment
+    properties:
+      experiment:
+        type: object
+        schema:
+          $ref: "#/definitions/newThresholdExperiment"
+
+  newThresholdExperiment:
     type: object
     required:
       - indicator
@@ -36,29 +43,18 @@ definitions:
       ticker:
         type: string
 
-  newExperimentCorrelation:
+  newCorrelationExperiment:
     type: object
     required:
-      - indicator
-      - ticker
+      - asset_1
+      - asset_2
     properties:
-      indicator:
+      asset_1:
         type: string
-      ticker:
+      asset_2:
         type: string
 
-  existingExperimentPost:
-    required:
-      - experiments
-    properties:
-      experiments:
-        type: array
-        items:
-          allOf:
-            - $ref: "#/definitions/existingExperimentThreshold"
-            - $ref: "#/definitions/existingExperimentCorrelation"
-
-  existingExperimentCorrelation:
+  existingCorrelationExperiment:
     type: object
     required:
       - userID
@@ -78,7 +74,7 @@ definitions:
       correlation:
         type: number
 
-  existingExperimentThreshold:
+  existingThresholdExperiment:
     type: object
     properties:
       experiment_id:
@@ -90,17 +86,19 @@ definitions:
       ticker:
         type: string
 
-  getExperimentResult:
+  getExperimentsResult:
     required:
       - experiments
     properties:
-      experiments:
+      correlations:
         type: array
         items:
-          allOf:
-            - $ref: "#/definitions/existingExperimentThreshold"
-            - $ref: "#/definitions/existingExperimentCorrelation"
-
+          $ref: "#/definitions/existingCorrelationExperiment"
+      thresholds:
+        type: array
+        items:
+          $ref: "#/definitions/existingThresholdExperiment"
+  
   ## Error response
   errorResponse:
     type: object
@@ -172,47 +170,11 @@ definitions:
         maxLength: 36
 
 paths:
-  /v1/experiments:
-    get:
-      description: "Get all experiments associated/owned by a user"
-      operationId: "Experiments.getAll"
-      parameters:
-        # - in: "header"
-        #   name: "X_Request_ID"
-        #   type: string
-        #   format: uuid
-        #   required: true
-        #   description: "Request id"
-        - in: "header"
-          name: "idToken"
-          type: string
-          required: true
-          description: "access token obtained from AWS Cognito"
-        - in: "header"
-          name: "user_id"
-          description: "the users ID to associate the experiment with"
-          type: string
-          required: true
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/getExperimentResult"
-        401:
-          description: "insufficient permissions/not allowed"
-          schema:
-            $ref: "#/definitions/notAllowedResponse"
-        409:
-          description: "Already exists"
-          schema:
-            $ref: "#/definitions/alreadyExistsResponse"
-        500:
-          description: "Internal error"
-          schema:
-            $ref: "#/definitions/errorResponse"
+
+  /v1/experiments/threshold:
     post:
       description: "Add a new experiment to a users account"
-      operationId: "Experiments.create"
+      operationId: "Experiments.Threshold.create"
       parameters:
         # - in: "header"
         #   name: "X_Request_ID"
@@ -233,7 +195,7 @@ paths:
         - in: "body"
           name: "experiment"
           schema:
-            $ref: "#/definitions/newExperimentPost"
+            $ref: "#/definitions/newThresholdExperiment"
       responses:
         200:
           description: "OK"
@@ -253,7 +215,7 @@ paths:
             $ref: "#/definitions/errorResponse"
     put:
       description: "Update a experiment"
-      operationId: "Experiments.update"
+      operationId: "Experiments.Threshold.update"
       parameters:
         # - in: "header"
         #   name: "X_Request_ID"
@@ -274,7 +236,7 @@ paths:
         - in: "body"
           name: "experiment"
           schema:
-            $ref: "#/definitions/existingExperimentPost"
+            $ref: "#/definitions/existingThresholdExperiment"
       responses:
         200:
           description: "OK"
@@ -292,9 +254,132 @@ paths:
           description: "Internal error"
           schema:
             $ref: "#/definitions/errorResponse"
+
+  /v1/experiments/correlation:
+    post:
+      description: "Add a new experiment to a users account"
+      operationId: "Experiments.Correlation.create"
+      parameters:
+        # - in: "header"
+        #   name: "X_Request_ID"
+        #   type: string
+        #   format: uuid
+        #   required: true
+        #   description: "Request id"
+        - in: "header"
+          name: "idToken"
+          type: string
+          required: true
+          description: "id token obtained from AWS Cognito"
+        - in: "header"
+          name: "user_id"
+          type: string
+          description: "the users ID to associate the experiment with"
+          required: true
+        - in: "body"
+          name: "experiment"
+          schema:
+            $ref: "#/definitions/newCorrelationPost"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+    put:
+      description: "Update a experiment"
+      operationId: "Experiments.Correlation.update"
+      parameters:
+        # - in: "header"
+        #   name: "X_Request_ID"
+        #   type: string
+        #   format: uuid
+        #   required: true
+        #   description: "Request id"
+        - in: "header"
+          name: "idToken"
+          type: string
+          required: true
+          description: "access token obtained from AWS Cognito"
+        - in: "header"
+          name: "user_id"
+          description: "the users ID to associate the experiment with"
+          type: string
+          required: true
+        - in: "body"
+          name: "experiment"
+          schema:
+            $ref: "#/definitions/existingCorrelationExperiment"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+
+  /v1/users/experiments:
+    get:
+      description: "Get all experiments associated/owned by a user"
+      operationId: "User.Experiments.getAll"
+      parameters:
+        # - in: "header"
+        #   name: "X_Request_ID"
+        #   type: string
+        #   format: uuid
+        #   required: true
+        #   description: "Request id"
+        - in: "header"
+          name: "idToken"
+          type: string
+          required: true
+          description: "access token obtained from AWS Cognito"
+        - in: "header"
+          name: "user_id"
+          description: "the users ID to associate the experiment with"
+          type: string
+          required: true
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/getExperimentsResult"
+        401:
+          description: "insufficient permissions/not allowed"
+          schema:
+            $ref: "#/definitions/notAllowedResponse"
+        409:
+          description: "Already exists"
+          schema:
+            $ref: "#/definitions/alreadyExistsResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
     delete:
-      description: "Delete a experiment"
-      operationId: "Experiments.delete"
+      description: "Delete a experiment from a users experiments list"
+      operationId: "User.Experiments.delete"
       parameters:
         # - in: "header"
         #   name: "X_Request_ID"
