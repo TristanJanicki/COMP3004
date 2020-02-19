@@ -203,7 +203,7 @@ paths:
         description: "access token obtained from AWS Cognito"
         required: true
         type: "string"
-      - name: "experimentID"
+      - name: "experiment_id"
         in: "header"
         description: "The database ID of the experiment"
         required: true

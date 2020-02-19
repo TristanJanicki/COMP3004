@@ -213,7 +213,26 @@ def user_experiments_delete():  # noqa: E501
 
     :rtype: OkResponse
     """
-    return 'do some magic!'
+    userID = connexion.request.headers['user_id']
+    experimentToDelete = connexion.request.headers['experiment_id']
+    user = sqlManager.session.query(User).filter_by(user_id=userID).one()
+    usersExperiments = []
+    if user.experiments != None:
+        usersExperiments = user.experiments.split(",")
+
+    newUserExperiments = []
+
+    for ex in usersExperiments:
+        if ex != experimentToDelete:
+            newUserExperiments.append(ex)
+
+    usersExperiments = ",".join(newUserExperiments)
+
+    user.experiments = usersExperiments
+
+    sqlManager.session.commit()
+
+    return OkResponse()
 
 
 def user_experiments_get_all():  # noqa: E501
