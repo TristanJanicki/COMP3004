@@ -14,8 +14,9 @@ from swagger_server import util
 ################################## CUSTOM IMPORTS ###########################################
 from swagger_server.infrastructure.db.mysql import mysql
 from swagger_server.infrastructure.converters import experimentConverter as converter
-from swagger_server.database_models import ThresholdExperiment
-from swagger_server.database_models import CorrelationExperiment
+from swagger_server.database_models.ThresholdExperiment import ThresholdExperiment
+from swagger_server.database_models.CorrelationExperiment import CorrelationExperiment
+from swagger_server.database_models.User import User
 
 sqlManager = mysql.SqlManager()
 logger = logging.getLogger()
@@ -41,18 +42,19 @@ def experiments_create():  # noqa: E501
 
     userID = connexion.request.headers['user_id']
 
-    user = sqlManager.session.query(User).filter_by(user_id=userID)
+    user = sqlManager.session.query(User).filter_by(user_id=userID).one()
 
     for experiment in connexion.request.json["experiments"]:
         print(experiment)
         existingCopy = None
-        if experiment["correlation"] != None:
+        if "correlation" in experiment:
             existingCopy = sqlManager.session.query(CorrelationExperiment).filter_by(asset_1=experiment["asset_1"], asset_2=experiment["asset_2"]).one()
         else:
-            existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(indicator=experiment["inidicator"], threshold=experiment["threshold"]).one()
+            existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(ticker=experiment["ticker"], indicator=experiment["indicator"], threshold=experiment["threshold"]).one()
         sqlManager.session.commit()
         if existingCopy != None:
             if existingCopy.status == "up_to_date":
+                # TODO: add this experiment to the user's list of experiments
                 return OkResponse()
 
         dbExperiment = ThresholdExperiment.ThresholdExperiment(userID, experiment["indicator"], experiment["threshold"], experiment["ticker"])

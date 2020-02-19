@@ -1,10 +1,10 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime
+from sqlalchemy import Column, Integer, String, Float, DateTime, Text
 from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
 class User(Base):
-    __tablename__ = 'threshold_experiments'
+    __tablename__ = 'user_accounts'
     user_id = Column(String, primary_key=True)
     first_name = Column(String)
     last_name = Column(String)
@@ -14,7 +14,7 @@ class User(Base):
     country = Column(String)
     country_code = Column(String)
     phone_number = Column(String)
-    experiments = Column(String)
+    experiments = Column(Text)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
     deleted_at = Column(DateTime)
@@ -33,3 +33,6 @@ class User(Base):
         self.created_at= created_at
         self.updated_at = updated_at
         self.deleted_at = deleted_at
+
+    def __repr__(self):
+        return "<User(user_id=%s, first_name=%s, last_name=%s, email=%s, nickname=%s, title=%s, country=%s, country_code=%s, phone_number=%s, experiments=%s, created_at=%s, updated_at=%s, deleted_at=%s)>" % (self.user_id, self.first_name, self.last_name, self.email, self.nickname, self.title, self.country, self.country_code, self.phone_number, str(self.experiments), self.created_at, self.updated_at, self.deleted_at)

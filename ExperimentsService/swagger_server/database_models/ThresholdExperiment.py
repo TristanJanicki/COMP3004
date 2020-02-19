@@ -5,9 +5,9 @@ Base = declarative_base()
 
 
 class ThresholdExperiment(Base):
-    __tablename__ = "ThresholdExperiments"
+    __tablename__ = "threshold_experiments"
     experiment_id = Column(Integer, primary_key=True)
-    userID = Column(String)
+    user_id = Column(String)
     indicator = Column(String)
     threshold = Column(Float)
     ticker = Column(String)
@@ -15,7 +15,7 @@ class ThresholdExperiment(Base):
     update_requested_at = Column(DateTime)
 
     def __init__(self, userID, indicator, threshold, ticker):
-        self.userID = userID
+        self.user_id = userID
         self.indicator = indicator
         self.threshold = threshold
         self.ticker = ticker
