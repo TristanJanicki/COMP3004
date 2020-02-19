@@ -32,7 +32,7 @@ import okhttp3.Response;
 public class SignUp extends AppCompatActivity {
     private Button button_SignUp;
     //private OkHttpClient client = new OkHttpClient();
-    private String url = "http://ec2-18-212-63-242.compute-1.amazonaws.com:80/v1/users/signup";
+    private String url = "http://ec2-18-212-29-33.compute-1.amazonaws.com:80/v1/users/signup";
     private String tag;
 
     @Override
@@ -52,11 +52,11 @@ public class SignUp extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient().newBuilder()
                         .build();
                 MediaType mediaType = MediaType.parse("application/json");
-                RequestBody body = RequestBody.create("{\n \" email \": \"farzalk@gmail.com\",    \"firstName\": \"Farzal\",    \"lastName\": \"Khan\"}", mediaType);
+                RequestBody body = RequestBody.create(mediaType, "{\n \" email \": \"farzalk@gmail.com\",    \"firstName\": \"Farzal\",    \"lastName\": \"Khan\"}");
                 Request request = new Request.Builder()
                         .url(url)
                         .method("POST", body)
-                        .addHeader("X-Request-ID", "{{$guid}}") //5d09ec8a-6ef2-43ce-8b80-25339cd8d5c4
+                        .addHeader("X-Request-ID", "5d09ec8a-6ef2-43ce-8b80-25339cd8d5c4")
                         .addHeader("Content-Type", "application/json")
                         .build();
 
