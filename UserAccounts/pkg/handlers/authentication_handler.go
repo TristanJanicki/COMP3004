@@ -12,7 +12,6 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/sirupsen/logrus"
 
-	"github.com/COMP3004/UserAccounts/infrastructure/db/dynamodb"
 	"github.com/COMP3004/UserAccounts/infrastructure/db/mysql"
 	"github.com/COMP3004/UserAccounts/pkg/aws/cognito"
 	genModels "github.com/COMP3004/UserAccounts/pkg/gen/models"
