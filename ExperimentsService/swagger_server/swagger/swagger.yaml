@@ -49,43 +49,6 @@ paths:
           schema:
             $ref: "#/definitions/errorResponse"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
-    put:
-      description: "Update a experiment"
-      operationId: "experiments_threshold_update"
-      parameters:
-      - name: "idToken"
-        in: "header"
-        description: "access token obtained from AWS Cognito"
-        required: true
-        type: "string"
-      - name: "user_id"
-        in: "header"
-        description: "the users ID to associate the experiment with"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "experiment"
-        required: false
-        schema:
-          $ref: "#/definitions/existingThresholdExperiment"
-      responses:
-        "200":
-          description: "OK"
-          schema:
-            $ref: "#/definitions/okResponse"
-        "401":
-          description: "insufficient permissions/not allowed"
-          schema:
-            $ref: "#/definitions/notAllowedResponse"
-        "409":
-          description: "Already exists"
-          schema:
-            $ref: "#/definitions/alreadyExistsResponse"
-        "500":
-          description: "Internal error"
-          schema:
-            $ref: "#/definitions/errorResponse"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
   /v1/experiments/correlation:
     post:
       description: "Add a new experiment to a users account"
@@ -106,43 +69,6 @@ paths:
         required: false
         schema:
           $ref: "#/definitions/newCorrelationPost"
-      responses:
-        "200":
-          description: "OK"
-          schema:
-            $ref: "#/definitions/okResponse"
-        "401":
-          description: "insufficient permissions/not allowed"
-          schema:
-            $ref: "#/definitions/notAllowedResponse"
-        "409":
-          description: "Already exists"
-          schema:
-            $ref: "#/definitions/alreadyExistsResponse"
-        "500":
-          description: "Internal error"
-          schema:
-            $ref: "#/definitions/errorResponse"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
-    put:
-      description: "Update a experiment"
-      operationId: "experiments_correlation_update"
-      parameters:
-      - name: "idToken"
-        in: "header"
-        description: "access token obtained from AWS Cognito"
-        required: true
-        type: "string"
-      - name: "user_id"
-        in: "header"
-        description: "the users ID to associate the experiment with"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "experiment"
-        required: false
-        schema:
-          $ref: "#/definitions/existingCorrelationExperiment"
       responses:
         "200":
           description: "OK"

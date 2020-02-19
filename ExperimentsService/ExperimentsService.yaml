@@ -208,47 +208,6 @@ paths:
           description: "Internal error"
           schema:
             $ref: "#/definitions/errorResponse"
-    put:
-      description: "Update a experiment"
-      operationId: "Experiments.Threshold.update"
-      parameters:
-        # - in: "header"
-        #   name: "X_Request_ID"
-        #   type: string
-        #   format: uuid
-        #   required: true
-        #   description: "Request id"
-        - in: "header"
-          name: "idToken"
-          type: string
-          required: true
-          description: "access token obtained from AWS Cognito"
-        - in: "header"
-          name: "user_id"
-          description: "the users ID to associate the experiment with"
-          type: string
-          required: true
-        - in: "body"
-          name: "experiment"
-          schema:
-            $ref: "#/definitions/existingThresholdExperiment"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/okResponse"
-        401:
-          description: "insufficient permissions/not allowed"
-          schema:
-            $ref: "#/definitions/notAllowedResponse"
-        409:
-          description: "Already exists"
-          schema:
-            $ref: "#/definitions/alreadyExistsResponse"
-        500:
-          description: "Internal error"
-          schema:
-            $ref: "#/definitions/errorResponse"
 
   /v1/experiments/correlation:
     post:

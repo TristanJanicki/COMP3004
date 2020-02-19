@@ -6,7 +6,7 @@ from swagger_server.database_models.ThresholdExperiment import ThresholdExperime
 
 
 def convertDbThresholdExperimentToSwaggerExperiment(dbModel:CorrelationExperiment):
-    return ExistingThresholdExperiment(dbModel[0], dbModel[1], dbModel[2], dbModel[3])
+    return ExistingThresholdExperiment(dbModel.experiment_id, dbModel.indicator, dbModel.ticker)
 
 def convertDbCorrelationExperimentToSwaggerExperiment(dbModel:ThresholdExperiment):
-    return ExistingCorrelationExperiment(dbModel[0], dbModel[1], dbModel[2], dbModel[3], dbModel[4])
+    return ExistingCorrelationExperiment(dbModel.experiment_id, dbModel.asset_1, dbModel.asset_2, dbModel.correlation)

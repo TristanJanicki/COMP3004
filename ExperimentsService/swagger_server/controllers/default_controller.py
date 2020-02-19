@@ -27,6 +27,7 @@ from swagger_server.database_models.CorrelationExperiment import CorrelationExpe
 from swagger_server.database_models.User import User
 
 # external library imports
+from sqlalchemy.sql import exists
 
 # initializing loggers and sql manager
 sqlManager = mysql.SqlManager()
@@ -87,9 +88,9 @@ def experiments_correlation_create(experiment=None):  # noqa: E501
         experiment_id = str(uuid.uuid4())
         dbExperiment = CorrelationExperiment(
             experiment_id=experiment_id, asset_1=experiment["asset_1"], asset_2=experiment["asset_2"], correlation=0, status="update_requested", update_requested_at=datetime.now(), last_updated_at=datetime.now())
-        sqlManager.session.add(dbExperiment)        
+        sqlManager.session.add(dbExperiment)
         usersExperiments.append(experiment_id)
-    
+
     user.experiments = ','.join(usersExperiments)
     sqlManager.session.commit()
 
@@ -168,34 +169,15 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
         experiment_id = str(uuid.uuid4())
         dbExperiment = ThresholdExperiment(
             experiment_id=experiment_id, indicator=experiment["indicator"], threshold=experiment["threshold"], ticker=experiment["ticker"], status="update_requested", update_requested_at=datetime.now(), last_updated_at=datetime.now())
-        sqlManager.session.add(dbExperiment)        
+        sqlManager.session.add(dbExperiment)
         usersExperiments.append(experiment_id)
-    
+
     user.experiments = ','.join(usersExperiments)
     sqlManager.session.commit()
 
     return OkResponse()
     if connexion.request.is_json:
         experiment = NewThresholdExperiment.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
-
-
-def experiments_threshold_update(experiment=None):  # noqa: E501
-    """experiments_threshold_update
-
-    Update a experiment # noqa: E501
-
-    :param idToken: access token obtained from AWS Cognito
-    :type idToken: str
-    :param user_id: the users ID to associate the experiment with
-    :type user_id: str
-    :param experiment: 
-    :type experiment: dict | bytes
-
-    :rtype: OkResponse
-    """
-    if connexion.request.is_json:
-        experiment = ExistingThresholdExperiment.from_dict(connexion.request.get_json())  # noqa: E501
     return 'do some magic!'
 
 
@@ -247,4 +229,24 @@ def user_experiments_get_all():  # noqa: E501
 
     :rtype: GetExperimentsResult
     """
-    return 'do some magic!'
+
+    userID = connexion.request.headers['user_id']
+    user = sqlManager.session.query(User).filter_by(user_id=userID).one()
+
+    usersCorrelations = []
+    usersThresholds = []
+    usersExperiments = user.experiments.split(",")
+
+    for ex in usersExperiments:
+        stmt = exists().where(ThresholdExperiment.experiment_id==ex)
+        for thExp in sqlManager.session.query(ThresholdExperiment).filter(stmt):
+            converted = converter.convertDbThresholdExperimentToSwaggerExperiment(thExp)
+            usersThresholds.append(converted)
+
+        stmt = exists().where(ThresholdExperiment.experiment_id==ex)
+        for corrExp in sqlManager.session.query(CorrelationExperiment).filter(stmt):
+            converted = converter.convertDbCorrelationExperimentToSwaggerExperiment(corrExp)
+            usersCorrelations.append(converted)
+
+
+    return GetExperimentsResult(correlations=usersCorrelations, thresholds=usersThresholds)
