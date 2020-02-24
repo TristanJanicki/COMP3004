@@ -1,0 +1,2 @@
+- Worked on assigned app pages (front end development)
+on android studio
