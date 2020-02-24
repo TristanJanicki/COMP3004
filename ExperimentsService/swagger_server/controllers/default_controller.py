@@ -211,7 +211,7 @@ def user_experiments_delete():  # noqa: E501
     usersExperiments = ",".join(newUserExperiments)
 
     user.experiments = usersExperiments
-
+    sqlManager.session.merge(user)
     sqlManager.session.commit()
 
     return OkResponse()
@@ -236,17 +236,19 @@ def user_experiments_get_all():  # noqa: E501
     usersCorrelations = []
     usersThresholds = []
     usersExperiments = user.experiments.split(",")
+    print(usersExperiments)
 
     for ex in usersExperiments:
         stmt = exists().where(ThresholdExperiment.experiment_id==ex)
-        for thExp in sqlManager.session.query(ThresholdExperiment).filter(stmt):
+        for thExp in sqlManager.session.query(ThresholdExperiment).filter(ThresholdExperiment.experiment_id==ex):
             converted = converter.convertDbThresholdExperimentToSwaggerExperiment(thExp)
             usersThresholds.append(converted)
 
-        stmt = exists().where(ThresholdExperiment.experiment_id==ex)
-        for corrExp in sqlManager.session.query(CorrelationExperiment).filter(stmt):
+        stmt = exists().where(CorrelationExperiment.experiment_id==ex)
+        for corrExp in sqlManager.session.query(CorrelationExperiment).filter(CorrelationExperiment.experiment_id==ex):
             converted = converter.convertDbCorrelationExperimentToSwaggerExperiment(corrExp)
             usersCorrelations.append(converted)
 
 
     return GetExperimentsResult(correlations=usersCorrelations, thresholds=usersThresholds)
+

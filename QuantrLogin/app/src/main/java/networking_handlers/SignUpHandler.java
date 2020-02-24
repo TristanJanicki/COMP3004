@@ -3,6 +3,8 @@ package networking_handlers;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.UUID;
 
@@ -19,7 +21,7 @@ public class SignUpHandler extends AsyncTask {
     String email;
     String firstName;
     String lastName;
-    private String url = "http://ec2-18-212-29-33.compute-1.amazonaws.com:80/v1/users/signup";
+    JSONObject cognitoProfile;
 
 
     public SignUpHandler(String username, String email, String firstName, String lastName){
@@ -36,7 +38,7 @@ public class SignUpHandler extends AsyncTask {
         MediaType mediaType = MediaType.parse("application/json");
         RequestBody body = RequestBody.create("{\n \"email\": \"" + email + "\",    \"firstName\": \"" + firstName + "\",    \"lastName\": \"" + lastName + "\"}", mediaType);
         Request request = new Request.Builder()
-                .url(url)
+                .url(networking_statics.url + "/v1/users/signup")
                 .method("POST", body)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("X-Request-ID", UUID.randomUUID().toString())
