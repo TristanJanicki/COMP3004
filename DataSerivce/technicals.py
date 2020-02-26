@@ -2,23 +2,26 @@ import requests
 import csv
 import time
 import pandas as pd
+
 def genCSV(ticker, function, apiUrl):
 
     path = "./Stock_Data/" + ticker + "_" + function + "Data.csv"
 
     # csv
     r = requests.get(apiUrl)
-
-    f = open(path, "w")
-    f.write(r.text)
-    f.flush()
-    f.close()
-    return path
+    
+    if r.text.count("API call frequency") == 0:
+        f = open(path, "w")
+        f.write(r.text)
+        f.flush()
+        f.close()
+        return path
+    return ""
 
 def getTechnicalData(technical, ticker, time_period="5", interval='daily', series_type='close'):
     url = "https://www.alphavantage.co/query?outputsize=full&function="+technical +"&symbol=" + ticker + "&interval=" + interval +"&time_period=" + time_period + "&series_type=" + series_type + "&datatype=csv&apikey=MQB8T0YUNFCKRXY3"
     path = genCSV(ticker, technical + time_period + interval + series_type, url)
-    return csv.reader(open(path))
+    # return csv.reader(open(path))
 
 def getPriceData(ticker, time_period="5", interval='daily', timer_series_type="DAILY", series_type='close', return_csv_obj=False):
     url = "https://www.alphavantage.co/query?function=TIME_SERIES_"+ timer_series_type + "&outputsize=full&symbol=" + ticker + "&interval=" + interval +"&time_period=" + time_period + "&series_type=" + series_type + "&datatype=csv&apikey=MQB8T0YUNFCKRXY3"

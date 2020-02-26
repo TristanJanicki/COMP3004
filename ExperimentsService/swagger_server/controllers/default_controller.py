@@ -176,9 +176,6 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
     sqlManager.session.commit()
 
     return OkResponse()
-    if connexion.request.is_json:
-        experiment = NewThresholdExperiment.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
 
 
 def user_experiments_delete():  # noqa: E501

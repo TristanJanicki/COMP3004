@@ -26,9 +26,3 @@ class SqlManager:
         Base = declarative_base()
         self.Base = Base
         self.Base.metadata.create_all(self.engine)
-
-    def selectAll(self, model):
-        query = db.select(model)
-        queryResult = self.connection.execute(query)
-        resultSet = queryResult.fetchall()
-        return resultSet 
