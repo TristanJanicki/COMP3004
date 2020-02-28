@@ -76,8 +76,8 @@ def get_options_chain(ticker, option_type="PUT", option_range="NTM", strike_coun
                 description = option["description"]
                 ask = float(option["ask"])
                 strike_price = float(option["strikePrice"])
-                volatility = float(option["volatility"])
-                impliedVolatility = float(option["theoreticalVolatility"])
+                impliedVolatility = float(option["volatility"])
+                volatility = float(option["theoreticalVolatility"])
                 
                 cps, total_comission, breakEven = get_options_commissions(ask, 1, strike_price, brokerage="TDA")
                 price_at_expiration = breakEven * 0.99 # assume 1% profit
@@ -96,6 +96,13 @@ def printChain(oChain):
         # print("Desc:", o[0], "Ask:", o[1], "Strike Price:", o[2], "Total Comission:", o[3], "Break Even:", o[4] , "Reward Risk Ratio:", o[5], "Total Profit:", o[6])
     print("\n\n")
 
+def saveChainToCSV(oChain, filename):
+    f = open(filename + ".csv", "w")
+    f.write("Description, Ask, Strike Price, Total Comission, Break Even, Risk Reward Ratio, Total Profit, % Move To Break Even, Historical Vol, Implied Vol\n")
+    for o in oChain:
+        f.write("{}, {}, {}, {}, {}, {:5.2f}, {:5.2f}, {:5.3f}, {:5.2f}, {:5.5f}\n".format(o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9]))
+    f.flush()
+    f.close()
 
 # TODO: convert the two functions below to call the get_options_change function and use the Greek values returned by it to effect the change in premium. The use the list of options chain to get the 
 # change in gamma since that isn't always 0.01 but I couldn't find any info on how gamma changes just that its a second order derrivate of the price. I guess that means its the change of the change
@@ -136,16 +143,17 @@ if __name__ == '__main__':
 
     strategies = ["SINGLE", "ANALYTICAL", "COVERED", "VERTICAL", "CALENDAR", "STRANGLE", "STRADDLE", "BUTTERFLY", "CONDOR", "DIAGONAL", "COLLAR", "ROLL"]
     
-    oChain = get_options_chain("AMD", option_type="PUT")
+    oChain = get_options_chain("SPY", option_type="PUT", days_til_expiry=30)
     # oChain.sort(key=sortOptionsByRewardToRisk, reverse=True)
     # print("Sorted By Reward to Risk:")
     # printChain(oChain)
     # oChain.sort(key=sortOptionsByTotalProfit, reverse=True)
     # print("Sorted By Total Profit:")
     # printChain(oChain)
-    print("Sorted by % move to break even")
+    print("Sorted by implied volatility")
     oChain.sort(key=sortOptionsByIV)
-    printChain(oChain)
+    # printChain(oChain)
+    saveChainToCSV(oChain, "SPY Put Data")
 
     exit(1)
 

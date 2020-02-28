@@ -558,7 +558,81 @@ def binary_search(arr, l, r, key_index, key):
 
     return -1
 
-def get_price_delta_distribution(ticker, year="ALL", verbose=False):
+def get_price_delta_distribution_with_threshold(ticker, year="ALL", threshold=0, verbose=False, figure=1):
+    price_deltas = []
+    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+            ticker + "_TIME_SERIES_DAILYData.csv")
+    
+    last_price = None
+    for series_data in time_series[::-1].iterrows():
+        if last_price == None:
+            last_price = float(series_data[1][2])
+            continue
+
+        curr_price = float(series_data[1][2])
+        delta = ((curr_price - last_price) / last_price) * 100
+        # print(series_data)
+        if threshold == 0:
+            price_deltas.append(delta)    
+        elif threshold > 0 and delta >= threshold:
+            price_deltas.append(delta)
+        elif threshold < 0 and delta <= threshold:
+            price_deltas.append(delta)
+        last_price = curr_price
+        
+
+    if verbose == True:
+        plot_histo(price_deltas, "% Price Moves " + ticker, "% Move", figure=figure)
+
+    return price_deltas
+
+def get_next_day_price_delta_with_threshold(ticker, year="ALL", threshold=0, verbose=False, figure=1):
+    prices = []
+    nPrice_deltas = []
+    price_deltas = []
+    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+            ticker + "_TIME_SERIES_DAILYData.csv")
+    
+    for series_data in time_series[::-1].iterrows():
+        openPrice = float(series_data[1][1])
+        closePrice = float(series_data[1][4])
+        prices.append((openPrice, closePrice))
+
+    for i in range(1, len(prices) - 1): # run until -1 beause we can't get tommorows price action for the most current data point since that is the last day.
+        #### Current Day's Price Action ####
+        openPrice = prices[i][0]
+        closePrice = prices[i][1]
+        delta = ((closePrice - openPrice) / openPrice) * 100
+
+        #### Next Day's Price Action ####
+    
+        nOpenPrice = prices[i+1][0]
+        nClosePrice = prices[i+1][1]
+
+        nDelta = ((nClosePrice - nOpenPrice) / nOpenPrice) * 100
+
+        # print(series_data)
+        if threshold == 0:
+            nPrice_deltas.append(nDelta)
+            price_deltas.append(delta)
+        elif threshold > 0 and delta >= threshold:
+            nPrice_deltas.append(nDelta)
+            price_deltas.append(delta)
+        elif threshold < 0 and delta <= threshold:
+            nPrice_deltas.append(nDelta)
+            price_deltas.append(delta)
+        
+
+    if verbose == True:
+        corr_matrix = np.corrcoef(price_deltas, nPrice_deltas)
+        print(corr_matrix)
+        plot_scatter(price_deltas, nPrice_deltas, "delta at t", "delta at t+1", "% Price Moves", figure=figure+2)
+        plot_correlation_matrix(corr_matrix, ["Move > " + str(threshold) + "%", "Next Day Move"], figure=figure+1)
+        plot_histo(price_deltas, ticker + "\n % Price Moves\nDay After a " + str(threshold) + "% Move", "% Move", figure=figure)
+
+    return nPrice_deltas
+
+def get_price_delta_distribution(ticker, year="ALL", verbose=False, figure=1):
     price_deltas = []
     time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
             ticker + "_TIME_SERIES_DAILYData.csv")
@@ -573,11 +647,12 @@ def get_price_delta_distribution(ticker, year="ALL", verbose=False):
         
         curr_price = float(series_data[1][2])
         delta = ((curr_price - last_price) / last_price) * 100
+
         last_price = curr_price
         price_deltas.append(delta)
 
     if verbose == True:
-        plot_histo(price_deltas, "% Price Moves " + ticker, "% Move",)
+        plot_histo(price_deltas, "% Price Moves " + ticker, "% Move", figure=figure)
 
     return price_deltas
 
@@ -601,6 +676,7 @@ def get_EMA(closingPrice,lastEmaValue, period):
 def get_MACD_threshold_move_distribution(tickers, year, macd_threshold):
 	#todo: complete the MACD calculation 
 	return ""
+
 def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False):
     history = []
     price_deltas = []
@@ -817,7 +893,7 @@ def plot_scatter(x, y, x_label, y_label, title, figure=1):
     plt.scatter(x, y, color='r')
     plt.xlabel(x_label)
     plt.ylabel(y_label)
-    plt.title('len(oversold) to % move scatter plot')
+    plt.title(title)
 
 # series_types = ["close", "open", "high", "low"]
 # technicals = ["RSI"]
@@ -885,8 +961,12 @@ def sample_randomly(data, n_samples):
 
 # plt.show()
 # exit(1)
+all_price_deltas = get_price_delta_distribution("SPY", verbose=True, figure=1)
+big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=True, figure=2)
+next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=True, figure=3)
 
-all_price_deltas = get_price_delta_distribution("AMD", verbose=False)
+plt.show()
+exit(1)
 sub_sample = sample_randomly(all_price_deltas, 54)
 plot_histo(all_price_deltas, "All Moves", "% Moves", 1)
 plot_histo(sub_sample, "Subsample Moves", "% Moves", 2)

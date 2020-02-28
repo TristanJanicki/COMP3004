@@ -128,7 +128,7 @@ if __name__ == '__main__':
 
     strategies = ["SINGLE", "ANALYTICAL", "COVERED", "VERTICAL", "CALENDAR", "STRANGLE", "STRADDLE", "BUTTERFLY", "CONDOR", "DIAGONAL", "COLLAR", "ROLL"]
     
-    oChain = get_options_chain("AMD", option_type="PUT", days_til_expiry=15)
+    oChain = get_options_chain("XLE", option_type="PUT", days_til_expiry=15)
     # oChain.sort(key=sortOptionsByRewardToRisk, reverse=True)
     # print("Sorted By Reward to Risk:")
     # printChain(oChain)
