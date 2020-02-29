@@ -6,7 +6,8 @@ import requests
 import csv
 import time
 import sys
-from technicals import getPriceData,getTechnicalData
+import os
+import technicals
 
 def getTickerData(filename,dataset):
 	f=open(filename,"r")
