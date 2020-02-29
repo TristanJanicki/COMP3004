@@ -1,5 +1,7 @@
 # run loops that update every permutation of api parameters
 
+# use the dataset files to get the name of every nasdaq and S&P500 listed company
+
 technicals = ["ADX", "ATR", "AROONOSC", "SAR", "RSI", "ROCR", "MFI", "TRIX", "PPO"]
 tickers = ["AMD"]#["NVDA", "AMD", "APH", "APHA", "BKNG", "BIDU", "CGC", "CSIQ", "GRUB", "MSFT", "ROKU", "SHOP", "SPY", "TSLA", "TWLO", "WIX", "ZBRA"]
 api_call_count = 0
