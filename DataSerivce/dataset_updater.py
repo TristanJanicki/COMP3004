@@ -6,7 +6,6 @@ import requests
 import csv
 import time
 import sys
-sys.path.append('COMP3004/DataSerivce/')
 from technicals import getPriceData,getTechnicalData
 
 def getTickerData(filename,dataset):
@@ -33,12 +32,13 @@ technicals = "SMA,EMA,WMA,DEMA,TEMA,TRIMA,KAMA,MAMA,VWAP,T3,MACD,MACDEXT,STOCH,S
 tickers = getTickersFromDatasets()
 api_call_count = 0
 
-series_types = ["close"]#, "open", "high", "low"]
+series_types = ["close", "open", "high", "low"]
 technicals = ["RSI"] # theres a huge list of technicals available at https://www.alphavantage.co/documentation/
 time_periods = ["14"]
 time_intervals = ["5min"]
 time_series_types = ["INTRA_DAY" "DAILY", "DAILY_ADJUSTED", "WEEKLY", "WEEKLY_ADJUSTED", "MONTHLY"]
-
+# 5 per minute
+# 500 per day
 for tpt in time_series_types:
    for ticker in tickers:
         for s in series_types:
