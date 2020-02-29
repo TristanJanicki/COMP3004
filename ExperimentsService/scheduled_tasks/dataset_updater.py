@@ -1,9 +1,10 @@
 # run loops that update every permutation of api parameters
 
 # use the dataset files to get the name of every nasdaq and S&P500 listed company
+# get all the api parameters from alpha vantage, i think this loop is missing some time intervals
 
-technicals = ["ADX", "ATR", "AROONOSC", "SAR", "RSI", "ROCR", "MFI", "TRIX", "PPO"]
-tickers = ["AMD"]#["NVDA", "AMD", "APH", "APHA", "BKNG", "BIDU", "CGC", "CSIQ", "GRUB", "MSFT", "ROKU", "SHOP", "SPY", "TSLA", "TWLO", "WIX", "ZBRA"]
+technicals = "SMA,EMA,WMA,DEMA,TEMA,TRIMA,KAMA,MAMA,VWAP,T3,MACD,MACDEXT,STOCH,STOCHF,RSI,STOCHRSI,WILLR,ADX,ADXR,APO,PPO,MOM,BOP,CCI,CMO,ROC,ROCR,AROON,AROONOSC,MFI,TRIX,ULTOSC,DX,MINUS_DI,PLUS_DI,MINUS_DM,PLUS_DM,BBANDS,MIDPOINT,MIDPRICE,SAR,TRANGE,ATR,NATR,AD,ADOSC,OBV,HT_TRENDLINE,HT_SINE,HT_TRENDMODE,HT_DCPERIOD,HT_DCPHASE,HT_PHASOR".split(",")
+tickers = getTickersFromDatasets()
 api_call_count = 0
 
 series_types = ["close"]#, "open", "high", "low"]
