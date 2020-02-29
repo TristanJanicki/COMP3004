@@ -26,6 +26,17 @@ import concurrent.futures
 # Y = source a list of price movements in percentage for n (start with 5) day periods
 # fit and see what happens
 
+def getAssetCorrelation(asset_1, asset_2):
+    # TODO: add forex support
+    d1 = get_price_delta_distribution(asset_1)
+    d2 = get_price_delta_distribution(asset_2)
+    if len(d1) != len(d2):
+        new_length = min(len(d1), len(d2))
+        d1 = sample_randomly(d1, new_length)
+        d2 = sample_randomly(d2, len(d2))
+    corr_matrix = np.corrcoef(d1, d2)
+    return corr_matrix
+
 
 def load_technical_data(ticker, function, extended_function_name=""):
     path = "./Stock_Data/" + ticker + "_" + \
@@ -686,7 +697,7 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
         days_above_threshold = 0
 
         data = load_technical_data(ticker, "RSI", "14dailyclose")
-
+        
         time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
                                   ticker + "_TIME_SERIES_DAILYData.csv")
         prices = []
@@ -825,8 +836,7 @@ def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, v
         if abs(corr[0][0]) > max_corr:
             max_corr = abs(corr[0][0])
             best_threshold = i
-    print("Best Correlation(", max_corr,
-          ") was for Days From Inversion = ", best_threshold)
+    print("Best Correlation(", max_corr,") was for Days From Inversion = ", best_threshold)
     return best_threshold
 
 
@@ -847,16 +857,17 @@ def get_optimal_rsi_threshold(ticker, year="ALL", days_from_inversion_threshold=
         threshold_history.append(i)
         pd_mean_history.append(price_delta_mean)
 
-    plot_scatter(threshold_history, pd_mean_history,
-                 "RSI Threshold", "Mean % Move", 1)
-    plot_scatter(threshold_history, dispersion_history, "RSI Threshold",
-                 "Dispersion Index of % Moves", "Dispersion Indexes", 2)
     corr = np.corrcoef(amalgamate_data(
-        pd_mean_history, dispersion_history, threshold_history))
-    plot_correlation_matrix(
-        corr, ["Price Delta History", "Dispersion History", "Threshold History"], 3)
-    print("Correlation: ", corr)
-    plt.show()
+            pd_mean_history, dispersion_history, threshold_history))
+    if verbose == True:
+        plot_scatter(threshold_history, pd_mean_history,
+                    "RSI Threshold", "Mean % Move", 1)
+        plot_scatter(threshold_history, dispersion_history, "RSI Threshold",
+                    "Dispersion Index of % Moves", "Dispersion Indexes", 2)
+        plot_correlation_matrix(
+            corr, ["Price Delta History", "Dispersion History", "Threshold History"], 3)
+        print("Correlation: ", corr)
+        plt.show()
 
 
 def plot_correlation_matrix(corr, labels, figure=1):
