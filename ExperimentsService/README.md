@@ -12,8 +12,9 @@ Don't forget to initialize the cron task on your production server. To do this r
 
 and add the line:
 
-*/10 * * * * /usr/bin/python ~/COMP3004/ExperimentsService/scheduled_tasks/experiment_updater.py >> experiment_updater_output.txt
-*/10 * * * * /usr/bin/python ~/COMP3004/ExperimentsService/scheduled_tasks/data_updater.py >> data_updater_output.txt
+* */23 * * * /usr/bin/python ~/COMP3004/ExperimentsService/scheduled_tasks/dataset_updater.py >> data_updater_output.txt
+* */01 * * * /usr/bin/python ~/COMP3004/ExperimentsService/scheduled_tasks/experiment_updater.py >> experiment_updater_output.txt
+* */2 * * * /usr/bin/python ~/COMP3004/ExperimentsSerivce/scheduled_tasks/experiment_updater.py >> experiment_updater_output.txt
 
 output from these files 
 
