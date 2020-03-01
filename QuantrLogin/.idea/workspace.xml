@@ -8,11 +8,13 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="info" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd7e5d06-3552-45b8-a478-d0a35ed1d505" name="Default Changelist" comment="">
+<<<<<<< HEAD
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/Authorization.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/wsb_transparent_logo.png" afterDir="false" />
@@ -23,8 +25,31 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+=======
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/datasets.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/scheduled_tasks/dataset_updater.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DataSerivce/scheduled_tasks/dataset_updater.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/scheduled_tasks/technicals.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DataSerivce/scheduled_tasks/technicals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/stock_data/AACG_RSI101mincloseData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/stock_data/AACG_RSI151mincloseData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/stock_data/AACG_RSI201mincloseData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/stock_data/AACG_RSI51mincloseData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/stock_data/AACG_SMA101mincloseData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/stock_data/AACG_SMA151mincloseData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/stock_data/AACG_SMA201mincloseData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/stock_data/AACG_SMA51mincloseData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/stock_data/AACG_TIME_SERIES_DAILYData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataSerivce/stock_data/AAL_RSI2001mincloseData.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ExperimentsService/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../ExperimentsService/README.md" afterDir="false" />
+<<<<<<< HEAD
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +60,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="3845363945313498" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_28" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -45,55 +70,156 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
+<<<<<<< HEAD
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+=======
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
+            <state relative-caret-position="850">
+              <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+<<<<<<< HEAD
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1099#2266#0" expanded="true" />
-                <element signature="e#2265#2266#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginDataSource.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="131">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/Result.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="56" lean-forward="true" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-            </state>
-          </provider>
           <provider selected="true" editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="43" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
             </state>
           </provider>
-          <provider editor-type-id="android-manifest" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+<<<<<<< HEAD
+            <state relative-caret-position="324">
+              <caret line="65" column="31" selection-start-line="65" selection-start-column="31" selection-end-line="65" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+=======
+            <state relative-caret-position="221">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+            <state relative-caret-position="221">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
+<<<<<<< HEAD
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml">
+          <provider selected="true" editor-type-id="android-designer2" />
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="595">
+              <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider editor-type-id="android-manifest" />
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+<<<<<<< HEAD
+            <state relative-caret-position="34">
+              <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
+=======
+            <state relative-caret-position="289">
+              <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
+=======
+            <state relative-caret-position="289">
+              <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="31" column="55" lean-forward="true" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+<<<<<<< HEAD
+            <state relative-caret-position="527">
+              <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+=======
+            <state relative-caret-position="391">
+              <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
             </state>
           </provider>
         </entry>
@@ -104,77 +230,229 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>DoInBack</find>
+      <find>button_Login</find>
+      <find>SignInResponse</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/MainLogin.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_authorization.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" />
+<<<<<<< HEAD
+=======
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml" />
+<<<<<<< HEAD
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
         <option value="$USER_HOME$/AndroidStudioProjects/QuantrLogin/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_authorization.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml" />
+=======
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+        <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/networking_statics.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginViewModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/network_responses/SignInResponse.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/SignUpHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/model/LoggedInUser.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/AsyncResponse.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/SignInHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginDataSource.java" />
+<<<<<<< HEAD
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="676" />
-    <option name="width" value="697" />
-    <option name="height" value="735" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="1912" />
+    <option name="y" value="-8" />
+    <option name="width" value="1696" />
+    <option name="height" value="1026" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
+=======
+      <pane id="ProjectPane" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+      <pane id="ProjectPane" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
           <expand>
             <path>
-              <item name="Quant.r Login" type="b2602c69:ProjectViewProjectNode" />
-              <item name="QuantrLogin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+<<<<<<< HEAD
+=======
             </path>
             <path>
-              <item name="Quant.r Login" type="b2602c69:ProjectViewProjectNode" />
-              <item name="QuantrLogin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="Quant.r Login" type="b2602c69:ProjectViewProjectNode" />
-              <item name="QuantrLogin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="Quant.r Login" type="b2602c69:ProjectViewProjectNode" />
-              <item name="QuantrLogin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="Quant.r Login" type="b2602c69:ProjectViewProjectNode" />
-              <item name="QuantrLogin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
             </path>
             <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+<<<<<<< HEAD
+=======
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+<<<<<<< HEAD
+=======
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+<<<<<<< HEAD
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="quantrlogin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="quantrlogin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+<<<<<<< HEAD
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="quantrlogin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="io" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+<<<<<<< HEAD
               <item name="Quant.r Login" type="b2602c69:ProjectViewProjectNode" />
               <item name="QuantrLogin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -182,6 +460,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="quantrlogin" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Quant.r Login" type="b2602c69:ProjectViewProjectNode" />
@@ -192,14 +471,65 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="quantrlogin" type="462c0819:PsiDirectoryNode" />
               <item name="login" type="462c0819:PsiDirectoryNode" />
+=======
+=======
             </path>
             <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="quantrlogin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="quantrlogin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="io" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+<<<<<<< HEAD
+              <item name="swagger" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="quantrlogin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="io" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="swagger" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+<<<<<<< HEAD
+              <item name="client" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+<<<<<<< HEAD
               <item name="Quant.r Login" type="b2602c69:ProjectViewProjectNode" />
               <item name="QuantrLogin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="drawable" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Quant.r Login" type="b2602c69:ProjectViewProjectNode" />
@@ -209,13 +539,89 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
               <item name="layout" type="462c0819:PsiDirectoryNode" />
+=======
+=======
+            </path>
+            <path>
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="quantrlogin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+<<<<<<< HEAD
+              <item name="ui" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="quantrlogin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="ui" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="login" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+            </path>
+            <path>
+              <item name="Quant.r Login" type="b2602c69:ProjectViewProjectNode" />
+              <item name="QuantrLogin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="values" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="io" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="swagger" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="client" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="quantrlogin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="ui" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="quantrlogin" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="ui" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="login" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
+<<<<<<< HEAD
       <pane id="Scope" />
+=======
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
       <pane id="AndroidView" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -227,7 +633,7 @@
     <property name="project.structure.last.edited" value="Suggestions" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="PsdUISettings">
     <option name="MODULE_TAB" value="Properties" />
@@ -235,6 +641,10 @@
     <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+      <recent name="com.example.quantrlogin" />
+    </key>
     <key name="android.template.packageName">
       <recent name="com.example.quantrlogin" />
     </key>
@@ -352,32 +762,60 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="1912" y="-8" width="1696" height="1026" extended-state="7" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" weight="0.5102041" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2375189" />
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.25427872" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.25427872" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
       <window_info id="Designer" order="6" />
-      <window_info id="Resources Explorer" order="7" weight="0.3290469" />
+      <window_info id="Resources Explorer" order="7" weight="0.32885087" />
       <window_info id="Capture Tool" order="8" />
       <window_info id="UI Designer" order="9" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.84568834" visible="true" weight="0.06546645" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.618003" weight="0.3502455" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" />
-      <window_info anchor="bottom" id="Logcat" order="3" sideWeight="0.8033283" weight="0.3927987" />
+      <window_info anchor="bottom" id="Logcat" order="3" sideWeight="0.7980333" weight="0.39116204" />
+      <window_info anchor="bottom" id="TODO" order="4" sideWeight="0.4969743" weight="0.32569557" />
+      <window_info anchor="bottom" id="Debug" order="5" />
+      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49621785" weight="0.3289689" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.55521935" side_tool="true" visible="true" weight="0.31260228" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4969743" weight="0.32733223" />
+      <window_info anchor="bottom" id="Build" order="11" sideWeight="0.44478065" visible="true" weight="0.31260228" />
+=======
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.8449665" weight="0.19484882" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info anchor="bottom" id="Logcat" order="3" sideWeight="0.8033283" weight="0.16997167" />
       <window_info anchor="bottom" id="TODO" order="4" sideWeight="0.49848714" weight="0.32733223" />
       <window_info anchor="bottom" id="Debug" order="5" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49755502" weight="0.33388704" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.15431164" side_tool="true" visible="true" weight="0.06546645" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4966443" weight="0.33286119" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.15503356" side_tool="true" weight="0.38243628" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49848714" weight="0.3289689" />
-      <window_info anchor="bottom" id="Build" order="11" sideWeight="0.7420575" weight="0.31260228" />
-      <window_info anchor="bottom" id="Android Profiler" order="12" sideWeight="0.49924356" weight="0.3289689" />
+      <window_info anchor="bottom" id="Build" order="11" sideWeight="0.60268456" visible="true" weight="0.26539755" />
+<<<<<<< HEAD
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+      <window_info anchor="bottom" id="Android Profiler" order="12" show_stripe_button="false" sideWeight="0.49924356" weight="0.3289689" />
       <window_info anchor="bottom" id="Android Monitor" order="13" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Device File Explorer" order="1" side_tool="true" />
@@ -387,8 +825,16 @@
       <window_info anchor="right" id="Gradle" order="5" />
       <window_info anchor="right" id="Theme Preview" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
+<<<<<<< HEAD
+<<<<<<< HEAD
       <window_info anchor="right" id="Assistant" order="8" visible="true" weight="0.32970452" />
+      <window_info anchor="right" id="Preview" order="9" weight="0.04236006" />
+=======
+=======
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+      <window_info anchor="right" id="Assistant" order="8" weight="0.3295302" />
       <window_info anchor="right" id="Preview" order="9" weight="0.08791209" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
       <window_info anchor="right" id="Palette" order="10" />
       <window_info anchor="right" id="Android Model" order="11" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="12" />
@@ -406,18 +852,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v24/wsb_logo.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/wsb_transparent_logo.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -425,37 +859,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/model/LoggedInUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Quant.r Login.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoggedInUserView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Quant.r Login.iml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/MainLogin.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/Test.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/MainActivity.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/Result.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/Authorization.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -470,6 +877,15 @@
       <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="android-designer2" />
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$USER_HOME$/AndroidStudioProjects/QuantrLogin/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+=======
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -485,20 +901,8 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="23" column="27" lean-forward="true" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AndroidStudioProjects/QuantrLogin/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/AndroidStudioProjects/QuantrLogin/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -509,10 +913,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AndroidStudioProjects/QuantrLogin/app/src/main/res/layout/activity_sign_up.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
+    <entry file="file://$USER_HOME$/AndroidStudioProjects/QuantrLogin/app/src/main/res/layout/activity_sign_up.xml" />
     <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/view/View.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
@@ -520,60 +921,542 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/4.3.1/99722dff14c022974055d1390bddb977cb4012be/okhttp-4.3.1-sources.jar!/okhttp3/Response.kt">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/4.3.1/99722dff14c022974055d1390bddb977cb4012be/okhttp-4.3.1-sources.jar!/okhttp3/Response.kt" />
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/4.3.1/99722dff14c022974055d1390bddb977cb4012be/okhttp-4.3.1-sources.jar!/okhttp3/Call.kt" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/Result.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="136">
+          <caret line="8" column="5" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="8" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/4.3.1/99722dff14c022974055d1390bddb977cb4012be/okhttp-4.3.1-sources.jar!/okhttp3/Call.kt">
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/content/Context.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="54" column="23" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
+        <state relative-caret-position="1131">
+          <caret line="164" column="40" selection-start-line="164" selection-start-column="40" selection-end-line="164" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginFormState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginViewModelFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v24/wsb_logo.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/wsb_transparent_logo.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/password_icon.JPG">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginViewModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_authorization.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="38" column="34" selection-start-line="38" selection-start-column="34" selection-end-line="38" selection-end-column="34" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="31" column="55" lean-forward="true" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+        <state relative-caret-position="527">
+          <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java">
+=======
+    <entry file="file://$PROJECT_DIR$/Quant.r Login.iml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/MainLogin.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/Test.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/MainActivity.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/Authorization.java">
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="65" column="31" selection-start-line="65" selection-start-column="31" selection-end-line="65" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+=======
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/4.4.0/fca6693917912b08aae229412e3b295492fc024e/okhttp-4.4.0-sources.jar!/okhttp3/Response.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="304" column="15" selection-start-line="304" selection-start-column="15" selection-end-line="304" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.project">
+      <provider selected="true" editor-type-id="text-editor" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="34">
+          <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
+=======
+        <state relative-caret-position="221">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml">
+<<<<<<< HEAD
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+=======
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="40" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="32" column="33" lean-forward="true" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/networking_statics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="92" lean-forward="true" selection-start-line="3" selection-start-column="92" selection-end-line="3" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginFormState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="38" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoggedInUserView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+        </state>
+      </provider>
+=======
+    <entry file="file://$USER_HOME$/AndroidStudioProjects/QuantrLogin/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java" />
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/network_responses/SignInResponse.java" />
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/org/json/JSONObject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="21" />
+          <folding>
+            <element signature="e#418#531#0" />
+            <element signature="e#537#641#0" />
+            <element signature="e#647#775#0" />
+            <element signature="e#859#982#0" />
+            <element signature="e#988#1110#0" />
+            <element signature="e#1116#1235#0" />
+            <element signature="e#1241#1361#0" />
+            <element signature="e#1367#1489#0" />
+            <element signature="e#1495#1620#0" />
+            <element signature="e#1626#1755#0" />
+            <element signature="e#2036#2140#0" />
+            <element signature="e#2235#2347#0" />
+            <element signature="e#2450#2559#0" />
+            <element signature="e#2565#2675#0" />
+            <element signature="e#2888#2992#0" />
+            <element signature="e#3190#3296#0" />
+            <element signature="e#3499#3609#0" />
+            <element signature="e#3822#3938#0" />
+            <element signature="e#4045#4163#0" />
+            <element signature="e#4272#4391#0" />
+            <element signature="e#4652#4766#0" />
+            <element signature="e#4772#4896#0" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginDataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/model/LoggedInUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+          <folding>
+            <element signature="docComment;class#LoggedInUser#0" />
+            <element signature="method#LoggedInUser#0;class#LoggedInUser#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/os/AsyncTask.class">
+=======
+    <entry file="file://$USER_HOME$/AndroidStudioProjects/QuantrLogin/app/src/main/res/layout/activity_sign_up.xml" />
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/view/View.class">
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="54" column="24" selection-start-line="54" selection-start-column="24" selection-end-line="54" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/AsyncResponse.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/SignUpHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding>
+            <element signature="method#logout#0;class#LoginRepository#0" />
+            <element signature="method#setLoggedInUser#0;class#LoginRepository#0" />
+          </folding>
+=======
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/4.3.1/99722dff14c022974055d1390bddb977cb4012be/okhttp-4.3.1-sources.jar!/okhttp3/Response.kt" />
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/4.3.1/99722dff14c022974055d1390bddb977cb4012be/okhttp-4.3.1-sources.jar!/okhttp3/Call.kt" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/Result.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="5" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="8" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/content/Context.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1131">
+          <caret line="164" column="40" selection-start-line="164" selection-start-column="40" selection-end-line="164" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="43" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
+        <state relative-caret-position="289">
+          <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
         </state>
       </provider>
       <provider editor-type-id="android-manifest" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginDataSource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="56" lean-forward="true" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
+        <state relative-caret-position="323">
+          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+=======
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/4.4.0/fca6693917912b08aae229412e3b295492fc024e/okhttp-4.4.0-sources.jar!/okhttp3/Response.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="304" column="15" selection-start-line="304" selection-start-column="15" selection-end-line="304" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.project">
+      <provider selected="true" editor-type-id="text-editor" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="102">
+          <caret line="31" column="23" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+=======
+        <state relative-caret-position="221">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginViewModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+          <folding>
+            <element signature="method#isUserNameValid#0;class#LoginViewModel#0" />
+            <element signature="method#isPasswordValid#0;class#LoginViewModel#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/SignInHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="56" column="33" selection-start-line="56" selection-start-column="33" selection-end-line="56" selection-end-column="33" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+=======
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="40" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="40" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/networking_statics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="92" lean-forward="true" selection-start-line="3" selection-start-column="92" selection-end-line="3" selection-end-column="92" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginFormState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="38" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoggedInUserView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/network_responses/SignInResponse.java" />
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/org/json/JSONObject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="21" />
+          <folding>
+            <element signature="e#418#531#0" />
+            <element signature="e#537#641#0" />
+            <element signature="e#647#775#0" />
+            <element signature="e#859#982#0" />
+            <element signature="e#988#1110#0" />
+            <element signature="e#1116#1235#0" />
+            <element signature="e#1241#1361#0" />
+            <element signature="e#1367#1489#0" />
+            <element signature="e#1495#1620#0" />
+            <element signature="e#1626#1755#0" />
+            <element signature="e#2036#2140#0" />
+            <element signature="e#2235#2347#0" />
+            <element signature="e#2450#2559#0" />
+            <element signature="e#2565#2675#0" />
+            <element signature="e#2888#2992#0" />
+            <element signature="e#3190#3296#0" />
+            <element signature="e#3499#3609#0" />
+            <element signature="e#3822#3938#0" />
+            <element signature="e#4045#4163#0" />
+            <element signature="e#4272#4391#0" />
+            <element signature="e#4652#4766#0" />
+            <element signature="e#4772#4896#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/model/LoggedInUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+          <folding>
+            <element signature="docComment;class#LoggedInUser#0" />
+            <element signature="method#LoggedInUser#0;class#LoggedInUser#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-28/android.jar!/android/os/AsyncTask.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="54" column="24" selection-start-line="54" selection-start-column="24" selection-end-line="54" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/AsyncResponse.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/SignUp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
+        <state relative-caret-position="850">
+          <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1099#2266#0" expanded="true" />
-            <element signature="e#2265#2266#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/SignUpHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding>
+            <element signature="method#logout#0;class#LoginRepository#0" />
+            <element signature="method#setLoggedInUser#0;class#LoginRepository#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginDataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="31" column="23" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginViewModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+          <folding>
+            <element signature="method#isUserNameValid#0;class#LoginViewModel#0" />
+            <element signature="method#isPasswordValid#0;class#LoginViewModel#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/SignInHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="56" column="33" selection-start-line="56" selection-start-column="33" selection-end-line="56" selection-end-column="33" />
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/Result.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
         </state>
       </provider>
     </entry>

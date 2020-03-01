@@ -1,6 +1,9 @@
 package com.example.quantrlogin.data;
 
+import android.os.AsyncTask;
+
 import com.example.quantrlogin.data.model.LoggedInUser;
+import networking_handlers.SignInHandler;
 
 import java.io.IOException;
 
@@ -12,12 +15,14 @@ public class LoginDataSource {
     public Result<LoggedInUser> login(String username, String password) {
 
         try {
+
+            SignInHandler signInHandler = new SignInHandler(username, password);
+            AsyncTask result = signInHandler.execute();
+
+            System.out.println(result.get());
             // TODO: handle loggedInUser authentication
-            LoggedInUser fakeUser =
-                    new LoggedInUser(
-                            java.util.UUID.randomUUID().toString(),
-                            "Jane Doe");
-            return new Result.Success<>(fakeUser);
+
+            return new Result.Success<>(null);
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }

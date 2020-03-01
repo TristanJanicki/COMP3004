@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+- Worked on assigned app pages (front end development)
+=======
+- Worked on assigned app pages (front end development)
+>>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+on android studio

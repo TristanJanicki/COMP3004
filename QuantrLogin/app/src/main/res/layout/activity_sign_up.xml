@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".ui.login.SignUp">
 
     <EditText
@@ -14,6 +15,11 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:text="@string/email"
+        android:textColor="#FFF"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:textColorHint="#FFF"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:textCursorDrawable="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +28,7 @@
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/signup_username"
         android:layout_width="335dp"
         android:layout_height="53dp"
         android:layout_marginTop="180dp"
@@ -30,6 +36,11 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/username"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:textColorHint="#FFF"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:textCursorDrawable="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -49,13 +60,24 @@
             android:id="@+id/freeSubscription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/freemium" />
+            android:text="@string/freemium"
+            android:textColor="#FFF"
+            android:textColorHighlight="@color/colorPrimaryDark"
+            android:textColorHint="#FFF"
+            android:textColorLink="@color/colorPrimaryDark"
+            android:textCursorDrawable="@color/colorPrimaryDark" />
 
         <RadioButton
             android:id="@+id/paidSubscription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/premium" />
+            android:text="@string/premium"
+            android:textColor="#FFF"
+            android:textColorHighlight="@color/colorPrimaryDark"
+            android:textColorHint="#FFF"
+            android:textColorLink="@color/colorPrimaryDark"
+            android:textCursorDrawable="@color/colorPrimaryDark"
+            android:textIsSelectable="false" />
     </RadioGroup>
 
     <CheckBox
@@ -64,6 +86,7 @@
         android:layout_height="32dp"
         android:layout_marginTop="68dp"
         android:text="@string/termsOfService"
+        android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.948"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +112,7 @@
         android:fontFamily="monospace"
         android:text="@string/quantr"
         android:textAlignment="center"
-        android:textColor="#2FA533"
+        android:textColor="@color/colorAccent"
         android:textSize="45sp"
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="22dp" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier2"
