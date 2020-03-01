@@ -88,10 +88,6 @@ public class SignUp extends AppCompatActivity {
 //                    }
 //                });
 
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
                 final OkHttpClient client = new OkHttpClient().newBuilder()
                         .build();
                 MediaType mediaType = MediaType.parse("application/json");
@@ -153,10 +149,7 @@ public class SignUp extends AppCompatActivity {
 //                        }
 //                    }
 //                });
-=======
->>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
-=======
->>>>>>> 8c6bd97091b74c64b7ebeb7a1ffb243af0c5885d
+
             }
         });
     }
