@@ -58,7 +58,7 @@ time_periods = ["5", "10", "15", "20", "100", "200"]
 time_series_types = ["INTRA_DAY" "DAILY",
                      "DAILY_ADJUSTED", "WEEKLY", "WEEKLY_ADJUSTED", "MONTHLY"]
 
-api_keys = ["3284ADU2OA9K1TMP", "MQB8T0YUNFCKRXY3"]
+api_keys = ["3284ADU2OA9K1TMP", "MQB8T0YUNFCKRXY3", "0YFP4YQSAHYZ6ILZ", "BA49YIFTFXOURC9U"]
 api_limit_per_minute = 5 * len(api_keys)
 
 # 5 per minute
