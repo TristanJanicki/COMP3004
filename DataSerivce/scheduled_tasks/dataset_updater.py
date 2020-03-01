@@ -34,6 +34,7 @@ def getTickersFromDatasets():
     getTickerData("./datasets/otherlisted.txt", dataset)
     return dataset
 
+logging.basicConfig()
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 

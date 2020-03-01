@@ -14,6 +14,7 @@ import swagger_server.experiments as exp
 
 # initializing loggers and sql manager
 sqlManager = mysql.SqlManager()
+logging.basicConfig()
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
