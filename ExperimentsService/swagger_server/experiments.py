@@ -965,93 +965,94 @@ def sample_randomly(data, n_samples):
         sample.append(data[index])
     return sample
 
-# rsi_start = 74
-# rsi_end = 76
+if __name__ == "__main__":
+    # rsi_start = 74
+    # rsi_end = 76
 
-# test_many_scenarios(["AMD"], rsi_start, rsi_end, 7)
+    # test_many_scenarios(["AMD"], rsi_start, rsi_end, 7)
 
-# plt.show()
-# exit(1)
-all_price_deltas = get_price_delta_distribution("SPY", verbose=True, figure=1)
-big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=True, figure=2)
-next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=True, figure=3)
+    # plt.show()
+    # exit(1)
+    all_price_deltas = get_price_delta_distribution("SPY", verbose=True, figure=1)
+    big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=True, figure=2)
+    next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=True, figure=3)
 
-plt.show()
-exit(1)
-sub_sample = sample_randomly(all_price_deltas, 54)
-plot_histo(all_price_deltas, "All Moves", "% Moves", 1)
-plot_histo(sub_sample, "Subsample Moves", "% Moves", 2)
-_, _, _, rsi_price_deltas, _, _, _, _, _ = get_rsi_threshold_move_distribution(["AMD"], "ALL", 75, 1)
-plot_histo(rsi_price_deltas, "RSI Crosses Below 75 Moves", "% Moves", 3)
+    plt.show()
+    exit(1)
+    sub_sample = sample_randomly(all_price_deltas, 54)
+    plot_histo(all_price_deltas, "All Moves", "% Moves", 1)
+    plot_histo(sub_sample, "Subsample Moves", "% Moves", 2)
+    _, _, _, rsi_price_deltas, _, _, _, _, _ = get_rsi_threshold_move_distribution(["AMD"], "ALL", 75, 1)
+    plot_histo(rsi_price_deltas, "RSI Crosses Below 75 Moves", "% Moves", 3)
 
-t_test_t, t_test_p = st.ttest_ind(all_price_deltas, rsi_price_deltas)
+    t_test_t, t_test_p = st.ttest_ind(all_price_deltas, rsi_price_deltas)
 
-shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:4000]) # keep the sample size below 5,000 to avoid p-value warning
-shapiro_w2, shapiro_p2 = st.shapiro(rsi_price_deltas)
+    shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:4000]) # keep the sample size below 5,000 to avoid p-value warning
+    shapiro_w2, shapiro_p2 = st.shapiro(rsi_price_deltas)
 
-print("Population_N: ", len(all_price_deltas), "Sample_N: ", len(rsi_price_deltas))
-print("Shapiro Test Results")
-print("Population W: ", shapiro_w1, " P: ", shapiro_p1)
-print("Sample     W: ", shapiro_w2, " P: ", shapiro_p2)
+    print("Population_N: ", len(all_price_deltas), "Sample_N: ", len(rsi_price_deltas))
+    print("Shapiro Test Results")
+    print("Population W: ", shapiro_w1, " P: ", shapiro_p1)
+    print("Sample     W: ", shapiro_w2, " P: ", shapiro_p2)
 
-print("T Test Results")
-print("t = ", t_test_t)
-print("p = ", t_test_p)
+    print("T Test Results")
+    print("t = ", t_test_t)
+    print("p = ", t_test_p)
 
-plt.show()
+    plt.show()
 
-# get_optimal_rsi_threshold("AMD")
+    # get_optimal_rsi_threshold("AMD")
 
-# get_optimal_rsi_days_from_inversion("AMD")
+    # get_optimal_rsi_days_from_inversion("AMD")
 
-exit(1)
+    exit(1)
 
-decision_tree = DecisionTreeClassifier(
-    criterion="entropy", min_samples_split=20, random_state=99)
-guassian = GaussianNB()
-random_forest = RandomForestClassifier(
-    n_estimators=10)  # BEST FOR SPY ===> 75%
-knn_bagger = BaggingClassifier(KNeighborsClassifier(
-), max_samples=0.2, max_features=0.2, n_estimators=15)
-tree_bagger = BaggingClassifier(DecisionTreeClassifier(
-    criterion="entropy", min_samples_split=20, random_state=99), max_samples=1.0, n_estimators=15)
+    decision_tree = DecisionTreeClassifier(
+        criterion="entropy", min_samples_split=20, random_state=99)
+    guassian = GaussianNB()
+    random_forest = RandomForestClassifier(
+        n_estimators=10)  # BEST FOR SPY ===> 75%
+    knn_bagger = BaggingClassifier(KNeighborsClassifier(
+    ), max_samples=0.2, max_features=0.2, n_estimators=15)
+    tree_bagger = BaggingClassifier(DecisionTreeClassifier(
+        criterion="entropy", min_samples_split=20, random_state=99), max_samples=1.0, n_estimators=15)
 
-models = [decision_tree, guassian, random_forest, knn_bagger, tree_bagger]
+    models = [decision_tree, guassian, random_forest, knn_bagger, tree_bagger]
 
-###########################################################
-train_tickers = ["ACB", "BKNG", "BIDU", "CGC", "CSIQ", "GRUB",
-                 "MSFT", "ROKU", "SHOP", "TSLA", "TWLO", "WIX", "ZBRA"]
-# technicals = ["ADX", "ATR", "AROONOSC", "SAR", "RSI", "ROCR", "MFI", "TRIX", "PPO"]
-# TODO: Change the periods used in the PPO technical to reflect my short term trading, maybe 1, 2, 3 day or 1, 3, 5?
-technicals = ["ADX", "ATR", "AROONOSC", "SAR",
-              "RSI", "ROCR", "MFI", "TRIX", "PPO"]
+    ###########################################################
+    train_tickers = ["ACB", "BKNG", "BIDU", "CGC", "CSIQ", "GRUB",
+                    "MSFT", "ROKU", "SHOP", "TSLA", "TWLO", "WIX", "ZBRA"]
+    # technicals = ["ADX", "ATR", "AROONOSC", "SAR", "RSI", "ROCR", "MFI", "TRIX", "PPO"]
+    # TODO: Change the periods used in the PPO technical to reflect my short term trading, maybe 1, 2, 3 day or 1, 3, 5?
+    technicals = ["ADX", "ATR", "AROONOSC", "SAR",
+                "RSI", "ROCR", "MFI", "TRIX", "PPO"]
 
-x, labels, dates, ticker_data = get_data(
-    train_tickers, technicals, time_period=5, std_dev_threshold=-2, noise_ratio=4)
-X, Y, _, _, train_dates, _, _, _ = test_train_split(
-    x, labels, dates, ticker_data, 1)
+    x, labels, dates, ticker_data = get_data(
+        train_tickers, technicals, time_period=5, std_dev_threshold=-2, noise_ratio=4)
+    X, Y, _, _, train_dates, _, _, _ = test_train_split(
+        x, labels, dates, ticker_data, 1)
 
-test_tickers = ["APH", "APHA"]
-x_test, y_test, test_dates, test_ticker_data = get_data(
-    test_tickers, technicals, time_period=5, std_dev_threshold=-1.5, noise_ratio=4)
+    test_tickers = ["APH", "APHA"]
+    x_test, y_test, test_dates, test_ticker_data = get_data(
+        test_tickers, technicals, time_period=5, std_dev_threshold=-1.5, noise_ratio=4)
 
-print("First/Last Test Date: ", test_dates[0], test_dates[-1])
-print("Training on ", train_tickers, " data")
-print("Testing on ", test_tickers, " data")
+    print("First/Last Test Date: ", test_dates[0], test_dates[-1])
+    print("Training on ", train_tickers, " data")
+    print("Testing on ", test_tickers, " data")
 
-for clf in models:
-    clf.fit(X, Y)
-    # print("Feature Importance: ", clf.feature_importances_)
-    # the line below tests the model and returns a BUNCH of testing values, hence the line being so big.
-    print()
-    print("Test Values For: ", clf.__class__)
-    true, false, real_drops, true_negative, true_positive, false_negative, false_positive, sensitivity, specificity, positive_predictive_value, negative_predictive_value = test(
-        clf, x_test, y_test, test_dates, test_ticker_data, verbose=False)
-    print("Sensitivity ", sensitivity)
-    print("Real Drops ", real_drops)
-    print("True Positives (Profitable Trades)", true_positive)
-    print("False Positives (Incorrect Predictions, Lost Money)", false_positive)
-    print("Profitable Trades/Money Loosers",
-          ((true_positive + 0.0000000001)/(false_positive + 0.0000000001)))
-    print("False Negatives (Opportunity Cost)", false_negative)
-###########################################################
+    for clf in models:
+        clf.fit(X, Y)
+        # print("Feature Importance: ", clf.feature_importances_)
+        # the line below tests the model and returns a BUNCH of testing values, hence the line being so big.
+        print()
+        print("Test Values For: ", clf.__class__)
+        true, false, real_drops, true_negative, true_positive, false_negative, false_positive, sensitivity, specificity, positive_predictive_value, negative_predictive_value = test(
+            clf, x_test, y_test, test_dates, test_ticker_data, verbose=False)
+        print("Sensitivity ", sensitivity)
+        print("Real Drops ", real_drops)
+        print("True Positives (Profitable Trades)", true_positive)
+        print("False Positives (Incorrect Predictions, Lost Money)", false_positive)
+        print("Profitable Trades/Money Loosers",
+            ((true_positive + 0.0000000001)/(false_positive + 0.0000000001)))
+        print("False Negatives (Opportunity Cost)", false_negative)
+    ###########################################################

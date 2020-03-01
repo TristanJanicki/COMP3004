@@ -59,6 +59,8 @@ time_series_types = ["INTRA_DAY" "DAILY",
                      "DAILY_ADJUSTED", "WEEKLY", "WEEKLY_ADJUSTED", "MONTHLY"]
 
 api_keys = ["3284ADU2OA9K1TMP", "MQB8T0YUNFCKRXY3"]
+api_limit_per_minute = 5 * len(api_keys)
+
 # 5 per minute
 # 500 per day
 for tpt in time_series_types:
@@ -66,21 +68,25 @@ for tpt in time_series_types:
         for t in list_of_technicals:
             for i in time_intervals:
                 for ticker in tickers:
+                    if api_call_count == (500 * len(api_keys)):
+                        exit(1)
+
                     api_key = api_keys[api_call_count % len(api_keys)]
-                    api_limit_per_minute = 5 * len(api_keys)
                     if api_call_count > 0 and api_call_count % api_limit_per_minute == 0:
                         time.sleep(60)
                     logger.info(
                         ("about to get price data for", ticker, i, tpt, s))
                     _, exists = technicals.getPriceData(
-                        ticker, i, timer_series_type=tpt, api_key=api_key, series_type=s)
+                        ticker, i, time_series_type=tpt, api_key=api_key, series_type=s)
 
                     if exists == True:
                         api_call_count += 1
 
                     for tp in time_periods:
+                        if api_call_count == 500 * len(api_keys):
+                            exit(1)
                         api_key = api_keys[api_call_count % len(api_keys)]
-                        if api_call_count > 0 and api_call_count % 5 == 0:
+                        if api_call_count > 0 and api_call_count % api_limit_per_minute == 0:
                             time.sleep(60)
                         logger.info(("about to get technical data for ",
                                      ticker, t, tp, i, s))
@@ -88,4 +94,4 @@ for tpt in time_series_types:
                             t, ticker, tp, i, s, api_key=api_key)
 
                         if exists == True:
-                                api_call_count += 1
+                            api_call_count += 1

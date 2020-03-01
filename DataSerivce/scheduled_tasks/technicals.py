@@ -12,7 +12,7 @@ def genCSV(ticker, function, apiUrl, skip_existing=True):
         return path, True
     # csv
     r = requests.get(apiUrl)
-    if r.text.count("API call frequency") == 0:
+    if r.text.count("API call frequency") == 0 and r.text.count("does not exist"):
         with open(path, "a") as f:
             f.write(r.text)
             f.flush()
@@ -33,8 +33,8 @@ def getTechnicalData(technical, ticker, time_period="5", interval='daily', serie
     return path, exists
 
 
-def getPriceData(ticker, interval='daily', timer_series_type="DAILY", series_type='close', api_key="", return_csv_obj=False):
-    url = "https://www.alphavantage.co/query?function=TIME_SERIES_" + timer_series_type + "&outputsize=full&symbol=" + \
+def getPriceData(ticker, interval='daily', time_series_type="DAILY", series_type='close', api_key="", return_csv_obj=False):
+    url = "https://www.alphavantage.co/query?function=TIME_SERIES_" + time_series_type + "&outputsize=full&symbol=" + \
         ticker + "&interval=" + interval + "&series_type=" + \
         series_type + "&datatype=csv&apikey=" + api_key
     path, exists = genCSV(ticker, "TIME_SERIES_DAILY", url)

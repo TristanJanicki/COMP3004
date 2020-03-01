@@ -17,3 +17,8 @@ output from these files
 
 TODO: Fill Out Usage
 ## Usage
+nohup python scheduled_tasks/dataset_updater.py > nohup.out 2>&1 &
+echo $! > save_pid.txt
+
+To get the last file in a directory:
+ls stock_data -Art | tail -n 1
