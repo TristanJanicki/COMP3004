@@ -2,6 +2,7 @@
 from swagger_server.database_models.CorrelationExperiment import CorrelationExperiment
 from swagger_server.database_models.ThresholdExperiment import ThresholdExperiment
 import logging
+import sys
 
 # external library imports
 from sqlalchemy.sql import exists
@@ -13,9 +14,13 @@ from swagger_server.infrastructure.db.mysql import mysql
 import swagger_server.experiments as exp
 
 # initializing loggers and sql manager
-sqlManager = mysql.SqlManager()
 logging.basicConfig()
 logger = logging.getLogger()
+log_handler = logging.StreamHandler(sys.stdout)
+log_handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(funcName)s - line %(lineno)d"))
+log_handler.setLevel(logging.INFO)
+logger.addHandler(log_handler)
+logger.setLevel(logging.INFO)
 logger.setLevel(logging.INFO)
 
 thresholds = []
