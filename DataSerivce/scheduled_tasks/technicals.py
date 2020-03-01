@@ -24,8 +24,8 @@ def getTechnicalData(technical, ticker, time_period="5", interval='daily', serie
     if return_csv_obj == True:
         return csv.reader(open(path))
 
-def getPriceData(ticker, time_period="5", interval='daily', timer_series_type="DAILY", series_type='close', return_csv_obj=False):
-    url = "https://www.alphavantage.co/query?function=TIME_SERIES_"+ timer_series_type + "&outputsize=full&symbol=" + ticker + "&interval=" + interval +"&time_period=" + time_period + "&series_type=" + series_type + "&datatype=csv&apikey=MQB8T0YUNFCKRXY3"
+def getPriceData(ticker, interval='daily', timer_series_type="DAILY", series_type='close', return_csv_obj=False):
+    url = "https://www.alphavantage.co/query?function=TIME_SERIES_"+ timer_series_type + "&outputsize=full&symbol=" + ticker + "&interval=" + interval +"&series_type=" + series_type + "&datatype=csv&apikey=MQB8T0YUNFCKRXY3"
     path = genCSV(ticker, "TIME_SERIES_DAILY", url)
     if return_csv_obj == True:
         return csv.reader(open(path))
