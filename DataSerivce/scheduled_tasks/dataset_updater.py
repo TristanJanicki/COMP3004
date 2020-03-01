@@ -61,18 +61,18 @@ for tpt in time_series_types:
                 for i in time_intervals:
                     if api_call_count > 0 and api_call_count % 5 == 0:
                         time.sleep(60)
-                    logger.info("about to get price data for", i, tpt, s)
+                    logger.info(("about to get price data for", i, tpt, s))
                     technicals.getPriceData(
                         ticker, i, timer_series_type=tpt, series_type=s)
-                    logger.info("done getting price data for", i, tpt, s)
+                    logger.info(("done getting price data for", i, tpt, s))
 
                     api_call_count += 1
                     for tp in time_periods:
                         if api_call_count > 0 and api_call_count % 5 == 0:
                             time.sleep(60)
-                        logger.info("about to get technical data for ",
-                              t, ticker, tp, i, s)
+                        logger.info(("about to get technical data for ",
+                              t, ticker, tp, i, s))
                         technicals.getTechnicalData(t, ticker, tp, i, s)
-                        logger.info("done getting technical data for ",
-                              t, ticker, tp, i, s)
+                        logger.info(("done getting technical data for ",
+                              t, ticker, tp, i, s))
                         api_call_count += 1
