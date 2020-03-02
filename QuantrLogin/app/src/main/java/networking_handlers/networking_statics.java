@@ -1,5 +1,5 @@
 package networking_handlers;
 
 public final class networking_statics {
-    public final static String url = "http://ec2-54-210-130-190.compute-1.amazonaws.com:80";
+    public final static String url = "http://ec2-3-92-179-53.compute-1.amazonaws.com:80";
 }

@@ -1,7 +1,6 @@
 package networking_handlers;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.quantrlogin.data.Result;
 import com.example.quantrlogin.data.model.LoggedInUser;
@@ -11,9 +10,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.UUID;
 
+import networking_handlers.output.AuthChallengeRequiredParameters;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -24,7 +25,6 @@ import okhttp3.Response;
 public class SignInHandler extends AsyncTask<Void, Void, Result> {
     String username;
     String password;
-    private String url = "http://ec2-3-92-179-53.compute-1.amazonaws.com:80/v1/users/signup";
 
     public SignInHandler(String username, String password) {
         this.username = username;
@@ -33,44 +33,74 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
 
     @Override
     protected Result doInBackground(Void... voids) {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create("{\n \"email\": \"" + username + "\",password: \"" + password + "\"}", mediaType);
-        Request request = new Request.Builder()
-                .url(networking_statics.url + "/v1/users/sigin")
-                .method("POST", body)
-                .addHeader("Content-Type", "application/json")
-                .addHeader("X-Request-ID", UUID.randomUUID().toString())
-                .build();
-        Call c = client.newCall(request);//
-
         try {
-            Response r = c.execute();
-            Log.i("HTTP Response Body", r.body().string());
-            Log.i("HTTP Response", r.toString());
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
 
-            if (r.code() != 200){
-                return null; // TODO: figure out a better flow for this, error display or something
+            MediaType mediaType = MediaType.parse("application/json");
+            JSONObject json = new JSONObject();
+            json.put("email", username);
+            json.put("password", password);
+            System.out.println(json.toString());
+            RequestBody body = RequestBody.create(json.toString(), mediaType);
+            Request request = new Request.Builder()
+                    .url(networking_statics.url + "/v1/users/signin")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("X-Request-ID", UUID.randomUUID().toString())
+                    .build();
+            Call c = client.newCall(request);//
+
+            try {
+                Response r = c.execute();
+                JSONObject responseBody = new JSONObject(r.body().string());
+                if (r.code() == 307){
+                    AuthChallengeRequiredParameters params = new AuthChallengeRequiredParameters(
+                            username,
+                            responseBody.getString("sessionId"),
+                            responseBody.getString("challengeName")
+                    );
+                    return new Result.AuthChallengeRequired(params);
+                }else if (r.code() == 401){
+                    return new Result.Error(new Exception("not allowed"));
+                }else if (r.code() == 404){
+                    return new Result.Error(new Exception("not found"));
+                }else if (r.code() == 500){
+                    return new Result.Error(new Exception("server error"));
+                }
+                System.out.println(responseBody.getString("idToken"));
+                String[] tokenParts = responseBody.getString("idToken").split("\\.");
+
+                System.out.println(Arrays.toString(tokenParts));
+                String idTokenStr = new String(Base64.getDecoder().decode(tokenParts[1]), StandardCharsets.UTF_8);// TODO: ask Tristan what this does
+                JSONObject cognitoProfile = new JSONObject(idTokenStr);
+                System.out.println(cognitoProfile.toString());
+                String userID = cognitoProfile.getString("sub");
+                String refreshToken = responseBody.getString("refreshToken");
+                String accessToken = responseBody.getString("accessToken");
+
+
+                System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("first_name"), accessToken, idTokenStr, refreshToken, cognitoProfile));
+            } catch (IOException e) {
+                System.out.println("XXXX");
+                e.printStackTrace();
+                return new Result.Error(e);
+            }catch (JSONException e){
+                System.out.println("YYYYY");
+                System.out.println("Failed to parse JSON output");
+                e.printStackTrace();
+                return new Result.Error(e);
+            }catch (Exception e){
+                e.printStackTrace();
+                return new Result.Error(e);
             }
-            JSONObject responseObj = new JSONObject(r.body().string());
-            String idTokenStr = new String(Base64.getDecoder().decode(responseObj.getString("idToken")), StandardCharsets.UTF_8).split(".")[1];// TODO: ask Tristan what this does
-            JSONObject cognitoProfile = new JSONObject(idTokenStr);
-            String userID = cognitoProfile.getString("sub");
-            String refreshToken = responseObj.getString("refreshToken");
-            String accessToken = responseObj.getString("accessToken");
-
-
-
-            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("first_name"), accessToken, idTokenStr, refreshToken, cognitoProfile));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new Result.Error(e);
-        }catch (JSONException e){
-            System.out.println("Failed to parse JSON output");
-            e.printStackTrace();
-            return new Result.Error(e);
+        }catch (JSONException j){
+            System.out.println("ZZZZZZZZZZZ");
+            j.printStackTrace();
+            return new Result.Error(j);
         }
+
     }
 
 }
