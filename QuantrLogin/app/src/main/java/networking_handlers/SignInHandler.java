@@ -76,7 +76,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                 String accessToken = responseBody.getString("accessToken");
 
 
-                return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken, cognitoProfile));
+                return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken));
             } catch (IOException e) {
                 e.printStackTrace();
                 return new Result.Error(e);

@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     openAuthChallengeActivity(loginResult.getAuthChallenge());
                 }
                 if (loginResult.getSuccess() != null) {
-                    openHomeActivity();
+                    openHomeActivity(loginResult.getSuccess());
                     /*
                     //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
                     GetExperimentsHandler geh = new GetExperimentsHandler();
@@ -222,8 +222,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openHomeActivity() {
-        Intent intent = new Intent(this, HomeView.class);
+    public void openHomeActivity(LoggedInUser user) {
+        Intent intent = new Intent(this, HomeAcitvity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 
@@ -238,12 +239,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void updateUiWithUser(LoggedInUser model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
+    private void updateUiWithUser(LoggedInUser user) {
+        String welcome = getString(R.string.welcome) + user.getDisplayName();
 
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        openHomeActivity();
+        openHomeActivity(user);
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
