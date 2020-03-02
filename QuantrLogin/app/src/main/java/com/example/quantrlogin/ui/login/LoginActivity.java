@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     //////////////////////////////////////////////////////////// CREATE EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
 
-                    ThresholdExperiment input = new ThresholdExperiment("AMD", "TRIX");
+                    ThresholdExperiment input = new ThresholdExperiment("AMD", "TRIX", 101);
 
                     CreateExperimentsHandler ceh = new CreateExperimentsHandler();
                     ceh.execute(loginResult.getSuccess(), input);

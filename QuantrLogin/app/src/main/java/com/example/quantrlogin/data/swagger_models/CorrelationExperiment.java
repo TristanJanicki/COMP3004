@@ -1,5 +1,10 @@
 package com.example.quantrlogin.data.swagger_models;
 
+import androidx.annotation.NonNull;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CorrelationExperiment {
     private String asset_1, asset_2;
     float correlation;
@@ -27,5 +32,20 @@ public class CorrelationExperiment {
           db.getAsset_1(),
           db.getAsset_2(),
           db.getCorrelation());
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        try {
+            JSONObject str = new JSONObject();
+            str.put("asset_1", asset_1);
+            str.put("asset_2", asset_2);
+            str.put("correlation", correlation);
+            return str.toString();
+        }catch (JSONException j){
+            j.printStackTrace();
+            return "<>";
+        }
     }
 }

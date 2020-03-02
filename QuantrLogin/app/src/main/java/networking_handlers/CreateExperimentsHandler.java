@@ -42,11 +42,12 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             }else{
                 return new Result.Error(new Exception("Second argument must be of type Experiment"));
             }
-
+            System.out.println(jsonBody.toString());
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
             MediaType mediaType = MediaType.parse("application/json");
-            RequestBody body = RequestBody.create(mediaType, jsonBody.toString());
+//            RequestBody body = RequestBody.create(mediaType, jsonBody.toString());
+            RequestBody body = RequestBody.create(mediaType, "{\"experiment\": {\"indicator\": \"RSI\",\"threshold\": 49,\"ticker\": \"AMD\"}}");
             Request request = new Request.Builder()
                     .url(networking_statics.url + urlPostfix)
                     .method("POST", body)
@@ -59,16 +60,18 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
 
             Response r = c.execute();
             System.out.println("CODE: "+ r.code());
+            System.out.println("500 Error: " + r.message());
             switch (r.code()){
                 case 200:
                     return new Result.Success(200);
+                case 400:
+                    return new Result.Error(new Exception("Something went wrong"));
                 case 401:
                     return new Result.NotAllowed();
                 case 409:
                     return new Result.AlreadyExists();
                 case 500:
                     // TODO: add failed items to a Dead Letter Queue (we try to send these again later)
-                    System.out.println("500 Error: " + r.message());
                     return new Result.Error(new Exception(r.body().toString()));
             }
 
