@@ -1,9 +1,9 @@
 package networking_handlers;
 
 import android.os.AsyncTask;
-import android.util.JsonToken;
 import android.util.Log;
 
+import com.example.quantrlogin.data.Result;
 import com.example.quantrlogin.data.model.LoggedInUser;
 
 import org.json.JSONException;
@@ -21,7 +21,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class SignInHandler extends AsyncTask<Void, Void, LoggedInUser> {
+public class SignInHandler extends AsyncTask<Void, Void, Result> {
     String username;
     String password;
     private String url = "http://ec2-54-210-130-190.compute-1.amazonaws.com:80/v1/users/signup";
@@ -30,13 +30,9 @@ public class SignInHandler extends AsyncTask<Void, Void, LoggedInUser> {
         this.username = username;
         this.password = password;
     }
+
     @Override
-    protected void onPostExecute(LoggedInUser loggedInUser) {
-        System.out.println("on post execute");
-        super.onPostExecute(loggedInUser);
-    }
-    @Override
-    protected LoggedInUser doInBackground(Void... voids) {
+    protected Result doInBackground(Void... voids) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
@@ -66,10 +62,14 @@ public class SignInHandler extends AsyncTask<Void, Void, LoggedInUser> {
 
 
 
-            return new LoggedInUser(userID, cognitoProfile.getString("first_name"), accessToken, idTokenStr, refreshToken, cognitoProfile);
-        } catch (IOException | JSONException e) {
+            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("first_name"), accessToken, idTokenStr, refreshToken, cognitoProfile));
+        } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return new Result.Error(e);
+        }catch (JSONException e){
+            System.out.println("Failed to parse JSON output");
+            e.printStackTrace();
+            return new Result.Error(e);
         }
     }
 
