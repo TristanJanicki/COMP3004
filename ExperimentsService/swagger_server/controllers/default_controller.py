@@ -146,6 +146,7 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
 
         experiment = connexion.request.json["experiment"]
         existingCopy = None
+        print("1")
         try:
             existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(
                 ticker=experiment["ticker"], threshold=experiment["threshold"], indicator=experiment["indicator"]).one()
@@ -153,30 +154,38 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
             return ErrorResponse()
         # fill existing copy with a value from the db if there is one
         sqlManager.session.commit()
+        print("2")
 
         # the experiment already exists, lets check if it needs to be updated (last updated needs to be older than 1 day)
         if existingCopy != None:
             last_updated_at = existingCopy.last_updated_at
             days_since_update = datetime.now() - last_updated_at
+            print("3")
 
             if days_since_update.days > 1:
+                print("4")
                 existingCopy.status = "update_requested"
                 existingCopy.update_requested_at = datetime.now()
 
             if existingCopy.experiment_id not in usersExperiments:
+                print("5")
                 usersExperiments.append(existingCopy.experiment_id)
             else:
+                print("6")
                 return AlreadyExistsResponse()
         else:  # The experiment doesn't exist, lets create it
+            print("7")
             experiment_id = str(uuid.uuid4())
             dbExperiment = ThresholdExperiment(
                 experiment_id=experiment_id, indicator=experiment["indicator"], threshold=experiment["threshold"], ticker=experiment["ticker"], status="update_requested", update_requested_at=datetime.now(), last_updated_at=datetime.now())
             sqlManager.session.add(dbExperiment)
             usersExperiments.append(experiment_id)
 
+        print("8")
         user.experiments = ','.join(usersExperiments)
         sqlManager.session.commit()
     except:
+        print("9")
         sqlManager.session.rollback()
         return ErrorResponse()
 
