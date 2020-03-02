@@ -30,7 +30,7 @@ public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result>
                 .method("GET", null)
                 .addHeader("X-Request-ID", UUID.randomUUID().toString())
                 .addHeader("idToken", users[0].getIdToken())
-                .addHeader("user_id", users[0].getUserId())
+                .addHeader("user-id", users[0].getUserId())
                 .build();
         Call c = client.newCall(request);
 

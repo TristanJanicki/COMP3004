@@ -122,6 +122,8 @@ public class LoginActivity extends AppCompatActivity {
                             System.out.println("YOU CANT DO THAT!");
                         }else if (r instanceof Result.AlreadyExists){
                             System.out.println("That experiment exists already");
+                        }else{
+                            System.out.println("Unknown method response");
                         }
                     }catch (Exception e){
                         e.printStackTrace();

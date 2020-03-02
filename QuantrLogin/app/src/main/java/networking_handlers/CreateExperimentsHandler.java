@@ -3,14 +3,15 @@ package networking_handlers;
 import android.os.AsyncTask;
 
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
+import com.example.quantrlogin.data.swagger_models.CorrelationExperiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
-import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
+import com.example.quantrlogin.data.swagger_models.ThresholdExperiment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -34,10 +35,10 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             JSONObject jsonBody = new JSONObject();
             if (inputs[1] instanceof CorrelationExperiment){
                 urlPostfix += "/correlation";
-                jsonBody.putOpt("experiment", com.example.quantrlogin.data.swagger_models.CorrelationExperiment.convertDbModelToSwaggerModel((CorrelationExperiment) inputs[1]));
+                jsonBody.putOpt("experiment", inputs[1]);
             }else if(inputs[1] instanceof ThresholdExperiment){
                 urlPostfix += "/threshold";
-                jsonBody.putOpt("experiment", com.example.quantrlogin.data.swagger_models.ThresholdExperiment.convertDbModelToSwaggerModel((com.example.quantrlogin.data.swagger_models.ThresholdExperiment) inputs[1]));
+                jsonBody.putOpt("experiment", inputs[1]);
             }else{
                 return new Result.Error(new Exception("Second argument must be of type Experiment"));
             }
@@ -49,14 +50,15 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             Request request = new Request.Builder()
                     .url(networking_statics.url + urlPostfix)
                     .method("POST", body)
+                    .addHeader("X-Request-ID", UUID.randomUUID().toString())
                     .addHeader("idToken", user.getIdToken())
-                    .addHeader("user_id", user.getUserId())
+                    .addHeader("user-id", user.getUserId())
                     .addHeader("Content-Type", "application/json")
                     .build();
             Call c = client.newCall(request);
 
             Response r = c.execute();
-
+            System.out.println("CODE: "+ r.code());
             switch (r.code()){
                 case 200:
                     return new Result.Success(200);
@@ -66,6 +68,7 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
                     return new Result.AlreadyExists();
                 case 500:
                     // TODO: add failed items to a Dead Letter Queue (we try to send these again later)
+                    System.out.println("500 Error: " + r.message());
                     return new Result.Error(new Exception(r.body().toString()));
             }
 
