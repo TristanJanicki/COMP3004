@@ -26,4 +26,12 @@
     <string name="mySignals">My Signals</string>
     <string name="newSignals">New Signals</string>
     <string name="signalCalender">Signal Calender</string>
+    <string name="home">Home</string>
+    <string name="calender">Calender</string>
+    <string name="share">Share</string>
+    <string name="addNewSignal">Add A New Signal</string>
+    <string name="signal1">Signal 1</string>
+    <string name="signal2">Signal 2</string>
+    <string name="signal3">Signal 3</string>
+    <string name="subscribe">Subscribe</string>
 </resources>

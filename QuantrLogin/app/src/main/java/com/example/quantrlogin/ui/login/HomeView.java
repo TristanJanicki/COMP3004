@@ -1,6 +1,9 @@
 package com.example.quantrlogin.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +23,8 @@ public class HomeView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        final Button button_mySignals = findViewById(R.id.mySignals);
 
         Cartesian cartesian = AnyChart.cartesian();
         //LinearGauge lg = AnyChart.linear();
@@ -54,5 +59,18 @@ public class HomeView extends AppCompatActivity {
         //anyChartView.setChart(pie);
         //anyChartView.setChart(lg);
         anyChartView.setChart(cartesian);
+
+        button_mySignals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMySignalsActivity();
+            }
+        });
     }
+
+    public void openMySignalsActivity() {
+        Intent intent = new Intent(this, MySignals.class);
+        startActivity(intent);
+    }
+
 }
