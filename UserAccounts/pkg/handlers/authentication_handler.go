@@ -4,9 +4,11 @@ import (
 	b64 "encoding/base64"
 	"encoding/json"
 	"errors"
+	"strconv"
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/sirupsen/logrus"
 
@@ -23,6 +25,7 @@ import (
 type AuthenticationHandler struct {
 	cognitoHandler *cognito.AwsCognitoHandler
 	dbManager      *mysql.SqlDbManager
+	dynamoManager  *dynamodb.DynamoDB
 	log            *logrus.Entry
 }
 
@@ -30,11 +33,12 @@ type AuthenticationHandler struct {
 var AuthResultExpiry int64 = 36000
 
 // NewAuthenticationHandler Creates a new authentication handler to handler authenticating with aws cognito
-func NewAuthenticationHandler(db *mysql.SqlDbManager, cognitoHandler *cognito.AwsCognitoHandler) *AuthenticationHandler {
+func NewAuthenticationHandler(db *mysql.SqlDbManager, dynamo *dynamodb.DynamoDB, cognitoHandler *cognito.AwsCognitoHandler) *AuthenticationHandler {
 	return &AuthenticationHandler{
 		dbManager:      db,
 		log:            logrus.StandardLogger().WithField("type", "authentication_handler"),
 		cognitoHandler: cognitoHandler,
+		dynamoManager:  dynamo,
 	}
 }
 
@@ -101,7 +105,18 @@ func (handler *AuthenticationHandler) CompletePasswordChallenge(params operation
 		})
 	}
 
-	return operations.NewCompleteAuthChallengeCreated()
+	out, err := handler.cognitoHandler.SignIn(&username, newPassword)
+
+	if err != nil {
+		log.WithError(err).Warn("failed to log user in after auth complete challenge")
+		return operations.NewCompleteAuthChallengeInternalServerError()
+	}
+
+	return operations.NewSignInCreated().WithPayload(&genModels.TokenResponse{
+		IDToken:      out.AuthenticationResult.IdToken,
+		AccessToken:  out.AuthenticationResult.AccessToken,
+		RefreshToken: out.AuthenticationResult.RefreshToken,
+	})
 }
 
 // AuthenticateWithCognito attempts to sign a user in
@@ -237,7 +252,63 @@ func (handler *AuthenticationHandler) SignOut(params operations.SignOutParams) m
 			Message: aws.String(err.Error()),
 		})
 	}
+
+	err = handler.cachedSignedOutToken(params.IDToken, cognitoAttrs.Exp)
+	if err != nil {
+		log.WithError(err).Info("Failed to cache signed out token")
+		return operations.NewSignOutInternalServerError()
+	}
+
 	return operations.NewSignOutOK()
+}
+
+func (handler *AuthenticationHandler) cachedSignedOutToken(token string, expiry int64) error {
+	log := handler.log.WithField("method", "cachedSignedOutToken")
+	expiryStr := strconv.FormatInt(expiry, 10)
+	input := &dynamodb.PutItemInput{
+		Item: map[string]*dynamodb.AttributeValue{
+			"token": {
+				S: &token,
+			},
+			"expiry": {
+				N: &expiryStr,
+			},
+		},
+		TableName: aws.String("CachedTokens"),
+	}
+	_, err := handler.dynamoManager.PutItem(input)
+
+	if err != nil {
+		log.WithError(err).Info("Failed to cache token in dynamo")
+		return err
+	}
+
+	return nil
+}
+
+func (handler *AuthenticationHandler) isTokenCached(token string) (bool, error) {
+	log := handler.log.WithField("method", "getCachedToken")
+	input := &dynamodb.GetItemInput{
+		Key: map[string]*dynamodb.AttributeValue{
+			"token": {
+				S: &token,
+			},
+		},
+		TableName: aws.String("CachedTokens"),
+	}
+
+	out, err := handler.dynamoManager.GetItem(input)
+
+	if err != nil {
+		log.WithError(err).Info("Failed to retrieve cached token")
+		return false, err
+	}
+
+	if len(out.Item) == 0 {
+		return false, nil
+	}
+
+	return true, nil
 }
 
 // ChangePassword is the handler used when a user wants to update their password
@@ -315,6 +386,17 @@ func (handler *AuthenticationHandler) VerifyJwt(params operations.VerifyJwtParam
 
 	if ok == false {
 		log.Info(err.Error())
+		return operations.NewVerifyJwtUnauthorized()
+	}
+
+	cached, err := handler.isTokenCached(params.Token)
+
+	if err != nil {
+		log.WithError(err).Info("failed to determine if token is cached")
+		// don't think we need to fail if the token is valid but we failed to check the cache
+	}
+
+	if cached == true {
 		return operations.NewVerifyJwtUnauthorized()
 	}
 

@@ -5,6 +5,7 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/go-openapi/loads"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
@@ -21,7 +22,8 @@ import (
 type UserAccountsService struct {
 	log *log.Logger
 
-	sqlDbManager *mysql.SqlDbManager
+	sqlDbManager    *mysql.SqlDbManager
+	dynamoDbManager *dynamodb.DynamoDB
 
 	server *server.HttpServer
 
@@ -49,6 +51,7 @@ func (s *UserAccountsService) Init(config httpservice.ServiceConfig, listenAddre
 	}
 	s.awsSession, s.awsConfig = NewAwsSession()
 	s.cognitoHandler = cognito.NewAwsCognitoHandler(s.awsSession, s.awsConfig, &userPoolId, &appClientId)
+	s.dynamoDbManager = dynamodb.New(s.awsSession, s.awsConfig)
 
 	// // Initialize DB manager
 	s.sqlDbManager, err = mysql.New(config)
@@ -58,7 +61,7 @@ func (s *UserAccountsService) Init(config httpservice.ServiceConfig, listenAddre
 	}
 
 	// Initialize handlers
-	s.authHandler = handlers.NewAuthenticationHandler(s.sqlDbManager, s.cognitoHandler)
+	s.authHandler = handlers.NewAuthenticationHandler(s.sqlDbManager, s.dynamoDbManager, s.cognitoHandler)
 	s.userAccountsHandler, err = handlers.NewUserAccountsHandler(s.sqlDbManager, s.cognitoHandler)
 	if err != nil {
 		log.WithError(err).Error("Failed to initialize user accounts handler")

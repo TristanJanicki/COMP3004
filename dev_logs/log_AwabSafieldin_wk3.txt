@@ -1,0 +1,4 @@
+Set up AWS server for testing;
+Set up Postman to test calls to server;
+Got familiarized with AWS Cognito for login services;
+Got familiarized with HeidiSQL database to be used;
