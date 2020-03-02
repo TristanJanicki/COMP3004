@@ -1,6 +1,9 @@
 package com.example.quantrlogin.ui.login;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -54,5 +57,12 @@ public class HomeView extends AppCompatActivity {
         //anyChartView.setChart(pie);
         //anyChartView.setChart(lg);
         anyChartView.setChart(cartesian);
+
+    }
+
+    public void redirectTD(View view){
+        Intent tdAmer=new Intent(Intent.ACTION_VIEW, Uri.parse("https://auth.tdameritrade.com/auth?response_type=code&redirect_uri=http%3A%2F%2F8b8f0859.ngrok.io%2Fdata%2FTD%2Fcallback&client_id=JPGIHQGE5ZUUQAEVAKT6JDKWM8WAALL2%40AMER.OAUTHAP"));
+        startActivity(tdAmer);
     }
 }
+
