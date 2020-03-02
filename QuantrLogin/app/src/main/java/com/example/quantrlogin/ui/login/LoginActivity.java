@@ -20,11 +20,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.quantrlogin.R;
-import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
-import networking_handlers.DeleteExperimentsHandler;
 import networking_handlers.output.AuthChallengeRequiredParameters;
 
 public class LoginActivity extends AppCompatActivity {
@@ -133,9 +130,10 @@ public class LoginActivity extends AppCompatActivity {
 
                      */
 
+                    /*
                     //////////////////////////////////////////////////////////// DELETE EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
 
-                    Experiment toDelete = new Experiment("5671f3e5-c00b-47be-9096-6e8e963f32d5");
+                    Experiment toDelete = new Experiment("5f17a469-1e9d-4dd4-bd00-032c9c7a8b17");
 
                     DeleteExperimentsHandler deh = new DeleteExperimentsHandler();
 
@@ -160,6 +158,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
                     //////////////////////////////////////////////////////////// END DELETE EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
+
+                     */
 
                     updateUiWithUser(loginResult.getSuccess());
                 }
