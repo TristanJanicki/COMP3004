@@ -153,12 +153,10 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
                 ticker=experiment["ticker"], threshold=experiment["threshold"], indicator=experiment["indicator"]).one()
         except SQLAlchemyError as e:
             error = str(e)
-            print("2", error)
             if not "No row was found" in str(e):
                 return ErrorResponse(str(e))
         # fill existing copy with a value from the db if there is one
         sqlManager.session.commit()
-        print("2")
 
         # the experiment already exists, lets check if it needs to be updated (last updated needs to be older than 1 day)
         if existingCopy != None:

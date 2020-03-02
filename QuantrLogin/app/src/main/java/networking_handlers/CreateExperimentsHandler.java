@@ -3,11 +3,10 @@ package networking_handlers;
 import android.os.AsyncTask;
 
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.swagger_models.CorrelationExperiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
+import com.example.quantrlogin.data.swagger_models.CorrelationExperiment;
 import com.example.quantrlogin.data.swagger_models.ThresholdExperiment;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -33,21 +32,25 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             String urlPostfix = "/v1/experiments";
 
             JSONObject jsonBody = new JSONObject();
+            String bodyStr;
             if (inputs[1] instanceof CorrelationExperiment){
                 urlPostfix += "/correlation";
-                jsonBody.putOpt("experiment", inputs[1]);
+                CorrelationExperiment obj = (CorrelationExperiment) inputs[1];
+                bodyStr = "{\"experiment\": {\"asset_1\" : \"" + obj.getAsset_1() + "\",\"asset_2\" : \"" + obj.getAsset_2() + "\"}}";
+//                jsonBody.putOpt("experiment", inputs[1]);
             }else if(inputs[1] instanceof ThresholdExperiment){
                 urlPostfix += "/threshold";
-                jsonBody.putOpt("experiment", inputs[1]);
+                ThresholdExperiment obj = (ThresholdExperiment) inputs[1];
+                bodyStr = "{\"experiment\": {\"indicator\": \"" +  obj.getIndicator() + "\",\"threshold\": " + obj.getThreshold() + ",\"ticker\": \"" + obj.getTicker() + "\"}}";
+//                jsonBody.putOpt("experiment", inputs[1]);
             }else{
                 return new Result.Error(new Exception("Second argument must be of type Experiment"));
             }
-            System.out.println(jsonBody.toString());
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
             MediaType mediaType = MediaType.parse("application/json");
-//            RequestBody body = RequestBody.create(mediaType, jsonBody.toString());
-            RequestBody body = RequestBody.create(mediaType, "{\"experiment\": {\"indicator\": \"RSI\",\"threshold\": 49,\"ticker\": \"AMD\"}}");
+//            RequestBody body = RequestBody.create(mediaType, jsonBody.toString()); TODO: find out why this line doesn't work
+            RequestBody body = RequestBody.create(mediaType, bodyStr);
             Request request = new Request.Builder()
                     .url(networking_statics.url + urlPostfix)
                     .method("POST", body)
@@ -76,9 +79,6 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             }
 
         }catch (IOException e){
-            e.printStackTrace();
-            return new Result.Error(e);
-        } catch (JSONException e) {
             e.printStackTrace();
             return new Result.Error(e);
         }

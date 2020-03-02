@@ -41,8 +41,8 @@ public class ThresholdExperiment {
         try{
             JSONObject str = new JSONObject();
             str.put("indicator", indicator);
-            str.put("ticker", ticker);
             str.put("threshold", threshold);
+            str.put("ticker", ticker);
             return str.toString();
         }catch (JSONException j){
             j.printStackTrace();
