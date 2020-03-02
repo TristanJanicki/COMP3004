@@ -32,7 +32,7 @@ class LoginResult {
         return success;
     }
 
-    @Nullable AuthChallengeRequiredParameters getAuthChallenge() {return this.authChallengeParams}
+    @Nullable AuthChallengeRequiredParameters getAuthChallenge() {return this.authChallengeParams;}
 
     @Nullable
     Integer getError() {
