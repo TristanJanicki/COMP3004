@@ -148,7 +148,7 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
         existingCopy = None
         try:
             existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(
-                ticker=experiment["ticker"], threshold=experiment["threshold"]).one()
+                ticker=experiment["ticker"], threshold=experiment["threshold"], indicator=experiment["indicator"]).one()
         except:
             return ErrorResponse()
         # fill existing copy with a value from the db if there is one
