@@ -4,16 +4,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ThresholdExperiment extends Experiment {
-    private String id, indicator, ticker;
+    private String indicator, ticker;
 
     public ThresholdExperiment(String id, String indicator, String ticker){
-        this.id = id;
+        super(id);
         this.indicator = indicator;
         this.ticker = ticker;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getIndicator() {

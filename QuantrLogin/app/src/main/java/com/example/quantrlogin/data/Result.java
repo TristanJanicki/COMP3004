@@ -80,7 +80,13 @@ public class Result<T> {
     }
 
     public final static class NotAllowed extends Result {
-        public NotAllowed (){
+        private String message;
+        public NotAllowed (String message){
+            this.message= message;
+        }
+
+        public String getMessage() {
+            return message;
         }
     }
 

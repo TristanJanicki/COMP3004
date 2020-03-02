@@ -66,7 +66,7 @@ public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result>
                 return new Result.GetExperimentsResult(dbThresholds, dbCorrelations);
             } else if (r.code() == 401) {
                 System.out.println("NOT ALLOWED, MOST LIKELY A INVALID TOKEN");
-                return new Result.NotAllowed();
+                return new Result.NotAllowed(r.message());
             } else if (r.code() == 404){
                 System.out.println("NOT FOUND");
                 return new Result.GenericNetworkResult(404, r.body().toString());

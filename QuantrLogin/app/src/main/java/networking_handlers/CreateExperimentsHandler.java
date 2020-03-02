@@ -70,7 +70,7 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
                 case 400:
                     return new Result.Error(new Exception("Something went wrong"));
                 case 401:
-                    return new Result.NotAllowed();
+                    return new Result.NotAllowed(r.message());
                 case 409:
                     return new Result.AlreadyExists();
                 case 500:

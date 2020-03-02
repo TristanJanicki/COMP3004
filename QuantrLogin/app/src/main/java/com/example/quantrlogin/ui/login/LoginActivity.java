@@ -21,10 +21,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
+import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
-import com.example.quantrlogin.data.swagger_models.ThresholdExperiment;
 
-import networking_handlers.CreateExperimentsHandler;
+import networking_handlers.DeleteExperimentsHandler;
 import networking_handlers.output.AuthChallengeRequiredParameters;
 
 public class LoginActivity extends AppCompatActivity {
@@ -106,10 +106,10 @@ public class LoginActivity extends AppCompatActivity {
 
                      */
 
+                    /*
                     //////////////////////////////////////////////////////////// CREATE EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
-
-                    ThresholdExperiment input = new ThresholdExperiment("TRIX", "AMD", 101);
-
+//                    ThresholdExperiment input = new ThresholdExperiment("TRIX", "AMD", 101);
+                    CorrelationExperiment input = new CorrelationExperiment("GBP", "EUR", 0);
                     CreateExperimentsHandler ceh = new CreateExperimentsHandler();
                     ceh.execute(loginResult.getSuccess(), input);
                     try{
@@ -131,6 +131,35 @@ public class LoginActivity extends AppCompatActivity {
 
                     //////////////////////////////////////////////////////////// END CREATE EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
 
+                     */
+
+                    //////////////////////////////////////////////////////////// DELETE EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
+
+                    Experiment toDelete = new Experiment("5671f3e5-c00b-47be-9096-6e8e963f32d5");
+
+                    DeleteExperimentsHandler deh = new DeleteExperimentsHandler();
+
+                    deh.execute(loginResult.getSuccess(), toDelete);
+
+                    try{
+                        Result r = deh.get();
+                        if (r instanceof Result.Success){
+                            System.out.println("Succesfully Deleted Experiment");
+                        }else if (r instanceof Result.Error){
+                            System.out.println("Failed To Delete Experiment: " + r.toString());
+                        }else if (r instanceof Result.NotAllowed){
+                            System.out.println("YOU CANT DO THAT!");
+                        }else if (r instanceof Result.AlreadyExists){
+                            System.out.println("That experiment exists already");
+                        }else{
+                            System.out.println("Unknown method response");
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+
+                    //////////////////////////////////////////////////////////// END DELETE EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
 
                     updateUiWithUser(loginResult.getSuccess());
                 }

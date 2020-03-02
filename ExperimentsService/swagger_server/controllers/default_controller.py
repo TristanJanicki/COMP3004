@@ -17,6 +17,7 @@ from swagger_server.models.get_experiments_result import GetExperimentsResult  #
 from swagger_server.models.new_correlation_post import NewCorrelationPost  # noqa: E501
 from swagger_server.models.new_threshold_experiment import NewThresholdExperiment  # noqa: E501
 from swagger_server.models.not_allowed_response import NotAllowedResponse  # noqa: E501
+from swagger_server.models.not_found_response import NotFoundResponse
 from swagger_server.models.ok_response import OkResponse  # noqa: E501
 from swagger_server import util
 ################################## CUSTOM IMPORTS ###########################################
@@ -201,24 +202,32 @@ def user_experiments_delete():  # noqa: E501
 
     :rtype: OkResponse
     """
-    userID = connexion.request.headers['user_id']
-    experimentToDelete = connexion.request.headers['experiment_id']
-    user = sqlManager.session.query(User).filter_by(user_id=userID).one()
-    usersExperiments = []
-    if user.experiments != None:
-        usersExperiments = user.experiments.split(",")
+    try:
+        userID = connexion.request.headers['user_id']
+        experimentToDelete = connexion.request.headers['experiment_id']
+        user = sqlManager.session.query(User).filter_by(user_id=userID).one()
+        usersExperiments = []
+        if user.experiments != None:
+            usersExperiments = user.experiments.split(",")
+        else:
+            return NotFoundResponse()
+        newUserExperiments = []
 
-    newUserExperiments = []
+        for ex in usersExperiments:
+            if ex != experimentToDelete:
+                newUserExperiments.append(ex)
 
-    for ex in usersExperiments:
-        if ex != experimentToDelete:
-            newUserExperiments.append(ex)
+        usersExperiments = ",".join(newUserExperiments)
 
-    usersExperiments = ",".join(newUserExperiments)
+        user.experiments = usersExperiments
+        sqlManager.session.merge(user)
+        sqlManager.session.commit()
+    except SQLAlchemyError as e:
+        mysql.db.session.rollback()
+        error = str(e)
+        if not "No row was found" in str(e):
+            return ErrorResponse(str(e))
 
-    user.experiments = usersExperiments
-    sqlManager.session.merge(user)
-    sqlManager.session.commit()
 
     return OkResponse()
 
