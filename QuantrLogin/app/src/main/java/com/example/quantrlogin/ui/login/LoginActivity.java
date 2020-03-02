@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     openAuthChallengeActivity(loginResult.getAuthChallenge());
                 }
                 if (loginResult.getSuccess() != null) {
-                    //openHomeActivity();
+                    openHomeActivity();
                     /*
                     //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
                     GetExperimentsHandler geh = new GetExperimentsHandler();

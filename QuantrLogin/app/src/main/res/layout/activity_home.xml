@@ -20,39 +20,39 @@
 
     <Button
         android:id="@+id/mySignals"
-        android:layout_width="154dp"
-        android:layout_height="61dp"
+        android:layout_width="155dp"
+        android:layout_height="68dp"
         android:layout_marginTop="340dp"
         android:backgroundTint="@color/GoldYellow"
         android:text="@string/mySignals"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/newSignals"
-        android:layout_width="152dp"
-        android:layout_height="60dp"
+        android:layout_width="155dp"
+        android:layout_height="68dp"
         android:layout_marginTop="36dp"
         android:backgroundTint="@color/GoldYellow"
         android:text="@string/newSignals"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mySignals" />
 
     <Button
         android:id="@+id/signalCalender"
-        android:layout_width="185dp"
-        android:layout_height="73dp"
+        android:layout_width="155dp"
+        android:layout_height="68dp"
         android:backgroundTint="@color/GoldYellow"
         android:text="@string/signalCalender"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newSignals"
-        app:layout_constraintVertical_bias="0.423" />
+        app:layout_constraintVertical_bias="0.216" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
