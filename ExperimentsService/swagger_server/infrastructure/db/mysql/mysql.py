@@ -14,13 +14,12 @@ class SqlManager:
 
     def __init__(self):
         # super().__init__()
-        self.endpoint = os.getenv("quantrDB")
+        self.endpoint = os.getenv("quantrSqlDbHost")
         self.port = "3306"
-        self.user = os.getenv("quantrDBUser")
-        self.password = os.getenv("quantrDBPW")
+        self.user = os.getenv("quantrSqlDbUser")
+        self.password = os.getenv("quantrSqlDbPassword")
         self.database = "quantr"
-        self.engine = db.create_engine(
-            "mysql+pymysql://"+self.user+":"+self.password+"@"+self.endpoint+":"+self.port+"/"+self.database)
+        self.engine = db.create_engine("mysql+pymysql://"+self.user+":"+self.password+"@"+self.endpoint+":"+self.port+"/"+self.database)
         self.connection = self.engine.connect()
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
