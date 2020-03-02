@@ -1,6 +1,7 @@
 import sqlalchemy as db
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import os
 
 class SqlManager:
 
@@ -13,10 +14,10 @@ class SqlManager:
 
     def __init__(self):
         # super().__init__()
-        self.endpoint = "quantr.cii6qa7deotz.us-east-1.rds.amazonaws.com"
+        self.endpoint = os.getenv("quantrDB")
         self.port = "3306"
-        self.user = "admin"
-        self.password = "5efPemPEwZrBfhvQ"
+        self.user = os.getenv("quantrDBUser")
+        self.password = os.getenv("quantrDBPW")
         self.database = "quantr"
         self.engine = db.create_engine(
             "mysql+pymysql://"+self.user+":"+self.password+"@"+self.endpoint+":"+self.port+"/"+self.database)

@@ -60,7 +60,7 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
 
             Response r = c.execute();
             System.out.println("CODE: "+ r.code());
-            System.out.println("500 Error: " + r.message());
+            System.out.println("Message: " + r.message());
             switch (r.code()){
                 case 200:
                     return new Result.Success(200);
