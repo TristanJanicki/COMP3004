@@ -1,6 +1,7 @@
 package com.example.quantrlogin.ui.login;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,18 +14,26 @@ import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeView extends AppCompatActivity {
+public class HomeAcitvity extends AppCompatActivity {
+
+    Button newSignalB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        final Button button_mySignals = findViewById(R.id.mySignals);
+        final Bundle b = getIntent().getExtras();
+
+        if (b == null){
+            System.out.println("GET INTENT EXTRAS IS NULL");
+            return;
+        }
 
         Cartesian cartesian = AnyChart.cartesian();
         //LinearGauge lg = AnyChart.linear();
@@ -58,19 +67,28 @@ public class HomeView extends AppCompatActivity {
         AnyChartView anyChartView = (AnyChartView) findViewById(R.id.any_chart_view);
         //anyChartView.setChart(pie);
         //anyChartView.setChart(lg);
-        anyChartView.setChart(cartesian);
 
-        button_mySignals.setOnClickListener(new View.OnClickListener() {
+        newSignalB = findViewById(R.id.newSignals);
+
+        newSignalB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMySignalsActivity();
+                startNewSignalActivity((LoggedInUser) b.get("user"));
             }
         });
+
+        anyChartView.setChart(cartesian);
+
     }
 
-    public void openMySignalsActivity() {
-        Intent intent = new Intent(this, MySignals.class);
+    public void redirectTD(View view){
+        Intent tdAmer=new Intent(Intent.ACTION_VIEW, Uri.parse("https://auth.tdameritrade.com/auth?response_type=code&redirect_uri=http%3A%2F%2F8b8f0859.ngrok.io%2Fdata%2FTD%2Fcallback&client_id=JPGIHQGE5ZUUQAEVAKT6JDKWM8WAALL2%40AMER.OAUTHAP"));
+        startActivity(tdAmer);
+    }
+
+    private void startNewSignalActivity(LoggedInUser user){
+        Intent intent = new Intent(this, NewSignal.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
-
 }

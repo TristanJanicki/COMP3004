@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".ui.login.HomeView">
+    tools:context=".ui.login.HomeAcitvity">
 
     <com.anychart.AnyChartView
         android:id="@+id/any_chart_view"
-        android:layout_width="353dp"
-        android:layout_height="240dp"
+        android:layout_width="330dp"
+        android:layout_height="225dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
@@ -20,38 +20,52 @@
 
     <Button
         android:id="@+id/mySignals"
-        android:layout_width="154dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="332dp"
+        android:layout_width="140dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="340dp"
         android:backgroundTint="@color/GoldYellow"
         android:text="@string/mySignals"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/newSignals"
-        android:layout_width="152dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="140dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/GoldYellow"
         android:text="@string/newSignals"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mySignals" />
 
     <Button
         android:id="@+id/signalCalender"
-        android:layout_width="185dp"
-        android:layout_height="73dp"
+        android:layout_width="140dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/GoldYellow"
         android:text="@string/signalCalender"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newSignals" />
+
+    <Button
+        android:id="@+id/tdAmeritrade"
+        android:layout_width="140dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="126dp"
+        android:backgroundTint="#4CAF50"
+        android:text="@string/tdAmeritrade"
+        android:onClick="redirectTD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newSignals"
-        app:layout_constraintVertical_bias="0.42" />
+        app:layout_constraintTop_toBottomOf="@+id/signalCalender" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
