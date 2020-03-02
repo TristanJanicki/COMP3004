@@ -43,7 +43,7 @@ public class NewSignal extends AppCompatActivity{
         ArrayAdapter<String> dirAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, directionChoices);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        indicatorChooser.setAdapter(dirAdapter);
+        directionChooser.setAdapter(dirAdapter);
 
 
         final Bundle b = getIntent().getExtras();
