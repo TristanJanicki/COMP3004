@@ -2,27 +2,24 @@ package com.example.quantrlogin.data;
 
 import android.os.AsyncTask;
 
-import com.example.quantrlogin.data.model.LoggedInUser;
-import networking_handlers.SignInHandler;
-
 import java.io.IOException;
+
+import networking_handlers.SignInHandler;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
 public class LoginDataSource {
 
-    public Result<LoggedInUser> login(String username, String password) {
+    public Result login(String username, String password) {
 
         try {
 
             SignInHandler signInHandler = new SignInHandler(username, password);
             AsyncTask result = signInHandler.execute();
+            Result res = (Result) result.get();
 
-            System.out.println(result.get());
-            // TODO: handle loggedInUser authentication
-
-            return new Result.Success<>(null);
+            return res;
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }
