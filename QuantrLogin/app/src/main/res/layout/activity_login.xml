@@ -84,14 +84,14 @@
         android:id="@+id/signUp"
         android:layout_width="162dp"
         android:layout_height="50dp"
-        android:backgroundTint="#F1BB23"
+        android:backgroundTint="@color/GoldYellow"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login"
-        app:layout_constraintVertical_bias="0.475" />
+        app:layout_constraintVertical_bias="0.311" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

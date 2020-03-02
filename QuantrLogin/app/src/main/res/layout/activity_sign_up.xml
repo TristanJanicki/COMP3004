@@ -96,7 +96,7 @@
         android:id="@+id/signUp2"
         android:layout_width="193dp"
         android:layout_height="57dp"
-        android:backgroundTint="#F1BB23"
+        android:backgroundTint="@color/GoldYellow"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

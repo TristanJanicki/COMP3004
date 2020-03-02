@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     openAuthChallengeActivity(loginResult.getAuthChallenge());
                 }
                 if (loginResult.getSuccess() != null) {
+                    //openHomeActivity();
                     /*
                     //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
                     GetExperimentsHandler geh = new GetExperimentsHandler();
@@ -220,6 +221,12 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
     }
+
+    public void openHomeActivity() {
+        Intent intent = new Intent(this, HomeView.class);
+        startActivity(intent);
+    }
+
     public void openAuthChallengeActivity(AuthChallengeRequiredParameters params){
         Bundle data = new Bundle();
         data.putString("email", params.email);
@@ -236,6 +243,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        openHomeActivity();
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

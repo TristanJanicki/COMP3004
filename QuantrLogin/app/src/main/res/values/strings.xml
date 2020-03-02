@@ -23,4 +23,7 @@
     <string name="freemium">Freemium</string>
     <string name="confirm">Confirm</string>
     <string name="quantr">Quant.r</string>
+    <string name="mySignals">My Signals</string>
+    <string name="newSignals">New Signals</string>
+    <string name="signalCalender">Signal Calender</string>
 </resources>
