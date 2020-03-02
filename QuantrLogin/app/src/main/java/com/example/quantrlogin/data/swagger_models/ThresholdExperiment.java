@@ -27,8 +27,8 @@ public class ThresholdExperiment {
         return threshold;
     }
 
-    public static com.example.quantrlogin.data.swagger_models.ThresholdExperiment convertDbModelToSwaggerModel(ThresholdExperiment db){
-        return new com.example.quantrlogin.data.swagger_models.ThresholdExperiment(
+    public static ThresholdExperiment convertDbModelToSwaggerModel(ThresholdExperiment db){
+        return new ThresholdExperiment(
                 db.getIndicator(),
                 db.getTicker(),
                 db.getThreshold()
