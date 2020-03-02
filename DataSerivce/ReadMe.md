@@ -18,3 +18,10 @@ and add the line:
 
 * */17 * * * /usr/bin/python ~/COMP3004/DataService/scheduled_tasks/dataset_updater.py >> data_updater_output.txt
 * */1 * * * /usr/bin/python ~/COMP3004/DataService/scheduled_tasks/dataset_updater.py >> data_updater_output.txt
+
+## Usage
+nohup python scheduled_tasks/dataset_updater.py > nohup.out 2>&1 &
+echo $! > save_pid.txt
+
+To get the last file in a directory:
+ls stock_data -Art | tail -n 1

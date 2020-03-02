@@ -24,7 +24,7 @@ import okhttp3.Response;
 public class SignInHandler extends AsyncTask<Void, Void, Result> {
     String username;
     String password;
-    private String url = "http://ec2-54-210-130-190.compute-1.amazonaws.com:80/v1/users/signup";
+    private String url = "http://ec2-3-92-179-53.compute-1.amazonaws.com:80/v1/users/signup";
 
     public SignInHandler(String username, String password) {
         this.username = username;
