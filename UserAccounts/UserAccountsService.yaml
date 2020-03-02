@@ -449,7 +449,7 @@ paths:
         201:
           description: "OK"
           schema:
-            $ref: "#/definitions/okResponse"
+            $ref: "#/definitions/tokenResponse"
         404:
           description: "Not found"
           schema:

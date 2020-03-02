@@ -22,6 +22,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.quantrlogin.R;
 
+import networking_handlers.output.AuthChallengeRequiredParameters;
+
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
@@ -39,9 +41,16 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        loginButton.setEnabled(true);
 
-        usernameEditText.setText("tristan.janicki@gmail.com");
-        passwordEditText.setText("newPassword1");
+        if (savedInstanceState != null && savedInstanceState.get("email") != null){
+            usernameEditText.setText(savedInstanceState.get("email").toString());
+        }
+
+//        usernameEditText.setText("tristan.janicki@gmail.com");
+//        passwordEditText.setText("newPassword1");
+        usernameEditText.setText("tt700joe@gmail.com");
+        passwordEditText.setText("TxkhN1_J");
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -49,8 +58,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginFormState == null) {
                     return;
                 }
-                System.out.println(loginFormState.isDataValid());
-                loginButton.setEnabled(loginFormState.isDataValid());
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
                 }
@@ -70,9 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
                 }
-//                if (loginResult.getAuthChallenge() != null){
-//                    showAuthChallenge(loginResult.getAuthChallenge());
-//                }
+                if (loginResult.getAuthChallenge() != null){
+                    openAuthChallengeActivity(loginResult.getAuthChallenge());
+                }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
                     finish();
@@ -134,7 +141,16 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
     }
-
+    public void openAuthChallengeActivity(AuthChallengeRequiredParameters params){
+        Bundle data = new Bundle();
+        data.putString("email", params.email);
+        data.putString("sessionId", params.sessionID);
+        data.putString("challenge_name", params.challengeName);
+        System.out.println(data.toString());
+        Intent intent = new Intent(this, Authorization.class);
+        intent.putExtras(data);
+        startActivity(intent);
+    }
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();

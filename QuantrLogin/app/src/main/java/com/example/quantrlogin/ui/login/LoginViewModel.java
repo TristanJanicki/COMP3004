@@ -1,15 +1,15 @@
 package com.example.quantrlogin.ui.login;
 
+import android.util.Patterns;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.util.Patterns;
-
+import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.LoginRepository;
 import com.example.quantrlogin.data.Result;
 import com.example.quantrlogin.data.model.LoggedInUser;
-import com.example.quantrlogin.R;
 
 public class LoginViewModel extends ViewModel {
 
@@ -36,7 +36,9 @@ public class LoginViewModel extends ViewModel {
         if (result instanceof Result.Success) {
             LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
-        } else {
+        }else if(result instanceof Result.AuthChallengeRequired){
+            loginResult.setValue(new LoginResult(((Result.AuthChallengeRequired) result).getParameters()));
+        }else{
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
     }

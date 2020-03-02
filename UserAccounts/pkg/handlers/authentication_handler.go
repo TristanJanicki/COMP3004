@@ -105,7 +105,18 @@ func (handler *AuthenticationHandler) CompletePasswordChallenge(params operation
 		})
 	}
 
-	return operations.NewCompleteAuthChallengeCreated()
+	out, err := handler.cognitoHandler.SignIn(&username, newPassword)
+
+	if err != nil {
+		log.WithError(err).Warn("failed to log user in after auth complete challenge")
+		return operations.NewCompleteAuthChallengeInternalServerError()
+	}
+
+	return operations.NewSignInCreated().WithPayload(&genModels.TokenResponse{
+		IDToken:      out.AuthenticationResult.IdToken,
+		AccessToken:  out.AuthenticationResult.AccessToken,
+		RefreshToken: out.AuthenticationResult.RefreshToken,
+	})
 }
 
 // AuthenticateWithCognito attempts to sign a user in

@@ -34,6 +34,24 @@ public class Result<T> {
         }
     }
 
+    public final static class GenericNetworkResult extends Result {
+        private int code;
+        private String message;
+
+        public GenericNetworkResult(int code, String message){
+            this.code = code;
+            this.message = message;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
+
     public final static class NotAllowed extends Result {
         public NotAllowed (){
         }

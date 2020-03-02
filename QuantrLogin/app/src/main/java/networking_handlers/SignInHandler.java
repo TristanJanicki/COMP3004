@@ -58,7 +58,8 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                     AuthChallengeRequiredParameters params = new AuthChallengeRequiredParameters(
                             username,
                             responseBody.getString("sessionId"),
-                            responseBody.getString("challengeName")
+                            responseBody.getString("challengeName"),
+                            null
                     );
                     return new Result.AuthChallengeRequired(params);
                 }else if (r.code() == 401){
@@ -80,14 +81,12 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                 String accessToken = responseBody.getString("accessToken");
 
 
-                System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-                return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("first_name"), accessToken, idTokenStr, refreshToken, cognitoProfile));
+                return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, idTokenStr, refreshToken, cognitoProfile));
             } catch (IOException e) {
                 System.out.println("XXXX");
                 e.printStackTrace();
                 return new Result.Error(e);
             }catch (JSONException e){
-                System.out.println("YYYYY");
                 System.out.println("Failed to parse JSON output");
                 e.printStackTrace();
                 return new Result.Error(e);

@@ -2,48 +2,42 @@ package com.example.quantrlogin.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.data.Result;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import networking_handlers.SignUpHandler;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class SignUp extends AppCompatActivity {
     private Button button_SignUp;
     private EditText email, username;
+    private RadioGroup rg;
+    private RadioButton selectedSubscription, premiumButton, freemiumButton;
     private CheckBox termsOfService;
-    //private OkHttpClient client = new OkHttpClient();
     private String tag;
+    private boolean isPremium;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        button_SignUp = findViewById(R.id.signUp2);
+        rg = findViewById(R.id.radioGroup2);
         email = findViewById(R.id.email);
         username = findViewById(R.id.signup_username);
         termsOfService = findViewById(R.id.termsOfService);
-        final String emailStr = email.getText().toString();
-        final String usernameStr = username.getText().toString();
+        button_SignUp = findViewById(R.id.signUp2);
+        email.setText("tt700joe@gmail.com");
+        username.setText("Tristan G. J.");
 
         //send POST Sign up request
         //after that works
@@ -51,86 +45,55 @@ public class SignUp extends AppCompatActivity {
         button_SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!termsOfService.isChecked()) return; // TODO: make a tool-tip popup when a user clicks signup but doesn't have TOS checked.
+                selectedSubscription = findViewById(rg.getCheckedRadioButtonId());
+                if (selectedSubscription == null){
+                    premiumButton = findViewById(R.id.paidSubscription);
+                    freemiumButton = findViewById(R.id.freeSubscription);
+                    freemiumButton.setError("Required Field");
+                    premiumButton.setError("Required Field");
+                }
+                if (!termsOfService.isChecked()){
+                    termsOfService.setError("Required Field");
+                    return;
+                }
+                if (selectedSubscription.getText().toString().toLowerCase().contains("premium")){
+                    isPremium = true;
+                }else{
+                    isPremium = false;
+                }
+                System.out.println("Is Premium: " + isPremium);
+
+                final String emailStr = email.getText().toString();
+                final String usernameStr = username.getText().toString();
                 SignUpHandler sh = new SignUpHandler(usernameStr, emailStr, "", "");
                 sh.execute();
                 try {
-                    Object signupResult = sh.get();
+                    Result.GenericNetworkResult signupResult = (Result.GenericNetworkResult) sh.get();
                     System.out.println(signupResult.toString());
+                    switch(signupResult.getCode()){
+                        case 201:
+                            openSignInActivity();
+                            break;
+                        case 409:
+                            email.setError("This email is taken.");
+                            break;
+                        case 500:
+                            button_SignUp.setError("Oops somethign went wrong");
+                            break;
+                    }
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                final OkHttpClient client = new OkHttpClient().newBuilder()
-                        .build();
-                MediaType mediaType = MediaType.parse("application/json");
-                RequestBody body = RequestBody.create(mediaType, "{\n    \"email\": \"farzalk@gmail.com\",\n    \"firstName\": \"Farzal\",\n    \"lastName\": \"Khan\"\n}");
-                final Request request = new Request.Builder()
-                        .url("ec2-54-165-183-238.compute-1.amazonaws.com:8080/v1/users/signup")
-                        .method("POST", body)
-                        .addHeader("X-Request-ID", "43ed32ce-6e3f-4918-afbb-b1412161c811")
-                        .addHeader("Content-Type", "application/json")
-                        .build();
-                //Response response = client.newCall(request).execute();
-
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        if (response.isSuccessful()) {
-                            //Log.i(tag, response.body().string());
-                            response = client.newCall(request).execute();
-
-                            Log.i(tag, response.body().string());
-
-                            openAuthorizationActivity();
-                        }
-                    }
-                });
-
-
-
-//                OkHttpClient client = new OkHttpClient().newBuilder()
-//                        .build();
-//                MediaType mediaType = MediaType.parse("application/json");
-//                RequestBody body = RequestBody.create(mediaType, "{\n \" email \": \"farzalk@gmail.com\",    \"firstName\": \"Farzal\",    \"lastName\": \"Khan\"}");
-//                Request request = new Request.Builder()
-//                        .url(url)
-//                        .method("POST", body)
-//                        .addHeader("X-Request-ID", "{{$guid}}") //5d09ec8a-6ef2-43ce-8b80-25339cd8d5c4
-//                        .addHeader("Content-Type", "application/json")
-//                        .build();
-
-//                client.newCall(request).enqueue(new Callback() {
-//                    @Override
-//                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    @Override
-//                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-//                        if (response.isSuccessful()) {
-//                            //Log.i(tag, response.body().string());
-//
-//                            Log.i(tag, response.body().string());
-//
-//                            openAuthorizationActivity();
-//                        }
-//                    }
-//                });
 
             }
         });
     }
 
     //goes to authorization for now, until we have main screen setup
-    public void openAuthorizationActivity() {
-        Intent intent = new Intent(this, Authorization.class);
+    public void openSignInActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 

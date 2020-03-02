@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.UUID;
 
+import networking_handlers.output.AuthChallengeRequiredParameters;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -17,40 +18,27 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class SignUpHandler extends AsyncTask<Void, Void, Result> {
-
-    String username;
-    String email;
-    String firstName;
-    String lastName;
-    JSONObject cognitoProfile;
-
-
-    public SignUpHandler(String username, String email, String firstName, String lastName){
-        this.username = username;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+public class CompleteAuthChallengeHandler extends AsyncTask<AuthChallengeRequiredParameters, Void, Result> {
 
     @Override
-    protected Result doInBackground(Void...voids) {
+    protected Result doInBackground(AuthChallengeRequiredParameters... params) {
+
         try {
             OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
+                    .build();
             MediaType mediaType = MediaType.parse("application/json");
             JSONObject reqBody = new JSONObject();
-            reqBody.put("email", email);
-            reqBody.put("firstName", firstName);
-            reqBody.put("lastName", lastName);
+            reqBody.put("email", params[0].email);
+            reqBody.put("firstName", params[0].sessionID);
+            reqBody.put("lastName", params[0].newPassword);
 
             RequestBody body = RequestBody.create(reqBody.toString(), mediaType);
             Request request = new Request.Builder()
-                .url(networking_statics.url + "/v1/users/signup")
-                .method("POST", body)
-                .addHeader("Content-Type", "application/json")
-                .addHeader("X-Request-ID", UUID.randomUUID().toString())
-                .build();
+                    .url(networking_statics.url + "/v1/users/authchallenge")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("X-Request-ID", UUID.randomUUID().toString())
+                    .build();
             Call c = client.newCall(request);//
 
 

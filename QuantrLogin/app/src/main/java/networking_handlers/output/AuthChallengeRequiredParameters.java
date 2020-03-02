@@ -1,11 +1,14 @@
 package networking_handlers.output;
 
-public class AuthChallengeRequiredParameters {
-    public String email, sessionID, challengeName;
+import androidx.annotation.Nullable;
 
-    public AuthChallengeRequiredParameters(String email, String sessionID, String challengeName){
+public class AuthChallengeRequiredParameters {
+    public String email, sessionID, challengeName, newPassword;
+
+    public AuthChallengeRequiredParameters(String email, String sessionID, String challengeName, @Nullable String newPassword){
         this.email = email;
         this.sessionID = sessionID;
         this.challengeName = challengeName;
+        this.newPassword = newPassword;
     }
 }
