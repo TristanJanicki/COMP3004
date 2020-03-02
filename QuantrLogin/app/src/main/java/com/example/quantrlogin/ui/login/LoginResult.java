@@ -2,6 +2,8 @@ package com.example.quantrlogin.ui.login;
 
 import androidx.annotation.Nullable;
 
+import com.example.quantrlogin.data.model.LoggedInUser;
+
 import networking_handlers.output.AuthChallengeRequiredParameters;
 
 /**
@@ -9,7 +11,7 @@ import networking_handlers.output.AuthChallengeRequiredParameters;
  */
 class LoginResult {
     @Nullable
-    private LoggedInUserView success;
+    private LoggedInUser user;
     @Nullable
     private Integer error;
     @Nullable
@@ -19,8 +21,8 @@ class LoginResult {
         this.error = error;
     }
 
-    LoginResult(@Nullable LoggedInUserView success) {
-        this.success = success;
+    LoginResult(@Nullable LoggedInUser user) {
+        this.user = user;
     }
 
     LoginResult(@Nullable AuthChallengeRequiredParameters params){
@@ -28,8 +30,8 @@ class LoginResult {
     }
 
     @Nullable
-    LoggedInUserView getSuccess() {
-        return success;
+    LoggedInUser getSuccess() {
+        return user;
     }
 
     @Nullable AuthChallengeRequiredParameters getAuthChallenge() {return this.authChallengeParams;}

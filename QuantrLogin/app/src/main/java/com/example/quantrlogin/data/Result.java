@@ -1,5 +1,8 @@
 package com.example.quantrlogin.data;
 
+import com.example.quantrlogin.data.model.CorrelationExperiment;
+import com.example.quantrlogin.data.model.ThresholdExperiment;
+
 import networking_handlers.output.AuthChallengeRequiredParameters;
 
 /**
@@ -31,6 +34,24 @@ public class Result<T> {
 
         public AuthChallengeRequiredParameters getParameters(){
             return this.data;
+        }
+    }
+
+    public final static class GetExperimentsResult extends Result{
+        private CorrelationExperiment[] correlationExperiments;
+        private ThresholdExperiment[] thresholdExperiments;
+
+        public GetExperimentsResult(ThresholdExperiment[] thresholdExperiments, CorrelationExperiment[] correlationExperiments){
+            this.thresholdExperiments = thresholdExperiments;
+            this.correlationExperiments = correlationExperiments;
+        }
+
+        public CorrelationExperiment[] getCorrelationExperiments() {
+            return correlationExperiments;
+        }
+
+        public ThresholdExperiment[] getThresholdExperiments() {
+            return thresholdExperiments;
         }
     }
 

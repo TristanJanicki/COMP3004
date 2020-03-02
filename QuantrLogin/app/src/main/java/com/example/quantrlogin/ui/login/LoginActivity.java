@@ -1,6 +1,5 @@
 package com.example.quantrlogin.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,7 +20,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.data.Result;
+import com.example.quantrlogin.data.model.LoggedInUser;
 
+import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
+
+import networking_handlers.GetExperimentsHandler;
 import networking_handlers.output.AuthChallengeRequiredParameters;
 
 public class LoginActivity extends AppCompatActivity {
@@ -47,10 +52,10 @@ public class LoginActivity extends AppCompatActivity {
             usernameEditText.setText(savedInstanceState.get("email").toString());
         }
 
-//        usernameEditText.setText("tristan.janicki@gmail.com");
+        usernameEditText.setText("tristan.janicki@gmail.com");
+        passwordEditText.setText("newPassword1");
+//        usernameEditText.setText("tt700joe@gmail.com");
 //        passwordEditText.setText("newPassword1");
-        usernameEditText.setText("tt700joe@gmail.com");
-        passwordEditText.setText("TxkhN1_J");
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -81,10 +86,29 @@ public class LoginActivity extends AppCompatActivity {
                     openAuthChallengeActivity(loginResult.getAuthChallenge());
                 }
                 if (loginResult.getSuccess() != null) {
+                    //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
+                    GetExperimentsHandler geh = new GetExperimentsHandler(loginResult.getSuccess());
+                    System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
+                    geh.execute();
+                    try {
+                        Result r = geh.get();
+                        if (r instanceof Result.GetExperimentsResult){
+                            System.out.println("CORRS" + Arrays.toString(((Result.GetExperimentsResult) r).getCorrelationExperiments()));
+                            System.out.println("THRESHS" + Arrays.toString(((Result.GetExperimentsResult) r).getThresholdExperiments()));
+                        }else{
+                            System.out.println("NOT SUCCESS: "+ r.toString());
+                        }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
+
+
                     updateUiWithUser(loginResult.getSuccess());
-                    finish();
                 }
-                setResult(Activity.RESULT_OK);
+//                setResult(Activity.RESULT_OK);
             }
         });
 
@@ -152,8 +176,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
+    private void updateUiWithUser(LoggedInUser model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
+
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }

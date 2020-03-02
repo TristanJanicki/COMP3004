@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -41,7 +40,6 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
             JSONObject json = new JSONObject();
             json.put("email", username);
             json.put("password", password);
-            System.out.println(json.toString());
             RequestBody body = RequestBody.create(json.toString(), mediaType);
             Request request = new Request.Builder()
                     .url(networking_statics.url + "/v1/users/signin")
@@ -69,21 +67,17 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                 }else if (r.code() == 500){
                     return new Result.Error(new Exception("server error"));
                 }
-                System.out.println(responseBody.getString("idToken"));
                 String[] tokenParts = responseBody.getString("idToken").split("\\.");
 
-                System.out.println(Arrays.toString(tokenParts));
-                String idTokenStr = new String(Base64.getDecoder().decode(tokenParts[1]), StandardCharsets.UTF_8);// TODO: ask Tristan what this does
-                JSONObject cognitoProfile = new JSONObject(idTokenStr);
-                System.out.println(cognitoProfile.toString());
+                String decodedIdTokenStr = new String(Base64.getDecoder().decode(tokenParts[1]), StandardCharsets.UTF_8);// TODO: ask Tristan what this does
+                JSONObject cognitoProfile = new JSONObject(decodedIdTokenStr);
                 String userID = cognitoProfile.getString("sub");
                 String refreshToken = responseBody.getString("refreshToken");
                 String accessToken = responseBody.getString("accessToken");
 
 
-                return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, idTokenStr, refreshToken, cognitoProfile));
+                return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken, cognitoProfile));
             } catch (IOException e) {
-                System.out.println("XXXX");
                 e.printStackTrace();
                 return new Result.Error(e);
             }catch (JSONException e){
@@ -95,7 +89,6 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                 return new Result.Error(e);
             }
         }catch (JSONException j){
-            System.out.println("ZZZZZZZZZZZ");
             j.printStackTrace();
             return new Result.Error(j);
         }
