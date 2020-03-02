@@ -23,6 +23,10 @@ class LoginResult {
         this.success = success;
     }
 
+    LoginResult(@Nullable AuthChallengeRequiredParameters params){
+        this.authChallengeParams = params;
+    }
+
     @Nullable
     LoggedInUserView getSuccess() {
         return success;
