@@ -46,6 +46,8 @@ public class DeleteExperimentsHandler extends AsyncTask<Object, Void, Result> {
             switch(r.code()){
                 case 200:
                     return new Result.Success<>(200);
+                case 400:
+                    return new Result.Error(new Exception(r.message()));
                 case 401:
                     return new Result.NotAllowed(r.message());
                 case 409:
