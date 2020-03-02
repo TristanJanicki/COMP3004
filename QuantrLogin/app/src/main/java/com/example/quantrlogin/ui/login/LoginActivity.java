@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
         data.putString("email", params.email);
         data.putString("sessionId", params.sessionID);
         data.putString("challenge_name", params.challengeName);
-        System.out.println(data.toString());
+        System.out.println("Bundle Before It Goes Into Intent" + data.toString());
         Intent intent = new Intent(this, Authorization.class);
         intent.putExtras(data);
         startActivity(intent);

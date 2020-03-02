@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
+import com.example.quantrlogin.data.model.LoggedInUser;
 
 import networking_handlers.CompleteAuthChallengeHandler;
 import networking_handlers.output.AuthChallengeRequiredParameters;
@@ -23,13 +24,16 @@ public class Authorization extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization);
 
-        if (savedInstanceState == null){
-            System.out.println("Bundle in Authorization is NULL WHEN IT SHOULD NOT BE");
+        final Bundle b = getIntent().getExtras();
+
+        if (b == null){
+            System.out.println("GET INTENT EXTRAS IS NULL");
             return;
         }
 
         confirm = findViewById(R.id.submitAuthChallenge);
         newPassword = findViewById(R.id.authChallengePassword);
+        newPassword.setText("newPassword1");
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,29 +42,29 @@ public class Authorization extends AppCompatActivity {
                 String newPwStr = newPassword.getText().toString();
 
                 AuthChallengeRequiredParameters params = new AuthChallengeRequiredParameters(
-                        savedInstanceState.getString("email"),
-                        savedInstanceState.getString("sessionId"),
-                        savedInstanceState.getString("challenge_name"),
+                        b.getString("email"),
+                        b.getString("sessionId"),
+                        b.getString("challenge_name"),
                         newPwStr);
+
 
                 CompleteAuthChallengeHandler cah = new CompleteAuthChallengeHandler();
 
                 cah.execute(params);
 
                 try {
-                    Result.GenericNetworkResult result = (Result.GenericNetworkResult) cah.get();
-                    System.out.println(result.toString());
+                    Result result = cah.get();
 
-                    switch (result.getCode()){
-                        case 201:
-                            showHomeScreen();
-                            break;
-                        default:
-                            confirm.setError("Something went wrong, try logging in again");
-                            break;
+                    if (result instanceof Result.Error){
+                        confirm.setError("Something went wrong, try logging in again");
+                        return;
+                    }else if (result instanceof Result.Success){
+                        System.out.println(result.toString());
+                        LoggedInUser user = (LoggedInUser) ((Result.Success) result).getData();
+                        showHomeScreen(user);
                     }
                 }catch (Exception e){
-
+                    e.printStackTrace();
                 }
 
             }
@@ -68,7 +72,9 @@ public class Authorization extends AppCompatActivity {
 
     }
 
-    private void showHomeScreen(){
+    private void showHomeScreen(LoggedInUser user){
+        System.out.println("Showing Home Screen for: " + user.toString());
 //        Intent intent = new Intent(this, HomeScreen.class);
+//        Bundle b = new Bundle();
     }
 }

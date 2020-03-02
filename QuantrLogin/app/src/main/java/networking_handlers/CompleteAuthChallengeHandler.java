@@ -1,13 +1,16 @@
 package networking_handlers;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.quantrlogin.data.Result;
+import com.example.quantrlogin.data.model.LoggedInUser;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.UUID;
 
 import networking_handlers.output.AuthChallengeRequiredParameters;
@@ -29,8 +32,8 @@ public class CompleteAuthChallengeHandler extends AsyncTask<AuthChallengeRequire
             MediaType mediaType = MediaType.parse("application/json");
             JSONObject reqBody = new JSONObject();
             reqBody.put("email", params[0].email);
-            reqBody.put("firstName", params[0].sessionID);
-            reqBody.put("lastName", params[0].newPassword);
+            reqBody.put("sessionId", params[0].sessionID);
+            reqBody.put("newPassword", params[0].newPassword);
 
             RequestBody body = RequestBody.create(reqBody.toString(), mediaType);
             Request request = new Request.Builder()
@@ -41,11 +44,28 @@ public class CompleteAuthChallengeHandler extends AsyncTask<AuthChallengeRequire
                     .build();
             Call c = client.newCall(request);//
 
-
+            System.out.println("About to get response");
             Response r = c.execute();
-            Log.i("HTTP Response Body", r.body().string());
-            Log.i("HTTP Response", r.toString());
-            return new Result.GenericNetworkResult(r.code(), r.message());
+
+            JSONObject responseBody = new JSONObject(r.body().string());
+
+            if (r.code() != 201){
+                System.out.println("NOT 201 for AUTH CHALLENGE");
+                System.out.println(responseBody.toString());
+            }
+
+            String[] tokenParts = responseBody.getString("idToken").split("\\.");
+
+            System.out.println(Arrays.toString(tokenParts));
+            String idTokenStr = new String(Base64.getDecoder().decode(tokenParts[1]), StandardCharsets.UTF_8);// TODO: ask Tristan what this does
+            JSONObject cognitoProfile = new JSONObject(idTokenStr);
+            System.out.println(cognitoProfile.toString());
+            String userID = cognitoProfile.getString("sub");
+            String refreshToken = responseBody.getString("refreshToken");
+            String accessToken = responseBody.getString("accessToken");
+
+
+            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, idTokenStr, refreshToken, cognitoProfile));
         } catch (IOException e) {
             e.printStackTrace();
             return new Result.Error(e);
