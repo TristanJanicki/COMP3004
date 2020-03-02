@@ -49,51 +49,53 @@ def experiments_correlation_create(experiment=None):  # noqa: E501
 
     :rtype: OkResponse
     """
-
-    if experiment == None:
-        print("experiment was None")
-        return BadInputResponse("Experiment was None")
-
-    userID = connexion.request.headers['user_id']
-
-    user = sqlManager.session.query(User).filter_by(user_id=userID).one()
-    usersExperiments = []
-    if user.experiments != None:
-        usersExperiments = user.experiments.split(",")
-
-    experiment = connexion.request.json["experiment"]
-    existingCopy = None
     try:
-        existingCopy = sqlManager.session.query(CorrelationExperiment).filter_by(
-            asset_1=experiment["asset_1"], asset_2=experiment["asset_2"]).one()
+        if experiment == None:
+            print("experiment was None")
+            return BadInputResponse("Experiment was None")
+
+        userID = connexion.request.headers['user_id']
+
+        user = sqlManager.session.query(User).filter_by(user_id=userID).one()
+        usersExperiments = []
+        if user.experiments != None:
+            usersExperiments = user.experiments.split(",")
+
+        experiment = connexion.request.json["experiment"]
+        existingCopy = None
+        try:
+            existingCopy = sqlManager.session.query(CorrelationExperiment).filter_by(
+                asset_1=experiment["asset_1"], asset_2=experiment["asset_2"]).one()
+        except:
+            pass
+        # fill existing copy with a value from the db if there is one
+        sqlManager.session.commit()
+
+        # the experiment already exists, lets check if it needs to be updated (last updated needs to be older than 1 day)
+        if existingCopy != None:
+            last_updated_at = existingCopy.last_updated_at
+            days_since_update = datetime.now() - last_updated_at
+
+            if days_since_update.days > 1:
+                existingCopy.status = "update_requested"
+                existingCopy.update_requested_at = datetime.now()
+
+            if existingCopy.experiment_id not in usersExperiments:
+                usersExperiments.append(existingCopy.experiment_id)
+            else:
+                return AlreadyExistsResponse()
+        else:  # The experiment doesn't exist, lets create it
+            experiment_id = str(uuid.uuid4())
+            dbExperiment = CorrelationExperiment(
+                experiment_id=experiment_id, asset_1=experiment["asset_1"], asset_2=experiment["asset_2"], correlation=0, status="update_requested", update_requested_at=datetime.now(), last_updated_at=datetime.now())
+            sqlManager.session.add(dbExperiment)
+            usersExperiments.append(experiment_id)
+
+        user.experiments = ','.join(usersExperiments)
+        sqlManager.session.commit()
     except:
-        pass
-    # fill existing copy with a value from the db if there is one
-    sqlManager.session.commit()
-
-    # the experiment already exists, lets check if it needs to be updated (last updated needs to be older than 1 day)
-    if existingCopy != None:
-        last_updated_at = existingCopy.last_updated_at
-        days_since_update = datetime.now() - last_updated_at
-
-        if days_since_update.days > 1:
-            existingCopy.status = "update_requested"
-            existingCopy.update_requested_at = datetime.now()
-
-        if existingCopy.experiment_id not in usersExperiments:
-            usersExperiments.append(existingCopy.experiment_id)
-        else:
-            return AlreadyExistsResponse()
-    else:  # The experiment doesn't exist, lets create it
-        experiment_id = str(uuid.uuid4())
-        dbExperiment = CorrelationExperiment(
-            experiment_id=experiment_id, asset_1=experiment["asset_1"], asset_2=experiment["asset_2"], correlation=0, status="update_requested", update_requested_at=datetime.now(), last_updated_at=datetime.now())
-        sqlManager.session.add(dbExperiment)
-        usersExperiments.append(experiment_id)
-
-    user.experiments = ','.join(usersExperiments)
-    sqlManager.session.commit()
-
+        sqlManager.session.rollback()
+        return ErrorResponse()
     return OkResponse()
 
 
