@@ -63,9 +63,8 @@ public class CompleteAuthChallengeHandler extends AsyncTask<AuthChallengeRequire
             String userID = cognitoProfile.getString("sub");
             String refreshToken = responseBody.getString("refreshToken");
             String accessToken = responseBody.getString("accessToken");
-
-
-            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, idTokenStr, refreshToken, cognitoProfile));
+            
+            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, idTokenStr, refreshToken));
         } catch (IOException e) {
             e.printStackTrace();
             return new Result.Error(e);

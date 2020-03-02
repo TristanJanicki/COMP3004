@@ -11,6 +11,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="newPassword">New Password</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="signal_name">Name Me!</string>
     <string name="SignUp">Button</string>
     <string name="todo">TODO</string>
     <string name="wsb_logo">Logo</string>

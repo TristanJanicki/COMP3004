@@ -1,6 +1,9 @@
 package com.example.quantrlogin.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,16 +13,26 @@ import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeView extends AppCompatActivity {
+public class HomeAcitvity extends AppCompatActivity {
+
+    Button newSignalB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        final Bundle b = getIntent().getExtras();
+
+        if (b == null){
+            System.out.println("GET INTENT EXTRAS IS NULL");
+            return;
+        }
 
         Cartesian cartesian = AnyChart.cartesian();
         //LinearGauge lg = AnyChart.linear();
@@ -53,6 +66,22 @@ public class HomeView extends AppCompatActivity {
         AnyChartView anyChartView = (AnyChartView) findViewById(R.id.any_chart_view);
         //anyChartView.setChart(pie);
         //anyChartView.setChart(lg);
+
+        newSignalB = findViewById(R.id.newSignals);
+
+        newSignalB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewSignalActivity((LoggedInUser) b.get("user"));
+            }
+        });
+
         anyChartView.setChart(cartesian);
+    }
+
+    private void startNewSignalActivity(LoggedInUser user){
+        Intent intent = new Intent(this, NewSignal.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 }

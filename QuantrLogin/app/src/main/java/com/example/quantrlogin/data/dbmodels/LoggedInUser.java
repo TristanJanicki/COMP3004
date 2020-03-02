@@ -1,31 +1,29 @@
 package com.example.quantrlogin.data.dbmodels;
 
-import org.json.JSONObject;
-
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
-public class LoggedInUser {
+public class LoggedInUser implements java.io.Serializable{
 
     private String userId;
     private String displayName;
     private String accessToken;
     private String idToken;
     private String refreshToken;
-    private JSONObject cognitoProfile;
+//    private JSONObject cognitoProfile;
 
-    public LoggedInUser(String userId, String displayName, String accessToken, String idToken, String refreshToken, JSONObject cognitoProfile) {
+    public LoggedInUser(String userId, String displayName, String accessToken, String idToken, String refreshToken) {
         this.userId = userId;
         this.displayName = displayName;
         this.accessToken = accessToken;
         this.idToken = idToken;
         this.refreshToken = refreshToken;
-        this.cognitoProfile = cognitoProfile;
+//        this.cognitoProfile = cognitoProfile;
     }
 
-    public JSONObject getCognitoProfile() {
-        return cognitoProfile;
-    }
+//    public JSONObject getCognitoProfile() {
+//        return cognitoProfile;
+//    }
 
     public String getAccessToken() {
         return accessToken;
