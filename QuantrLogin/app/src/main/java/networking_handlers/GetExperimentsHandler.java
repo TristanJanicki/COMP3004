@@ -3,9 +3,9 @@ package networking_handlers;
 import android.os.AsyncTask;
 
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.model.CorrelationExperiment;
-import com.example.quantrlogin.data.model.LoggedInUser;
-import com.example.quantrlogin.data.model.ThresholdExperiment;
+import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
+import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +32,7 @@ public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result>
                 .addHeader("idToken", users[0].getIdToken())
                 .addHeader("user_id", users[0].getUserId())
                 .build();
-        Call c = client.newCall(request);//
+        Call c = client.newCall(request);
 
         try {
             Response r = c.execute();

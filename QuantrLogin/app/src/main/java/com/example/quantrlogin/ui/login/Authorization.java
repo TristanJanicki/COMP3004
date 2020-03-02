@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.model.LoggedInUser;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 import networking_handlers.CompleteAuthChallengeHandler;
 import networking_handlers.output.AuthChallengeRequiredParameters;

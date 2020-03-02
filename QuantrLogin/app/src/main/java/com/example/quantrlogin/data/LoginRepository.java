@@ -1,6 +1,6 @@
 package com.example.quantrlogin.data;
 
-import com.example.quantrlogin.data.model.LoggedInUser;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

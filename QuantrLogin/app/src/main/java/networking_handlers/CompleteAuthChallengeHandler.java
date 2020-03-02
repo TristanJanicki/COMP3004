@@ -3,7 +3,7 @@ package networking_handlers;
 import android.os.AsyncTask;
 
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.model.LoggedInUser;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 import org.json.JSONObject;
 

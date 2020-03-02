@@ -1,7 +1,7 @@
 package com.example.quantrlogin.data;
 
-import com.example.quantrlogin.data.model.CorrelationExperiment;
-import com.example.quantrlogin.data.model.ThresholdExperiment;
+import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
+import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 
 import networking_handlers.output.AuthChallengeRequiredParameters;
 
@@ -70,6 +70,12 @@ public class Result<T> {
 
         public String getMessage() {
             return message;
+        }
+    }
+
+    public final static class AlreadyExists extends Result{
+        public AlreadyExists (){
+
         }
     }
 

@@ -21,12 +21,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.model.LoggedInUser;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
+import com.example.quantrlogin.data.swagger_models.ThresholdExperiment;
 
-import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
-
-import networking_handlers.GetExperimentsHandler;
+import networking_handlers.CreateExperimentsHandler;
 import networking_handlers.output.AuthChallengeRequiredParameters;
 
 public class LoginActivity extends AppCompatActivity {
@@ -86,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                     openAuthChallengeActivity(loginResult.getAuthChallenge());
                 }
                 if (loginResult.getSuccess() != null) {
+                    /*
                     //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
                     GetExperimentsHandler geh = new GetExperimentsHandler();
                     System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
@@ -103,7 +102,32 @@ public class LoginActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////////// END GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
+
+                     */
+
+                    //////////////////////////////////////////////////////////// CREATE EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
+
+                    ThresholdExperiment input = new ThresholdExperiment("AMD", "TRIX");
+
+                    CreateExperimentsHandler ceh = new CreateExperimentsHandler();
+                    ceh.execute(loginResult.getSuccess(), input);
+                    try{
+                        Result r = ceh.get();
+                        if (r instanceof Result.Success){
+                            System.out.println("Succesfully Created Experiment");
+                        }else if (r instanceof Result.Error){
+                            System.out.println("Failed To Create Experiment: " + r.toString());
+                        }else if (r instanceof Result.NotAllowed){
+                            System.out.println("YOU CANT DO THAT!");
+                        }else if (r instanceof Result.AlreadyExists){
+                            System.out.println("That experiment exists already");
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                    //////////////////////////////////////////////////////////// END CREATE EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
 
 
                     updateUiWithUser(loginResult.getSuccess());

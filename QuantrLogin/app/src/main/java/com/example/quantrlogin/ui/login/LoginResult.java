@@ -2,7 +2,7 @@ package com.example.quantrlogin.ui.login;
 
 import androidx.annotation.Nullable;
 
-import com.example.quantrlogin.data.model.LoggedInUser;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 import networking_handlers.output.AuthChallengeRequiredParameters;
 

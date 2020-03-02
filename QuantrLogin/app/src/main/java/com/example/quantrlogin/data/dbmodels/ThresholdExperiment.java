@@ -1,9 +1,9 @@
-package com.example.quantrlogin.data.model;
+package com.example.quantrlogin.data.dbmodels;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ThresholdExperiment {
+public class ThresholdExperiment extends Experiment {
     private String id, indicator, ticker;
 
     public ThresholdExperiment(String id, String indicator, String ticker){

@@ -1,4 +1,4 @@
-package com.example.quantrlogin.data.model;
+package com.example.quantrlogin.data.dbmodels;
 
 import org.json.JSONObject;
 

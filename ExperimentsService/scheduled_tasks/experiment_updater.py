@@ -24,7 +24,7 @@ logging.basicConfig()
 logger = logging.getLogger()
 log_handler = logging.StreamHandler(sys.stdout)
 log_handler.setFormatter(logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(funcName)s - line %(lineno)d"))
+    "%(asctime)s - %(message)s - %(funcName)s"))
 log_handler.setLevel(logging.INFO)
 logger.addHandler(log_handler)
 logger.setLevel(logging.INFO)

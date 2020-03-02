@@ -1,9 +1,9 @@
-package com.example.quantrlogin.data.model;
+package com.example.quantrlogin.data.dbmodels;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CorrelationExperiment {
+public class CorrelationExperiment extends Experiment {
     private String id, asset_1, asset_2;
     float correlation;
 
