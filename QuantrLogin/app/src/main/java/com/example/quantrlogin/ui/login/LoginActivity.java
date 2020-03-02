@@ -87,9 +87,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
-                    GetExperimentsHandler geh = new GetExperimentsHandler(loginResult.getSuccess());
+                    GetExperimentsHandler geh = new GetExperimentsHandler();
                     System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
-                    geh.execute();
+                    geh.execute(loginResult.getSuccess());
                     try {
                         Result r = geh.get();
                         if (r instanceof Result.GetExperimentsResult){

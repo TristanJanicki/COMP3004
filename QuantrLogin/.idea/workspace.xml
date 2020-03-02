@@ -16,18 +16,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd7e5d06-3552-45b8-a478-d0a35ed1d505" name="Default Changelist" comment="Test">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/model/CorrelationExperiment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/model/ThresholdExperiment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/networking_handlers/CreateExperimentsHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/networking_handlers/DeleteExperimentsHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/networking_handlers/GetExperimentsHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/networking_handlers/UpdateExperimentsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/Result.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/networking_handlers/SignInHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/networking_handlers/SignInHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/networking_handlers/GetExperimentsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/networking_handlers/GetExperimentsHandler.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,13 +56,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="106" selection-start-line="106" selection-end-line="106" />
+            <state relative-caret-position="309">
+              <caret line="91" column="56" selection-start-line="91" selection-start-column="56" selection-end-line="91" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2843#4476#0" expanded="true" />
                 <element signature="e#4475#4476#0" expanded="true" />
                 <element signature="method#openAuthChallengeActivity#0;class#LoginActivity#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/CompleteAuthChallengeHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -120,12 +122,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/GetExperimentsHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="68" column="21" lean-forward="true" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
+            <state relative-caret-position="386">
+              <caret line="32" column="46" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#427#428#0" expanded="true" />
-                <element signature="e#459#460#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -151,26 +151,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#convertJSONObjectToDbObject#0;class#ThresholdExperiment#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/Result.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="39" column="65" selection-start-line="39" selection-start-column="65" selection-end-line="39" selection-end-column="65" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#toString#0;class#Result#0" />
-                <element signature="class#GetExperimentsResult#0;class#Result#0" />
-                <element signature="e#1901#1902#0" expanded="true" />
-                <element signature="e#1952#1953#0" expanded="true" />
-                <element signature="class#GenericNetworkResult#0;class#Result#0" />
-                <element signature="class#NotAllowed#0;class#Result#0" />
-                <element signature="class#Success#0;class#Result#0" />
-                <element signature="class#Error#0;class#Result#0" />
               </folding>
             </state>
           </provider>
@@ -721,8 +701,8 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.9511344" visible="true" weight="0.20782396" />
-      <window_info id="Structure" order="2" sideWeight="0.04886562" side_tool="true" weight="0.20782396" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.9538003" visible="true" weight="0.20782396" />
+      <window_info id="Structure" order="2" sideWeight="0.04711246" side_tool="true" weight="0.20782396" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
@@ -730,7 +710,7 @@
       <window_info id="Resources Explorer" order="7" weight="0.32885087" />
       <window_info id="Capture Tool" order="8" />
       <window_info id="UI Designer" order="9" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.84352076" visible="true" weight="0.35834268" />
+      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.84352076" visible="true" weight="0.24860023" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" sideWeight="0.49938875" weight="0.19260918" />
       <window_info anchor="bottom" id="Logcat" order="3" sideWeight="0.801956" weight="0.29787233" />
@@ -1089,16 +1069,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/CompleteAuthChallengeHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/model/Experiment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1202,22 +1172,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/GetExperimentsHandler.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/CompleteAuthChallengeHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="68" column="21" lean-forward="true" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
+        <state relative-caret-position="276">
+          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#427#428#0" expanded="true" />
-            <element signature="e#459#460#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/GetExperimentsHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="32" column="46" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="106" selection-start-line="106" selection-end-line="106" />
+        <state relative-caret-position="309">
+          <caret line="91" column="56" selection-start-line="91" selection-start-column="56" selection-end-line="91" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2843#4476#0" expanded="true" />

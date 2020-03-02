@@ -18,16 +18,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class GetExperimentsHandler extends AsyncTask<Void, Void, Result> {
-
-    private LoggedInUser user;
-
-    public GetExperimentsHandler(LoggedInUser user){
-        this.user = user;
-    }
+public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result> {
 
     @Override
-    protected Result doInBackground(Void... voids) {
+    protected Result doInBackground(LoggedInUser... users) {
 
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -35,8 +29,8 @@ public class GetExperimentsHandler extends AsyncTask<Void, Void, Result> {
                 .url(networking_statics.url + "/v1/users/experiments")
                 .method("GET", null)
                 .addHeader("X-Request-ID", UUID.randomUUID().toString())
-                .addHeader("idToken", user.getIdToken())
-                .addHeader("user_id", user.getUserId())
+                .addHeader("idToken", users[0].getIdToken())
+                .addHeader("user_id", users[0].getUserId())
                 .build();
         Call c = client.newCall(request);//
 
