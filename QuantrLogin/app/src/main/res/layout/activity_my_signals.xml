@@ -64,6 +64,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/signalsList">
+    </ListView>
+
     <Button
         android:id="@+id/signal1"
         android:layout_width="210dp"
@@ -106,22 +112,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signal2" />
 
-    <TextView
-        android:id="@+id/mySignalsText"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="110dp"
-        android:fontFamily="monospace"
-        android:text="@string/mySignals"
-        android:textAlignment="textStart"
-        android:textColor="@color/colorAccent"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/subscribe1"
         android:layout_width="65dp"
@@ -160,4 +150,22 @@
         app:layout_constraintStart_toEndOf="@+id/signal1"
         app:layout_constraintTop_toBottomOf="@+id/subscribe2"
         android:contentDescription="@string/subscribe" />
+
+    <TextView
+        android:id="@+id/mySignalsText"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="110dp"
+        android:fontFamily="monospace"
+        android:text="@string/mySignals"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorAccent"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

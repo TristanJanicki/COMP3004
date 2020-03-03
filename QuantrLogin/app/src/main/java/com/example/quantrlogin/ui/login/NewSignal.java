@@ -20,7 +20,7 @@ public class NewSignal extends AppCompatActivity{
     Button createSignalButton;
     SearchView tickerSearch;
     Spinner indicatorChooser, directionChooser;
-    RadioButton longStrat, shortTrat;
+    RadioButton longStrat, shortStrat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

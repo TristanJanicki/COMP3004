@@ -30,7 +30,7 @@
     <SearchView
         android:id="@+id/searchStock"
         android:layout_width="325dp"
-        android:layout_height="48dp"
+        android:layout_height="53dp"
         android:layout_marginTop="148dp"
         android:background="#808080"
         android:queryHint="StockName"
@@ -39,8 +39,8 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="394dp"
-        android:layout_height="63dp"
+        android:layout_width="325dp"
+        android:layout_height="53dp"
         android:layout_marginTop="24dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,14 +53,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Long" />
+            android:text="Long"
+            android:textColor="#FFF" />
 
         <RadioButton
             android:id="@+id/shortButt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Short" />
+            android:text="Short"
+            android:textColor="#FFF" />
     </RadioGroup>
 
     <CheckBox
@@ -68,11 +70,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="157dp"
         android:text="Backtesting in the cloud"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.231"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#FFF"
+        app:layout_constraintStart_toStartOf="@+id/directionChooser"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <Spinner
@@ -105,6 +105,7 @@
     <Button
         android:id="@+id/createSignalButotn"
         android:layout_width="wrap_content"
+        android:backgroundTint="@color/GoldYellow"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginLeft="160dp"

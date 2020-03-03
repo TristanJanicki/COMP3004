@@ -19,6 +19,8 @@ import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import networking_handlers.networking_statics;
+
 public class HomeAcitvity extends AppCompatActivity {
 
     Button newSignalB;
@@ -33,6 +35,10 @@ public class HomeAcitvity extends AppCompatActivity {
 
         if (b == null){
             System.out.println("GET INTENT EXTRAS IS NULL");
+            return;
+        }
+        if (!b.containsKey("user")){
+            System.out.println("Trying to start home activity without passing in a user!");
             return;
         }
 
@@ -83,7 +89,7 @@ public class HomeAcitvity extends AppCompatActivity {
         mySignal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMySignalsActivity();
+                openMySignalsActivity((LoggedInUser) b.get("user"));
             }
         });
 
@@ -92,12 +98,13 @@ public class HomeAcitvity extends AppCompatActivity {
     }
 
     public void redirectTD(View view){
-        Intent tdAmer=new Intent(Intent.ACTION_VIEW, Uri.parse("https://auth.tdameritrade.com/auth?response_type=code&redirect_uri=http%3A%2F%2F8b8f0859.ngrok.io%2Fdata%2FTD%2Fcallback&client_id=JPGIHQGE5ZUUQAEVAKT6JDKWM8WAALL2%40AMER.OAUTHAP"));
+        Intent tdAmer=new Intent(Intent.ACTION_VIEW, Uri.parse(networking_statics.tdaURL));
         startActivity(tdAmer);
     }
 
-    public void openMySignalsActivity() {
+    public void openMySignalsActivity(LoggedInUser user) {
         Intent intent = new Intent(this, MySignals.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 
