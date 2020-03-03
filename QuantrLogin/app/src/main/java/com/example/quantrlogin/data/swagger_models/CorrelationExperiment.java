@@ -7,15 +7,15 @@ import org.json.JSONObject;
 
 public class CorrelationExperiment {
     private String asset_1, asset_2;
-    float correlation;
+    double correlation;
 
-    public CorrelationExperiment(String asset_1, String asset_2, float correlation){
+    public CorrelationExperiment(String asset_1, String asset_2, double correlation){
         this.asset_1 = asset_1;
         this.asset_2 = asset_2;
         this.correlation = correlation;
     }
 
-    public float getCorrelation() {
+    public double getCorrelation() {
         return correlation;
     }
 

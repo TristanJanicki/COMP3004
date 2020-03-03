@@ -884,7 +884,7 @@ def plot_histo(arr, title, x_label, figure=1):
              bins=int(180/5))
 
     # seaborn histogram
-    sns.distplot(arr, hist=True, kde=False,
+    sns.distplot(arr, rug=True, hist=True, kde=False,
                  bins=int(180/5), color='blue',
                  hist_kws={'edgecolor': 'black'})
 

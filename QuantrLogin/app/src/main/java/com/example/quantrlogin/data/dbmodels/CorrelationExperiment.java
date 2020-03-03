@@ -5,16 +5,16 @@ import org.json.JSONObject;
 
 public class CorrelationExperiment extends Experiment {
     private String asset_1, asset_2;
-    float correlation;
+    double correlation;
 
-    public CorrelationExperiment(String id, String asset_1, String asset_2, float correlation){
+    public CorrelationExperiment(String id, String asset_1, String asset_2, double correlation){
         super(id);
         this.asset_1 = asset_1;
         this.asset_2 = asset_2;
         this.correlation = correlation;
     }
 
-    public float getCorrelation() {
+    public double getCorrelation() {
         return correlation;
     }
 
@@ -31,7 +31,7 @@ public class CorrelationExperiment extends Experiment {
             obj.getString("experiment_id"),
             obj.getString("asset_1"),
             obj.getString("asset_2"),
-            (float) obj.getDouble("correlation")
+            obj.getDouble("correlation")
         );
     }
 }

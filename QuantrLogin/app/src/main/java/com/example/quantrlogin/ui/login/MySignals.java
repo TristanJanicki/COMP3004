@@ -111,7 +111,7 @@ public class MySignals extends AppCompatActivity {
         sig2 = findViewById(R.id.signal2);
         sig3 = findViewById(R.id.signal3);
 
-        if (experiments.length >= 1)applySignalButtonStyling(sig1, experiments[0]);
+        if (experiments.length >= 1)applySignalButtonStyling(sig1, experiments[experiments.length - 1]);
         if (experiments.length >= 2) applySignalButtonStyling(sig2, experiments[1]);
         if (experiments.length >= 3) applySignalButtonStyling(sig3, experiments[2]);
     }
@@ -122,7 +122,7 @@ public class MySignals extends AppCompatActivity {
             b.setText(c.getAsset_1() + ":" + c.getAsset_2() + ":" + c.getCorrelation());
         }else if(e instanceof ThresholdExperiment){
             ThresholdExperiment t = (ThresholdExperiment) e;
-            b.setText(t.getTicker() + ":" + t.getIndicator());
+            b.setText(t.getTicker() + ":" + t.getIndicator() + ":" + t.getThreshold());
         }
     }
 }

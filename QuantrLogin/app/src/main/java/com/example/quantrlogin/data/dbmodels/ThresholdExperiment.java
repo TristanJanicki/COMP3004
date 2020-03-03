@@ -21,6 +21,10 @@ public class ThresholdExperiment extends Experiment {
         return ticker;
     }
 
+    public String getThreshold() {
+        return threshold;
+    }
+
     public static ThresholdExperiment convertJSONObjectToDbObject(JSONObject obj) throws JSONException{
         return new ThresholdExperiment(
                 obj.getString("experiment_id"),
