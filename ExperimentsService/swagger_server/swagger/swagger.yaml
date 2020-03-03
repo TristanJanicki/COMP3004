@@ -225,10 +225,13 @@ definitions:
         type: "string"
       ticker:
         type: "string"
+      threshold:
+        type: "string"
     example:
       indicator: "indicator"
       ticker: "ticker"
       experiment_id: "experiment_id"
+      threshold: "threshold"
   getExperimentsResult:
     properties:
       correlations:
@@ -244,9 +247,11 @@ definitions:
       - indicator: "indicator"
         ticker: "ticker"
         experiment_id: "experiment_id"
+        threshold: "threshold"
       - indicator: "indicator"
         ticker: "ticker"
         experiment_id: "experiment_id"
+        threshold: "threshold"
       correlations:
       - correlation: 0.80082819046101150206595775671303272247314453125
         experiment_id: "experiment_id"

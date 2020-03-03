@@ -21,7 +21,7 @@ import networking_handlers.GetExperimentsHandler;
 public class MySignals extends AppCompatActivity {
     LoggedInUser user;
     Experiment[] usersExperiments;
-
+    Button button_home, newSignalButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +39,7 @@ public class MySignals extends AppCompatActivity {
         }
         user = (LoggedInUser) b.get("user");
         usersExperiments = getSignals(user);
-        final Button button_home = findViewById(R.id.home1);
+        button_home = findViewById(R.id.home1);
 
         button_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +48,20 @@ public class MySignals extends AppCompatActivity {
             }
         });
 
+        newSignalButton = findViewById(R.id.addNewSignal);
+        newSignalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(NewSignal.class, user);
+            }
+        });
+
+    }
+
+    void openActivity(Class c, LoggedInUser user){
+        Intent intent = new Intent(this, c);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 
     public void openHomeActivity(LoggedInUser user) {

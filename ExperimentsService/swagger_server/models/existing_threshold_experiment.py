@@ -15,7 +15,7 @@ class ExistingThresholdExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None, threshold: str=None):  # noqa: E501
         """ExistingThresholdExperiment - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingThresholdExperiment.  # noqa: E501
@@ -24,22 +24,27 @@ class ExistingThresholdExperiment(Model):
         :type indicator: str
         :param ticker: The ticker of this ExistingThresholdExperiment.  # noqa: E501
         :type ticker: str
+        :param threshold: The threshold of this ExistingThresholdExperiment.  # noqa: E501
+        :type threshold: str
         """
         self.swagger_types = {
             'experiment_id': str,
             'indicator': str,
-            'ticker': str
+            'ticker': str,
+            'threshold': str
         }
 
         self.attribute_map = {
             'experiment_id': 'experiment_id',
             'indicator': 'indicator',
-            'ticker': 'ticker'
+            'ticker': 'ticker',
+            'threshold': 'threshold'
         }
 
         self._experiment_id = experiment_id
         self._indicator = indicator
         self._ticker = ticker
+        self._threshold = threshold
 
     @classmethod
     def from_dict(cls, dikt) -> 'ExistingThresholdExperiment':
@@ -114,3 +119,24 @@ class ExistingThresholdExperiment(Model):
         """
 
         self._ticker = ticker
+
+    @property
+    def threshold(self) -> str:
+        """Gets the threshold of this ExistingThresholdExperiment.
+
+
+        :return: The threshold of this ExistingThresholdExperiment.
+        :rtype: str
+        """
+        return self._threshold
+
+    @threshold.setter
+    def threshold(self, threshold: str):
+        """Sets the threshold of this ExistingThresholdExperiment.
+
+
+        :param threshold: The threshold of this ExistingThresholdExperiment.
+        :type threshold: str
+        """
+
+        self._threshold = threshold

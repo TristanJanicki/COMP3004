@@ -246,8 +246,13 @@ def user_experiments_get_all():  # noqa: E501
     """
 
     userID = connexion.request.headers['user_id']
-    user = sqlManager.session.query(User).filter_by(user_id=userID).one()
-
+    try: 
+        user = sqlManager.session.query(User).filter_by(user_id=userID).one()
+    except SQLAlchemyError as e:
+        if "No row was found" in str(e):
+            return NotFoundResponse()
+        else:
+            return ErrorResponse()
     usersCorrelations = []
     usersThresholds = []
     usersExperiments = user.experiments.split(",")

@@ -27,15 +27,27 @@
         app:layout_constraintStart_toStartOf="@+id/searchStock"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SearchView
+<!--    <SearchView-->
+<!--        android:id="@+id/searchStock"-->
+<!--        android:layout_width="325dp"-->
+<!--        android:layout_height="53dp"-->
+<!--        android:layout_marginTop="148dp"-->
+<!--        android:background="#808080"-->
+<!--        android:queryHint="StockName"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/indicatorChooser"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <EditText
         android:id="@+id/searchStock"
         android:layout_width="325dp"
         android:layout_height="53dp"
+        android:hint="@string/tickerSearchHint"
         android:layout_marginTop="148dp"
         android:background="#808080"
         android:queryHint="StockName"
         app:layout_constraintStart_toStartOf="@+id/indicatorChooser"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -119,14 +131,14 @@
         app:layout_constraintTop_toBottomOf="@+id/backtestInCloud" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/setNewSignalThreshold"
         android:layout_width="122dp"
         android:layout_height="41dp"
         android:layout_marginStart="81dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="65dp"
         android:ems="10"
-
+        android:text="50"
         android:inputType="number"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"

@@ -80,6 +80,8 @@ definitions:
         type: string
       ticker:
         type: string
+      threshold:
+        type: string
 
   getExperimentsResult:
     required:

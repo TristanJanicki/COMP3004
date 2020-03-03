@@ -19,6 +19,7 @@
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="sign_up">Sign Up</string>
+    <string name="tickerSearchHint">Enter a ticker or company name</string>
     <string name="termsOfService">I have read and agree to the terms and conditions</string>
     <string name="premium">Premium</string>
     <string name="freemium">Freemium</string>

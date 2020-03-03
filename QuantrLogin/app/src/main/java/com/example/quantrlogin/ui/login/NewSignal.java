@@ -1,26 +1,32 @@
 package com.example.quantrlogin.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.SearchView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.swagger_models.ThresholdExperiment;
+
+import java.util.Arrays;
 
 import networking_handlers.CreateExperimentsHandler;
 
 public class NewSignal extends AppCompatActivity{
     Button createSignalButton;
-    SearchView tickerSearch;
+    EditText tickerSearch, thresholdField;
     Spinner indicatorChooser, directionChooser;
     RadioButton longStrat, shortStrat;
+    String[] availableTickers = new String[]{"TSLA", "AMD", "NVDA", "SPCE"};
+    LoggedInUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +36,8 @@ public class NewSignal extends AppCompatActivity{
         tickerSearch = findViewById(R.id.searchStock);
         indicatorChooser = findViewById(R.id.indicatorChooser);
         directionChooser = findViewById(R.id.directionChooser);
+        thresholdField = findViewById(R.id.setNewSignalThreshold);
 
-        tickerSearch.setQuery("AMD", false);
         String[] indicatorChoices = new String[]{"RSI", "SMA 10", "SMA 20", "SMA 50", "SMA 100", "SMA 200", "TRIX", "EMA"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, indicatorChoices);
@@ -45,27 +51,34 @@ public class NewSignal extends AppCompatActivity{
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         directionChooser.setAdapter(dirAdapter);
 
-
+        Arrays.sort(availableTickers);
         final Bundle b = getIntent().getExtras();
 
         if (b == null){
             System.out.println("GET INTENT EXTRAS IS NULL");
             return;
         }
+        if (!b.containsKey("user")){
+            System.out.println("NO USER IN CREATE SIGNAL");
+            return;
+        }
+        user = (LoggedInUser) b.get("user");
 
         createSignalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ticker = tickerSearch.getQuery().toString();
+                String ticker = tickerSearch.getText().toString();
                 String indicator = indicatorChooser.getSelectedItem().toString();
-                ThresholdExperiment input = new ThresholdExperiment(indicator, ticker, 101);
+                float threshold = Float.parseFloat(thresholdField.getText().toString());
+                ThresholdExperiment input = new ThresholdExperiment(indicator, ticker, threshold);
 //                CorrelationExperiment input = new CorrelationExperiment("GBP", "EUR", 0);
                 CreateExperimentsHandler ceh = new CreateExperimentsHandler();
-                ceh.execute(b.get("user"), input);
+                ceh.execute(user, input);
                 try{
                     Result r = ceh.get();
                     if (r instanceof Result.Success){
                         System.out.println("Succesfully Created Experiment");
+                        openActivity(MySignals.class, user);
                     }else if (r instanceof Result.Error){
                         System.out.println("Failed To Create Experiment: " + r.toString());
                     }else if (r instanceof Result.NotAllowed){
@@ -82,4 +95,11 @@ public class NewSignal extends AppCompatActivity{
         });
 
     }
+
+    void openActivity(Class c, LoggedInUser user){
+        Intent intent = new Intent(this, c);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
 }
