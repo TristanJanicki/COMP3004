@@ -22,6 +22,7 @@ import java.util.List;
 public class HomeAcitvity extends AppCompatActivity {
 
     Button newSignalB;
+    private Button mySignal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +70,20 @@ public class HomeAcitvity extends AppCompatActivity {
         //anyChartView.setChart(lg);
 
         newSignalB = findViewById(R.id.newSignals);
+        //mySignal = findViewById(R.id.mySignals2);
 
         newSignalB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startNewSignalActivity((LoggedInUser) b.get("user"));
+            }
+        });
+
+        mySignal = findViewById(R.id.mySignals);
+        mySignal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMySignalsActivity();
             }
         });
 
@@ -84,6 +94,11 @@ public class HomeAcitvity extends AppCompatActivity {
     public void redirectTD(View view){
         Intent tdAmer=new Intent(Intent.ACTION_VIEW, Uri.parse("https://auth.tdameritrade.com/auth?response_type=code&redirect_uri=http%3A%2F%2F8b8f0859.ngrok.io%2Fdata%2FTD%2Fcallback&client_id=JPGIHQGE5ZUUQAEVAKT6JDKWM8WAALL2%40AMER.OAUTHAP"));
         startActivity(tdAmer);
+    }
+
+    public void openMySignalsActivity() {
+        Intent intent = new Intent(this, MySignals.class);
+        startActivity(intent);
     }
 
     private void startNewSignalActivity(LoggedInUser user){

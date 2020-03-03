@@ -35,4 +35,5 @@
     <string name="signal2">Signal 2</string>
     <string name="signal3">Signal 3</string>
     <string name="subscribe">Subscribe</string>
+    <string name="tdAmeritrade">Connect TD Ameritrade</string>
 </resources>

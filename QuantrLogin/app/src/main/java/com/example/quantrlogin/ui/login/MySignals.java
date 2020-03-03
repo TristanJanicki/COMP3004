@@ -28,7 +28,7 @@ public class MySignals extends AppCompatActivity {
     }
 
     public void openHomeActivity() {
-        Intent intent = new Intent(this, HomeView.class);
+        Intent intent = new Intent(this, HomeAcitvity.class);
         startActivity(intent);
     }
 }
