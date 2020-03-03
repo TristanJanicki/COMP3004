@@ -1,0 +1,4 @@
+Hooked up all the network handlers for the android app to the backend.
+	- tested and debugged them
+Made the authorization page (submit first time password).
+Planned for the comming month
