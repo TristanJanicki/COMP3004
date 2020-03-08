@@ -20,7 +20,7 @@ from random import random
 from random import seed
 import seaborn as sns
 import threading
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import os
 
 base_path = "C:/Users/trist/Desktop/Projects/Stock_Data/"
@@ -1028,8 +1028,12 @@ if __name__ == "__main__":
     
     test_results = []
     ticker = "AMD"
+    # with ProcessPoolExecutor as pExec: #TODO implement this one too, 1 process per core, (1 / n_cores) * n_jobs, jobs per process
     with ThreadPoolExecutor(max_workers=1) as executor:
         all_price_deltas = get_price_delta_distribution(ticker, verbose=False, figure=1)
+        np_arr = np.array(all_price_deltas)
+        all_prices_std_dev = np_arr.std()
+        all_price_deltas_mean = np_arr.mean()
         for i in range(0, 100):
             
             # plot_histo(rsi_price_deltas, "RSI Crosses Below %d Moves", "% Moves" % (i), 4)
@@ -1039,7 +1043,8 @@ if __name__ == "__main__":
                 if (len(rsi_price_deltas) < 3):
                     print("PRICE DELTAS FOR ", i, rsi_price_deltas)
                     return [0,0,0]
-                t_test_t, t_test_p = st.ttest_ind(all_price_deltas, rsi_price_deltas, equal_var=True)
+                    
+                t_test_t, t_test_p = st.ttest_ind(sample_randomly(all_price_deltas, len(rsi_price_deltas)), rsi_price_deltas, equal_var=True)
 
                 shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:4000]) # keep the sample size below 5,000 to avoid p-value warning
                 shapiro_w2, shapiro_p2 = st.shapiro(rsi_price_deltas)
@@ -1059,13 +1064,17 @@ if __name__ == "__main__":
             future = executor.submit(doWork)
             test_results.append(future.result())
 
-    def get_test_result_p(elem):
-        return elem[1]
-    def get_test_result_n(elem):
-        return elem[3]
+        def get_test_result_p(elem):
+            return elem[1]
+        def get_test_result_n(elem):
+            return elem[3]
 
-    test_results.sort(key=get_test_result_p)
-    print(test_results)
+        test_results.sort(key=get_test_result_p)
+        print(test_results)
+        print("All Std Dev", all_prices_std_dev)
+        print("All Mean:", all_price_deltas_mean)
+
+
     # plt.show()
 
     # get_optimal_rsi_threshold("AMD")
