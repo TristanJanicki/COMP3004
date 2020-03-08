@@ -1061,6 +1061,8 @@ if __name__ == "__main__":
 
     def get_test_result_p(elem):
         return elem[1]
+    def get_test_result_n(elem):
+        return elem[3]
 
     test_results.sort(key=get_test_result_p)
     print(test_results)
