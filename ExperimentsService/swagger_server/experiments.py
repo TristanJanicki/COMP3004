@@ -20,7 +20,7 @@ from random import random
 from random import seed
 import seaborn as sns
 import threading
-import concurrent.futures
+from concurrent.futures import ThreadPoolExecutor
 import os
 
 base_path = "C:/Users/trist/Desktop/Projects/Stock_Data/"
@@ -872,7 +872,7 @@ def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, v
     best_threshold = 0
     # intuition tells me theres no way that an rsi inversion is even remotely relevant > 14 days later.
     for i in range(0, 14):
-        _, _, _, price_deltas, _, _, _, _ = get_rsi_threshold_move_distribution(
+        _, _, _, price_deltas, _, _, _, _, _, _ = get_rsi_threshold_move_distribution(
             ticker, year, rsi_threshold, i, False, figure=figure+1)
         corr = np.corrcoef(i, price_deltas)
         if abs(corr[0][0]) > max_corr:
@@ -882,14 +882,14 @@ def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, v
     return best_threshold
 
 
-def get_optimal_rsi_threshold(ticker, year="ALL", days_from_inversion_threshold=1, verbose=False):
+def get_optimal_rsi_threshold(ticker, year="ALL", days_from_inversion_threshold=1, verbose=False, figure=1):
     pd_mean_history = []
     threshold_history = []
     dispersion_history = []
     # only 100 possible values for the RSI indicator so thats all we need to loop for. Starting at 10 because the rsi is never at 0.
     for i in range(10, 100):
         _, _, _, _, price_delta_std_dev, price_delta_mean, _, _, _ = get_rsi_threshold_move_distribution(
-            [ticker], year, i, days_from_inversion_threshold, False)
+            [ticker], year, i, days_from_inversion_threshold, False, figure=figure+1)
         variance = price_delta_std_dev ** 2
 
         if variance != 0 and price_delta_mean != 0:
@@ -909,7 +909,7 @@ def get_optimal_rsi_threshold(ticker, year="ALL", days_from_inversion_threshold=
         plot_correlation_matrix(
             corr, ["Price Delta History", "Dispersion History", "Threshold History"], 3)
         print("Correlation: ", corr)
-        plt.show()
+plt.show()
 
 
 def plot_correlation_matrix(corr, labels, figure=1):
@@ -1015,32 +1015,55 @@ if __name__ == "__main__":
 
     # plt.show()
     # exit(1)
-    all_price_deltas = get_price_delta_distribution("SPY", verbose=True, figure=1)
-    big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=True, figure=2)
-    next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=True, figure=3)
+    # big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=False, figure=2)
+    # next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=False, figure=3)
 
     # plt.show()
     # exit(1)
-    sub_sample = sample_randomly(all_price_deltas, 54)
-    plot_histo(all_price_deltas, "All Moves", "% Moves", 1)
-    plot_histo(sub_sample, "Subsample Moves", "% Moves", 2)
-    _, _, _, rsi_price_deltas, _, _, _, _, _ = get_rsi_threshold_move_distribution(["AMD"], "ALL", 75, 1, verbose=True)
-    plot_histo(rsi_price_deltas, "RSI Crosses Below 75 Moves", "% Moves", 4)
 
-    t_test_t, t_test_p = st.ttest_ind(all_price_deltas, rsi_price_deltas)
+    # sub_sample = sample_randomly(all_price_deltas, len(all_price_deltas))
+    # plot_histo(all_price_deltas, "All Moves", "% Moves", 1)
+    # plot_histo(sub_sample, "Subsample Moves", "% Moves", 2)
+    threshold = 75
+    
+    test_results = []
+    ticker = "AMD"
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        all_price_deltas = get_price_delta_distribution(ticker, verbose=False, figure=1)
+        for i in range(0, 100):
+            
+            # plot_histo(rsi_price_deltas, "RSI Crosses Below %d Moves", "% Moves" % (i), 4)
 
-    shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:4000]) # keep the sample size below 5,000 to avoid p-value warning
-    shapiro_w2, shapiro_p2 = st.shapiro(rsi_price_deltas)
+            def doWork():
+                history, history_std_dev, history_mean, rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix, event_dates = get_rsi_threshold_move_distribution([ticker], "ALL", i, 1, verbose=False)
+                if (len(rsi_price_deltas) < 3):
+                    print("PRICE DELTAS FOR ", i, rsi_price_deltas)
+                    return [0,0,0]
+                t_test_t, t_test_p = st.ttest_ind(all_price_deltas, rsi_price_deltas, equal_var=True)
 
-    print("Population_N: ", len(all_price_deltas), "Sample_N: ", len(rsi_price_deltas))
-    print("Shapiro Test Results")
-    print("Population W: ", shapiro_w1, " P: ", shapiro_p1)
-    print("Sample     W: ", shapiro_w2, " P: ", shapiro_p2)
+                shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:4000]) # keep the sample size below 5,000 to avoid p-value warning
+                shapiro_w2, shapiro_p2 = st.shapiro(rsi_price_deltas)
 
-    print("T Test Results")
-    print("t = ", t_test_t)
-    print("p = ", t_test_p)
+                # print("##################################################################   TEST RESULTS FOR %d ##################################################################" % (i))
+                # print("Population_N: ", len(all_price_deltas), "Sample_N: ", len(rsi_price_deltas))
+                # print("Shapiro Test Results")
+                # print("Population W: ", shapiro_w1, " P: ", shapiro_p1)
+                # print("Sample     W: ", shapiro_w2, " P: ", shapiro_p2)
 
+                # print("T Test Results")
+                # print("t = ", t_test_t)
+                # print("p = ", t_test_p)
+
+                return [t_test_t, t_test_p, i, len(history), price_delta_mean, price_delta_std_dev]
+
+            future = executor.submit(doWork)
+            test_results.append(future.result())
+
+    def get_test_result_p(elem):
+        return elem[1]
+
+    test_results.sort(key=get_test_result_p)
+    print(test_results)
     # plt.show()
 
     # get_optimal_rsi_threshold("AMD")
