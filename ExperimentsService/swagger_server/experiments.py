@@ -1034,7 +1034,7 @@ if __name__ == "__main__":
         np_arr = np.array(all_price_deltas)
         all_prices_std_dev = np_arr.std()
         all_price_deltas_mean = np_arr.mean()
-        shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:4000]) # keep the sample size below 5,000 to avoid p-value warning
+        shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:min(len(all_price_deltas), 4000)]) # keep the sample size below 5,000 to avoid p-value warning
 
         for i in range(0, 100):
             
