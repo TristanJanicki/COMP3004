@@ -61,6 +61,23 @@ time_series_types = ["INTRA_DAY" "DAILY",
 api_keys = ["3284ADU2OA9K1TMP", "MQB8T0YUNFCKRXY3", "0YFP4YQSAHYZ6ILZ", "BA49YIFTFXOURC9U"]
 api_limit_per_minute = 5 * len(api_keys)
 
+currencyFile = open("./datasets/currencyList.txt")
+
+currencies = currencyFile.read().split("\n")
+
+for currency in currencies:
+    for curr in currencies:
+        if curr != currency:
+            api_key = api_keys[api_call_count % len(api_keys)]
+            if api_call_count > 0 and api_call_count % api_limit_per_minute == 0:
+                time.sleep(60)
+            api_call_count += 1
+            print("GETTING: ", curr, "_", currency)
+            technicals.getCurrencyData(curr, currency, api_key)
+            if api_call_count == 500 * len(api_keys):
+                exit(1)
+
+exit(1)
 # 5 per minute
 # 500 per day
 for tpt in time_series_types:
@@ -69,7 +86,7 @@ for tpt in time_series_types:
             for i in time_intervals:
                 for ticker in tickers:
                     if api_call_count == (500 * len(api_keys)):
-                        exit(1)
+                        exit(1) #TODO: edit so it sleeps until tommorow instead of exiting
 
                     api_key = api_keys[api_call_count % len(api_keys)]
                     if api_call_count > 0 and api_call_count % api_limit_per_minute == 0:

@@ -21,46 +21,87 @@ from random import seed
 import seaborn as sns
 import threading
 import concurrent.futures
+import os
+
+base_path = "C:/Users/trist/Desktop/Projects/Stock_Data/"
 
 # X = source a list of feature vectors that contain the values of Moving Averages (200, 50), RSI, On-Balance Volume, MACD
 # Y = source a list of price movements in percentage for n (start with 5) day periods
 # fit and see what happens
 
-def getAssetCorrelation(asset_1, asset_2):
+def getAssetCorrelation(asset_1, asset_2, asset_combo):
     # TODO: add forex support
-    d1 = get_price_delta_distribution(asset_1)
-    d2 = get_price_delta_distribution(asset_2)
+    if asset_combo == "equity_equity":
+        d1 = get_price_delta_distribution(asset_1)
+        d2 = get_price_delta_distribution(asset_2)
+    elif asset_combo == "equity_currency":
+        d1 = get_price_delta_distribution(asset_1)
+        d2 = get_currency_delta_distribution(asset_2)
+    elif asset_combo == "currency_currency":
+        d1 = get_currency_delta_distribution(asset_1)
+        d2 = get_currency_delta_distribution(asset_2)
+    else:
+        raise Exception()
     if len(d1) != len(d2):
         new_length = min(len(d1), len(d2))
         d1 = sample_randomly(d1, new_length)
-        d2 = sample_randomly(d2, len(d2))
+        d2 = sample_randomly(d2, new_length)
     corr_matrix = np.corrcoef(d1, d2)
     return corr_matrix
 
+def get_currency_delta_distribution(currency_1, currency_2, verbose=False):
+    price_deltas = []
+
+    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+            currency_1 + "_" + currency_2 + "_FXData.csv")
+    
+    last_price = None
+    for series_data in time_series[::-1].iterrows():
+        if last_price == None:
+            last_price = float(series_data[1][2])
+            continue
+
+        # print(series_data)
+        
+        curr_price = float(series_data[1][2])
+        delta = ((curr_price - last_price) / last_price) * 100
+
+        last_price = curr_price
+        price_deltas.append(delta)
+
+    if verbose == True:
+        plot_histo(price_deltas, currency_1 + ":" + currency_2, "% price move day to day")
+
+    return price_deltas
+
 
 def load_technical_data(ticker, function, extended_function_name=""):
-    path = "./Stock_Data/" + ticker + "_" + \
-        function + extended_function_name + "Data.csv"
-    data = pd.read_csv(path)
-    time_period_data = []
+    try :
+        # print(os.listdir("../../DataSerivce/stock_data")) # The big database
+        # print(os.listdir("../Stock_Data")) # database of personal interest
+        # exit(4)
+        path = base_path + ticker + "_" + function + extended_function_name + "Data.csv"
+        data = pd.read_csv(path)
+        time_period_data = []
 
-    # row[0] is the date of record. row[1] is the value for the technical indicator at the date of record.
-    for row in data[::-1].iterrows():
-        # print(row)
-        # print(data.loc[i])
-        if function == "STOCH":
-            # , row["SlowK"] TODO: work this so it gives buy and sell signals based on the %d crossing the %k
-            time_period_data.append((row[0], row["SlowD"]))
-        else:
-            # print((row[-1]['time']))
-            time_period_data.append((row[-1]['time'], row[-1][function]))
-
+        # row[0] is the date of record. row[1] is the value for the technical indicator at the date of record.
+        for row in data[::-1].iterrows():
+            # print(row)
+            # print(data.loc[i])
+            if function == "STOCH":
+                # , row["SlowK"] TODO: work this so it gives buy and sell signals based on the %d crossing the %k
+                time_period_data.append((row[0], row["SlowD"]))
+            else:
+                # print((row[-1]['time']))
+                time_period_data.append((row[-1]['time'], row[-1][function]))
+    except Exception as e:
+        raise e
     return time_period_data
 
 
 def get_earliest_date(ticker, technicals, extended_function_name=""):
     earliest_date = None
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
                               ticker + "_TIME_SERIES_DAILYData.csv", index_col=0)
 
     for d, _ in time_series[::-1].iterrows():
@@ -71,7 +112,7 @@ def get_earliest_date(ticker, technicals, extended_function_name=""):
         break
 
     for tech in technicals:
-        data = pd.read_csv("./Stock_Data/" + ticker + "_" +
+        data = pd.read_csv(base_path + ticker + "_" +
                            tech + extended_function_name + "Data.csv", index_col=0)
         for d, _ in data[::-1].iterrows():
 
@@ -88,7 +129,7 @@ def get_earliest_date(ticker, technicals, extended_function_name=""):
 
 def get_latest_date(ticker, technicals, extended_function_name=""):
     latest_date = None
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
                               ticker + "_TIME_SERIES_DAILYData.csv", index_col=0)
 
     for d, _ in time_series.iterrows():
@@ -99,7 +140,7 @@ def get_latest_date(ticker, technicals, extended_function_name=""):
         break
 
     for tech in technicals:
-        data = pd.read_csv("./Stock_Data/" + ticker + "_" +
+        data = pd.read_csv(base_path + ticker + "_" +
                            tech + extended_function_name + "Data.csv", index_col=0)
         for d, _ in data.iterrows():
 
@@ -688,7 +729,7 @@ def get_MACD_threshold_move_distribution(tickers, year, macd_threshold):
 	#todo: complete the MACD calculation 
 	return ""
 
-def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False):
+def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False, figure=1):
     history = []
     price_deltas = []
     volumes = []
@@ -698,10 +739,11 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
 
         data = load_technical_data(ticker, "RSI", "14dailyclose")
         
-        time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+        time_series = pd.read_csv(base_path +
                                   ticker + "_TIME_SERIES_DAILYData.csv")
         prices = []
         volumes = []
+        event_dates = []
 
         prev_date = ""
         days_from_invesrion_counter = 0
@@ -760,11 +802,12 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
                             # print("pd: ", price_delta)
                             # print("days_above_threshold: ", days_above_threshold)
                             # print("three_day_avg_volume: ", three_day_avg_volume)
+                            event_dates.append(date)
                             price_deltas.append(price_delta)
                             history.append(days_above_threshold)
                             volumes.append(three_day_avg_volume)
-                        except:
-                            print()
+                        except Exception as e:
+                            print(e)
 
                         days_above_threshold = 0
                         days_from_invesrion_counter = 0
@@ -810,28 +853,27 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
             print(corr_matrix)
 
             plot_histo(history, "Length of periods of time RSI > " +
-                       str(rsi_threshold), "length of period", figure=1)
+                       str(rsi_threshold), "length of period", figure=figure+1)
 
             plot_histo(price_deltas, 'Histogram of Price Deltas ' + str(days_from_inversion) + " days from inversion",
-                       '%Price Change', figure=2)
+                       '%Price Change', figure=figure+2)
 
             plot_scatter(history, price_deltas, "length of oversold period", "% price move",
-                         title="Length of Period & Percent Move in That Period", figure=3)
+                         title="Length of Period & Percent Move in That Period", figure=figure+3)
 
             plot_correlation_matrix(
-                corr_matrix, ["len(period)", "%price change", "volume"], figure=4)
+                corr_matrix, ["len(period)", "%price change", "volume"], figure=figure+4)
             plt.show()
 
-    return history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix
+    return history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix, event_dates
 
-
-def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, verbose=False):
+def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, verbose=False, figure=1):
     max_corr = 0
     best_threshold = 0
     # intuition tells me theres no way that an rsi inversion is even remotely relevant > 14 days later.
     for i in range(0, 14):
         _, _, _, price_deltas, _, _, _, _ = get_rsi_threshold_move_distribution(
-            ticker, year, rsi_threshold, i, False)
+            ticker, year, rsi_threshold, i, False, figure=figure+1)
         corr = np.corrcoef(i, price_deltas)
         if abs(corr[0][0]) > max_corr:
             max_corr = abs(corr[0][0])
@@ -977,13 +1019,13 @@ if __name__ == "__main__":
     big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=True, figure=2)
     next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=True, figure=3)
 
-    plt.show()
-    exit(1)
+    # plt.show()
+    # exit(1)
     sub_sample = sample_randomly(all_price_deltas, 54)
     plot_histo(all_price_deltas, "All Moves", "% Moves", 1)
     plot_histo(sub_sample, "Subsample Moves", "% Moves", 2)
-    _, _, _, rsi_price_deltas, _, _, _, _, _ = get_rsi_threshold_move_distribution(["AMD"], "ALL", 75, 1)
-    plot_histo(rsi_price_deltas, "RSI Crosses Below 75 Moves", "% Moves", 3)
+    _, _, _, rsi_price_deltas, _, _, _, _, _ = get_rsi_threshold_move_distribution(["AMD"], "ALL", 75, 1, verbose=True)
+    plot_histo(rsi_price_deltas, "RSI Crosses Below 75 Moves", "% Moves", 4)
 
     t_test_t, t_test_p = st.ttest_ind(all_price_deltas, rsi_price_deltas)
 
@@ -999,7 +1041,7 @@ if __name__ == "__main__":
     print("t = ", t_test_t)
     print("p = ", t_test_p)
 
-    plt.show()
+    # plt.show()
 
     # get_optimal_rsi_threshold("AMD")
 

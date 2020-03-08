@@ -241,8 +241,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUser user) {
         String welcome = getString(R.string.welcome) + user.getDisplayName();
-
-        // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         openHomeActivity(user);
     }

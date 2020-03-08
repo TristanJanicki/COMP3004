@@ -7,13 +7,15 @@ import os
 
 def genCSV(ticker, function, apiUrl, skip_existing=True):
 
+    print(apiUrl)
     path = "./stock_data/" + ticker + "_" + function + "Data.csv"
     if skip_existing and os._exists(path):
         return path, True
     # csv
     r = requests.get(apiUrl)
-    if r.text.count("API call frequency") == 0 and r.text.count("does not exist"):
-        with open(path, "a") as f:
+    if r.text.count("API call frequency") == 0 and r.text.count("does not exist") == 0 and r.text.count("Invalid API call.") == 0:
+        with open(path, "w") as f:
+            print(r.text)
             f.write(r.text)
             f.flush()
             f.close()
@@ -26,8 +28,20 @@ def getTechnicalData(technical, ticker, time_period="5", interval='daily', serie
         interval + "&time_period=" + time_period + "&series_type=" + \
         series_type + "&datatype=csv&apikey=" + api_key
     path, exists = genCSV(ticker, technical + time_period +
-                  interval + series_type, url, skip_existing=skip_existing)
-    
+                          interval + series_type, url, skip_existing=skip_existing)
+
+    if return_csv_obj == True:
+        return csv.reader(open(path)), exists
+    return path, exists
+
+
+def getCurrencyData(fromCurr, toCurr, api_key="", return_csv_obj=False):
+    fromCurr = fromCurr.split(",")[1]
+    toCurr = toCurr.split(",")[1]
+    url = "https://www.alphavantage.co/query?function=FX_DAILY&output_size=full&from_symbol=" + \
+        fromCurr + "&to_symbol=" + toCurr + "&apikey=" + api_key + "&datatype=csv"
+    path, exists = genCSV(ticker=fromCurr + "_" + toCurr, function="FX", apiUrl=url)
+    print("PATH: ", path)
     if return_csv_obj == True:
         return csv.reader(open(path)), exists
     return path, exists
@@ -42,6 +56,7 @@ def getPriceData(ticker, interval='daily', time_series_type="DAILY", series_type
     if return_csv_obj == True:
         return csv.reader(open(path)), exists
     return path, exists
+
 
 if __name__ == "__main__":
     technicals = ["ADX", "ATR", "AROONOSC", "SAR",

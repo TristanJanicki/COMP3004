@@ -89,7 +89,7 @@ def experiments_correlation_create(experiment=None):  # noqa: E501
         else:  # The experiment doesn't exist, lets create it
             experiment_id = str(uuid.uuid4())
             dbExperiment = CorrelationExperiment(
-                experiment_id=experiment_id, asset_1=experiment["asset_1"], asset_2=experiment["asset_2"], correlation=0, status="update_requested", update_requested_at=datetime.now(), last_updated_at=datetime.now())
+                experiment_id=experiment_id, asset_1=experiment["asset_1"], asset_2=experiment["asset_2"], correlation=0, status="update_requested", asset_combo=experiment["asset_combo"], update_requested_at=datetime.now(), last_updated_at=datetime.now())
             sqlManager.session.add(dbExperiment)
             usersExperiments.append(experiment_id)
 

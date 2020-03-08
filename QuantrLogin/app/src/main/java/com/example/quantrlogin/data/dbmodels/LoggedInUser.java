@@ -10,20 +10,24 @@ public class LoggedInUser implements java.io.Serializable{
     private String accessToken;
     private String idToken;
     private String refreshToken;
-//    private JSONObject cognitoProfile;
+    private Experiment[] experiments;
 
-    public LoggedInUser(String userId, String displayName, String accessToken, String idToken, String refreshToken) {
+    public LoggedInUser(String userId, String displayName, String accessToken, String idToken, String refreshToken, Experiment[] experiments) {
         this.userId = userId;
         this.displayName = displayName;
         this.accessToken = accessToken;
         this.idToken = idToken;
         this.refreshToken = refreshToken;
-//        this.cognitoProfile = cognitoProfile;
+        this.experiments = experiments;
     }
 
-//    public JSONObject getCognitoProfile() {
-//        return cognitoProfile;
-//    }
+    public void setExperiments(Experiment[] experiments) {
+        this.experiments = experiments;
+    }
+
+    public Experiment[] getExperiments() {
+        return experiments;
+    }
 
     public String getAccessToken() {
         return accessToken;
