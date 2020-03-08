@@ -1034,6 +1034,8 @@ if __name__ == "__main__":
         np_arr = np.array(all_price_deltas)
         all_prices_std_dev = np_arr.std()
         all_price_deltas_mean = np_arr.mean()
+        shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:4000]) # keep the sample size below 5,000 to avoid p-value warning
+
         for i in range(0, 100):
             
             # plot_histo(rsi_price_deltas, "RSI Crosses Below %d Moves", "% Moves" % (i), 4)
@@ -1046,7 +1048,6 @@ if __name__ == "__main__":
                     
                 t_test_t, t_test_p = st.ttest_ind(sample_randomly(all_price_deltas, len(rsi_price_deltas)), rsi_price_deltas, equal_var=True)
 
-                shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:4000]) # keep the sample size below 5,000 to avoid p-value warning
                 shapiro_w2, shapiro_p2 = st.shapiro(rsi_price_deltas)
 
                 # print("##################################################################   TEST RESULTS FOR %d ##################################################################" % (i))
