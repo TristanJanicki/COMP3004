@@ -618,6 +618,8 @@ paths:
           schema:
             $ref: "#/definitions/errorResponse"
 
+  /v1/TD/callback
+
   ###########################
   ##### Standard crud operations
   ###########################

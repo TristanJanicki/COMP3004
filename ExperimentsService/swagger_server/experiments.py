@@ -730,7 +730,6 @@ def get_MACD_threshold_move_distribution(tickers, year, macd_threshold):
 	return ""
 
 def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False, figure=1):
-    history = []
     price_deltas = []
     volumes = []
 
@@ -746,7 +745,6 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
         event_dates = []
 
         prev_date = ""
-        days_from_invesrion_counter = 0
 
         earliest_date = get_earliest_date(ticker, ["RSI"], "14dailyclose")
         latest_date = get_latest_date(ticker, ["RSI"], "14dailyclose")
@@ -804,68 +802,45 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
                             # print("three_day_avg_volume: ", three_day_avg_volume)
                             event_dates.append(date)
                             price_deltas.append(price_delta)
-                            history.append(days_above_threshold)
                             volumes.append(three_day_avg_volume)
                         except Exception as e:
                             print(e)
 
-                        days_above_threshold = 0
-                        days_from_invesrion_counter = 0
             prev_date = date.split(" ")[0]
 
     # Setting all these to 0 so returning them doesn't throw an error since sometimes the arrays used to determine them are empty.
-    history = np.array(history)
     price_deltas = np.array(price_deltas)
     volumes = np.array(volumes)
-    history_std_dev = 0
-    history_mean = 0
     price_delta_std_dev = 0
     price_delta_mean = 0
     volumes_mean = 0
     volumes_std_dev = 0
-    corr_matrix = [0]
-    if len(history) > 0 and len(price_deltas) > 0 and len(volumes) > 0:
-        history_std_dev = history.std()
-        history_mean = history.mean()
+    if len(price_deltas) > 0 and len(volumes) > 0:
         price_delta_std_dev = price_deltas.std()
         price_delta_mean = price_deltas.mean()
         volumes_mean = volumes.mean()
         volumes_std_dev = volumes.std()
 
-        amalgamation = amalgamate_data(history, price_deltas, volumes)
-        corr_matrix = np.corrcoef(history, price_deltas)
+        amalgamation = amalgamate_data(price_deltas, volumes)
 
         if verbose == True:
             print("latest date: ", latest_date)
             print("earliest date: ", earliest_date)
-            print("len(history):", len(history))
             print("len(price_deltas):", len(price_deltas))
 
-            print("Std_Dev of days above threshold:", history_std_dev)
-
-            print("Mean Days Above " + str(rsi_threshold) + ":", history_mean)
 
             print("Std_Dev Of Price Deltas:", price_delta_std_dev)
 
             print("Mean of Price Deltas:", price_delta_mean)
             print("corrletation of the length of > " + str(rsi_threshold) +
                   " RSI to returns")
-            print(corr_matrix)
-
-            plot_histo(history, "Length of periods of time RSI > " +
-                       str(rsi_threshold), "length of period", figure=figure+1)
 
             plot_histo(price_deltas, 'Histogram of Price Deltas ' + str(days_from_inversion) + " days from inversion",
                        '%Price Change', figure=figure+2)
 
-            plot_scatter(history, price_deltas, "length of oversold period", "% price move",
-                         title="Length of Period & Percent Move in That Period", figure=figure+3)
-
-            plot_correlation_matrix(
-                corr_matrix, ["len(period)", "%price change", "volume"], figure=figure+4)
             plt.show()
 
-    return history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix, event_dates
+    return price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates
 
 def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, verbose=False, figure=1):
     max_corr = 0
@@ -1007,27 +982,11 @@ def sample_randomly(data, n_samples):
         sample.append(data[index])
     return sample
 
-if __name__ == "__main__":
-    # rsi_start = 74
-    # rsi_end = 76
+def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", saveToDataBase=False, callback=None):
 
-    # test_many_scenarios(["AMD"], rsi_start, rsi_end, 7)
-
-    # plt.show()
-    # exit(1)
-    # big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=False, figure=2)
-    # next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=False, figure=3)
-
-    # plt.show()
-    # exit(1)
-
-    # sub_sample = sample_randomly(all_price_deltas, len(all_price_deltas))
-    # plot_histo(all_price_deltas, "All Moves", "% Moves", 1)
-    # plot_histo(sub_sample, "Subsample Moves", "% Moves", 2)
     threshold = 75
     
     test_results = []
-    ticker = "AMD"
     # with ProcessPoolExecutor as pExec: #TODO implement this one too, 1 process per core, (1 / n_cores) * n_jobs, jobs per process
     with ThreadPoolExecutor(max_workers=1) as executor:
         all_price_deltas = get_price_delta_distribution(ticker, verbose=False, figure=1)
@@ -1036,15 +995,15 @@ if __name__ == "__main__":
         all_price_deltas_mean = np_arr.mean()
         shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:min(len(all_price_deltas), 4000)]) # keep the sample size below 5,000 to avoid p-value warning
 
-        for i in range(0, 100):
+        for threshold in range(0, 100):
             
             # plot_histo(rsi_price_deltas, "RSI Crosses Below %d Moves", "% Moves" % (i), 4)
 
             def doWork():
-                history, history_std_dev, history_mean, rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix, event_dates = get_rsi_threshold_move_distribution([ticker], "ALL", i, 1, verbose=False)
+                rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates = get_rsi_threshold_move_distribution([ticker], "ALL", threshold, 1, verbose=False)
                 if (len(rsi_price_deltas) < 3):
-                    print("PRICE DELTAS FOR ", i, rsi_price_deltas)
-                    return [0,0,0]
+                    print("PRICE DELTAS FOR ", threshold, rsi_price_deltas)
+                    return threshold, 0, 0, 0, 0, rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates
                     
                 t_test_t, t_test_p = st.ttest_ind(sample_randomly(all_price_deltas, len(rsi_price_deltas)), rsi_price_deltas, equal_var=True)
 
@@ -1060,10 +1019,14 @@ if __name__ == "__main__":
                 # print("t = ", t_test_t)
                 # print("p = ", t_test_p)
 
-                return [t_test_t, t_test_p, i, len(history), price_delta_mean, price_delta_std_dev]
+                if saveToDataBase == True and callback != None:
+                    callback(int(threshold),float(t_test_t),float(t_test_p),float(shapiro_w2),float(shapiro_p2),rsi_price_deltas.tolist(),float(price_delta_std_dev),float(price_delta_mean),volumes.tolist(),float(volumes_mean), event_dates, direction_bias)
+                
 
             future = executor.submit(doWork)
-            test_results.append(future.result())
+            res = future.result()
+            if res != None:
+                test_results.append(res)
 
         def get_test_result_p(elem):
             return elem[1]
@@ -1075,6 +1038,22 @@ if __name__ == "__main__":
         print("All Std Dev", all_prices_std_dev)
         print("All Mean:", all_price_deltas_mean)
 
+        return test_results
+
+
+if __name__ == "__main__":
+    # rsi_start = 74
+    # rsi_end = 76
+
+    # test_many_scenarios(["AMD"], rsi_start, rsi_end, 7)
+
+    # plt.show()
+    # exit(1)
+    # big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=False, figure=2)
+    # next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=False, figure=3)
+
+    # plt.show()
+    # exit(1)
 
     # plt.show()
 
@@ -1082,8 +1061,9 @@ if __name__ == "__main__":
 
     # get_optimal_rsi_days_from_inversion("AMD")
 
-    exit(1)
-
+    # sub_sample = sample_randomly(all_price_deltas, len(all_price_deltas))
+    # plot_histo(all_price_deltas, "All Moves", "% Moves", 1)
+    # plot_histo(sub_sample, "Subsample Moves", "% Moves", 2)
     decision_tree = DecisionTreeClassifier(
         criterion="entropy", min_samples_split=20, random_state=99)
     guassian = GaussianNB()
