@@ -24,7 +24,6 @@ from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import os
 
 base_path = "C:/Users/trist/Desktop/Projects/Stock_Data/"
-
 # X = source a list of feature vectors that contain the values of Moving Averages (200, 50), RSI, On-Balance Volume, MACD
 # Y = source a list of price movements in percentage for n (start with 5) day periods
 # fit and see what happens
@@ -1000,7 +999,7 @@ def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", sa
             # plot_histo(rsi_price_deltas, "RSI Crosses Below %d Moves", "% Moves" % (i), 4)
 
             def doWork():
-                rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates = get_rsi_threshold_move_distribution([ticker], "ALL", threshold, 1, verbose=False)
+                rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates = get_rsi_threshold_move_distribution([ticker], "ALL", threshold, 1, verbose=False, direction_bias=direction_bias)
                 if (len(rsi_price_deltas) < 3):
                     print("PRICE DELTAS FOR ", threshold, rsi_price_deltas)
                     return threshold, 0, 0, 0, 0, rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates
