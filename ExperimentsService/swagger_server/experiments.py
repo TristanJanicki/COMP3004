@@ -24,7 +24,7 @@ from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import os
 
 base_path = "C:/Users/trist/Desktop/Projects/Stock_Data/"
-
+#base_path = "~/Documents/project/COMP3004/DataSerivce/stock_data/"
 # X = source a list of feature vectors that contain the values of Moving Averages (200, 50), RSI, On-Balance Volume, MACD
 # Y = source a list of price movements in percentage for n (start with 5) day periods
 # fit and see what happens
@@ -52,7 +52,7 @@ def getAssetCorrelation(asset_1, asset_2, asset_combo):
 def get_currency_delta_distribution(currency_1, currency_2, verbose=False):
     price_deltas = []
 
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
             currency_1 + "_" + currency_2 + "_FXData.csv")
     
     last_price = None
@@ -156,7 +156,7 @@ def get_latest_date(ticker, technicals, extended_function_name=""):
 
 
 def get_1std_dev(ticker, year, time_period=5):
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
                               ticker + "_TIME_SERIES_DAILYData.csv", index_col=0)
     price_deltas = []  # clear the price deltas
     i = 0  # clear the counter
@@ -214,7 +214,7 @@ def get_data(tickers, technicals, time_period=5, percent_movement_threshold=None
     i = 0
 
     for ticker in tickers:
-        time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+        time_series = pd.read_csv(base_path +
                                   ticker + "_TIME_SERIES_DAILYData.csv", index_col=0)
 
         first_price = None
@@ -612,7 +612,7 @@ def binary_search(arr, l, r, key_index, key):
 
 def get_price_delta_distribution_with_threshold(ticker, year="ALL", threshold=0, verbose=False, figure=1):
     price_deltas = []
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
             ticker + "_TIME_SERIES_DAILYData.csv")
     
     last_price = None
@@ -637,12 +637,12 @@ def get_price_delta_distribution_with_threshold(ticker, year="ALL", threshold=0,
         plot_histo(price_deltas, "% Price Moves " + ticker, "% Move", figure=figure)
 
     return price_deltas
-
+base_path
 def get_next_day_price_delta_with_threshold(ticker, year="ALL", threshold=0, verbose=False, figure=1):
     prices = []
     nPrice_deltas = []
     price_deltas = []
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
             ticker + "_TIME_SERIES_DAILYData.csv")
     
     for series_data in time_series[::-1].iterrows():
@@ -686,7 +686,7 @@ def get_next_day_price_delta_with_threshold(ticker, year="ALL", threshold=0, ver
 
 def get_price_delta_distribution(ticker, year="ALL", verbose=False, figure=1):
     price_deltas = []
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
             ticker + "_TIME_SERIES_DAILYData.csv")
     
     last_price = None
@@ -1041,13 +1041,15 @@ if __name__ == "__main__":
             # plot_histo(rsi_price_deltas, "RSI Crosses Below %d Moves", "% Moves" % (i), 4)
 
             def doWork():
+																																									
                 history, history_std_dev, history_mean, rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix, event_dates = get_rsi_threshold_move_distribution([ticker], "ALL", i, 1, verbose=False)
+               
                 if (len(rsi_price_deltas) < 3):
                     print("PRICE DELTAS FOR ", i, rsi_price_deltas)
                     return [0,0,0]
                     
                 t_test_t, t_test_p = st.ttest_ind(sample_randomly(all_price_deltas, len(rsi_price_deltas)), rsi_price_deltas, equal_var=True)
-
+				
                 shapiro_w2, shapiro_p2 = st.shapiro(rsi_price_deltas)
 
                 # print("##################################################################   TEST RESULTS FOR %d ##################################################################" % (i))
@@ -1056,9 +1058,9 @@ if __name__ == "__main__":
                 # print("Population W: ", shapiro_w1, " P: ", shapiro_p1)
                 # print("Sample     W: ", shapiro_w2, " P: ", shapiro_p2)
 
-                # print("T Test Results")
-                # print("t = ", t_test_t)
-                # print("p = ", t_test_p)
+                print("T Test Results")
+                print("t = ", t_test_t)
+                print("p = ", t_test_p)
 
                 return [t_test_t, t_test_p, i, len(history), price_delta_mean, price_delta_std_dev]
 
