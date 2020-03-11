@@ -20,8 +20,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.data.Result;
+import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
+import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
+import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 
+import java.util.concurrent.ExecutionException;
+
+import networking_handlers.GetExperimentsHandler;
 import networking_handlers.output.AuthChallengeRequiredParameters;
 
 public class LoginActivity extends AppCompatActivity {
@@ -81,6 +88,12 @@ public class LoginActivity extends AppCompatActivity {
                     openAuthChallengeActivity(loginResult.getAuthChallenge());
                 }
                 if (loginResult.getSuccess() != null) {
+                    LoggedInUser user = loginResult.getSuccess();
+
+                    Experiment[] experiments = getSignals(user);
+                    user.setExperiments(experiments);
+
+
                     openHomeActivity(loginResult.getSuccess());
                     /*
                     //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
@@ -215,6 +228,37 @@ public class LoginActivity extends AppCompatActivity {
                 openSignUpActivity();
             }
         });
+    }
+
+    private Experiment[] getSignals(LoggedInUser user){
+        GetExperimentsHandler geh = new GetExperimentsHandler();
+        System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
+        geh.execute(user);
+        try {
+            Result r = geh.get();
+            if (r instanceof Result.GetExperimentsResult){
+                CorrelationExperiment[] corrs = ((Result.GetExperimentsResult) r).getCorrelationExperiments();
+                ThresholdExperiment[] threshs = ((Result.GetExperimentsResult) r).getThresholdExperiments();
+                Experiment[] allExperiments = new Experiment[corrs.length + threshs.length];
+
+                int i = 0;
+                for(CorrelationExperiment c : corrs){
+                    allExperiments[i] = c;
+                    ++i;
+                }
+                for(ThresholdExperiment t : threshs){
+                    allExperiments[i] = t;
+                    ++i;
+                }
+                return allExperiments;
+            }else{
+                System.out.println("NOT SUCCESS: "+ r.toString());
+                return new Experiment[]{};
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new Experiment[]{};
     }
 
     public void openSignUpActivity() {

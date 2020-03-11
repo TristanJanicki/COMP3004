@@ -3,7 +3,7 @@ package com.example.quantrlogin.data.dbmodels;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CorrelationExperiment extends Experiment {
+public class CorrelationExperiment extends Experiment implements java.io.Serializable{
     private String asset_1, asset_2;
     double correlation;
 

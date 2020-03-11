@@ -16,7 +16,9 @@ def convertDbThresholdExperimentToSwaggerExperiment(dbModel:ThresholdExperiment)
     for ele in dbModel.volumes.split(","):
         convertedVolumes.append(float(ele))
 
-    return ExistingThresholdExperiment(dbModel.experiment_id, dbModel.indicator, dbModel.ticker, dbModel.threshold, dbModel.directional_bias, dbModel.status, convertedPriceDeltas, dbModel.price_delta_std_dev, dbModel.price_delta_mean, dbModel.event_dates, dbModel.t_test_p, dbModel.t_test_t, dbModel.shapiro_p2, dbModel.shapiro_w2, convertedVolumes, dbModel.volumes_mean, dbModel.last_updated_at)
+    event_dates = dbModel.event_dates.split(",")
+
+    return ExistingThresholdExperiment(dbModel.experiment_id, dbModel.indicator, dbModel.ticker, dbModel.threshold, dbModel.directional_bias, dbModel.status, convertedPriceDeltas, dbModel.price_delta_std_dev, dbModel.price_delta_mean, event_dates, dbModel.t_test_p, dbModel.t_test_t, dbModel.shapiro_p2, dbModel.shapiro_w2, convertedVolumes, dbModel.volumes_mean, dbModel.last_updated_at)
 
 def convertDbCorrelationExperimentToSwaggerExperiment(dbModel:CorrelationExperiment):
     return ExistingCorrelationExperiment(dbModel.experiment_id, dbModel.asset_1, dbModel.asset_2, dbModel.correlation)

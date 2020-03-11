@@ -22,18 +22,16 @@ public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result>
 
     @Override
     protected Result doInBackground(LoggedInUser... users) {
-
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
-                .url(networking_statics.url + "/v1/users/experiments")
+                .url(networking_statics.experimentsService + "/v1/users/experiments")
                 .method("GET", null)
                 .addHeader("X-Request-ID", UUID.randomUUID().toString())
                 .addHeader("idToken", users[0].getIdToken())
                 .addHeader("user-id", users[0].getUserId())
                 .build();
         Call c = client.newCall(request);
-
         try {
             Response r = c.execute();
             System.out.println("R.CODE: " + r.code());

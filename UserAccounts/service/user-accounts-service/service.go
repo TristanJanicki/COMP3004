@@ -106,7 +106,11 @@ func (s *UserAccountsService) Init(config httpservice.ServiceConfig, listenAddre
 
 // NewAwsSession create a new aws session using the credentials of the profile tristan
 func NewAwsSession() (s *session.Session, c *aws.Config) {
-	sess, err := session.NewSession()
+	sess, err := session.NewSessionWithOptions(session.Options{
+		Profile: "cognito",
+	})
+
+	// sess, err := session.NewSession()
 
 	if err != nil {
 		panic(err)

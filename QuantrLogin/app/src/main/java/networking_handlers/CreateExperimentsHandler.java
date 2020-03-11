@@ -52,7 +52,7 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
 //            RequestBody body = RequestBody.create(mediaType, jsonBody.toString()); TODO: find out why this line doesn't work
             RequestBody body = RequestBody.create(mediaType, bodyStr);
             Request request = new Request.Builder()
-                    .url(networking_statics.url + urlPostfix)
+                    .url(networking_statics.experimentsService + urlPostfix)
                     .method("POST", body)
                     .addHeader("X-Request-ID", UUID.randomUUID().toString())
                     .addHeader("idToken", user.getIdToken())

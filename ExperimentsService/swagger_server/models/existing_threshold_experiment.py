@@ -15,7 +15,7 @@ class ExistingThresholdExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None, threshold: str=None, directional_bias: str=None, status: str=None, price_deltas: List[str]=None, price_delta_std_dev: float=None, price_delta_mean: float=None, event_dates: List[str]=None, t_test_p: float=None, t_test_t: float=None, shapiro_p: float=None, shapiro_w: float=None, volumes: List[str]=None, volumes_mean: float=None, last_updated: str=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None, threshold: str=None, directional_bias: str=None, status: str=None, price_deltas: List[float]=None, price_delta_std_dev: float=None, price_delta_mean: float=None, event_dates: List[str]=None, t_test_p: float=None, t_test_t: float=None, shapiro_p: float=None, shapiro_w: float=None, volumes: List[float]=None, volumes_mean: float=None, updated_at: str=None):  # noqa: E501
         """ExistingThresholdExperiment - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingThresholdExperiment.  # noqa: E501
@@ -31,7 +31,7 @@ class ExistingThresholdExperiment(Model):
         :param status: The status of this ExistingThresholdExperiment.  # noqa: E501
         :type status: str
         :param price_deltas: The price_deltas of this ExistingThresholdExperiment.  # noqa: E501
-        :type price_deltas: List[str]
+        :type price_deltas: List[float]
         :param price_delta_std_dev: The price_delta_std_dev of this ExistingThresholdExperiment.  # noqa: E501
         :type price_delta_std_dev: float
         :param price_delta_mean: The price_delta_mean of this ExistingThresholdExperiment.  # noqa: E501
@@ -47,11 +47,11 @@ class ExistingThresholdExperiment(Model):
         :param shapiro_w: The shapiro_w of this ExistingThresholdExperiment.  # noqa: E501
         :type shapiro_w: float
         :param volumes: The volumes of this ExistingThresholdExperiment.  # noqa: E501
-        :type volumes: List[str]
+        :type volumes: List[float]
         :param volumes_mean: The volumes_mean of this ExistingThresholdExperiment.  # noqa: E501
         :type volumes_mean: float
-        :param last_updated: The last_updated of this ExistingThresholdExperiment.  # noqa: E501
-        :type last_updated: str
+        :param updated_at: The updated_at of this ExistingThresholdExperiment.  # noqa: E501
+        :type updated_at: str
         """
         self.swagger_types = {
             'experiment_id': str,
@@ -60,7 +60,7 @@ class ExistingThresholdExperiment(Model):
             'threshold': str,
             'directional_bias': str,
             'status': str,
-            'price_deltas': List[str],
+            'price_deltas': List[float],
             'price_delta_std_dev': float,
             'price_delta_mean': float,
             'event_dates': List[str],
@@ -68,9 +68,9 @@ class ExistingThresholdExperiment(Model):
             't_test_t': float,
             'shapiro_p': float,
             'shapiro_w': float,
-            'volumes': List[str],
+            'volumes': List[float],
             'volumes_mean': float,
-            'last_updated': str
+            'updated_at': str
         }
 
         self.attribute_map = {
@@ -78,7 +78,7 @@ class ExistingThresholdExperiment(Model):
             'indicator': 'indicator',
             'ticker': 'ticker',
             'threshold': 'threshold',
-            'directional_bias': 'directionalBias',
+            'directional_bias': 'directional_bias',
             'status': 'status',
             'price_deltas': 'price_deltas',
             'price_delta_std_dev': 'price_delta_std_dev',
@@ -90,7 +90,7 @@ class ExistingThresholdExperiment(Model):
             'shapiro_w': 'shapiro_w',
             'volumes': 'volumes',
             'volumes_mean': 'volumes_mean',
-            'last_updated': 'last_updated'
+            'updated_at': 'updated_at'
         }
 
         self._experiment_id = experiment_id
@@ -109,7 +109,7 @@ class ExistingThresholdExperiment(Model):
         self._shapiro_w = shapiro_w
         self._volumes = volumes
         self._volumes_mean = volumes_mean
-        self._last_updated = last_updated
+        self._updated_at = updated_at
 
     @classmethod
     def from_dict(cls, dikt) -> 'ExistingThresholdExperiment':
@@ -255,22 +255,22 @@ class ExistingThresholdExperiment(Model):
         self._status = status
 
     @property
-    def price_deltas(self) -> List[str]:
+    def price_deltas(self) -> List[float]:
         """Gets the price_deltas of this ExistingThresholdExperiment.
 
 
         :return: The price_deltas of this ExistingThresholdExperiment.
-        :rtype: List[str]
+        :rtype: List[float]
         """
         return self._price_deltas
 
     @price_deltas.setter
-    def price_deltas(self, price_deltas: List[str]):
+    def price_deltas(self, price_deltas: List[float]):
         """Sets the price_deltas of this ExistingThresholdExperiment.
 
 
         :param price_deltas: The price_deltas of this ExistingThresholdExperiment.
-        :type price_deltas: List[str]
+        :type price_deltas: List[float]
         """
 
         self._price_deltas = price_deltas
@@ -423,22 +423,22 @@ class ExistingThresholdExperiment(Model):
         self._shapiro_w = shapiro_w
 
     @property
-    def volumes(self) -> List[str]:
+    def volumes(self) -> List[float]:
         """Gets the volumes of this ExistingThresholdExperiment.
 
 
         :return: The volumes of this ExistingThresholdExperiment.
-        :rtype: List[str]
+        :rtype: List[float]
         """
         return self._volumes
 
     @volumes.setter
-    def volumes(self, volumes: List[str]):
+    def volumes(self, volumes: List[float]):
         """Sets the volumes of this ExistingThresholdExperiment.
 
 
         :param volumes: The volumes of this ExistingThresholdExperiment.
-        :type volumes: List[str]
+        :type volumes: List[float]
         """
 
         self._volumes = volumes
@@ -465,22 +465,22 @@ class ExistingThresholdExperiment(Model):
         self._volumes_mean = volumes_mean
 
     @property
-    def last_updated(self) -> str:
-        """Gets the last_updated of this ExistingThresholdExperiment.
+    def updated_at(self) -> str:
+        """Gets the updated_at of this ExistingThresholdExperiment.
 
 
-        :return: The last_updated of this ExistingThresholdExperiment.
+        :return: The updated_at of this ExistingThresholdExperiment.
         :rtype: str
         """
-        return self._last_updated
+        return self._updated_at
 
-    @last_updated.setter
-    def last_updated(self, last_updated: str):
-        """Sets the last_updated of this ExistingThresholdExperiment.
+    @updated_at.setter
+    def updated_at(self, updated_at: str):
+        """Sets the updated_at of this ExistingThresholdExperiment.
 
 
-        :param last_updated: The last_updated of this ExistingThresholdExperiment.
-        :type last_updated: str
+        :param updated_at: The updated_at of this ExistingThresholdExperiment.
+        :type updated_at: str
         """
 
-        self._last_updated = last_updated
+        self._updated_at = updated_at

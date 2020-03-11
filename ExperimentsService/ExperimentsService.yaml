@@ -93,7 +93,7 @@ definitions:
         type: string
       threshold:
         type: string
-      directionalBias:
+      directional_bias:
         type: string
         enum: [crosses_above, crosses_below]
       status:
@@ -124,7 +124,7 @@ definitions:
           type: number
       volumes_mean:
         type: number
-      last_updated:
+      updated_at:
         type: string
 
   getExperimentsResult:

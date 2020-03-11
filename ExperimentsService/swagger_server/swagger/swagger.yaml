@@ -247,7 +247,7 @@ definitions:
         type: "string"
       threshold:
         type: "string"
-      directionalBias:
+      directional_bias:
         type: "string"
         enum:
         - "crosses_above"
@@ -257,7 +257,7 @@ definitions:
       price_deltas:
         type: "array"
         items:
-          type: "string"
+          type: "number"
       price_delta_std_dev:
         type: "number"
       price_delta_mean:
@@ -277,34 +277,34 @@ definitions:
       volumes:
         type: "array"
         items:
-          type: "string"
+          type: "number"
       volumes_mean:
         type: "number"
-      last_updated:
+      updated_at:
         type: "string"
     example:
       indicator: "indicator"
-      t_test_p: 5.63737665663332876420099637471139430999755859375
+      t_test_p: 2.3021358869347654518833223846741020679473876953125
       ticker: "ticker"
       price_deltas:
-      - "price_deltas"
-      - "price_deltas"
-      last_updated: "last_updated"
-      shapiro_p: 7.061401241503109105224211816675961017608642578125
+      - 1.46581298050294517310021547018550336360931396484375
+      - 1.46581298050294517310021547018550336360931396484375
+      shapiro_p: 9.301444243932575517419536481611430644989013671875
       experiment_id: "experiment_id"
-      volumes_mean: 3.61607674925191080461672754609026014804840087890625
+      volumes_mean: 4.1456080298839363962315474054776132106781005859375
       volumes:
-      - "volumes"
-      - "volumes"
+      - 2.027123023002321833274663731572218239307403564453125
+      - 2.027123023002321833274663731572218239307403564453125
       threshold: "threshold"
-      shapiro_w: 9.301444243932575517419536481611430644989013671875
-      directionalBias: "crosses_above"
-      price_delta_mean: 5.962133916683182377482808078639209270477294921875
+      shapiro_w: 3.61607674925191080461672754609026014804840087890625
+      directional_bias: "crosses_above"
+      price_delta_mean: 5.63737665663332876420099637471139430999755859375
       event_dates:
       - "event_dates"
       - "event_dates"
-      price_delta_std_dev: 1.46581298050294517310021547018550336360931396484375
-      t_test_t: 2.3021358869347654518833223846741020679473876953125
+      updated_at: "updated_at"
+      price_delta_std_dev: 5.962133916683182377482808078639209270477294921875
+      t_test_t: 7.061401241503109105224211816675961017608642578125
       status: "status"
   getExperimentsResult:
     properties:
@@ -319,50 +319,50 @@ definitions:
     example:
       thresholds:
       - indicator: "indicator"
-        t_test_p: 5.63737665663332876420099637471139430999755859375
+        t_test_p: 2.3021358869347654518833223846741020679473876953125
         ticker: "ticker"
         price_deltas:
-        - "price_deltas"
-        - "price_deltas"
-        last_updated: "last_updated"
-        shapiro_p: 7.061401241503109105224211816675961017608642578125
+        - 1.46581298050294517310021547018550336360931396484375
+        - 1.46581298050294517310021547018550336360931396484375
+        shapiro_p: 9.301444243932575517419536481611430644989013671875
         experiment_id: "experiment_id"
-        volumes_mean: 3.61607674925191080461672754609026014804840087890625
+        volumes_mean: 4.1456080298839363962315474054776132106781005859375
         volumes:
-        - "volumes"
-        - "volumes"
+        - 2.027123023002321833274663731572218239307403564453125
+        - 2.027123023002321833274663731572218239307403564453125
         threshold: "threshold"
-        shapiro_w: 9.301444243932575517419536481611430644989013671875
-        directionalBias: "crosses_above"
-        price_delta_mean: 5.962133916683182377482808078639209270477294921875
+        shapiro_w: 3.61607674925191080461672754609026014804840087890625
+        directional_bias: "crosses_above"
+        price_delta_mean: 5.63737665663332876420099637471139430999755859375
         event_dates:
         - "event_dates"
         - "event_dates"
-        price_delta_std_dev: 1.46581298050294517310021547018550336360931396484375
-        t_test_t: 2.3021358869347654518833223846741020679473876953125
+        updated_at: "updated_at"
+        price_delta_std_dev: 5.962133916683182377482808078639209270477294921875
+        t_test_t: 7.061401241503109105224211816675961017608642578125
         status: "status"
       - indicator: "indicator"
-        t_test_p: 5.63737665663332876420099637471139430999755859375
+        t_test_p: 2.3021358869347654518833223846741020679473876953125
         ticker: "ticker"
         price_deltas:
-        - "price_deltas"
-        - "price_deltas"
-        last_updated: "last_updated"
-        shapiro_p: 7.061401241503109105224211816675961017608642578125
+        - 1.46581298050294517310021547018550336360931396484375
+        - 1.46581298050294517310021547018550336360931396484375
+        shapiro_p: 9.301444243932575517419536481611430644989013671875
         experiment_id: "experiment_id"
-        volumes_mean: 3.61607674925191080461672754609026014804840087890625
+        volumes_mean: 4.1456080298839363962315474054776132106781005859375
         volumes:
-        - "volumes"
-        - "volumes"
+        - 2.027123023002321833274663731572218239307403564453125
+        - 2.027123023002321833274663731572218239307403564453125
         threshold: "threshold"
-        shapiro_w: 9.301444243932575517419536481611430644989013671875
-        directionalBias: "crosses_above"
-        price_delta_mean: 5.962133916683182377482808078639209270477294921875
+        shapiro_w: 3.61607674925191080461672754609026014804840087890625
+        directional_bias: "crosses_above"
+        price_delta_mean: 5.63737665663332876420099637471139430999755859375
         event_dates:
         - "event_dates"
         - "event_dates"
-        price_delta_std_dev: 1.46581298050294517310021547018550336360931396484375
-        t_test_t: 2.3021358869347654518833223846741020679473876953125
+        updated_at: "updated_at"
+        price_delta_std_dev: 5.962133916683182377482808078639209270477294921875
+        t_test_t: 7.061401241503109105224211816675961017608642578125
         status: "status"
       correlations:
       - correlation: 0.80082819046101150206595775671303272247314453125

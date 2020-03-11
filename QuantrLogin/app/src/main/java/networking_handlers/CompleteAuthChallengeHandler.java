@@ -3,6 +3,7 @@ package networking_handlers;
 import android.os.AsyncTask;
 
 import com.example.quantrlogin.data.Result;
+import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 import org.json.JSONObject;
@@ -37,7 +38,7 @@ public class CompleteAuthChallengeHandler extends AsyncTask<AuthChallengeRequire
 
             RequestBody body = RequestBody.create(reqBody.toString(), mediaType);
             Request request = new Request.Builder()
-                    .url(networking_statics.url + "/v1/users/authchallenge")
+                    .url(networking_statics.userAccounts + "/v1/users/authchallenge")
                     .method("POST", body)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("X-Request-ID", UUID.randomUUID().toString())
@@ -64,7 +65,7 @@ public class CompleteAuthChallengeHandler extends AsyncTask<AuthChallengeRequire
             String refreshToken = responseBody.getString("refreshToken");
             String accessToken = responseBody.getString("accessToken");
 
-            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, idTokenStr, refreshToken));
+            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, idTokenStr, refreshToken, new Experiment[1]));
         } catch (IOException e) {
             e.printStackTrace();
             return new Result.Error(e);

@@ -3,10 +3,8 @@ package networking_handlers;
 import android.os.AsyncTask;
 
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
 import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
-import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +13,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import networking_handlers.output.AuthChallengeRequiredParameters;
 import okhttp3.Call;
@@ -46,7 +43,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
             json.put("password", password);
             RequestBody body = RequestBody.create(json.toString(), mediaType);
             Request request = new Request.Builder()
-                    .url(networking_statics.url + "/v1/users/signin")
+                    .url(networking_statics.userAccounts + "/v1/users/signin")
                     .method("POST", body)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("X-Request-ID", UUID.randomUUID().toString())
@@ -79,10 +76,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                 String refreshToken = responseBody.getString("refreshToken");
                 String accessToken = responseBody.getString("accessToken");
 
-                LoggedInUser user = new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken)
-
-                Experiment[] experiments = getSignals(user);
-                user.setExperiments(experiments);
+                LoggedInUser user = new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken, new Experiment[1]);
 
                 return new Result.Success<LoggedInUser> (user);
             } catch (IOException e) {
@@ -101,36 +95,5 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
             return new Result.Error(j);
         }
 
-    }
-
-    private Experiment[] getSignals(LoggedInUser user){
-        GetExperimentsHandler geh = new GetExperimentsHandler();
-        System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
-        geh.execute(user);
-        try {
-            Result r = geh.get();
-            if (r instanceof Result.GetExperimentsResult){
-                CorrelationExperiment[] corrs = ((Result.GetExperimentsResult) r).getCorrelationExperiments();
-                ThresholdExperiment[] threshs = ((Result.GetExperimentsResult) r).getThresholdExperiments();
-                Experiment[] allExperiments = new Experiment[corrs.length + threshs.length];
-
-                int i = 0;
-                for(CorrelationExperiment c : corrs){
-                    allExperiments[i] = c;
-                    ++i;
-                }
-                for(ThresholdExperiment t : threshs){
-                    allExperiments[i] = t;
-                    ++i;
-                }
-                return allExperiments;
-            }else{
-                System.out.println("NOT SUCCESS: "+ r.toString());
-                return new Experiment[]{};
-            }
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return new Experiment[]{};
     }
 }
