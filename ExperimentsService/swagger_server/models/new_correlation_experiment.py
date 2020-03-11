@@ -15,26 +15,31 @@ class NewCorrelationExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, asset_1: str=None, asset_2: str=None):  # noqa: E501
+    def __init__(self, asset_1: str=None, asset_2: str=None, asset_combo: str=None):  # noqa: E501
         """NewCorrelationExperiment - a model defined in Swagger
 
         :param asset_1: The asset_1 of this NewCorrelationExperiment.  # noqa: E501
         :type asset_1: str
         :param asset_2: The asset_2 of this NewCorrelationExperiment.  # noqa: E501
         :type asset_2: str
+        :param asset_combo: The asset_combo of this NewCorrelationExperiment.  # noqa: E501
+        :type asset_combo: str
         """
         self.swagger_types = {
             'asset_1': str,
-            'asset_2': str
+            'asset_2': str,
+            'asset_combo': str
         }
 
         self.attribute_map = {
             'asset_1': 'asset_1',
-            'asset_2': 'asset_2'
+            'asset_2': 'asset_2',
+            'asset_combo': 'asset_combo'
         }
 
         self._asset_1 = asset_1
         self._asset_2 = asset_2
+        self._asset_combo = asset_combo
 
     @classmethod
     def from_dict(cls, dikt) -> 'NewCorrelationExperiment':
@@ -92,3 +97,30 @@ class NewCorrelationExperiment(Model):
             raise ValueError("Invalid value for `asset_2`, must not be `None`")  # noqa: E501
 
         self._asset_2 = asset_2
+
+    @property
+    def asset_combo(self) -> str:
+        """Gets the asset_combo of this NewCorrelationExperiment.
+
+
+        :return: The asset_combo of this NewCorrelationExperiment.
+        :rtype: str
+        """
+        return self._asset_combo
+
+    @asset_combo.setter
+    def asset_combo(self, asset_combo: str):
+        """Sets the asset_combo of this NewCorrelationExperiment.
+
+
+        :param asset_combo: The asset_combo of this NewCorrelationExperiment.
+        :type asset_combo: str
+        """
+        allowed_values = ["equity_currency", "equity_equity"]  # noqa: E501
+        if asset_combo not in allowed_values:
+            raise ValueError(
+                "Invalid value for `asset_combo` ({0}), must be one of {1}"
+                .format(asset_combo, allowed_values)
+            )
+
+        self._asset_combo = asset_combo

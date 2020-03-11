@@ -190,11 +190,17 @@ definitions:
     required:
     - "asset_1"
     - "asset_2"
+    - "asset_combo"
     properties:
       asset_1:
         type: "string"
       asset_2:
         type: "string"
+      asset_combo:
+        type: "string"
+        enum:
+        - "equity_currency"
+        - "equity_equity"
   existingCorrelationExperiment:
     type: "object"
     required:
@@ -202,6 +208,7 @@ definitions:
     - "asset_2"
     - "correlation"
     - "experiment_id"
+    - "type"
     properties:
       experiment_id:
         type: "string"
@@ -211,9 +218,22 @@ definitions:
         type: "string"
       correlation:
         type: "number"
+      data:
+        type: "array"
+        items:
+          type: "number"
+      type:
+        type: "string"
+        enum:
+        - "stock"
+        - "forex"
     example:
       correlation: 0.80082819046101150206595775671303272247314453125
+      data:
+      - 6.02745618307040320615897144307382404804229736328125
+      - 6.02745618307040320615897144307382404804229736328125
       experiment_id: "experiment_id"
+      type: "stock"
       asset_2: "asset_2"
       asset_1: "asset_1"
   existingThresholdExperiment:
@@ -227,11 +247,65 @@ definitions:
         type: "string"
       threshold:
         type: "string"
+      directionalBias:
+        type: "string"
+        enum:
+        - "crosses_above"
+        - "crosses_below"
+      status:
+        type: "string"
+      price_deltas:
+        type: "array"
+        items:
+          type: "string"
+      price_delta_std_dev:
+        type: "number"
+      price_delta_mean:
+        type: "number"
+      event_dates:
+        type: "array"
+        items:
+          type: "string"
+      t_test_p:
+        type: "number"
+      t_test_t:
+        type: "number"
+      shapiro_p:
+        type: "number"
+      shapiro_w:
+        type: "number"
+      volumes:
+        type: "array"
+        items:
+          type: "string"
+      volumes_mean:
+        type: "number"
+      last_updated:
+        type: "string"
     example:
       indicator: "indicator"
+      t_test_p: 5.63737665663332876420099637471139430999755859375
       ticker: "ticker"
+      price_deltas:
+      - "price_deltas"
+      - "price_deltas"
+      last_updated: "last_updated"
+      shapiro_p: 7.061401241503109105224211816675961017608642578125
       experiment_id: "experiment_id"
+      volumes_mean: 3.61607674925191080461672754609026014804840087890625
+      volumes:
+      - "volumes"
+      - "volumes"
       threshold: "threshold"
+      shapiro_w: 9.301444243932575517419536481611430644989013671875
+      directionalBias: "crosses_above"
+      price_delta_mean: 5.962133916683182377482808078639209270477294921875
+      event_dates:
+      - "event_dates"
+      - "event_dates"
+      price_delta_std_dev: 1.46581298050294517310021547018550336360931396484375
+      t_test_t: 2.3021358869347654518833223846741020679473876953125
+      status: "status"
   getExperimentsResult:
     properties:
       correlations:
@@ -245,20 +319,66 @@ definitions:
     example:
       thresholds:
       - indicator: "indicator"
+        t_test_p: 5.63737665663332876420099637471139430999755859375
         ticker: "ticker"
+        price_deltas:
+        - "price_deltas"
+        - "price_deltas"
+        last_updated: "last_updated"
+        shapiro_p: 7.061401241503109105224211816675961017608642578125
         experiment_id: "experiment_id"
+        volumes_mean: 3.61607674925191080461672754609026014804840087890625
+        volumes:
+        - "volumes"
+        - "volumes"
         threshold: "threshold"
+        shapiro_w: 9.301444243932575517419536481611430644989013671875
+        directionalBias: "crosses_above"
+        price_delta_mean: 5.962133916683182377482808078639209270477294921875
+        event_dates:
+        - "event_dates"
+        - "event_dates"
+        price_delta_std_dev: 1.46581298050294517310021547018550336360931396484375
+        t_test_t: 2.3021358869347654518833223846741020679473876953125
+        status: "status"
       - indicator: "indicator"
+        t_test_p: 5.63737665663332876420099637471139430999755859375
         ticker: "ticker"
+        price_deltas:
+        - "price_deltas"
+        - "price_deltas"
+        last_updated: "last_updated"
+        shapiro_p: 7.061401241503109105224211816675961017608642578125
         experiment_id: "experiment_id"
+        volumes_mean: 3.61607674925191080461672754609026014804840087890625
+        volumes:
+        - "volumes"
+        - "volumes"
         threshold: "threshold"
+        shapiro_w: 9.301444243932575517419536481611430644989013671875
+        directionalBias: "crosses_above"
+        price_delta_mean: 5.962133916683182377482808078639209270477294921875
+        event_dates:
+        - "event_dates"
+        - "event_dates"
+        price_delta_std_dev: 1.46581298050294517310021547018550336360931396484375
+        t_test_t: 2.3021358869347654518833223846741020679473876953125
+        status: "status"
       correlations:
       - correlation: 0.80082819046101150206595775671303272247314453125
+        data:
+        - 6.02745618307040320615897144307382404804229736328125
+        - 6.02745618307040320615897144307382404804229736328125
         experiment_id: "experiment_id"
+        type: "stock"
         asset_2: "asset_2"
         asset_1: "asset_1"
       - correlation: 0.80082819046101150206595775671303272247314453125
+        data:
+        - 6.02745618307040320615897144307382404804229736328125
+        - 6.02745618307040320615897144307382404804229736328125
         experiment_id: "experiment_id"
+        type: "stock"
         asset_2: "asset_2"
         asset_1: "asset_1"
   errorResponse:

@@ -96,10 +96,36 @@ definitions:
       directionalBias:
         type: string
         enum: [crosses_above, crosses_below]
-      data:
+      status:
+        type: string
+      price_deltas:
         type: array
         items:
           type: number
+      price_delta_std_dev:
+        type: number
+      price_delta_mean:
+        type: number
+      event_dates:
+        type: array
+        items:
+          type: string
+      t_test_p:
+        type: number
+      t_test_t:
+        type: number
+      shapiro_p:
+        type: number
+      shapiro_w:
+        type: number
+      volumes:
+        type: array
+        items:
+          type: number
+      volumes_mean:
+        type: number
+      last_updated:
+        type: string
 
   getExperimentsResult:
     required:
