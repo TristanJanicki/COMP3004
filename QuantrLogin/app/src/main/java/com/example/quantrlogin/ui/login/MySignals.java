@@ -85,7 +85,7 @@ public class MySignals extends AppCompatActivity {
             b.setText(c.getAsset_1() + ":" + c.getAsset_2() + ":" + c.getCorrelation());
         }else if(e instanceof ThresholdExperiment){
             ThresholdExperiment t = (ThresholdExperiment) e;
-            b.setText(t.getTicker() + ":" + t.getIndicator() + ":" + t.getThreshold());
+            b.setText(t.ticker + ":" + t.indicator + ":" + t.threshold);
         }
     }
 }

@@ -20,6 +20,7 @@ from random import random
 from random import seed
 import seaborn as sns
 import threading
+import concurrent
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import os
 
@@ -728,7 +729,7 @@ def get_MACD_threshold_move_distribution(tickers, year, macd_threshold):
 	#todo: complete the MACD calculation 
 	return ""
 
-def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False, figure=1):
+def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False, figure=1, directional_bias="crosses_below"):
     price_deltas = []
     volumes = []
 
@@ -775,19 +776,9 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
                 if index != -1:
 
                     if index + days_from_inversion > len(data):
-                        continue
+                        continue                      
 
                     if data[index-1][1] > rsi_threshold and data[index][1] < rsi_threshold:
-                        # index - 1 == yesterday.
-                        # index == today.
-                        # if the RSI was above 70 yesterday and is below 70 today then record the price movement between today and today + days_from_inversion.
-
-                        # print("Inversion from past ", rsi_threshold , prev_date, " to ", date, " was ", days_from_inversion_threshold, " long")
-
-                        # print("prev_date = ", prev_date, "date = ", date)
-
-                        price_delta = 100 * ((prices[index] - prices[index + days_from_inversion]) / prices[index])
-
                         try:
                             # print(volumes[index-1])
                             one_day_ago_volume = volumes[index-1]
@@ -795,6 +786,7 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
                             three_days_ago_volume = volumes[index-3]
 
                             three_day_avg_volume = (three_days_ago_volume + two_days_ago_volume + one_day_ago_volume) / 3
+                            price_delta = 100 * ((prices[index] - prices[index + days_from_inversion]) / prices[index])
 
                             # print("pd: ", price_delta)
                             # print("days_above_threshold: ", days_above_threshold)
@@ -802,8 +794,10 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
                             event_dates.append(date)
                             price_deltas.append(price_delta)
                             volumes.append(three_day_avg_volume)
+                            
                         except Exception as e:
                             print(e)
+                    
 
             prev_date = date.split(" ")[0]
 
@@ -838,8 +832,8 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
                        '%Price Change', figure=figure+2)
 
             plt.show()
-
-    return price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates
+    price_delta_mode=st.mode(price_deltas)
+    return price_deltas, price_delta_std_dev, price_delta_mean, price_delta_mode, volumes, volumes_mean, event_dates
 
 def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, verbose=False, figure=1):
     max_corr = 0
@@ -883,8 +877,6 @@ def get_optimal_rsi_threshold(ticker, year="ALL", days_from_inversion_threshold=
         plot_correlation_matrix(
             corr, ["Price Delta History", "Dispersion History", "Threshold History"], 3)
         print("Correlation: ", corr)
-plt.show()
-
 
 def plot_correlation_matrix(corr, labels, figure=1):
     plt.figure(figure)
@@ -901,8 +893,7 @@ def plot_histo(arr, title, x_label, figure=1):
 
     # seaborn histogram
     sns.distplot(arr, rug=True, hist=True, kde=False,
-                 bins=int(180/5), color='blue',
-                 hist_kws={'edgecolor': 'black'})
+                 bins=int(180/5), color='blue')
 
     mean = np.array(arr).mean()
     std_dev = np.array(arr).std()
@@ -922,41 +913,25 @@ def plot_scatter(x, y, x_label, y_label, title, figure=1):
     plt.ylabel(y_label)
     plt.title(title)
 
-# series_types = ["close", "open", "high", "low"]
-# technicals = ["RSI"]
-# time_periods = ["14"]
-# time_intervals = ["5min"]
-# tickers = ["AMD"]
-# rows_and_cols = sqrt(len(series_type) * len(technicals) * len(time_periods) * len(time_intervals) * len(tickers)) + 1
-# i = 0
-# for ticker in tickers:
-#     for s in series_types:
-#         for t in technicals:
-#             for tp in time_periods:
-#                 for i in time_intervals:
-#                     plt.subplot(rows_and_cols, rows_and_cols, i)
-#                     i ++
-#                     get_rsi_threshold_move_distribution(ticker, "2019")
-
-# vals = history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix
-
-def test_many_scenarios(tickers, rsi_start, rsi_end, days_from_inv_range):
+def test_many_scenarios(tickers, list_of_rsi, days_from_inv_range):
     figure = 1
     subplot_index = 1
     scenario_results = []
     records = []
     futures = []
-    for i in range(rsi_start, rsi_end + 1):  # n different RSI thresholds
+    for i in list_of_rsi:  # n different RSI thresholds
         # m different inversion thresholds, we don't need a start for these because it
         for j in range(1, days_from_inv_range + 1):
 
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 future = executor.submit(get_rsi_threshold_move_distribution, tickers, "ALL",  1 + i, j, False)
                 futures.append(future)
-                moves_distribution = future.result()[3]
-                    
+                moves_distribution = future.result()[0]
+                move_distribution_delta_mean = future.result()[1]
+                import math
+                row_and_col = math.sqrt(len(list_of_rsi))
                 # print("sub", subplot_index)
-                plt.subplot(5, 5, subplot_index)
+                plt.subplot(row_and_col, row_and_col, subplot_index)
 
                 if len(moves_distribution) < 3: # shapiro test requires a length of at least 3.
                     continue
@@ -981,13 +956,10 @@ def sample_randomly(data, n_samples):
         sample.append(data[index])
     return sample
 
-def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", saveToDataBase=False, callback=None):
-
-    threshold = 75
-    
+def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", saveToDataBase=False, callback=None):  
     test_results = []
     # with ProcessPoolExecutor as pExec: #TODO implement this one too, 1 process per core, (1 / n_cores) * n_jobs, jobs per process
-    with ThreadPoolExecutor(max_workers=1) as executor:
+    with ThreadPoolExecutor(max_workers=1000) as executor:
         all_price_deltas = get_price_delta_distribution(ticker, verbose=False, figure=1)
         np_arr = np.array(all_price_deltas)
         all_prices_std_dev = np_arr.std()
@@ -999,12 +971,12 @@ def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", sa
             # plot_histo(rsi_price_deltas, "RSI Crosses Below %d Moves", "% Moves" % (i), 4)
 
             def doWork():
-                rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates = get_rsi_threshold_move_distribution([ticker], "ALL", threshold, 1, verbose=False, direction_bias=direction_bias)
+                rsi_price_deltas, price_delta_std_dev, price_delta_mean, price_delta_mode, volumes, volumes_mean, event_dates = get_rsi_threshold_move_distribution([ticker], "ALL", threshold, 1, verbose=False, directional_bias=direction_bias)
                 if (len(rsi_price_deltas) < 3):
                     print("PRICE DELTAS FOR ", threshold, rsi_price_deltas)
                     return threshold, 0, 0, 0, 0, rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates
                     
-                t_test_t, t_test_p = st.ttest_ind(sample_randomly(all_price_deltas, len(rsi_price_deltas)), rsi_price_deltas, equal_var=True)
+                t_test_t, t_test_p = st.ttest_ind(sample_randomly(all_price_deltas, len(rsi_price_deltas)), rsi_price_deltas, equal_var=False)
 
                 shapiro_w2, shapiro_p2 = st.shapiro(rsi_price_deltas)
 
@@ -1019,7 +991,7 @@ def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", sa
                 # print("p = ", t_test_p)
 
                 if saveToDataBase == True and callback != None:
-                    callback(int(threshold),float(t_test_t),float(t_test_p),float(shapiro_w2),float(shapiro_p2),rsi_price_deltas.tolist(),float(price_delta_std_dev),float(price_delta_mean),volumes.tolist(),float(volumes_mean), event_dates, direction_bias)
+                    callback(int(threshold),float(t_test_t),float(t_test_p),float(shapiro_w2),float(shapiro_p2),rsi_price_deltas.tolist(),float(price_delta_std_dev),float(price_delta_mean),volumes.tolist(),float(volumes_mean), event_dates, direction_bias, float(price_delta_mode))
                 
 
             future = executor.submit(doWork)
@@ -1041,18 +1013,15 @@ def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", sa
 
 
 if __name__ == "__main__":
-    # rsi_start = 74
-    # rsi_end = 76
-
-    # test_many_scenarios(["AMD"], rsi_start, rsi_end, 7)
+    test_many_scenarios(["AMD"], [80, 63, 17, 25, 66, 64, 79, 59, 62], 1)
 
     # plt.show()
     # exit(1)
-    # big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=False, figure=2)
+    all_price_deltas = get_price_delta_distribution_with_threshold("AMD", threshold=0, verbose=True, figure=2)
     # next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=False, figure=3)
 
-    # plt.show()
-    # exit(1)
+    plt.show()
+    exit(1)
 
     # plt.show()
 

@@ -5,10 +5,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ThresholdExperiment extends Experiment implements java.io.Serializable{
-    private String indicator, ticker, threshold, status, last_updated_at, update_requested_at, directional_bias;
-    private String[] event_dates;
-    private double[] price_deltas, volumes;
-    private double price_delta_mean, price_delta_std_dev, volumes_mean, t_test_p, t_test_t, shapiro_p2, shapiro_w2;
+    public String indicator, ticker, threshold, status, last_updated_at, update_requested_at, directional_bias;
+    public String[] event_dates;
+    public double[] price_deltas, volumes;
+    public double price_delta_mean, price_delta_std_dev, volumes_mean, t_test_p, t_test_t, shapiro_p2, shapiro_w2;
 
     public ThresholdExperiment(String id, String indicator, String ticker, String threshold, String status, double[] price_deltas, double price_delta_mean, double price_delta_std_dev, String[] event_dates, double t_test_t, double t_test_p, double shapiro_p2, double shapiro_w2, double[] volumes, double volumes_mean, String last_updated_at, String directional_bias){
         super(id);
@@ -32,34 +32,6 @@ public class ThresholdExperiment extends Experiment implements java.io.Serializa
         this.last_updated_at = last_updated_at;
     }
 
-    public double getPrice_delta_mean() {
-        return price_delta_mean;
-    }
-
-    public double getPrice_delta_std_dev() {
-        return price_delta_std_dev;
-    }
-
-    public double getT_test_p() {
-        return t_test_p;
-    }
-
-    public double getShapiro_p2() {
-        return shapiro_p2;
-    }
-
-    public String getIndicator() {
-        return indicator;
-    }
-
-    public String getTicker() {
-        return ticker;
-    }
-
-    public String getThreshold() {
-        return threshold;
-    }
-
     public static ThresholdExperiment convertJSONObjectToDbObject(JSONObject obj) throws JSONException{
         JSONArray price_deltas = obj.getJSONArray("price_deltas");
         double[] converted_price_deltas = new double[price_deltas.length()];
@@ -71,6 +43,7 @@ public class ThresholdExperiment extends Experiment implements java.io.Serializa
         String[] converted_event_dates = new String[event_dates.length()];
         for(int i = 0; i < event_dates.length(); i ++){
             converted_event_dates[i] = (String) event_dates.get(i);
+//            System.out.println(converted_event_dates[i]);
         }
 
         JSONArray volumes = obj.getJSONArray("volumes");
@@ -78,6 +51,7 @@ public class ThresholdExperiment extends Experiment implements java.io.Serializa
 
         for (int i = 0; i < volumes.length(); i ++){
             converted_volumes[i] = (double) volumes.get(i);
+//            System.out.println(converted_volumes[i]);
         }
 
         return new ThresholdExperiment(

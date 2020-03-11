@@ -17,6 +17,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fd7e5d06-3552-45b8-a478-d0a35ed1d505" name="Default Changelist" comment="Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/MySignals.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/MySignals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/networking_handlers/UpdateExperimentsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/networking_handlers/UpdateExperimentsHandler.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,15 +46,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="232" selection-start-line="232" selection-end-line="232" />
+            <state relative-caret-position="1038">
+              <caret line="87" column="86" selection-start-line="87" selection-start-column="86" selection-end-line="87" selection-end-column="86" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2678#8057#0" expanded="true" />
                 <element signature="e#8056#8057#0" expanded="true" />
                 <element signature="e#9364#9684#0" expanded="true" />
                 <element signature="e#9683#9684#0" expanded="true" />
-                <element signature="method#getSignals#0;class#LoginActivity#0" />
                 <element signature="method#openAuthChallengeActivity#0;class#LoginActivity#0" />
                 <element signature="method#updateUiWithUser#0;class#LoginActivity#0" />
                 <element signature="method#showLoginFailed#0;class#LoginActivity#0" />
@@ -61,22 +63,35 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/swagger_models/ThresholdExperiment.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml">
+          <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
-              <caret line="52" selection-start-line="52" selection-end-line="52" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="663">
+              <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/HomeAcitvity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="402">
+              <caret line="145" column="14" lean-forward="true" selection-start-line="145" selection-start-column="14" selection-end-line="145" selection-end-column="14" />
+              <folding>
+                <element signature="e#2280#2466#0" expanded="true" />
+                <element signature="e#2465#2466#0" expanded="true" />
+                <element signature="e#2555#2740#0" expanded="true" />
+                <element signature="e#2739#2740#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/GetExperimentsHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="140">
+              <caret line="105" column="52" selection-start-line="105" selection-start-column="52" selection-end-line="105" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -87,10 +102,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/dbmodels/ThresholdExperiment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="98" column="41" selection-start-line="98" selection-start-column="41" selection-end-line="98" selection-end-column="41" />
+            <state relative-caret-position="120">
+              <caret line="54" column="9" lean-forward="true" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#ThresholdExperiment#0;class#ThresholdExperiment#0" />
               </folding>
             </state>
           </provider>
@@ -110,8 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>showLoginFailed</find>
-      <find>updateUiWithUser</find>
       <find>Authorization</find>
       <find>SignUp</find>
       <find>email</find>
@@ -140,6 +154,8 @@
       <find>self</find>
       <find>String status, float[] price_deltas, float price_delta_mean, float price_delta_std_dev, String[] event_dates, float t_test_t, float t_test_p, float shapiro_p2, float shapiro_w2, float[] volumes, float volumes_mean, String update_requested_at, String last_updated_at, String directional_bias</find>
       <find>String</find>
+      <find>LoggedInUser</find>
+      <find>newSignalB</find>
     </findStrings>
     <replaceStrings>
       <replace>String</replace>
@@ -181,27 +197,27 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/HomeView.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/HomeAcitvity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_my_signals.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/searchable.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/new_signal_activity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/NewSignal.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/MySignals.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/dbmodels/LoggedInUser.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/UpdateExperimentsHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/DeleteExperimentsHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/SignUpHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/CreateExperimentsHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/CompleteAuthChallengeHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/networking_statics.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/SignInHandler.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/swagger_models/CorrelationExperiment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/dbmodels/CorrelationExperiment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/dbmodels/Experiment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/dbmodels/ThresholdExperiment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/MySignals.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/UpdateExperimentsHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/networking_handlers/GetExperimentsHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/dbmodels/ThresholdExperiment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/HomeAcitvity.java" />
       </list>
     </option>
   </component>
@@ -480,6 +496,15 @@
               <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="res" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
+            <path>
+              <item name="Quant.r Login" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\trist\Documents\GitHub\COMP34004\QuantrLogin" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="res" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="layout" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -644,6 +669,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1696" height="1026" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" sideWeight="0.9540873" visible="true" weight="0.29889977" />
@@ -658,7 +684,7 @@
       <window_info anchor="bottom" id="Run" order="0" sideWeight="0.84352076" weight="0.643897" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" sideWeight="0.49938875" weight="0.193729" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="3" sideWeight="0.801956" visible="true" weight="0.19932811" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="3" sideWeight="0.801956" visible="true" weight="0.24412094" />
       <window_info anchor="bottom" id="TODO" order="4" sideWeight="0.49848714" weight="0.32698768" />
       <window_info anchor="bottom" id="Debug" order="5" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
@@ -828,26 +854,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
           <caret line="98" column="38" selection-start-line="98" selection-end-line="99" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/Authorization.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -944,23 +955,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="17" column="48" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/MySignals.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="35" column="46" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/UpdateExperimentsHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="59" column="62" selection-start-line="59" selection-start-column="62" selection-end-line="59" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1078,13 +1072,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/HomeAcitvity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/swagger_models/CorrelationExperiment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -1095,10 +1082,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginViewModel.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="1038">
+          <caret line="87" column="86" selection-start-line="87" selection-start-column="86" selection-end-line="87" selection-end-column="86" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2678#8057#0" expanded="true" />
+            <element signature="e#8056#8057#0" expanded="true" />
+            <element signature="e#9364#9684#0" expanded="true" />
+            <element signature="e#9683#9684#0" expanded="true" />
+            <element signature="method#openAuthChallengeActivity#0;class#LoginActivity#0" />
+            <element signature="method#updateUiWithUser#0;class#LoginActivity#0" />
+            <element signature="method#showLoginFailed#0;class#LoginActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/UpdateExperimentsHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/MySignals.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="87" column="70" selection-start-line="87" selection-start-column="70" selection-end-line="87" selection-end-column="70" />
         </state>
       </provider>
     </entry>
@@ -1112,40 +1126,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/dbmodels/ThresholdExperiment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/Authorization.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="98" column="41" selection-start-line="98" selection-start-column="41" selection-end-line="98" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="-197">
+          <caret line="31" column="9" lean-forward="true" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginViewModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="232" selection-start-line="232" selection-end-line="232" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2678#8057#0" expanded="true" />
-            <element signature="e#8056#8057#0" expanded="true" />
-            <element signature="e#9364#9684#0" expanded="true" />
-            <element signature="e#9683#9684#0" expanded="true" />
-            <element signature="method#getSignals#0;class#LoginActivity#0" />
-            <element signature="method#openAuthChallengeActivity#0;class#LoginActivity#0" />
-            <element signature="method#updateUiWithUser#0;class#LoginActivity#0" />
-            <element signature="method#showLoginFailed#0;class#LoginActivity#0" />
-          </folding>
+        <state relative-caret-position="134">
+          <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/networking_handlers/GetExperimentsHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="140">
+          <caret line="105" column="52" selection-start-line="105" selection-start-column="52" selection-end-line="105" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/dbmodels/ThresholdExperiment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="54" column="9" lean-forward="true" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#ThresholdExperiment#0;class#ThresholdExperiment#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/HomeAcitvity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="145" column="14" lean-forward="true" selection-start-line="145" selection-start-column="14" selection-end-line="145" selection-end-column="14" />
+          <folding>
+            <element signature="e#2280#2466#0" expanded="true" />
+            <element signature="e#2465#2466#0" expanded="true" />
+            <element signature="e#2555#2740#0" expanded="true" />
+            <element signature="e#2739#2740#0" expanded="true" />
           </folding>
         </state>
       </provider>
