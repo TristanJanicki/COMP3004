@@ -35,7 +35,7 @@ logger.addHandler(log_handler)
 logger.setLevel(logging.INFO)
 logger.setLevel(logging.INFO)
 
-def saveThresholdToDataBase(threshold, t_test_t, t_test_p, shapiro_w2, shapiro_p2,  rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates, direction_bias):
+def saveThresholdToDataBase(threshold, t_test_t, t_test_p, shapiro_w2, shapiro_p2,  rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates, direction_bias, price_delta_mode):
     experiment_id = str(uuid.uuid4())
     thExp = ThresholdExperiment(experiment_id, "RSI", threshold, t)
     thExp.experiment_id = experiment_id
@@ -48,6 +48,7 @@ def saveThresholdToDataBase(threshold, t_test_t, t_test_p, shapiro_w2, shapiro_p
     thExp.ticker = t
     thExp.price_deltas = ','.join(str(v) for v in list(rsi_price_deltas))
     thExp.price_delta_std_dev = price_delta_std_dev
+    thExp.price_delta_mode = price_delta_mode
     thExp.event_dates = ','.join(str(v) for v in list(event_dates))
     thExp.t_test_p = t_test_p
     thExp.t_test_t = t_test_t

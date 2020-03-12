@@ -974,7 +974,7 @@ def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", sa
                 rsi_price_deltas, price_delta_std_dev, price_delta_mean, price_delta_mode, volumes, volumes_mean, event_dates = get_rsi_threshold_move_distribution([ticker], "ALL", threshold, 1, verbose=False, directional_bias=direction_bias)
                 if (len(rsi_price_deltas) < 3):
                     print("PRICE DELTAS FOR ", threshold, rsi_price_deltas)
-                    return threshold, 0, 0, 0, 0, rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates
+                    return threshold, 0, 0, 0, 0, rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates, 0
                     
                 t_test_t, t_test_p = st.ttest_ind(sample_randomly(all_price_deltas, len(rsi_price_deltas)), rsi_price_deltas, equal_var=False)
 
@@ -991,7 +991,7 @@ def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", sa
                 # print("p = ", t_test_p)
 
                 if saveToDataBase == True and callback != None:
-                    callback(int(threshold),float(t_test_t),float(t_test_p),float(shapiro_w2),float(shapiro_p2),rsi_price_deltas.tolist(),float(price_delta_std_dev),float(price_delta_mean),volumes.tolist(),float(volumes_mean), event_dates, direction_bias, float(price_delta_mode))
+                    callback(int(threshold),float(t_test_t),float(t_test_p),float(shapiro_w2),float(shapiro_p2),rsi_price_deltas.tolist(),float(price_delta_std_dev),float(price_delta_mean),volumes.tolist(),float(volumes_mean), event_dates, direction_bias, float(price_delta_mode[0]))
                 
 
             future = executor.submit(doWork)
