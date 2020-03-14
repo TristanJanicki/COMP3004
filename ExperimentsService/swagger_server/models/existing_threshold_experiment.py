@@ -15,7 +15,7 @@ class ExistingThresholdExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None, threshold: str=None, event_dates: List[str]=None, price_deltas: List[str]=None, price_delta_std_dev: float=None, price_delta_mean: float=None, price_delta_mode: float=None, t_test_p: float=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None, threshold: str=None, event_dates: List[str]=None, price_deltas: List[str]=None, price_delta_std_dev: float=None, price_delta_mean: float=None, price_delta_mode: float=None, t_test_p: float=None, direction_bias: str=None):  # noqa: E501
         """ExistingThresholdExperiment - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingThresholdExperiment.  # noqa: E501
@@ -38,6 +38,8 @@ class ExistingThresholdExperiment(Model):
         :type price_delta_mode: float
         :param t_test_p: The t_test_p of this ExistingThresholdExperiment.  # noqa: E501
         :type t_test_p: float
+        :param direction_bias: The direction_bias of this ExistingThresholdExperiment.  # noqa: E501
+        :type direction_bias: str
         """
         self.swagger_types = {
             'experiment_id': str,
@@ -49,7 +51,8 @@ class ExistingThresholdExperiment(Model):
             'price_delta_std_dev': float,
             'price_delta_mean': float,
             'price_delta_mode': float,
-            't_test_p': float
+            't_test_p': float,
+            'direction_bias': str
         }
 
         self.attribute_map = {
@@ -62,7 +65,8 @@ class ExistingThresholdExperiment(Model):
             'price_delta_std_dev': 'price_delta_std_dev',
             'price_delta_mean': 'price_delta_mean',
             'price_delta_mode': 'price_delta_mode',
-            't_test_p': 't_test_p'
+            't_test_p': 't_test_p',
+            'direction_bias': 'direction_bias'
         }
 
         self._experiment_id = experiment_id
@@ -75,6 +79,7 @@ class ExistingThresholdExperiment(Model):
         self._price_delta_mean = price_delta_mean
         self._price_delta_mode = price_delta_mode
         self._t_test_p = t_test_p
+        self._direction_bias = direction_bias
 
     @classmethod
     def from_dict(cls, dikt) -> 'ExistingThresholdExperiment':
@@ -296,3 +301,24 @@ class ExistingThresholdExperiment(Model):
         """
 
         self._t_test_p = t_test_p
+
+    @property
+    def direction_bias(self) -> str:
+        """Gets the direction_bias of this ExistingThresholdExperiment.
+
+
+        :return: The direction_bias of this ExistingThresholdExperiment.
+        :rtype: str
+        """
+        return self._direction_bias
+
+    @direction_bias.setter
+    def direction_bias(self, direction_bias: str):
+        """Sets the direction_bias of this ExistingThresholdExperiment.
+
+
+        :param direction_bias: The direction_bias of this ExistingThresholdExperiment.
+        :type direction_bias: str
+        """
+
+        self._direction_bias = direction_bias

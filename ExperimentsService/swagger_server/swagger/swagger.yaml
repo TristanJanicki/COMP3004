@@ -257,6 +257,8 @@ definitions:
         type: "number"
       t_test_p:
         type: "number"
+      direction_bias:
+        type: "string"
     example:
       indicator: "indicator"
       price_delta_mean: 5.63737665663332876420099637471139430999755859375
@@ -270,6 +272,7 @@ definitions:
       - "event_dates"
       - "event_dates"
       experiment_id: "experiment_id"
+      direction_bias: "direction_bias"
       threshold: "threshold"
       price_delta_std_dev: 5.962133916683182377482808078639209270477294921875
   getExperimentsResult:
@@ -296,6 +299,7 @@ definitions:
         - "event_dates"
         - "event_dates"
         experiment_id: "experiment_id"
+        direction_bias: "direction_bias"
         threshold: "threshold"
         price_delta_std_dev: 5.962133916683182377482808078639209270477294921875
       - indicator: "indicator"
@@ -310,6 +314,7 @@ definitions:
         - "event_dates"
         - "event_dates"
         experiment_id: "experiment_id"
+        direction_bias: "direction_bias"
         threshold: "threshold"
         price_delta_std_dev: 5.962133916683182377482808078639209270477294921875
       correlations:

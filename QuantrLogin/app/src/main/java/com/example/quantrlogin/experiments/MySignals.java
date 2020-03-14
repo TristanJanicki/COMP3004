@@ -1,6 +1,7 @@
 package com.example.quantrlogin.experiments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,18 +51,18 @@ public class MySignals extends Fragment {
 
         linearLayout = view.findViewById(R.id.linearLayout);
         l.warning("EXPERIMENTS LENGTH " + experiments.length);
+        l.warning(Arrays.toString(experiments));
         for (Experiment e : experiments){
-            l.warning(e.toString());
             addExperimentButton(e);
         }
 
-        newSignal = view.findViewById(R.id.addSignal);
-        newSignal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        newSignal = view.findViewById(R.id.addSignal);
+//        newSignal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
         editSignal = view.findViewById(R.id.addNewSignal);
         editSignal.setOnClickListener(new View.OnClickListener() {
@@ -114,8 +115,15 @@ public class MySignals extends Fragment {
             Logger.getGlobal().warning("ADDING EXPERIMENT BUTTON");
             Button newButton = new Button(getContext());
             newButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            newButton.setText("Signal " + e.getId());
+            if (e instanceof ThresholdExperiment){
+                ThresholdExperiment t = (ThresholdExperiment) e;
+                newButton.setText(t.getIndicator() + " " + t.getDirectionalBias() + " " + t.getThreshold());
+            }else if(e instanceof CorrelationExperiment){
+                CorrelationExperiment c = (CorrelationExperiment) e;
+                newButton.setText(c.getAsset_1() + " Correlation With " + c.getAsset_2());
+            }
             newButton.setId(counter);
+            newButton.setBackgroundColor(Color.parseColor("#80B0B0"));
             linearLayout.addView(newButton);
             newButton.setOnClickListener(new View.OnClickListener() {
                 @Override

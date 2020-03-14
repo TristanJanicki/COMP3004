@@ -16,7 +16,8 @@ def convertDbThresholdExperimentToSwaggerExperiment(dbModel: ThresholdExperiment
                                        dbModel.price_delta_std_dev,
                                        dbModel.price_delta_mean,
                                        dbModel.price_delta_mode,
-                                       dbModel.t_test_p
+                                       dbModel.t_test_p,
+                                       dbModel.directional_bias
                                        )
 
 

@@ -19,7 +19,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,100 +35,58 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="115dp"
-        android:id="@+id/linearLayout"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/addSignal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="275dp"
-            android:src="@android:drawable/ic_input_add" />
+        <!--        <ImageButton-->
+        <!--            android:id="@+id/addSignal"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="275dp"-->
+        <!--            android:src="@android:drawable/ic_input_add" />-->
     </LinearLayout>
 
-<!--    <Button-->
-<!--        android:id="@+id/signal1"-->
-<!--        android:layout_width="210dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginStart="24dp"-->
-<!--        android:layout_marginTop="224dp"-->
-<!--        android:text="@string/signal1"-->
-<!--        android:textAlignment="textStart"-->
-<!--        android:textColor="@android:color/black"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/subscribe1"-->
+    <!--        android:layout_width="65dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="224dp"-->
+    <!--        android:src="@android:drawable/ic_menu_view"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/signal1"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        android:contentDescription="@string/subscribe" />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/signal2"-->
-<!--        android:layout_width="210dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginStart="24dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:text="@string/signal2"-->
-<!--        android:textAlignment="textStart"-->
-<!--        android:textColor="@android:color/black"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/signal1" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/subscribe2"-->
+    <!--        android:layout_width="65dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:src="@android:drawable/ic_menu_view"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/signal1"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/subscribe1"-->
+    <!--        android:contentDescription="@string/subscribe" />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/signal3"-->
-<!--        android:layout_width="210dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginStart="24dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:text="@string/signal3"-->
-<!--        android:textAlignment="textStart"-->
-<!--        android:textColor="@android:color/black"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/signal2" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/subscribe1"-->
-<!--        android:layout_width="65dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="224dp"-->
-<!--        android:src="@android:drawable/ic_menu_view"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/signal1"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:contentDescription="@string/subscribe" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/subscribe2"-->
-<!--        android:layout_width="65dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:src="@android:drawable/ic_menu_view"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/signal1"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/subscribe1"-->
-<!--        android:contentDescription="@string/subscribe" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/subscribe3"-->
-<!--        android:layout_width="65dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:src="@android:drawable/ic_menu_view"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/signal1"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/subscribe2"-->
-<!--        android:contentDescription="@string/subscribe" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/subscribe3"-->
+    <!--        android:layout_width="65dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:src="@android:drawable/ic_menu_view"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/signal1"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/subscribe2"-->
+    <!--        android:contentDescription="@string/subscribe" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
