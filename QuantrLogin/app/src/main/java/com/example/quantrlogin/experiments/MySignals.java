@@ -29,7 +29,6 @@ import networking_handlers.GetExperimentsHandler;
 
 public class MySignals extends Fragment {
     private LoggedInUser user;
-    private Experiment[] usersExperiments;
     private Button editSignal;
     private ImageButton newSignal;
     private int counter = 1;
@@ -44,7 +43,8 @@ public class MySignals extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Experiment[] experiments = getSignals((LoggedInUser) getActivity().getIntent().getSerializableExtra("user"));
+        user = (LoggedInUser) getActivity().getIntent().getSerializableExtra("user");
+        Experiment[] experiments = getSignals(user);
         Logger.getGlobal().info(Arrays.toString(experiments));
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
 
@@ -76,38 +76,6 @@ public class MySignals extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        //setContentView(R.layout.activity_my_signals);
-//
-//        final Bundle b = getIntent().getExtras();
-//
-//        if (b == null){
-//            System.out.println("GET INTENT EXTRAS IS NULL");
-//            return;
-//        }
-//        if (!b.containsKey("user")){
-//            System.out.println("LOADING MY SIGNALS WITHOUT PASSING IN A USER");
-//            return;
-//        }
-//        user = (LoggedInUser) b.get("user");
-//        usersExperiments = getSignals(user);
-//
-//    }
-//
-//    void openActivity(Class c, LoggedInUser user){
-//        Intent intent = new Intent(this, c);
-//        intent.putExtra("user", user);
-//        startActivity(intent);
-//    }
-//
-//    public void openHomeActivity(LoggedInUser user) {
-//        Intent intent = new Intent(this, HomeAcitvity.class);
-//        intent.putExtra("user", user);
-//        startActivity(intent);
-//    }
-//
     private Experiment[] getSignals(LoggedInUser user){
         GetExperimentsHandler geh = new GetExperimentsHandler();
         System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");

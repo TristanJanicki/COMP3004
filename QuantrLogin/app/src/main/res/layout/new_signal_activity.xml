@@ -8,142 +8,114 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".experiments.NewSignal">
 
-    <EditText
-        android:id="@+id/sigName"
-        android:layout_width="325dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="80dp"
-        android:alpha=".75"
-        android:background="@drawable/backrect"
-        android:clickable="true"
-        android:ems="15"
-        android:focusable="true"
-        android:hint="@string/signal_name"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:padding="5dp"
-        android:text=""
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/searchStock"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--    <SearchView-->
+    <!--        android:id="@+id/searchStock"-->
+    <!--        android:layout_width="325dp"-->
+    <!--        android:layout_height="53dp"-->
+    <!--        android:layout_marginTop="148dp"-->
+    <!--        android:background="#808080"-->
+    <!--        android:queryHint="StockName"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/indicatorChooser"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--    <SearchView-->
-<!--        android:id="@+id/searchStock"-->
-<!--        android:layout_width="325dp"-->
-<!--        android:layout_height="53dp"-->
-<!--        android:layout_marginTop="148dp"-->
-<!--        android:background="#808080"-->
-<!--        android:queryHint="StockName"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/indicatorChooser"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <EditText
         android:id="@+id/searchStock"
         android:layout_width="325dp"
         android:layout_height="53dp"
-        android:hint="@string/tickerSearchHint"
-        android:layout_marginTop="148dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="48dp"
+        android:autofillHints="enter your favorite ticker"
         android:background="#808080"
+        android:hint="@string/tickerSearchHint"
+        android:inputType="text"
         android:queryHint="StockName"
-        app:layout_constraintStart_toStartOf="@+id/indicatorChooser"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="325dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/directionChooser">
-
-        <RadioButton
-            android:id="@+id/longButt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Long"
-            android:textColor="#FFF" />
-
-        <RadioButton
-            android:id="@+id/shortButt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Short"
-            android:textColor="#FFF" />
-    </RadioGroup>
-
-    <CheckBox
-        android:id="@+id/backtestInCloud"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Backtesting in the cloud"
-        android:textColor="#FFF"
-        app:layout_constraintStart_toStartOf="@+id/directionChooser"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/indicatorChooser"
         android:layout_width="325dp"
         android:layout_height="39dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="#808080"
-        android:contentDescription="Indicators"
+        android:contentDescription="@string/indicatorSpinnerText"
         android:dropDownWidth="wrap_content"
         android:queryHint="Indicator"
         android:spinnerMode="dropdown"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/searchStock"
         app:layout_constraintTop_toBottomOf="@+id/searchStock" />
 
     <Spinner
         android:id="@+id/directionChooser"
         android:layout_width="150dp"
         android:layout_height="41dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:background="#808080"
-        android:contentDescription="Crosses above or below threshold"
+        android:contentDescription="@string/directionalBiasDescription"
         android:dropDownWidth="wrap_content"
         android:queryHint="threshold"
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="@+id/indicatorChooser"
         app:layout_constraintTop_toBottomOf="@+id/indicatorChooser" />
 
-    <Button
-        android:id="@+id/createSignalButotn"
-        android:layout_width="wrap_content"
-        android:backgroundTint="@color/GoldYellow"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginRight="163dp"
-        android:text="Create Signal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backtestInCloud" />
-
     <EditText
         android:id="@+id/setNewSignalThreshold"
         android:layout_width="122dp"
         android:layout_height="41dp"
         android:layout_marginStart="81dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="65dp"
+        android:autofillHints="Enter the threshold you'd like to test for"
         android:ems="10"
-        android:text="50"
         android:inputType="number"
+        android:labelFor="@+id/directionChooser"
+        android:text="@string/defaultThresholdDescription"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toEndOf="@+id/directionChooser"
         app:layout_constraintTop_toBottomOf="@+id/indicatorChooser" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="325dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/directionChooser"
+        app:layout_constraintTop_toBottomOf="@+id/directionChooser">
+
+        <RadioButton
+            android:id="@+id/longButt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/longStratRadioButton"
+            android:textColor="#FFF"
+            />
+
+        <RadioButton
+            android:id="@+id/shortButt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shortStratRadioButton"
+            android:textColor="#FFF" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/createSignalButotn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="163dp"
+        android:backgroundTint="@color/GoldYellow"
+        android:text="@string/createSignalButtonText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

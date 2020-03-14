@@ -40,7 +40,7 @@ public class NewSignal extends AppCompatActivity{
         directionChooser = findViewById(R.id.directionChooser);
         thresholdField = findViewById(R.id.setNewSignalThreshold);
 
-        String[] indicatorChoices = new String[]{"RSI", "SMA 10", "SMA 20", "SMA 50", "SMA 100", "SMA 200", "TRIX", "EMA"};
+        String[] indicatorChoices = new String[]{"RSI", "SMA 10", "SMA 20", "SMA 50", "SMA 100", "SMA 200"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, indicatorChoices);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);

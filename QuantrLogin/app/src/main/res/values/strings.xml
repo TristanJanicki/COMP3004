@@ -43,4 +43,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="indicatorSpinnerText">Indicators</string>
+    <string name="directionalBiasDescription">Crosses above or below threshold</string>
+    <string name="defaultThresholdDescription">50</string>
+    <string name="shortStratRadioButton">Short</string>
+    <string name="longStratRadioButton">Long</string>
+    <string name="createSignalButtonText">Create Signal</string>
 </resources>
