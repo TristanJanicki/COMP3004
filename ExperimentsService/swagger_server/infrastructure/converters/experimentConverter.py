@@ -9,4 +9,4 @@ def convertDbThresholdExperimentToSwaggerExperiment(dbModel:ThresholdExperiment)
     return ExistingThresholdExperiment(dbModel.experiment_id, dbModel.indicator, dbModel.ticker, dbModel.threshold)
 
 def convertDbCorrelationExperimentToSwaggerExperiment(dbModel:CorrelationExperiment):
-    return ExistingCorrelationExperiment(dbModel.experiment_id, dbModel.asset_1, dbModel.asset_2, dbModel.correlation)
+    return ExistingCorrelationExperiment(dbModel.experiment_id, dbModel.asset_1, dbModel.asset_2, dbModel.correlation, dbModel.asset_1_deltas, dbModel.asset_2_deltas)

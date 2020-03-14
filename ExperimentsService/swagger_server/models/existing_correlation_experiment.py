@@ -15,7 +15,7 @@ class ExistingCorrelationExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, asset_1: str=None, asset_2: str=None, correlation: float=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, asset_1: str=None, asset_2: str=None, correlation: float=None, asset_1_deltas: List[float]=None, asset_2_deltas: List[float]=None):  # noqa: E501
         """ExistingCorrelationExperiment - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingCorrelationExperiment.  # noqa: E501
@@ -26,25 +26,35 @@ class ExistingCorrelationExperiment(Model):
         :type asset_2: str
         :param correlation: The correlation of this ExistingCorrelationExperiment.  # noqa: E501
         :type correlation: float
+        :param asset_1_deltas: The asset_1_deltas of this ExistingCorrelationExperiment.  # noqa: E501
+        :type asset_1_deltas: List[float]
+        :param asset_2_deltas: The asset_2_deltas of this ExistingCorrelationExperiment.  # noqa: E501
+        :type asset_2_deltas: List[float]
         """
         self.swagger_types = {
             'experiment_id': str,
             'asset_1': str,
             'asset_2': str,
-            'correlation': float
+            'correlation': float,
+            'asset_1_deltas': List[float],
+            'asset_2_deltas': List[float]
         }
 
         self.attribute_map = {
             'experiment_id': 'experiment_id',
             'asset_1': 'asset_1',
             'asset_2': 'asset_2',
-            'correlation': 'correlation'
+            'correlation': 'correlation',
+            'asset_1_deltas': 'asset_1_deltas',
+            'asset_2_deltas': 'asset_2_deltas'
         }
 
         self._experiment_id = experiment_id
         self._asset_1 = asset_1
         self._asset_2 = asset_2
         self._correlation = correlation
+        self._asset_1_deltas = asset_1_deltas
+        self._asset_2_deltas = asset_2_deltas
 
     @classmethod
     def from_dict(cls, dikt) -> 'ExistingCorrelationExperiment':
@@ -148,3 +158,45 @@ class ExistingCorrelationExperiment(Model):
             raise ValueError("Invalid value for `correlation`, must not be `None`")  # noqa: E501
 
         self._correlation = correlation
+
+    @property
+    def asset_1_deltas(self) -> List[float]:
+        """Gets the asset_1_deltas of this ExistingCorrelationExperiment.
+
+
+        :return: The asset_1_deltas of this ExistingCorrelationExperiment.
+        :rtype: List[float]
+        """
+        return self._asset_1_deltas
+
+    @asset_1_deltas.setter
+    def asset_1_deltas(self, asset_1_deltas: List[float]):
+        """Sets the asset_1_deltas of this ExistingCorrelationExperiment.
+
+
+        :param asset_1_deltas: The asset_1_deltas of this ExistingCorrelationExperiment.
+        :type asset_1_deltas: List[float]
+        """
+
+        self._asset_1_deltas = asset_1_deltas
+
+    @property
+    def asset_2_deltas(self) -> List[float]:
+        """Gets the asset_2_deltas of this ExistingCorrelationExperiment.
+
+
+        :return: The asset_2_deltas of this ExistingCorrelationExperiment.
+        :rtype: List[float]
+        """
+        return self._asset_2_deltas
+
+    @asset_2_deltas.setter
+    def asset_2_deltas(self, asset_2_deltas: List[float]):
+        """Sets the asset_2_deltas of this ExistingCorrelationExperiment.
+
+
+        :param asset_2_deltas: The asset_2_deltas of this ExistingCorrelationExperiment.
+        :type asset_2_deltas: List[float]
+        """
+
+        self._asset_2_deltas = asset_2_deltas

@@ -70,6 +70,14 @@ definitions:
         type: string
       correlation:
         type: number
+      asset_1_deltas:
+        type: array
+        items:
+          type: number
+      asset_2_deltas:
+        type: array
+        items:
+          type: number
 
   existingThresholdExperiment:
     type: object

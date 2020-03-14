@@ -211,9 +211,23 @@ definitions:
         type: "string"
       correlation:
         type: "number"
+      asset_1_deltas:
+        type: "array"
+        items:
+          type: "number"
+      asset_2_deltas:
+        type: "array"
+        items:
+          type: "number"
     example:
+      asset_1_deltas:
+      - 6.02745618307040320615897144307382404804229736328125
+      - 6.02745618307040320615897144307382404804229736328125
       correlation: 0.80082819046101150206595775671303272247314453125
       experiment_id: "experiment_id"
+      asset_2_deltas:
+      - 1.46581298050294517310021547018550336360931396484375
+      - 1.46581298050294517310021547018550336360931396484375
       asset_2: "asset_2"
       asset_1: "asset_1"
   existingThresholdExperiment:
@@ -253,12 +267,24 @@ definitions:
         experiment_id: "experiment_id"
         threshold: "threshold"
       correlations:
-      - correlation: 0.80082819046101150206595775671303272247314453125
+      - asset_1_deltas:
+        - 6.02745618307040320615897144307382404804229736328125
+        - 6.02745618307040320615897144307382404804229736328125
+        correlation: 0.80082819046101150206595775671303272247314453125
         experiment_id: "experiment_id"
+        asset_2_deltas:
+        - 1.46581298050294517310021547018550336360931396484375
+        - 1.46581298050294517310021547018550336360931396484375
         asset_2: "asset_2"
         asset_1: "asset_1"
-      - correlation: 0.80082819046101150206595775671303272247314453125
+      - asset_1_deltas:
+        - 6.02745618307040320615897144307382404804229736328125
+        - 6.02745618307040320615897144307382404804229736328125
+        correlation: 0.80082819046101150206595775671303272247314453125
         experiment_id: "experiment_id"
+        asset_2_deltas:
+        - 1.46581298050294517310021547018550336360931396484375
+        - 1.46581298050294517310021547018550336360931396484375
         asset_2: "asset_2"
         asset_1: "asset_1"
   errorResponse:

@@ -21,7 +21,9 @@ import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
 
 import networking_handlers.GetExperimentsHandler;
 
@@ -41,16 +43,21 @@ public class MySignals extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getSignals((LoggedInUser) getActivity().getIntent().getSerializableExtra("user"));
+        Experiment[] experiments = getSignals((LoggedInUser) getActivity().getIntent().getSerializableExtra("user"));
+        Logger.getGlobal().info(Arrays.toString(experiments));
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
 
         linearLayout = view.findViewById(R.id.linearLayout);
+
+        for (Experiment e : experiments){
+            addExperimentButton(e);
+        }
 
         newSignal = view.findViewById(R.id.addSignal);
         newSignal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addButton();
+
             }
         });
 
@@ -131,13 +138,19 @@ public class MySignals extends Fragment {
 
 
 
-    public void addButton(){
+    public void addExperimentButton(Experiment e){
         if (counter < 6){
             Button newButton = new Button(getContext());
             newButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            newButton.setText("Signal " + counter);
+            newButton.setText("Signal " + e.getId());
             newButton.setId(counter);
             linearLayout.addView(newButton);
+            newButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Intent detailedSignalView = new Intent(this, DetailedSignalView.class);
+                }
+            });
             counter++;
         } else {
             Toast.makeText(getActivity(), "You cannot create more than 5 signals.", Toast.LENGTH_SHORT).show();
