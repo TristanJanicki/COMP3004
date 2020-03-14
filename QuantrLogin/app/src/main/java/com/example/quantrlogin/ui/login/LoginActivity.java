@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
+        final Button dummyLogin = findViewById(R.id.dummyLogin);
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
@@ -143,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                     try{
                         Result r = deh.get();
                         if (r instanceof Result.Success){
-                            System.out.println("Succesfully Deleted Experiment");
+                            System.out.println("Successfully Deleted Experiment");
                         }else if (r instanceof Result.Error){
                             System.out.println("Failed To Delete Experiment: " + r.toString());
                         }else if (r instanceof Result.NotAllowed){
@@ -208,6 +209,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        dummyLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDummyHomeActivity();
+            }
+        });
+
         button_SignUp = findViewById(R.id.signUp);
         button_SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,6 +233,11 @@ public class LoginActivity extends AppCompatActivity {
     public void openHomeActivity(LoggedInUser user) {
         Intent intent = new Intent(this, HomeAcitvity.class);
         intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    public void openDummyHomeActivity() {
+        Intent intent = new Intent(this, Navigation.class);
         startActivity(intent);
     }
 
