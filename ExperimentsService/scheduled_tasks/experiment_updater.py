@@ -37,10 +37,8 @@ logger.setLevel(logging.INFO)
       
 with Pool(processes=cpu_count) as pool:
     for thExp in sqlManager.session.query(ThresholdExperiment).filter_by(status="update_requested"):
-        print("EXP: ", thExp)
         if thExp.indicator == "RSI":  # have an elif for each indicator
             try:
-                print("EXP: ", thExp)
                 res = pool.apply_async(exp.get_rsi_threshold_move_distribution, args=(
                     [thExp.ticker], "ALL", thExp.threshold, 1, False))
                 history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix, event_dates = res.get()
@@ -61,7 +59,6 @@ with Pool(processes=cpu_count) as pool:
 
     # TODO: make it so that the correlation experiment is done within a time frame not the whole dataset.
     for corrExp in sqlManager.session.query(CorrelationExperiment).filter_by(status="update_requested"):
-        print("EXP", corrExp)
         try:
             res = pool.apply_async(exp.getAssetCorrelation, args=(
                 corrExp.asset_1, corrExp.asset_2, corrExp.asset_combo))
