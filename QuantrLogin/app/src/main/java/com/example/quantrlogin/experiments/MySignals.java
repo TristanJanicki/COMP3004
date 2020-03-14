@@ -68,6 +68,7 @@ public class MySignals extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), NewSignal.class);
+                intent.putExtras(getActivity().getIntent().getExtras());
                 startActivity(intent);
             }
         });

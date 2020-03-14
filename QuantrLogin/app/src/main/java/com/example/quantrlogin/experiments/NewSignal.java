@@ -17,6 +17,7 @@ import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.swagger_models.ThresholdExperiment;
 
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 import networking_handlers.CreateExperimentsHandler;
 
@@ -27,6 +28,7 @@ public class NewSignal extends AppCompatActivity{
     RadioButton longStrat, shortStrat;
     String[] availableTickers = new String[]{"TSLA", "AMD", "NVDA", "SPCE"};
     LoggedInUser user;
+    Logger l = Logger.getGlobal();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +57,11 @@ public class NewSignal extends AppCompatActivity{
         final Bundle b = getIntent().getExtras();
 
         if (b == null){
-            System.out.println("GET INTENT EXTRAS IS NULL");
+            l.warning("GET INTENT EXTRAS IS NULL");
             return;
         }
         if (!b.containsKey("user")){
-            System.out.println("NO USER IN CREATE SIGNAL");
+            l.warning("NO USER IN CREATE SIGNAL");
             return;
         }
         user = (LoggedInUser) b.get("user");
@@ -77,16 +79,16 @@ public class NewSignal extends AppCompatActivity{
                 try{
                     Result r = ceh.get();
                     if (r instanceof Result.Success){
-                        System.out.println("Succesfully Created Experiment");
+                        l.warning("Succesfully Created Experiment");
                         openActivity(MySignals.class, user);
                     }else if (r instanceof Result.Error){
-                        System.out.println("Failed To Create Experiment: " + r.toString());
+                        l.warning("Failed To Create Experiment: " + r.toString());
                     }else if (r instanceof Result.NotAllowed){
-                        System.out.println("YOU CANT DO THAT!");
+                        l.warning("YOU CANT DO THAT!");
                     }else if (r instanceof Result.AlreadyExists){
-                        System.out.println("That experiment exists already");
+                        l.warning("That experiment exists already");
                     }else{
-                        System.out.println("Unknown method response");
+                        l.warning("Unknown method response");
                     }
                 }catch (Exception e){
                     e.printStackTrace();
