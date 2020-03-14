@@ -21,28 +21,33 @@
 
     <EditText
         android:id="@+id/searchStock"
-        android:layout_width="325dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="270dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="44dp"
         android:autofillHints="enter your favorite ticker"
-        android:background="#808080"
+        android:background="#fff"
         android:hint="@string/tickerSearchHint"
         android:inputType="text"
         android:queryHint="StockName"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.278"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/experimentTitle" />
 
     <Spinner
         android:id="@+id/indicatorChooser"
-        android:layout_width="325dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="16dp"
-        android:background="#808080"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="40dp"
+        android:background="#fff"
         android:contentDescription="@string/indicatorSpinnerText"
         android:dropDownWidth="wrap_content"
         android:queryHint="Indicator"
         android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/searchStock"
         app:layout_constraintTop_toBottomOf="@+id/searchStock" />
 
@@ -50,8 +55,8 @@
         android:id="@+id/directionChooser"
         android:layout_width="150dp"
         android:layout_height="41dp"
-        android:layout_marginTop="20dp"
-        android:background="#808080"
+        android:layout_marginTop="100dp"
+        android:background="#fff"
         android:contentDescription="@string/directionalBiasDescription"
         android:dropDownWidth="wrap_content"
         android:queryHint="threshold"
@@ -64,7 +69,7 @@
         android:layout_width="122dp"
         android:layout_height="41dp"
         android:layout_marginStart="81dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="65dp"
         android:autofillHints="Enter the threshold you'd like to test for"
         android:ems="10"
@@ -81,7 +86,7 @@
         android:id="@+id/radioGroup"
         android:layout_width="325dp"
         android:layout_height="53dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="@+id/directionChooser"
         app:layout_constraintTop_toBottomOf="@+id/directionChooser">
@@ -91,8 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/longStratRadioButton"
-            android:textColor="#FFF"
-            />
+            android:textColor="#FFF" />
 
         <RadioButton
             android:id="@+id/shortButt"
@@ -108,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="163dp"
         android:backgroundTint="@color/GoldYellow"
         android:text="@string/createSignalButtonText"
@@ -116,6 +120,20 @@
         app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <TextView
+        android:id="@+id/experimentTitle"
+        android:layout_width="330dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="38dp"
+        android:text="@string/createYourExperiment"
+        android:textColor="@color/colorAccent"
+        android:textSize="27sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
