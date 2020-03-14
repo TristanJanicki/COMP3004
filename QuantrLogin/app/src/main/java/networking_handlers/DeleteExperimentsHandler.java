@@ -31,7 +31,7 @@ public class DeleteExperimentsHandler extends AsyncTask<Object, Void, Result> {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
-                .url(networking_statics.url + "/v1/users/experiments")
+                .url(networking_statics.experiments + "/v1/users/experiments")
                 .method("DELETE", null)
                 .addHeader("X-Request-ID", UUID.randomUUID().toString())
                 .addHeader("idToken", user.getIdToken())

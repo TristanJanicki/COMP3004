@@ -42,7 +42,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
             json.put("password", password);
             RequestBody body = RequestBody.create(json.toString(), mediaType);
             Request request = new Request.Builder()
-                    .url(networking_statics.url + "/v1/users/signin")
+                    .url(networking_statics.userAccounts + "/v1/users/signin")
                     .method("POST", body)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("X-Request-ID", UUID.randomUUID().toString())

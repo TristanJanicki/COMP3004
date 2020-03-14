@@ -1,4 +1,4 @@
-package com.example.quantrlogin.ui.login;
+package com.example.quantrlogin.experiments;
 
 import android.content.Intent;
 import android.os.Bundle;

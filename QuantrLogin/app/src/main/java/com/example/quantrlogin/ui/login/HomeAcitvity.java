@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.experiments.MySignals;
 
 import networking_handlers.networking_statics;
 

@@ -14,6 +14,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.experiments.MySignals;
 import com.google.android.material.navigation.NavigationView;
 
 import networking_handlers.networking_statics;
@@ -51,7 +52,9 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 break;
 
             case R.id.nav_my_signals:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MySignals()).commit(); //need to change MySignals into a fragment class
+                MySignals signalsFragment = new MySignals();
+                signalsFragment.setArguments(getIntent().getExtras());
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, signalsFragment).commit(); //need to change MySignals into a fragment class
                 break;
 
             case R.id.nav_calendar:

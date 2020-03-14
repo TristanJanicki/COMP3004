@@ -165,7 +165,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     updateUiWithUser(loginResult.getSuccess());
                 }
-//                setResult(Activity.RESULT_OK);
             }
         });
 
@@ -231,7 +230,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void openHomeActivity(LoggedInUser user) {
-        Intent intent = new Intent(this, HomeAcitvity.class);
+        Intent intent = new Intent(this, Navigation.class);
         intent.putExtra("user", user);
         startActivity(intent);
     }

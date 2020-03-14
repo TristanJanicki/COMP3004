@@ -46,7 +46,7 @@ public class SignUpHandler extends AsyncTask<Void, Void, Result> {
 
             RequestBody body = RequestBody.create(reqBody.toString(), mediaType);
             Request request = new Request.Builder()
-                .url(networking_statics.url + "/v1/users/signup")
+                .url(networking_statics.userAccounts + "/v1/users/signup")
                 .method("POST", body)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("X-Request-ID", UUID.randomUUID().toString())

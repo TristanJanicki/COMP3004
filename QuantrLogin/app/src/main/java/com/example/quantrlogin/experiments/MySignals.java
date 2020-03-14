@@ -1,5 +1,6 @@
-package com.example.quantrlogin.ui.login;
+package com.example.quantrlogin.experiments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.data.Result;
+import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
 import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
+import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
+
+import java.util.concurrent.ExecutionException;
+
+import networking_handlers.GetExperimentsHandler;
 
 public class MySignals extends Fragment {
     private LoggedInUser user;
@@ -33,6 +41,7 @@ public class MySignals extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getSignals((LoggedInUser) getArguments().get("user"));
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
 
         linearLayout = view.findViewById(R.id.linearLayout);
@@ -45,14 +54,14 @@ public class MySignals extends Fragment {
             }
         });
 
-//        editSignal = view.findViewById(R.id.addNewSignal);
-//        editSignal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), NewSignal.class);
-//                startActivity(intent);
-//            }
-//        });
+        editSignal = view.findViewById(R.id.addNewSignal);
+        editSignal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NewSignal.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
@@ -89,61 +98,38 @@ public class MySignals extends Fragment {
 //        startActivity(intent);
 //    }
 //
-//    private Experiment[] getSignals(LoggedInUser user){
-//        GetExperimentsHandler geh = new GetExperimentsHandler();
-//        System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
-//        geh.execute(user);
-//        try {
-//            Result r = geh.get();
-//            if (r instanceof Result.GetExperimentsResult){
-//                CorrelationExperiment[] corrs = ((Result.GetExperimentsResult) r).getCorrelationExperiments();
-//                ThresholdExperiment[] threshs = ((Result.GetExperimentsResult) r).getThresholdExperiments();
-//                Experiment[] allExperiments = new Experiment[corrs.length + threshs.length];
-//
-//                int i = 0;
-//                for(CorrelationExperiment c : corrs){
-//                    allExperiments[i] = c;
-//                    ++i;
-//                }
-//                for(ThresholdExperiment t : threshs){
-//                    allExperiments[i] = t;
-//                    ++i;
-//                }
-//                setUiExperiments(allExperiments);
-//                return allExperiments;
-//            }else{
-//                System.out.println("NOT SUCCESS: "+ r.toString());
-//                return new Experiment[]{};
-//            }
-//        } catch (ExecutionException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        return new Experiment[]{};
-//    }
-//
-//    private void setUiExperiments(Experiment[] experiments){
-//        // TODO: convert this to use an expandable list view not hardcoding a set amount signals
-//
-////        Button sig1, sig2, sig3;
-////
-////        sig1 = findViewById(R.id.signal1);
-////        sig2 = findViewById(R.id.signal2);
-////        sig3 = findViewById(R.id.signal3);
-////
-////        if (experiments.length >= 1)applySignalButtonStyling(sig1, experiments[0]);
-////        if (experiments.length >= 2) applySignalButtonStyling(sig2, experiments[1]);
-////        if (experiments.length >= 3) applySignalButtonStyling(sig3, experiments[2]);
-//    }
-//
-//    private void applySignalButtonStyling(Button b, Experiment e){
-//        if (e instanceof CorrelationExperiment){
-//            CorrelationExperiment c = (CorrelationExperiment) e;
-//            b.setText(c.getAsset_1() + ":" + c.getAsset_2() + ":" + c.getCorrelation());
-//        }else if(e instanceof ThresholdExperiment){
-//            ThresholdExperiment t = (ThresholdExperiment) e;
-//            b.setText(t.getTicker() + ":" + t.getIndicator());
-//        }
-//    }
+    private Experiment[] getSignals(LoggedInUser user){
+        GetExperimentsHandler geh = new GetExperimentsHandler();
+        System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
+        geh.execute(user);
+        try {
+            Result r = geh.get();
+            if (r instanceof Result.GetExperimentsResult){
+                CorrelationExperiment[] corrs = ((Result.GetExperimentsResult) r).getCorrelationExperiments();
+                ThresholdExperiment[] threshs = ((Result.GetExperimentsResult) r).getThresholdExperiments();
+                Experiment[] allExperiments = new Experiment[corrs.length + threshs.length];
+
+                int i = 0;
+                for(CorrelationExperiment c : corrs){
+                    allExperiments[i] = c;
+                    ++i;
+                }
+                for(ThresholdExperiment t : threshs){
+                    allExperiments[i] = t;
+                    ++i;
+                }
+                return allExperiments;
+            }else{
+                System.out.println("NOT SUCCESS: "+ r.toString());
+                return new Experiment[]{};
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new Experiment[]{};
+    }
+
+
 
     public void addButton(){
         if (counter < 6){
