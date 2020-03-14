@@ -1,6 +1,8 @@
 package com.example.quantrlogin.data.dbmodels;
 
-public class Experiment {
+import java.io.Serializable;
+
+public class Experiment implements Serializable {
     private String id;
 
     public Experiment(String id){

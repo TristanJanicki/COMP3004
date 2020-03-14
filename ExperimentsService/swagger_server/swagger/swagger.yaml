@@ -175,6 +175,7 @@ definitions:
   newThresholdExperiment:
     type: "object"
     required:
+    - "direction_bias"
     - "indicator"
     - "threshold"
     - "ticker"
@@ -184,6 +185,8 @@ definitions:
       threshold:
         type: "integer"
       ticker:
+        type: "string"
+      direction_bias:
         type: "string"
   newCorrelationExperiment:
     type: "object"

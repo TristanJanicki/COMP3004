@@ -15,7 +15,7 @@ class NewThresholdExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, indicator: str=None, threshold: int=None, ticker: str=None):  # noqa: E501
+    def __init__(self, indicator: str=None, threshold: int=None, ticker: str=None, direction_bias: str=None):  # noqa: E501
         """NewThresholdExperiment - a model defined in Swagger
 
         :param indicator: The indicator of this NewThresholdExperiment.  # noqa: E501
@@ -24,22 +24,27 @@ class NewThresholdExperiment(Model):
         :type threshold: int
         :param ticker: The ticker of this NewThresholdExperiment.  # noqa: E501
         :type ticker: str
+        :param direction_bias: The direction_bias of this NewThresholdExperiment.  # noqa: E501
+        :type direction_bias: str
         """
         self.swagger_types = {
             'indicator': str,
             'threshold': int,
-            'ticker': str
+            'ticker': str,
+            'direction_bias': str
         }
 
         self.attribute_map = {
             'indicator': 'indicator',
             'threshold': 'threshold',
-            'ticker': 'ticker'
+            'ticker': 'ticker',
+            'direction_bias': 'direction_bias'
         }
 
         self._indicator = indicator
         self._threshold = threshold
         self._ticker = ticker
+        self._direction_bias = direction_bias
 
     @classmethod
     def from_dict(cls, dikt) -> 'NewThresholdExperiment':
@@ -120,3 +125,26 @@ class NewThresholdExperiment(Model):
             raise ValueError("Invalid value for `ticker`, must not be `None`")  # noqa: E501
 
         self._ticker = ticker
+
+    @property
+    def direction_bias(self) -> str:
+        """Gets the direction_bias of this NewThresholdExperiment.
+
+
+        :return: The direction_bias of this NewThresholdExperiment.
+        :rtype: str
+        """
+        return self._direction_bias
+
+    @direction_bias.setter
+    def direction_bias(self, direction_bias: str):
+        """Sets the direction_bias of this NewThresholdExperiment.
+
+
+        :param direction_bias: The direction_bias of this NewThresholdExperiment.
+        :type direction_bias: str
+        """
+        if direction_bias is None:
+            raise ValueError("Invalid value for `direction_bias`, must not be `None`")  # noqa: E501
+
+        self._direction_bias = direction_bias

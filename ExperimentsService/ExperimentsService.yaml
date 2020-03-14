@@ -35,12 +35,15 @@ definitions:
       - indicator
       - threshold
       - ticker
+      - direction_bias
     properties:
       indicator:
         type: string
       threshold:
         type: integer
       ticker:
+        type: string
+      direction_bias:
         type: string
 
   newCorrelationExperiment:

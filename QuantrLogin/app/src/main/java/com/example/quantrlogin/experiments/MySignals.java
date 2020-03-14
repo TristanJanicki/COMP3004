@@ -120,7 +120,7 @@ public class MySignals extends Fragment {
             newButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             if (e instanceof ThresholdExperiment){
                 ThresholdExperiment t = (ThresholdExperiment) e;
-                newButton.setText(t.getIndicator() + " " + t.getDirectionalBias() + " " + t.getThreshold());
+                newButton.setText(t.getTicker() + " " + t.getIndicator() + " " + t.getDirectionalBias() + " " + t.getThreshold());
             }else if(e instanceof CorrelationExperiment){
                 CorrelationExperiment c = (CorrelationExperiment) e;
                 newButton.setText(c.getAsset_1() + " Correlation With " + c.getAsset_2());

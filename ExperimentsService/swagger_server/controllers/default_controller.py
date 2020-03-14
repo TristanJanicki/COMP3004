@@ -141,7 +141,11 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
 
         userID = connexion.request.headers['user_id']
 
-        user = sqlManager.session.query(User).filter_by(user_id=userID).one()
+        try:
+            user = sqlManager.session.query(User).filter_by(user_id=userID).one()
+        except SQLAlchemyError as e:
+            logger.warning(str(e))
+            return NotFoundResponse("user not found")
         usersExperiments = []
         if user.experiments != None:
             usersExperiments = user.experiments.split(",")
@@ -151,11 +155,12 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
         print("1")
         try:
             existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(
-                ticker=experiment["ticker"], threshold=experiment["threshold"], indicator=experiment["indicator"]).one()
+                ticker=experiment["ticker"], threshold=experiment["threshold"], indicator=experiment["indicator"], directional_bias=experiment["direction_bias"]).one()
         except SQLAlchemyError as e:
             error = str(e)
-            if not "No row was found" in str(e):
-                return ErrorResponse(str(e))
+            logger.warning(error)
+            if "No row was found for one()" != error:
+                return ErrorResponse(error)
         # fill existing copy with a value from the db if there is one
         sqlManager.session.commit()
 
@@ -175,7 +180,7 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
         else:  # The experiment doesn't exist, lets create it
             experiment_id = str(uuid.uuid4())
             dbExperiment = ThresholdExperiment(
-                experiment_id=experiment_id, indicator=experiment["indicator"], threshold=experiment["threshold"], ticker=experiment["ticker"], status="update_requested", update_requested_at=datetime.now(), last_updated_at=datetime.now())
+                experiment_id=experiment_id, indicator=experiment["indicator"], threshold=experiment["threshold"], ticker=experiment["ticker"], status="update_requested", directional_bias=experiment["direction_bias"],update_requested_at=datetime.now(), last_updated_at=datetime.now())
             sqlManager.session.add(dbExperiment)
             usersExperiments.append(experiment_id)
 

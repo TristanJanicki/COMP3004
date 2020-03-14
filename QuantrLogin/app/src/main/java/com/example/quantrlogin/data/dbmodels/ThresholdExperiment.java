@@ -3,9 +3,10 @@ package com.example.quantrlogin.data.dbmodels;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 
-public class ThresholdExperiment extends Experiment {
+public class ThresholdExperiment extends Experiment implements Serializable {
     private String indicator, ticker, threshold, directional_bias;
     String[] event_dates;
     double[] price_deltas;

@@ -3,13 +3,13 @@ package com.example.quantrlogin.data.dbmodels;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 
-public class CorrelationExperiment extends Experiment {
+public class CorrelationExperiment extends Experiment implements Serializable {
     private String asset_1, asset_2;
     float correlation;
     float[] asset_1_deltas, asset_2_deltas;
-
 
     public CorrelationExperiment(String id, String asset_1, String asset_2, float correlation, float[] asset_1_deltas, float[] asset_2_deltas){
         super(id);

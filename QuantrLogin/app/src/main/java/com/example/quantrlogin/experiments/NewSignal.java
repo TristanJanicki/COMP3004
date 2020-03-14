@@ -72,7 +72,9 @@ public class NewSignal extends AppCompatActivity{
                 String ticker = tickerSearch.getText().toString();
                 String indicator = indicatorChooser.getSelectedItem().toString();
                 float threshold = Float.parseFloat(thresholdField.getText().toString());
-                ThresholdExperiment input = new ThresholdExperiment(indicator, ticker, threshold);
+                String directional_bias = (directionChooser.getSelectedItem().toString().contains("Above") ? "crosses_above" : "crosses_below");
+
+                ThresholdExperiment input = new ThresholdExperiment(indicator, ticker, threshold, directional_bias);
 //                CorrelationExperiment input = new CorrelationExperiment("GBP", "EUR", 0);
                 CreateExperimentsHandler ceh = new CreateExperimentsHandler();
                 ceh.execute(user, input);
