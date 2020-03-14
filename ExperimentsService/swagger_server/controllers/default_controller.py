@@ -256,7 +256,7 @@ def user_experiments_get_all():  # noqa: E501
     usersCorrelations = []
     usersThresholds = []
     usersExperiments = user.experiments.split(",")
-    print(usersExperiments)
+    print("user experiments", usersExperiments)
 
     for ex in usersExperiments:
         stmt = exists().where(ThresholdExperiment.experiment_id==ex)

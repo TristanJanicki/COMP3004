@@ -15,7 +15,7 @@ class ExistingThresholdExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None, threshold: str=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None, threshold: str=None, event_dates: List[str]=None, price_deltas: List[str]=None, price_delta_std_dev: float=None, price_delta_mean: float=None, price_delta_mode: float=None, t_test_p: float=None):  # noqa: E501
         """ExistingThresholdExperiment - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingThresholdExperiment.  # noqa: E501
@@ -26,25 +26,55 @@ class ExistingThresholdExperiment(Model):
         :type ticker: str
         :param threshold: The threshold of this ExistingThresholdExperiment.  # noqa: E501
         :type threshold: str
+        :param event_dates: The event_dates of this ExistingThresholdExperiment.  # noqa: E501
+        :type event_dates: List[str]
+        :param price_deltas: The price_deltas of this ExistingThresholdExperiment.  # noqa: E501
+        :type price_deltas: List[str]
+        :param price_delta_std_dev: The price_delta_std_dev of this ExistingThresholdExperiment.  # noqa: E501
+        :type price_delta_std_dev: float
+        :param price_delta_mean: The price_delta_mean of this ExistingThresholdExperiment.  # noqa: E501
+        :type price_delta_mean: float
+        :param price_delta_mode: The price_delta_mode of this ExistingThresholdExperiment.  # noqa: E501
+        :type price_delta_mode: float
+        :param t_test_p: The t_test_p of this ExistingThresholdExperiment.  # noqa: E501
+        :type t_test_p: float
         """
         self.swagger_types = {
             'experiment_id': str,
             'indicator': str,
             'ticker': str,
-            'threshold': str
+            'threshold': str,
+            'event_dates': List[str],
+            'price_deltas': List[str],
+            'price_delta_std_dev': float,
+            'price_delta_mean': float,
+            'price_delta_mode': float,
+            't_test_p': float
         }
 
         self.attribute_map = {
             'experiment_id': 'experiment_id',
             'indicator': 'indicator',
             'ticker': 'ticker',
-            'threshold': 'threshold'
+            'threshold': 'threshold',
+            'event_dates': 'event_dates',
+            'price_deltas': 'price_deltas',
+            'price_delta_std_dev': 'price_delta_std_dev',
+            'price_delta_mean': 'price_delta_mean',
+            'price_delta_mode': 'price_delta_mode',
+            't_test_p': 't_test_p'
         }
 
         self._experiment_id = experiment_id
         self._indicator = indicator
         self._ticker = ticker
         self._threshold = threshold
+        self._event_dates = event_dates
+        self._price_deltas = price_deltas
+        self._price_delta_std_dev = price_delta_std_dev
+        self._price_delta_mean = price_delta_mean
+        self._price_delta_mode = price_delta_mode
+        self._t_test_p = t_test_p
 
     @classmethod
     def from_dict(cls, dikt) -> 'ExistingThresholdExperiment':
@@ -140,3 +170,129 @@ class ExistingThresholdExperiment(Model):
         """
 
         self._threshold = threshold
+
+    @property
+    def event_dates(self) -> List[str]:
+        """Gets the event_dates of this ExistingThresholdExperiment.
+
+
+        :return: The event_dates of this ExistingThresholdExperiment.
+        :rtype: List[str]
+        """
+        return self._event_dates
+
+    @event_dates.setter
+    def event_dates(self, event_dates: List[str]):
+        """Sets the event_dates of this ExistingThresholdExperiment.
+
+
+        :param event_dates: The event_dates of this ExistingThresholdExperiment.
+        :type event_dates: List[str]
+        """
+
+        self._event_dates = event_dates
+
+    @property
+    def price_deltas(self) -> List[str]:
+        """Gets the price_deltas of this ExistingThresholdExperiment.
+
+
+        :return: The price_deltas of this ExistingThresholdExperiment.
+        :rtype: List[str]
+        """
+        return self._price_deltas
+
+    @price_deltas.setter
+    def price_deltas(self, price_deltas: List[str]):
+        """Sets the price_deltas of this ExistingThresholdExperiment.
+
+
+        :param price_deltas: The price_deltas of this ExistingThresholdExperiment.
+        :type price_deltas: List[str]
+        """
+
+        self._price_deltas = price_deltas
+
+    @property
+    def price_delta_std_dev(self) -> float:
+        """Gets the price_delta_std_dev of this ExistingThresholdExperiment.
+
+
+        :return: The price_delta_std_dev of this ExistingThresholdExperiment.
+        :rtype: float
+        """
+        return self._price_delta_std_dev
+
+    @price_delta_std_dev.setter
+    def price_delta_std_dev(self, price_delta_std_dev: float):
+        """Sets the price_delta_std_dev of this ExistingThresholdExperiment.
+
+
+        :param price_delta_std_dev: The price_delta_std_dev of this ExistingThresholdExperiment.
+        :type price_delta_std_dev: float
+        """
+
+        self._price_delta_std_dev = price_delta_std_dev
+
+    @property
+    def price_delta_mean(self) -> float:
+        """Gets the price_delta_mean of this ExistingThresholdExperiment.
+
+
+        :return: The price_delta_mean of this ExistingThresholdExperiment.
+        :rtype: float
+        """
+        return self._price_delta_mean
+
+    @price_delta_mean.setter
+    def price_delta_mean(self, price_delta_mean: float):
+        """Sets the price_delta_mean of this ExistingThresholdExperiment.
+
+
+        :param price_delta_mean: The price_delta_mean of this ExistingThresholdExperiment.
+        :type price_delta_mean: float
+        """
+
+        self._price_delta_mean = price_delta_mean
+
+    @property
+    def price_delta_mode(self) -> float:
+        """Gets the price_delta_mode of this ExistingThresholdExperiment.
+
+
+        :return: The price_delta_mode of this ExistingThresholdExperiment.
+        :rtype: float
+        """
+        return self._price_delta_mode
+
+    @price_delta_mode.setter
+    def price_delta_mode(self, price_delta_mode: float):
+        """Sets the price_delta_mode of this ExistingThresholdExperiment.
+
+
+        :param price_delta_mode: The price_delta_mode of this ExistingThresholdExperiment.
+        :type price_delta_mode: float
+        """
+
+        self._price_delta_mode = price_delta_mode
+
+    @property
+    def t_test_p(self) -> float:
+        """Gets the t_test_p of this ExistingThresholdExperiment.
+
+
+        :return: The t_test_p of this ExistingThresholdExperiment.
+        :rtype: float
+        """
+        return self._t_test_p
+
+    @t_test_p.setter
+    def t_test_p(self, t_test_p: float):
+        """Sets the t_test_p of this ExistingThresholdExperiment.
+
+
+        :param t_test_p: The t_test_p of this ExistingThresholdExperiment.
+        :type t_test_p: float
+        """
+
+        self._t_test_p = t_test_p

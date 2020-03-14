@@ -34,6 +34,7 @@ public class MySignals extends Fragment {
     private ImageButton newSignal;
     private int counter = 1;
     private LinearLayout linearLayout = null;
+    private Logger l = Logger.getGlobal();
 
     public MySignals() {
         //Required empty public constructor
@@ -48,8 +49,9 @@ public class MySignals extends Fragment {
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
 
         linearLayout = view.findViewById(R.id.linearLayout);
-
+        l.warning("EXPERIMENTS LENGTH " + experiments.length);
         for (Experiment e : experiments){
+            l.warning(e.toString());
             addExperimentButton(e);
         }
 
@@ -140,6 +142,7 @@ public class MySignals extends Fragment {
 
     public void addExperimentButton(Experiment e){
         if (counter < 6){
+            Logger.getGlobal().warning("ADDING EXPERIMENT BUTTON");
             Button newButton = new Button(getContext());
             newButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             newButton.setText("Signal " + e.getId());

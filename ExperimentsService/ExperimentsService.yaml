@@ -90,6 +90,22 @@ definitions:
         type: string
       threshold:
         type: string
+      event_dates:
+        type: array
+        items:
+          type: string
+      price_deltas:
+        type: array
+        items:
+          type: string
+      price_delta_std_dev:
+        type: number
+      price_delta_mean:
+        type: number
+      price_delta_mode:
+        type: number
+      t_test_p:
+        type: number
 
   getExperimentsResult:
     required:

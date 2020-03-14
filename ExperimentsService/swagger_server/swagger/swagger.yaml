@@ -241,11 +241,37 @@ definitions:
         type: "string"
       threshold:
         type: "string"
+      event_dates:
+        type: "array"
+        items:
+          type: "string"
+      price_deltas:
+        type: "array"
+        items:
+          type: "string"
+      price_delta_std_dev:
+        type: "number"
+      price_delta_mean:
+        type: "number"
+      price_delta_mode:
+        type: "number"
+      t_test_p:
+        type: "number"
     example:
       indicator: "indicator"
+      price_delta_mean: 5.63737665663332876420099637471139430999755859375
+      t_test_p: 7.061401241503109105224211816675961017608642578125
       ticker: "ticker"
+      price_deltas:
+      - "price_deltas"
+      - "price_deltas"
+      price_delta_mode: 2.3021358869347654518833223846741020679473876953125
+      event_dates:
+      - "event_dates"
+      - "event_dates"
       experiment_id: "experiment_id"
       threshold: "threshold"
+      price_delta_std_dev: 5.962133916683182377482808078639209270477294921875
   getExperimentsResult:
     properties:
       correlations:
@@ -259,13 +285,33 @@ definitions:
     example:
       thresholds:
       - indicator: "indicator"
+        price_delta_mean: 5.63737665663332876420099637471139430999755859375
+        t_test_p: 7.061401241503109105224211816675961017608642578125
         ticker: "ticker"
+        price_deltas:
+        - "price_deltas"
+        - "price_deltas"
+        price_delta_mode: 2.3021358869347654518833223846741020679473876953125
+        event_dates:
+        - "event_dates"
+        - "event_dates"
         experiment_id: "experiment_id"
         threshold: "threshold"
+        price_delta_std_dev: 5.962133916683182377482808078639209270477294921875
       - indicator: "indicator"
+        price_delta_mean: 5.63737665663332876420099637471139430999755859375
+        t_test_p: 7.061401241503109105224211816675961017608642578125
         ticker: "ticker"
+        price_deltas:
+        - "price_deltas"
+        - "price_deltas"
+        price_delta_mode: 2.3021358869347654518833223846741020679473876953125
+        event_dates:
+        - "event_dates"
+        - "event_dates"
         experiment_id: "experiment_id"
         threshold: "threshold"
+        price_delta_std_dev: 5.962133916683182377482808078639209270477294921875
       correlations:
       - asset_1_deltas:
         - 6.02745618307040320615897144307382404804229736328125
