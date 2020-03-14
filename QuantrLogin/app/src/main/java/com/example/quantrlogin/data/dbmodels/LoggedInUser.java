@@ -10,7 +10,7 @@ public class LoggedInUser implements java.io.Serializable{
     private String accessToken;
     private String idToken;
     private String refreshToken;
-//    private JSONObject cognitoProfile;
+    public Experiment[] experiments;
 
     public LoggedInUser(String userId, String displayName, String accessToken, String idToken, String refreshToken) {
         this.userId = userId;
@@ -18,12 +18,7 @@ public class LoggedInUser implements java.io.Serializable{
         this.accessToken = accessToken;
         this.idToken = idToken;
         this.refreshToken = refreshToken;
-//        this.cognitoProfile = cognitoProfile;
     }
-
-//    public JSONObject getCognitoProfile() {
-//        return cognitoProfile;
-//    }
 
     public String getAccessToken() {
         return accessToken;

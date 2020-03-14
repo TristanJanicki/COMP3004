@@ -45,14 +45,16 @@ public class MySignals extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         user = (LoggedInUser) getActivity().getIntent().getSerializableExtra("user");
-        Experiment[] experiments = getSignals(user);
-        Logger.getGlobal().info(Arrays.toString(experiments));
+        if (user.experiments == null){
+            getSignals(user);
+        }
+
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
 
         linearLayout = view.findViewById(R.id.linearLayout);
-        l.warning("EXPERIMENTS LENGTH " + experiments.length);
-        l.warning(Arrays.toString(experiments));
-        for (Experiment e : experiments){
+        l.warning("EXPERIMENTS LENGTH " + user.experiments.length);
+        l.warning(Arrays.toString(user.experiments));
+        for (Experiment e : user.experiments){
             addExperimentButton(e);
         }
 
@@ -97,6 +99,7 @@ public class MySignals extends Fragment {
                     allExperiments[i] = t;
                     ++i;
                 }
+                user.experiments = allExperiments;
                 return allExperiments;
             }else{
                 System.out.println("NOT SUCCESS: "+ r.toString());
