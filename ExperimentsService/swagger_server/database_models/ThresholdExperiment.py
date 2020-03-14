@@ -26,8 +26,10 @@ class ThresholdExperiment(Base):
     status = Column(String)
     directional_bias = Column(String)
     price_delta_mode = Column(String)
+    skewness = Column(Float)
+    kurtosis = Column(Float)
 
-    def __init__(self, experiment_id, indicator, threshold, ticker, status="up_to_date", price_delta_mode=0, update_requested_at=None,  last_updated_at=None, t_test_t=0, t_test_p=0, shapiro_w2=0, shapiro_p2=0, history="", history_std_dev=0, history_mean=0, price_deltas=0, price_delta_std_dev=0, price_delta_mean=0, volumes=0, volumes_mean=0, corr_matrix=0, event_dates="", directional_bias="bearish"):
+    def __init__(self, experiment_id, indicator, threshold, ticker, status="up_to_date", price_delta_mode=0, update_requested_at=None,  last_updated_at=None, t_test_t=0, t_test_p=0, shapiro_w2=0, shapiro_p2=0, history="", history_std_dev=0, history_mean=0, price_deltas=0, price_delta_std_dev=0, price_delta_mean=0, volumes=0, volumes_mean=0, corr_matrix=0, event_dates="", directional_bias="bearish", skewness=0, kurtosis=0):
         self.experiment_id = experiment_id
         self.indicator = indicator
         self.threshold = threshold
@@ -50,6 +52,8 @@ class ThresholdExperiment(Base):
         self.volumes_mean=volumes_mean,
         self.corr_matrix=corr_matrix
         self.event_dates=""
+        self.skewness = skewness
+        self.kurtosis = kurtosis
         self.update_requested_at = update_requested_at
         self.directional_bias = directional_bias
         self.last_updated_at = last_updated_at

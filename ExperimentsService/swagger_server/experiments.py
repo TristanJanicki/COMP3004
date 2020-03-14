@@ -6,6 +6,8 @@ import pandas as pd
 import numpy as np
 import math
 import scipy.stats as st
+from scipy.stats import kurtosis
+from scipy.stats import skew
 import matplotlib.pyplot as plt
 import graphviz
 from sklearn import svm
@@ -24,35 +26,46 @@ import concurrent
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import os
 
-base_path = "C:/Users/trist/Desktop/Projects/Stock_Data/"
+base_path = "../DataService/stock_data/"
+
 # X = source a list of feature vectors that contain the values of Moving Averages (200, 50), RSI, On-Balance Volume, MACD
 # Y = source a list of price movements in percentage for n (start with 5) day periods
 # fit and see what happens
 
 def getAssetCorrelation(asset_1, asset_2, asset_combo):
-    # TODO: add forex support
     if asset_combo == "equity_equity":
         d1 = get_price_delta_distribution(asset_1)
         d2 = get_price_delta_distribution(asset_2)
     elif asset_combo == "equity_currency":
         d1 = get_price_delta_distribution(asset_1)
-        d2 = get_currency_delta_distribution(asset_2)
+        currency_1 = asset_2.split(":")[0]
+        currency_2 = asset_2.split(":")[1]
+        d2 = get_currency_delta_distribution(currency_1, currency_2)
     elif asset_combo == "currency_currency":
-        d1 = get_currency_delta_distribution(asset_1)
-        d2 = get_currency_delta_distribution(asset_2)
+        currency_11 = asset_1.split(":")[0]
+        currency_12 = asset_1.split(":")[1]
+        d1 = get_currency_delta_distribution(currency_11, currency_12)
+        currency_21 = asset_2.split(":")[0]
+        currency_22 = asset_2.split(":")[1]
+        d2 = get_currency_delta_distribution(currency_21, currency_22)
+    elif asset_combo == "currency_equity":
+        currency_1 = asset_1.split(":")[0]
+        currency_2 = asset_1.split(":")[1]
+        d1 = get_currency_delta_distribution(currency_1, currency_2)
+        d2 = get_price_delta_distribution(asset_2)
     else:
-        raise Exception()
+        raise Exception("Invalid asset_combo {%s} passed to get asset correlation" % (asset_combo))
     if len(d1) != len(d2):
         new_length = min(len(d1), len(d2))
         d1 = sample_randomly(d1, new_length)
         d2 = sample_randomly(d2, new_length)
     corr_matrix = np.corrcoef(d1, d2)
-    return corr_matrix
+    return corr_matrix, d1, d2
 
 def get_currency_delta_distribution(currency_1, currency_2, verbose=False):
     price_deltas = []
 
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
             currency_1 + "_" + currency_2 + "_FXData.csv")
     
     last_price = None
@@ -156,7 +169,7 @@ def get_latest_date(ticker, technicals, extended_function_name=""):
 
 
 def get_1std_dev(ticker, year, time_period=5):
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
                               ticker + "_TIME_SERIES_DAILYData.csv", index_col=0)
     price_deltas = []  # clear the price deltas
     i = 0  # clear the counter
@@ -214,7 +227,7 @@ def get_data(tickers, technicals, time_period=5, percent_movement_threshold=None
     i = 0
 
     for ticker in tickers:
-        time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+        time_series = pd.read_csv(base_path +
                                   ticker + "_TIME_SERIES_DAILYData.csv", index_col=0)
 
         first_price = None
@@ -612,7 +625,7 @@ def binary_search(arr, l, r, key_index, key):
 
 def get_price_delta_distribution_with_threshold(ticker, year="ALL", threshold=0, verbose=False, figure=1):
     price_deltas = []
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
             ticker + "_TIME_SERIES_DAILYData.csv")
     
     last_price = None
@@ -642,7 +655,7 @@ def get_next_day_price_delta_with_threshold(ticker, year="ALL", threshold=0, ver
     prices = []
     nPrice_deltas = []
     price_deltas = []
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
             ticker + "_TIME_SERIES_DAILYData.csv")
     
     for series_data in time_series[::-1].iterrows():
@@ -686,7 +699,7 @@ def get_next_day_price_delta_with_threshold(ticker, year="ALL", threshold=0, ver
 
 def get_price_delta_distribution(ticker, year="ALL", verbose=False, figure=1):
     price_deltas = []
-    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
+    time_series = pd.read_csv(base_path +
             ticker + "_TIME_SERIES_DAILYData.csv")
     
     last_price = None
@@ -808,6 +821,8 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
     price_delta_mean = 0
     volumes_mean = 0
     volumes_std_dev = 0
+    skewedness = skew(price_deltas)
+    kurt = kurtosis(price_deltas)
     if len(price_deltas) > 0 and len(volumes) > 0:
         price_delta_std_dev = price_deltas.std()
         price_delta_mean = price_deltas.mean()
@@ -833,7 +848,7 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
 
             plt.show()
     price_delta_mode=st.mode(price_deltas)
-    return price_deltas, price_delta_std_dev, price_delta_mean, price_delta_mode, volumes, volumes_mean, event_dates
+    return price_deltas, price_delta_std_dev, price_delta_mean, price_delta_mode, volumes, volumes_mean, event_dates, kurt, skewedness
 
 def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, verbose=False, figure=1):
     max_corr = 0
@@ -971,7 +986,7 @@ def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", sa
             # plot_histo(rsi_price_deltas, "RSI Crosses Below %d Moves", "% Moves" % (i), 4)
 
             def doWork():
-                rsi_price_deltas, price_delta_std_dev, price_delta_mean, price_delta_mode, volumes, volumes_mean, event_dates = get_rsi_threshold_move_distribution([ticker], "ALL", threshold, 1, verbose=False, directional_bias=direction_bias)
+                rsi_price_deltas, price_delta_std_dev, price_delta_mean, price_delta_mode, volumes, volumes_mean, event_dates, skewness, kurtosis = get_rsi_threshold_move_distribution([ticker], "ALL", threshold, 1, verbose=False, directional_bias=direction_bias)
                 if (len(rsi_price_deltas) < 3):
                     print("PRICE DELTAS FOR ", threshold, rsi_price_deltas)
                     return threshold, 0, 0, 0, 0, rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates, 0
@@ -991,7 +1006,7 @@ def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", sa
                 # print("p = ", t_test_p)
 
                 if saveToDataBase == True and callback != None:
-                    callback(int(threshold),float(t_test_t),float(t_test_p),float(shapiro_w2),float(shapiro_p2),rsi_price_deltas.tolist(),float(price_delta_std_dev),float(price_delta_mean),volumes.tolist(),float(volumes_mean), event_dates, direction_bias, float(price_delta_mode[0]))
+                    callback(int(threshold),float(t_test_t),float(t_test_p),float(shapiro_w2),float(shapiro_p2),rsi_price_deltas.tolist(),float(price_delta_std_dev),float(price_delta_mean),volumes.tolist(),float(volumes_mean), event_dates, direction_bias, float(price_delta_mode[0]), skewness, kurtosis)
                 
 
             future = executor.submit(doWork)
@@ -1013,17 +1028,32 @@ def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", sa
 
 
 if __name__ == "__main__":
-    test_many_scenarios(["AMD"], [80, 63, 17, 25, 66, 64, 79, 59, 62], 1)
+    # test_many_scenarios(["AMD"], [80, 63, 17, 25, 66, 64, 79, 59, 62], 1)
+    population = get_price_delta_distribution("AMD", verbose=True, figure=2)
+    
+    sample = get_rsi_threshold_move_distribution(["AMD"], "ALL", 46)
+    sample_2 = get_rsi_threshold_move_distribution(["AMD"], "ALL", 74)
 
-    # plt.show()
-    # exit(1)
-    all_price_deltas = get_price_delta_distribution_with_threshold("AMD", threshold=0, verbose=True, figure=2)
-    # next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=False, figure=3)
 
+    # Res1 is: (osm, osr)tuple of ndarrays
+    # Tuple of theoretical quantiles (osm, or order statistic medians) and ordered responses (osr). osr is simply sorted input x. For details on how osm is calculated see the Notes section.
+
+    # Res2 is: (slope, intercept, r)tuple of floats, optional
+    # Tuple containing the result of the least-squares fit, if that is performed by probplot. r is the square root of the coefficient of determination. If fit=False and plot=None, this tuple is not returned.
+    import statsmodels.api as sm 
+    import pylab as py 
+
+    sm.qqplot(np.array(population))
+    sm.qqplot(sample[0], line ='45') 
+    sm.qqplot(sample_2[0], line ='45') 
+    # res1, res2 = st.probplot(results[0], plot=plt, rvalue=True)
+
+    # print("slope %d intercept %d coefficient of determination %f" % res2)
+    
     plt.show()
     exit(1)
-
-    # plt.show()
+    # all_price_deltas = get_price_delta_distribution_with_threshold("AMD", threshold=0, verbose=True, figure=2)
+    # next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=False, figure=3)
 
     # get_optimal_rsi_threshold("AMD")
 

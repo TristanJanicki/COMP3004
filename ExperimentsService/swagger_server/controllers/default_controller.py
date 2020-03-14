@@ -95,8 +95,9 @@ def experiments_correlation_create(experiment=None):  # noqa: E501
 
         user.experiments = ','.join(usersExperiments)
         sqlManager.session.commit()
-    except:
+    except Exception as e:
         sqlManager.session.rollback()
+        logger.error(e)
         return ErrorResponse()
     return OkResponse()
 
@@ -148,7 +149,6 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
 
         experiment = connexion.request.json["experiment"]
         existingCopy = None
-        print("1")
         try:
             existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(
                 ticker=experiment["ticker"], threshold=experiment["threshold"], indicator=experiment["indicator"]).one()
