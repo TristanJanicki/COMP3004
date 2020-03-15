@@ -28,6 +28,10 @@ public class ThresholdExperiment {
         return threshold;
     }
 
+    public String getDirectionBias() {
+        return direction_bias;
+    }
+
     public static ThresholdExperiment convertDbModelToSwaggerModel(ThresholdExperiment db){
         return new ThresholdExperiment(
                 db.getIndicator(),
@@ -45,6 +49,7 @@ public class ThresholdExperiment {
             str.put("indicator", indicator);
             str.put("threshold", threshold);
             str.put("ticker", ticker);
+            str.put("direction_bias", direction_bias);
             return str.toString();
         }catch (JSONException j){
             j.printStackTrace();

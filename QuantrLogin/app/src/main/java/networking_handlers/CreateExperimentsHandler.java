@@ -42,7 +42,7 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             }else if(inputs[1] instanceof ThresholdExperiment){
                 urlPostfix += "/threshold";
                 ThresholdExperiment obj = (ThresholdExperiment) inputs[1];
-                bodyStr = "{\"experiment\": {\"indicator\": \"" +  obj.getIndicator() + "\",\"threshold\": " + obj.getThreshold() + ",\"ticker\": \"" + obj.getTicker() + "\"}}";
+                bodyStr = "{\"experiment\": {\"indicator\": \"" +  obj.getIndicator() + "\",\"threshold\": " + obj.getThreshold() + ",\"ticker\": \"" + obj.getTicker() + "\", \"direction_bias\": \"" + obj.getDirectionBias() + "\"}}";
 //                jsonBody.putOpt("experiment", inputs[1]);
             }else{
                 return new Result.Error(new Exception("Second argument must be of type Experiment"));
