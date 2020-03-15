@@ -2,8 +2,15 @@ package com.example.quantrlogin.experiments;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.quantrlogin.R;
 import com.github.mikephil.charting.charts.CandleStickChart;
@@ -13,18 +20,27 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.CandleData;
 import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.CandleEntry;
-
+import com.example.quantrlogin.data.dbmodels.Experiment;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
-public class DetailedThresholdView extends AppCompatActivity {
+public class DetailedThresholdView extends Fragment {
+    private LinearLayout linearLayout = null;
+    private Logger l = Logger.getGlobal();
 
+    public DetailedThresholdView() {
+        //Required empty public constructor
+    }
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detailed_threshold_view);
+        View view = inflater.inflate(R.layout.activity_my_signals, container, false);
 
-        CandleStickChart candleStickChart = findViewById(R.id.candle_stick);
+        CandleStickChart candleStickChart = view.findViewById(R.id.candle_stick);
         candleStickChart.setHighlightPerDragEnabled(true);
+        linearLayout = view.findViewById(R.id.linearLayout);
 
         candleStickChart.setDrawBorders(true);
 
@@ -82,6 +98,7 @@ public class DetailedThresholdView extends AppCompatActivity {
 // set data
         candleStickChart.setData(data);
         candleStickChart.invalidate();
+        return view;
     }
 
 }

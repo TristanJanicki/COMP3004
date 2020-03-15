@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
@@ -53,17 +54,10 @@ public class MySignals extends Fragment {
         linearLayout = view.findViewById(R.id.linearLayout);
         l.warning("EXPERIMENTS LENGTH " + user.experiments.length);
         l.warning(Arrays.toString(user.experiments));
-        for (Experiment e : user.experiments){
+        for (Experiment e : user.experiments) {
             addExperimentButton(e);
         }
 
-          /*detailedThresholdView = view.findViewById(R.id.DetailedThresholdView);
-          activ.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-
-              }
-          });*/
 
         editSignal = view.findViewById(R.id.addNewSignal);
         editSignal.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +124,11 @@ public class MySignals extends Fragment {
             newButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent detailedSignalView = new Intent(this, DetailedSignalView.class);
+                    DetailedThresholdView detailed_fragment = new DetailedThresholdView();
+                    FragmentManager manager = getFragmentManager();
+                    manager.beginTransaction()
+                            .replace(R.id.fragment_container, detailed_fragment, detailed_fragment.getTag())
+                            .commit();
                 }
             });
             counter++;
