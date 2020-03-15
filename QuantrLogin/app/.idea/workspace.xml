@@ -10,16 +10,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="283c198d-7cb6-4f8f-a510-d6ca8cf6b08d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_PhilJay_MPAndroidChart_v3_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/DetailedThresholdView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/DetailedThresholdView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/MySignals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/MySignals.java" afterDir="false" />
-    </list>
+    <list default="true" id="283c198d-7cb6-4f8f-a510-d6ca8cf6b08d" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +20,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_29" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="98897a434a4731504c" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -54,8 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/quantrlogin/ui/login/Authorization.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="977">
-              <caret line="75" column="9" lean-forward="true" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
+            <state relative-caret-position="291">
+              <caret line="67" column="95" lean-forward="true" selection-start-line="67" selection-start-column="95" selection-end-line="67" selection-end-column="95" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -319,19 +310,19 @@
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="1" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.32956383" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.32956383" />
       <window_info id="Structure" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Find" visible="true" weight="0.32876712" />
+      <window_info anchor="bottom" id="Find" weight="0.32876712" />
       <window_info anchor="bottom" id="Logcat" order="0" sideWeight="0.4983845" weight="0.32876712" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Android Profiler" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
-      <window_info anchor="bottom" id="Run" order="4" weight="0.32876712" />
+      <window_info anchor="bottom" id="Run" order="4" visible="true" weight="0.32876712" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5016155" side_tool="true" weight="0.32876712" />
       <window_info anchor="bottom" id="Version Control" order="6" />
       <window_info anchor="bottom" id="Build" order="7" sideWeight="0.4951535" weight="0.32876712" />
@@ -535,8 +526,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/quantrlogin/ui/login/Authorization.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="977">
-          <caret line="75" column="9" lean-forward="true" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
+        <state relative-caret-position="291">
+          <caret line="67" column="95" lean-forward="true" selection-start-line="67" selection-start-column="95" selection-end-line="67" selection-end-column="95" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
