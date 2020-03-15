@@ -64,6 +64,7 @@
         app:layout_constraintStart_toStartOf="@+id/indicatorChooser"
         app:layout_constraintTop_toBottomOf="@+id/indicatorChooser" />
 
+
     <EditText
         android:id="@+id/setNewSignalThreshold"
         android:layout_width="122dp"
