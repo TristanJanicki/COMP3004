@@ -52,10 +52,10 @@ public class LoginActivity extends AppCompatActivity {
             usernameEditText.setText(savedInstanceState.get("email").toString());
         }
 
-        usernameEditText.setText("tristan.janicki@gmail.com");
-        passwordEditText.setText("newPassword1");
-//        usernameEditText.setText("tt700joe@gmail.com");
+//        usernameEditText.setText("tristan.janicki@gmail.com");
 //        passwordEditText.setText("newPassword1");
+        usernameEditText.setText("tt700joe@gmail.com");
+        passwordEditText.setText("j4IkT9Zt");
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override

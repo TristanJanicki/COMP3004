@@ -167,7 +167,7 @@ func (c *AwsCognitoHandler) PasswordChallenge(sessionId *string, username *strin
 		"method": "PasswordChallenge",
 	})
 
-	responses := map[string]*string{"NEW_PASSWORD": newPassword, "USERNAME": username, "userAttributes.name": username}
+	responses := map[string]*string{"NEW_PASSWORD": newPassword, "USERNAME": username}
 
 	input := &cognitoidentityprovider.AdminRespondToAuthChallengeInput{
 		ChallengeName:      aws.String("NEW_PASSWORD_REQUIRED"),
