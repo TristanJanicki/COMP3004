@@ -46,9 +46,9 @@ public class MySignals extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         user = (LoggedInUser) getActivity().getIntent().getSerializableExtra("user");
-        if (user.experiments == null || user.experiments.length == 0){
-            getSignals(user);
-        }
+
+        getSignals(user);
+
 
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
         linearLayout = view.findViewById(R.id.linearLayout);

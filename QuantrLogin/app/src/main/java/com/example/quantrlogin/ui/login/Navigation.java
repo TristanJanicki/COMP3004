@@ -25,8 +25,8 @@ import networking_handlers.networking_statics;
 public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private LoggedInUser user;
-    //private TextView nav_name;
-    private TextView nav_email;
+    //private TextView nav_email;
+    private TextView nav_name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,11 +37,11 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-        nav_email = headerView.findViewById(R.id.nav_userEmail);
-        //nav_name = headerView.findViewById(R.id.nav_userName);
+        nav_name = headerView.findViewById(R.id.nav_userName);
+        //nav_email = headerView.findViewById(R.id.nav_userEmail);
 
-        nav_email.setText(user.getDisplayName());
-        //nav_name.setText(user.);
+        nav_name.setText(user.getDisplayName());
+        //nav_email.setText(user.getProfileAttribute("user"));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
