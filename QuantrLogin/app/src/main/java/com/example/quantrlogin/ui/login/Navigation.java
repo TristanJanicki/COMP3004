@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.experiments.MySignals;
 import com.google.android.material.navigation.NavigationView;
 
@@ -21,17 +24,29 @@ import networking_handlers.networking_statics;
 
 public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    private LoggedInUser user;
+    //private TextView nav_name;
+    private TextView nav_email;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_main);
 
+        user = (LoggedInUser) getIntent().getSerializableExtra("user");
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        nav_email = headerView.findViewById(R.id.nav_userEmail);
+        //nav_name = headerView.findViewById(R.id.nav_userName);
+
+        nav_email.setText(user.getDisplayName());
+        //nav_name.setText(user.);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.draw_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
