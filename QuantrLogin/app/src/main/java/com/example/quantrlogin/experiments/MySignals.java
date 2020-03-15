@@ -57,13 +57,13 @@ public class MySignals extends Fragment {
             addExperimentButton(e);
         }
 
-//        newSignal = view.findViewById(R.id.addSignal);
-//        newSignal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+          /*detailedThresholdView = view.findViewById(R.id.DetailedThresholdView);
+          activ.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+
+              }
+          });*/
 
         editSignal = view.findViewById(R.id.addNewSignal);
         editSignal.setOnClickListener(new View.OnClickListener() {
