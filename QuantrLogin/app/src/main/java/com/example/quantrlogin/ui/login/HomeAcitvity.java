@@ -76,11 +76,11 @@ public class HomeAcitvity extends Fragment {
 //        final Bundle b = getIntent().getExtras();
 //
 //        if (b == null){
-//            System.out.println("GET INTENT EXTRAS IS NULL");
+//            Logger.getGlobal().warning("GET INTENT EXTRAS IS NULL");
 //            return;
 //        }
 //        if (!b.containsKey("user")){
-//            System.out.println("Trying to start home activity without passing in a user!");
+//            Logger.getGlobal().warning("Trying to start home activity without passing in a user!");
 //            return;
 //        }
 

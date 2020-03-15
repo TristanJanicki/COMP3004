@@ -15,6 +15,7 @@ import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
 
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
 
 import networking_handlers.SignUpHandler;
 
@@ -61,7 +62,7 @@ public class SignUp extends AppCompatActivity {
                 }else{
                     isPremium = false;
                 }
-                System.out.println("Is Premium: " + isPremium);
+                Logger.getGlobal().warning("Is Premium: " + isPremium);
 
                 final String emailStr = email.getText().toString();
                 final String usernameStr = username.getText().toString();
@@ -70,7 +71,7 @@ public class SignUp extends AppCompatActivity {
                 sh.execute();
                 try {
                     Result.GenericNetworkResult signupResult = (Result.GenericNetworkResult) sh.get();
-                    System.out.println(signupResult.toString());
+                    Logger.getGlobal().warning(signupResult.toString());
                     switch(signupResult.getCode()){
                         case 201:
                             openSignInActivity();

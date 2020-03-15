@@ -22,6 +22,10 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
+import org.json.JSONException;
+
+import java.util.logging.Logger;
+
 import networking_handlers.output.AuthChallengeRequiredParameters;
 
 public class LoginActivity extends AppCompatActivity {
@@ -86,15 +90,15 @@ public class LoginActivity extends AppCompatActivity {
                     /*
                     //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
                     GetExperimentsHandler geh = new GetExperimentsHandler();
-                    System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
+                    Logger.getGlobal().warning("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
                     geh.execute(loginResult.getSuccess());
                     try {
                         Result r = geh.get();
                         if (r instanceof Result.GetExperimentsResult){
-                            System.out.println("CORRS" + Arrays.toString(((Result.GetExperimentsResult) r).getCorrelationExperiments()));
-                            System.out.println("THRESHS" + Arrays.toString(((Result.GetExperimentsResult) r).getThresholdExperiments()));
+                            Logger.getGlobal().warning("CORRS" + Arrays.toString(((Result.GetExperimentsResult) r).getCorrelationExperiments()));
+                            Logger.getGlobal().warning("THRESHS" + Arrays.toString(((Result.GetExperimentsResult) r).getThresholdExperiments()));
                         }else{
-                            System.out.println("NOT SUCCESS: "+ r.toString());
+                            Logger.getGlobal().warning("NOT SUCCESS: "+ r.toString());
                         }
                     } catch (ExecutionException e) {
                         e.printStackTrace();
@@ -114,15 +118,15 @@ public class LoginActivity extends AppCompatActivity {
                     try{
                         Result r = ceh.get();
                         if (r instanceof Result.Success){
-                            System.out.println("Succesfully Created Experiment");
+                            Logger.getGlobal().warning("Succesfully Created Experiment");
                         }else if (r instanceof Result.Error){
-                            System.out.println("Failed To Create Experiment: " + r.toString());
+                            Logger.getGlobal().warning("Failed To Create Experiment: " + r.toString());
                         }else if (r instanceof Result.NotAllowed){
-                            System.out.println("YOU CANT DO THAT!");
+                            Logger.getGlobal().warning("YOU CANT DO THAT!");
                         }else if (r instanceof Result.AlreadyExists){
-                            System.out.println("That experiment exists already");
+                            Logger.getGlobal().warning("That experiment exists already");
                         }else{
-                            System.out.println("Unknown method response");
+                            Logger.getGlobal().warning("Unknown method response");
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -144,15 +148,15 @@ public class LoginActivity extends AppCompatActivity {
                     try{
                         Result r = deh.get();
                         if (r instanceof Result.Success){
-                            System.out.println("Successfully Deleted Experiment");
+                            Logger.getGlobal().warning("Successfully Deleted Experiment");
                         }else if (r instanceof Result.Error){
-                            System.out.println("Failed To Delete Experiment: " + r.toString());
+                            Logger.getGlobal().warning("Failed To Delete Experiment: " + r.toString());
                         }else if (r instanceof Result.NotAllowed){
-                            System.out.println("YOU CANT DO THAT!");
+                            Logger.getGlobal().warning("YOU CANT DO THAT!");
                         }else if (r instanceof Result.AlreadyExists){
-                            System.out.println("That experiment exists already");
+                            Logger.getGlobal().warning("That experiment exists already");
                         }else{
-                            System.out.println("Unknown method response");
+                            Logger.getGlobal().warning("Unknown method response");
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -230,6 +234,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void openHomeActivity(LoggedInUser user) {
+        try {
+            Logger.getGlobal().warning("NAME = " + user.getProfileAttribute("name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent(this, Navigation.class);
         intent.putExtra("user", user);
         startActivity(intent);
@@ -245,7 +254,7 @@ public class LoginActivity extends AppCompatActivity {
         data.putString("email", params.email);
         data.putString("sessionId", params.sessionID);
         data.putString("challenge_name", params.challengeName);
-        System.out.println("Bundle Before It Goes Into Intent" + data.toString());
+        Logger.getGlobal().warning("Bundle Before It Goes Into Intent" + data.toString());
         Intent intent = new Intent(this, Authorization.class);
         intent.putExtras(data);
         startActivity(intent);

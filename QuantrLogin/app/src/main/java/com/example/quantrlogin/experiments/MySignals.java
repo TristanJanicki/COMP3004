@@ -50,7 +50,6 @@ public class MySignals extends Fragment {
         }
 
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
-
         linearLayout = view.findViewById(R.id.linearLayout);
         l.warning("EXPERIMENTS LENGTH " + user.experiments.length);
         l.warning(Arrays.toString(user.experiments));
@@ -81,7 +80,7 @@ public class MySignals extends Fragment {
 
     private Experiment[] getSignals(LoggedInUser user){
         GetExperimentsHandler geh = new GetExperimentsHandler();
-        System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
+        Logger.getGlobal().warning("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
         geh.execute(user);
         try {
             Result r = geh.get();
@@ -102,7 +101,7 @@ public class MySignals extends Fragment {
                 user.experiments = allExperiments;
                 return allExperiments;
             }else{
-                System.out.println("NOT SUCCESS: "+ r.toString());
+                Logger.getGlobal().warning("NOT SUCCESS: "+ r.toString());
                 return new Experiment[]{};
             }
         } catch (ExecutionException | InterruptedException e) {

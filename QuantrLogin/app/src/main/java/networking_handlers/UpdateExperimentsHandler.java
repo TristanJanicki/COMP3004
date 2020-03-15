@@ -10,6 +10,7 @@ import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 import org.json.JSONObject;
 
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -67,8 +68,8 @@ public class UpdateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             Call c = client.newCall(request);
 
             Response r = c.execute();
-            System.out.println("CODE: "+ r.code());
-            System.out.println("Message: " + r.message());
+            Logger.getGlobal().warning("CODE: "+ r.code());
+            Logger.getGlobal().warning("Message: " + r.message());
             switch (r.code()){
                 case 200:
                     return new Result.Success(200);

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import networking_handlers.output.AuthChallengeRequiredParameters;
 import okhttp3.Call;
@@ -69,19 +70,19 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                 }
                 String[] tokenParts = responseBody.getString("idToken").split("\\.");
 
-                String decodedIdTokenStr = new String(Base64.getDecoder().decode(tokenParts[1]), StandardCharsets.UTF_8);// TODO: ask Tristan what this does
+                String decodedIdTokenStr = new String(Base64.getDecoder().decode(tokenParts[1]), StandardCharsets.UTF_8);// TODO: ask Tristan what this does. Answer: decodes the part of the id token that holds user profile attributes. Its encoded in base64. Decode it you get a json object.
                 JSONObject cognitoProfile = new JSONObject(decodedIdTokenStr);
                 String userID = cognitoProfile.getString("sub");
                 String refreshToken = responseBody.getString("refreshToken");
                 String accessToken = responseBody.getString("accessToken");
 
 
-                return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken));
+                return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken, decodedIdTokenStr));
             } catch (IOException e) {
                 e.printStackTrace();
                 return new Result.Error(e);
             }catch (JSONException e){
-                System.out.println("Failed to parse JSON output");
+                Logger.getGlobal().warning("Failed to parse JSON output");
                 e.printStackTrace();
                 return new Result.Error(e);
             }catch (Exception e){
