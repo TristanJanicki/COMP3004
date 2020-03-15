@@ -21,16 +21,16 @@ public class SignUpHandler extends AsyncTask<Void, Void, Result> {
 
     String username;
     String email;
-    String firstName;
-    String lastName;
+    String name;
+    String accountType;
     JSONObject cognitoProfile;
 
 
-    public SignUpHandler(String username, String email, String firstName, String lastName){
+    public SignUpHandler(String username, String email, String name, String accountType){
         this.username = username;
         this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
+        this.accountType = accountType;
     }
 
     @Override
@@ -41,8 +41,8 @@ public class SignUpHandler extends AsyncTask<Void, Void, Result> {
             MediaType mediaType = MediaType.parse("application/json");
             JSONObject reqBody = new JSONObject();
             reqBody.put("email", email);
-            reqBody.put("firstName", firstName);
-            reqBody.put("lastName", lastName);
+            reqBody.put("name", name);
+            reqBody.put("accountType", accountType);
 
             RequestBody body = RequestBody.create(reqBody.toString(), mediaType);
             Request request = new Request.Builder()

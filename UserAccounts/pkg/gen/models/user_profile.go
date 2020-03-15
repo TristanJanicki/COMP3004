@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,22 +19,21 @@ import (
 // swagger:model userProfile
 type UserProfile struct {
 
+	// account type
+	// Required: true
+	// Enum: [premium freemium]
+	AccountType *string `json:"accountType"`
+
 	// email
 	// Required: true
 	// Format: email
 	Email *strfmt.Email `json:"email"`
 
-	// first name
+	// name
 	// Required: true
 	// Max Length: 50
 	// Min Length: 1
-	FirstName *string `json:"firstName"`
-
-	// last name
-	// Required: true
-	// Max Length: 50
-	// Min Length: 1
-	LastName *string `json:"lastName"`
+	Name *string `json:"name"`
 
 	// nick name
 	// Max Length: 50
@@ -51,15 +52,15 @@ type UserProfile struct {
 func (m *UserProfile) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAccountType(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateEmail(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateFirstName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateLastName(formats); err != nil {
+	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -81,6 +82,49 @@ func (m *UserProfile) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+var userProfileTypeAccountTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["premium","freemium"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		userProfileTypeAccountTypePropEnum = append(userProfileTypeAccountTypePropEnum, v)
+	}
+}
+
+const (
+
+	// UserProfileAccountTypePremium captures enum value "premium"
+	UserProfileAccountTypePremium string = "premium"
+
+	// UserProfileAccountTypeFreemium captures enum value "freemium"
+	UserProfileAccountTypeFreemium string = "freemium"
+)
+
+// prop value enum
+func (m *UserProfile) validateAccountTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, userProfileTypeAccountTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *UserProfile) validateAccountType(formats strfmt.Registry) error {
+
+	if err := validate.Required("accountType", "body", m.AccountType); err != nil {
+		return err
+	}
+
+	// value enum
+	if err := m.validateAccountTypeEnum("accountType", "body", *m.AccountType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *UserProfile) validateEmail(formats strfmt.Registry) error {
 
 	if err := validate.Required("email", "body", m.Email); err != nil {
@@ -94,34 +138,17 @@ func (m *UserProfile) validateEmail(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *UserProfile) validateFirstName(formats strfmt.Registry) error {
+func (m *UserProfile) validateName(formats strfmt.Registry) error {
 
-	if err := validate.Required("firstName", "body", m.FirstName); err != nil {
+	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("firstName", "body", string(*m.FirstName), 1); err != nil {
+	if err := validate.MinLength("name", "body", string(*m.Name), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("firstName", "body", string(*m.FirstName), 50); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *UserProfile) validateLastName(formats strfmt.Registry) error {
-
-	if err := validate.Required("lastName", "body", m.LastName); err != nil {
-		return err
-	}
-
-	if err := validate.MinLength("lastName", "body", string(*m.LastName), 1); err != nil {
-		return err
-	}
-
-	if err := validate.MaxLength("lastName", "body", string(*m.LastName), 50); err != nil {
+	if err := validate.MaxLength("name", "body", string(*m.Name), 50); err != nil {
 		return err
 	}
 

@@ -40,15 +40,11 @@ definitions:
   userProfile:
     type: object
     required:
-      - firstName
-      - lastName
+      - name
       - email
+      - accountType
     properties:
-      firstName:
-        type: string
-        minLength: 1
-        maxLength: 50
-      lastName:
+      name:
         type: string
         minLength: 1
         maxLength: 50
@@ -62,17 +58,16 @@ definitions:
       title:
         type: string
         maxLength: 50
+      accountType:
+        type: string
+        enum: ["premium", "freemium"]
       phone:
         $ref: "#/definitions/phoneNumber"
 
   existingUserProfile:
     type: object
     properties:
-      firstName:
-        type: string
-        minLength: 1
-        maxLength: 50
-      lastName:
+      name:
         type: string
         minLength: 1
         maxLength: 50
@@ -164,16 +159,18 @@ definitions:
     type: object
     required:
       - email
-      - firstName
-      - lastName
+      - name
+      - accountType
     properties:
       email:
         type: string
         format: email
-      firstName:
+      name:
         type: string
-      lastName:
+      accountType:
         type: string
+        enum: ["premium", "freemium"]
+
 
   ###########################
   ##### Auth challenge and password change definitions

@@ -21,34 +21,17 @@ type SignUpData struct {
 
 	// account type
 	// Required: true
-	// Enum: [agency sales]
+	// Enum: [premium freemium]
 	AccountType *string `json:"accountType"`
-
-	// company name
-	// Required: true
-	CompanyName *string `json:"companyName"`
-
-	// company website
-	// Required: true
-	// Format: uri
-	CompanyWebsite *strfmt.URI `json:"companyWebsite"`
-
-	// country
-	// Required: true
-	Country *string `json:"country"`
 
 	// email
 	// Required: true
 	// Format: email
 	Email *strfmt.Email `json:"email"`
 
-	// first name
+	// name
 	// Required: true
-	FirstName *string `json:"firstName"`
-
-	// last name
-	// Required: true
-	LastName *string `json:"lastName"`
+	Name *string `json:"name"`
 }
 
 // Validate validates this sign up data
@@ -59,27 +42,11 @@ func (m *SignUpData) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateCompanyName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateCompanyWebsite(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateCountry(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateEmail(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateFirstName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateLastName(formats); err != nil {
+	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -93,7 +60,7 @@ var signUpDataTypeAccountTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["agency","sales"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["premium","freemium"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -103,11 +70,11 @@ func init() {
 
 const (
 
-	// SignUpDataAccountTypeAgency captures enum value "agency"
-	SignUpDataAccountTypeAgency string = "agency"
+	// SignUpDataAccountTypePremium captures enum value "premium"
+	SignUpDataAccountTypePremium string = "premium"
 
-	// SignUpDataAccountTypeSales captures enum value "sales"
-	SignUpDataAccountTypeSales string = "sales"
+	// SignUpDataAccountTypeFreemium captures enum value "freemium"
+	SignUpDataAccountTypeFreemium string = "freemium"
 )
 
 // prop value enum
@@ -132,37 +99,6 @@ func (m *SignUpData) validateAccountType(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SignUpData) validateCompanyName(formats strfmt.Registry) error {
-
-	if err := validate.Required("companyName", "body", m.CompanyName); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *SignUpData) validateCompanyWebsite(formats strfmt.Registry) error {
-
-	if err := validate.Required("companyWebsite", "body", m.CompanyWebsite); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("companyWebsite", "body", "uri", m.CompanyWebsite.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *SignUpData) validateCountry(formats strfmt.Registry) error {
-
-	if err := validate.Required("country", "body", m.Country); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *SignUpData) validateEmail(formats strfmt.Registry) error {
 
 	if err := validate.Required("email", "body", m.Email); err != nil {
@@ -176,18 +112,9 @@ func (m *SignUpData) validateEmail(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SignUpData) validateFirstName(formats strfmt.Registry) error {
+func (m *SignUpData) validateName(formats strfmt.Registry) error {
 
-	if err := validate.Required("firstName", "body", m.FirstName); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *SignUpData) validateLastName(formats strfmt.Registry) error {
-
-	if err := validate.Required("lastName", "body", m.LastName); err != nil {
+	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
 	}
 

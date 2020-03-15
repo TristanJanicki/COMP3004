@@ -65,7 +65,8 @@ public class SignUp extends AppCompatActivity {
 
                 final String emailStr = email.getText().toString();
                 final String usernameStr = username.getText().toString();
-                SignUpHandler sh = new SignUpHandler(usernameStr, emailStr, "", "");
+                final String accountTypeStr = (isPremium ? "premium" : "freemium");
+                SignUpHandler sh = new SignUpHandler(usernameStr, emailStr, usernameStr, accountTypeStr);
                 sh.execute();
                 try {
                     Result.GenericNetworkResult signupResult = (Result.GenericNetworkResult) sh.get();

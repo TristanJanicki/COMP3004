@@ -48,7 +48,7 @@ func (handler *AuthenticationHandler) SignUp(params operations.SignUpParams) mid
 	})
 
 	email := params.SignUpData.Email.String()
-	userId, err := handler.cognitoHandler.RegisterUserWithCognito(&email)
+	userId, err := handler.cognitoHandler.RegisterUserWithCognito(&email, params.SignUpData.Name, params.SignUpData.AccountType)
 	if err != nil {
 		log.WithError(err).Warn("Sign up fail")
 		if strings.Contains(err.Error(), "UsernameExistsException") == true {

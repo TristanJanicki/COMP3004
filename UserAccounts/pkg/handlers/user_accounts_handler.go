@@ -67,7 +67,7 @@ func (m *UserAccountsHandler) CreateUserAccount(params operations.CreateUserAcco
 	}
 
 	// Create cognito profile
-	userId, err := m.cognitoHandler.RegisterUserWithCognito(&userEmail)
+	userId, err := m.cognitoHandler.RegisterUserWithCognito(&userEmail, params.UserAccount.Profile.Name, params.UserAccount.Profile.AccountType)
 	if err != nil {
 		log.WithError(err).Warn("User account creation failed")
 		if strings.Contains(err.Error(), "UsernameExistsException") == true {
@@ -323,11 +323,8 @@ func (m *UserAccountsHandler) getUserProfileUpdates(currModel *dbModels.UserAcco
 	var result = make(map[string]interface{})
 
 	// Profile
-	if newModel.FirstName != nil && *currModel.FirstName != *newModel.FirstName {
-		result["first_name"] = newModel.FirstName
-	}
-	if newModel.LastName != nil && *currModel.LastName != *newModel.LastName {
-		result["last_name"] = newModel.LastName
+	if newModel.Name != nil && *currModel.Name != *newModel.Name {
+		result["name"] = newModel.Name
 	}
 	if newModel.Email != nil && *currModel.Email != *newModel.Email {
 		result["email"] = newModel.Email

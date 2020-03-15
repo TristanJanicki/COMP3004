@@ -25,7 +25,7 @@ type CompleteAuthChallengeCreated struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.OkResponse `json:"body,omitempty"`
+	Payload *models.TokenResponse `json:"body,omitempty"`
 }
 
 // NewCompleteAuthChallengeCreated creates CompleteAuthChallengeCreated with default headers values
@@ -35,13 +35,13 @@ func NewCompleteAuthChallengeCreated() *CompleteAuthChallengeCreated {
 }
 
 // WithPayload adds the payload to the complete auth challenge created response
-func (o *CompleteAuthChallengeCreated) WithPayload(payload *models.OkResponse) *CompleteAuthChallengeCreated {
+func (o *CompleteAuthChallengeCreated) WithPayload(payload *models.TokenResponse) *CompleteAuthChallengeCreated {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the complete auth challenge created response
-func (o *CompleteAuthChallengeCreated) SetPayload(payload *models.OkResponse) {
+func (o *CompleteAuthChallengeCreated) SetPayload(payload *models.TokenResponse) {
 	o.Payload = payload
 }
 

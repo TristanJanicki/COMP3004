@@ -340,7 +340,7 @@ func init() {
           "201": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/okResponse"
+              "$ref": "#/definitions/tokenResponse"
             }
           },
           "404": {
@@ -872,12 +872,7 @@ func init() {
     "existingUserProfile": {
       "type": "object",
       "properties": {
-        "firstName": {
-          "type": "string",
-          "maxLength": 50,
-          "minLength": 1
-        },
-        "lastName": {
+        "name": {
           "type": "string",
           "maxLength": 50,
           "minLength": 1
@@ -987,40 +982,22 @@ func init() {
       "type": "object",
       "required": [
         "email",
-        "firstName",
-        "lastName",
-        "companyName",
-        "companyWebsite",
-        "country",
+        "name",
         "accountType"
       ],
       "properties": {
         "accountType": {
           "type": "string",
-          "default": "agency",
           "enum": [
-            "agency",
-            "sales"
+            "premium",
+            "freemium"
           ]
-        },
-        "companyName": {
-          "type": "string"
-        },
-        "companyWebsite": {
-          "type": "string",
-          "format": "uri"
-        },
-        "country": {
-          "type": "string"
         },
         "email": {
           "type": "string",
           "format": "email"
         },
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
+        "name": {
           "type": "string"
         }
       }
@@ -1110,21 +1087,23 @@ func init() {
     "userProfile": {
       "type": "object",
       "required": [
-        "firstName",
-        "lastName",
-        "email"
+        "name",
+        "email",
+        "accountType"
       ],
       "properties": {
+        "accountType": {
+          "type": "string",
+          "enum": [
+            "premium",
+            "freemium"
+          ]
+        },
         "email": {
           "type": "string",
           "format": "email"
         },
-        "firstName": {
-          "type": "string",
-          "maxLength": 50,
-          "minLength": 1
-        },
-        "lastName": {
+        "name": {
           "type": "string",
           "maxLength": 50,
           "minLength": 1
@@ -1468,7 +1447,7 @@ func init() {
           "201": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/okResponse"
+              "$ref": "#/definitions/tokenResponse"
             }
           },
           "404": {
@@ -2000,12 +1979,7 @@ func init() {
     "existingUserProfile": {
       "type": "object",
       "properties": {
-        "firstName": {
-          "type": "string",
-          "maxLength": 50,
-          "minLength": 1
-        },
-        "lastName": {
+        "name": {
           "type": "string",
           "maxLength": 50,
           "minLength": 1
@@ -2115,40 +2089,22 @@ func init() {
       "type": "object",
       "required": [
         "email",
-        "firstName",
-        "lastName",
-        "companyName",
-        "companyWebsite",
-        "country",
+        "name",
         "accountType"
       ],
       "properties": {
         "accountType": {
           "type": "string",
-          "default": "agency",
           "enum": [
-            "agency",
-            "sales"
+            "premium",
+            "freemium"
           ]
-        },
-        "companyName": {
-          "type": "string"
-        },
-        "companyWebsite": {
-          "type": "string",
-          "format": "uri"
-        },
-        "country": {
-          "type": "string"
         },
         "email": {
           "type": "string",
           "format": "email"
         },
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
+        "name": {
           "type": "string"
         }
       }
@@ -2238,21 +2194,23 @@ func init() {
     "userProfile": {
       "type": "object",
       "required": [
-        "firstName",
-        "lastName",
-        "email"
+        "name",
+        "email",
+        "accountType"
       ],
       "properties": {
+        "accountType": {
+          "type": "string",
+          "enum": [
+            "premium",
+            "freemium"
+          ]
+        },
         "email": {
           "type": "string",
           "format": "email"
         },
-        "firstName": {
-          "type": "string",
-          "maxLength": 50,
-          "minLength": 1
-        },
-        "lastName": {
+        "name": {
           "type": "string",
           "maxLength": 50,
           "minLength": 1
