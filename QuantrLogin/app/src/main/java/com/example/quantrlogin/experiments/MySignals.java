@@ -45,7 +45,7 @@ public class MySignals extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         user = (LoggedInUser) getActivity().getIntent().getSerializableExtra("user");
-        if (user.experiments == null){
+        if (user.experiments == null || user.experiments.length == 0){
             getSignals(user);
         }
 

@@ -152,7 +152,7 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
 
         experiment = connexion.request.json["experiment"]
         existingCopy = None
-        print("1")
+        logger.warning("about to query for experiment")
         try:
             existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(
                 ticker=experiment["ticker"], threshold=experiment["threshold"], indicator=experiment["indicator"], directional_bias=experiment["direction_bias"]).one()
