@@ -23,14 +23,15 @@
 
         <EditText
             android:id="@+id/editText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="105dp"
+            android:layout_height="35dp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="144dp"
+            android:layout_marginTop="128dp"
             android:layout_marginEnd="173dp"
+            android:background="@null"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Correlation"
+            android:text="Correlation:"
             android:textColor="#F1EDED"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -39,16 +40,15 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="155dp"
-            android:layout_marginEnd="92dp"
-            android:layout_marginBottom="228dp"
+            android:layout_width="33dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="136dp"
+            android:layout_marginEnd="132dp"
+            android:layout_marginBottom="246dp"
             android:text="@string/textName"
             android:textColor="#F1EDED"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scatterChart"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/scatterChart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
