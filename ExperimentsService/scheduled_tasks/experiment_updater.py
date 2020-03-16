@@ -37,7 +37,7 @@ for thExp in sqlManager.session.query(ThresholdExperiment):
     thresholds.append(([thExp.ticker], "ALL", thExp.threshold, 1, False))
 
 for corrExp in sqlManager.session.query(CorrelationExperiment):
-    correlations.append(corrExp.asset_1, corrExp.asset_2)
+    correlations.append((corrExp.asset_1, corrExp.asset_2))
 
 experiment_results = []
 records = []

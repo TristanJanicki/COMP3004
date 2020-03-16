@@ -26,6 +26,7 @@ from swagger_server.infrastructure.converters import experimentConverter as conv
 from swagger_server.database_models.ThresholdExperiment import ThresholdExperiment
 from swagger_server.database_models.CorrelationExperiment import CorrelationExperiment
 from swagger_server.database_models.User import User
+import swagger_server.experiments as experiments
 
 # external library imports
 from sqlalchemy.sql import exists
@@ -159,7 +160,8 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
         except SQLAlchemyError as e:
             error = str(e)
             logger.warning(error)
-            if "No row was found for one()" != error:
+            if "No row was found for one()" != error: # if its any error other than we didn't find anything then throw something
+                sqlManager.session.rollback()
                 return ErrorResponse(error)
         # fill existing copy with a value from the db if there is one
         sqlManager.session.commit()
@@ -183,9 +185,10 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
                 experiment_id=experiment_id, indicator=experiment["indicator"], threshold=experiment["threshold"], ticker=experiment["ticker"], status="update_requested", directional_bias=experiment["direction_bias"],update_requested_at=datetime.now(), last_updated_at=datetime.now())
             sqlManager.session.add(dbExperiment)
             usersExperiments.append(experiment_id)
-
         user.experiments = ','.join(usersExperiments)
         sqlManager.session.commit()
+
+        experiments.launch_async_experiment(experiments.get_rsi_threshold_move_distribution(experiment["ticker"], "ALL", experiment["threshold"]))
     except SQLAlchemyError as e:
         sqlManager.session.rollback()
         return ErrorResponse(str(e))

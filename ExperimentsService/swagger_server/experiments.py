@@ -906,6 +906,14 @@ def plot_scatter(x, y, x_label, y_label, title, figure=1):
     plt.ylabel(y_label)
     plt.title(title)
 
+def launch_async_experiment(worker_func, args, callback):
+    futures = []
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        future = executor.submit(worker_func, args)
+        futures.append(future)
+        callback(future.result())
+
+
 # series_types = ["close", "open", "high", "low"]
 # technicals = ["RSI"]
 # time_periods = ["14"]
