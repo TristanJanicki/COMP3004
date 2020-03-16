@@ -461,11 +461,11 @@ paths:
       description: "Validates a JWT Token"
       operationId: "VerifyJwt"
       parameters:
-        - in: "header"
-          name: "X-Request-ID"
-          type: string
-          format: uuid
-          required: true
+        # - in: "header"
+        #   name: "X-Request-ID"
+        #   type: string
+        #   format: uuid
+        #   required: true
         - in: "header"
           name: "token"
           type: string
