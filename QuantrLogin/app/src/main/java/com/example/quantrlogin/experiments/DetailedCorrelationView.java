@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +20,7 @@ import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.CandleData;
 import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.data.ScatterData;
@@ -31,7 +30,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Formatter;
 import java.util.logging.Logger;
 
 public class DetailedCorrelationView extends Fragment {
@@ -41,32 +39,33 @@ public class DetailedCorrelationView extends Fragment {
     public DetailedCorrelationView(CorrelationExperiment e){
         this.e=e;
     }
-    float[] priceDeltas;
-    float[] priceDeltas1;
+    double[] priceDeltas;
     private ScatterChart scatterChart;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.activity_detailed_correlation_view, container, false);
-        ((TextView)view.findViewById(R.id.textView2)).setText(String.valueOf(e.getCorrelation()));
+
         linearLayout = view.findViewById(R.id.linearLayout);
-        priceDeltas=e.getAsset_1_deltas();
-        priceDeltas1=e.getAsset_2_deltas();
-        ArrayList<Entry> entries= new ArrayList<>();
+
+        float correlation= e.getCorrelation();
+        e.getAsset_1().
+        e.getAsset_2();
+       // ArrayList<CandleEntry> yValsCandleStick= new ArrayList<CandleEntry>();
+
         for(int i=0;i<priceDeltas.length;i++){
-            entries.add(new Entry(priceDeltas[i],priceDeltas1[i]));
+
         }
 
         scatterChart = (ScatterChart) view.findViewById(R.id.scatterChart);
-        ScatterDataSet scatterDataSet = new ScatterDataSet(entries, e.getAsset_1());
+        ScatterDataSet scatterDataSet = new ScatterDataSet(, e.getTicker());
         scatterDataSet.setColors(Color.blue(1));
         ScatterData scatterData = new ScatterData(scatterDataSet);
         XAxis xAxis = scatterChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        final String[] deltas = new String[]{"0", ".15", ".30", ".45",".60",".75", ".90" , "1"};
-        IndexAxisValueFormatter formatter = new IndexAxisValueFormatter(deltas);
-        xAxis.setGranularity(.15f);
+        final String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun"};
+        IndexAxisValueFormatter formatter = new IndexAxisValueFormatter(months);
+        xAxis.setGranularity(1f);
         xAxis.setValueFormatter(formatter);
         scatterChart.setData(scatterData);
         scatterChart.animateXY(5000, 5000);

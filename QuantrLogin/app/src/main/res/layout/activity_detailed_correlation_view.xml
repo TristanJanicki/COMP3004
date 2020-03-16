@@ -10,45 +10,54 @@
 
         <com.github.mikephil.charting.charts.ScatterChart
             android:id="@+id/scatterChart"
-            android:layout_width="330dp"
-            android:layout_height="225dp"
-            android:background="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.205" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="155dp"
+            android:layout_marginTop="256dp"
+            android:layout_marginEnd="168dp"
+            android:background="#4CAF50"
+            android:text="Notify Me"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/candle_stick" />
 
         <EditText
             android:id="@+id/editText2"
-            android:layout_width="105dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="128dp"
-            android:layout_marginEnd="173dp"
-            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="86dp"
+            android:layout_marginBottom="121dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Correlation:"
+            android:text="Occurences This Year"
             android:textColor="#F1EDED"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scatterChart" />
+            app:layout_constraintTop_toBottomOf="@+id/candle_stick" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="33dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="136dp"
-            android:layout_marginEnd="132dp"
-            android:layout_marginBottom="246dp"
-            android:text="@string/textName"
-            android:textColor="#F1EDED"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="125dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="83dp"
+            android:layout_marginEnd="34dp"
+            android:layout_marginRight="34dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="0/10"
+            android:textColor="#F1ECEC"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scatterChart" />
-
+            app:layout_constraintStart_toEndOf="@+id/editText2"
+            app:layout_constraintTop_toBottomOf="@+id/candle_stick" />
 </androidx.constraintlayout.widget.ConstraintLayout>
