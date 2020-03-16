@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +30,8 @@ public class DetailedThresholdView  extends Fragment {
     private LinearLayout linearLayout = null;
     private Logger l = Logger.getGlobal();
     ThresholdExperiment e;
+    Button notify;
+
     public DetailedThresholdView (ThresholdExperiment e){
         this.e=e;
     }
@@ -39,7 +43,6 @@ public class DetailedThresholdView  extends Fragment {
         View view = inflater.inflate(R.layout.activity_detailed_threshold_view, container, false);
 
         linearLayout = view.findViewById(R.id.linearLayout);
-
         CandleStickChart candleStickChart = view.findViewById(R.id.candle_stick);
         candleStickChart.setHighlightPerDragEnabled(true);
         priceDeltas=e.getPrice_deltas();
@@ -86,7 +89,13 @@ public class DetailedThresholdView  extends Fragment {
         set1.setNeutralColor(Color.LTGRAY);
         set1.setDrawValues(false);
 
-
+        notify = view.findViewById(R.id.button);
+        notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Available in a future update.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 // create a data object with the datasets
         CandleData data = new CandleData(set1);
