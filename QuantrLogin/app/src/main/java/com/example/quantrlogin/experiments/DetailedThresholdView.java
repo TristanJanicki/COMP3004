@@ -69,6 +69,7 @@ public class DetailedThresholdView  extends Fragment {
 
         for(int i=0;i<priceDeltas.length;i++){
             Logger.getGlobal().warning("Each Delta " + priceDeltas[i]);
+            Logger.getGlobal().warning("testing" + e.getTicker());
             yValsCandleStick.add(new CandleEntry(i, 225, 219, 0, Math.round(priceDeltas[i])));
         }
 

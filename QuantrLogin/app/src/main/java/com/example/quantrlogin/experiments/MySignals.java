@@ -124,11 +124,20 @@ public class MySignals extends Fragment {
             newButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DetailedThresholdView detail_fragment = new DetailedThresholdView((ThresholdExperiment) e);
-                    FragmentManager manager = getFragmentManager();
-                    manager.beginTransaction()
-                            .replace(R.id.fragment_container, detail_fragment, detail_fragment.getTag())
-                            .commit();
+                    if(e instanceof ThresholdExperiment) {
+                        DetailedThresholdView detail_fragment = new DetailedThresholdView((ThresholdExperiment) e);
+                        FragmentManager manager = getFragmentManager();
+                        manager.beginTransaction()
+                                .replace(R.id.fragment_container, detail_fragment, detail_fragment.getTag())
+                                .commit();
+                    }
+                    else if(e instanceof CorrelationExperiment){
+                        DetailedCorrelationView detail_fragment = new DetailedCorrelationView((ThresholdExperiment) e);
+                        FragmentManager manager = getFragmentManager();
+                        manager.beginTransaction()
+                                .replace(R.id.fragment_container, detail_fragment, detail_fragment.getTag())
+                                .commit();
+                    }
                 }
             });
             counter++;
