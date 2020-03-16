@@ -163,10 +163,11 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
             if "No row was found for one()" != error: # if its any error other than we didn't find anything then throw something
                 sqlManager.session.rollback()
                 return ErrorResponse(error)
-        # fill existing copy with a value from the db if there is one
+        # fill existing copy with a value from the db if there is one, gotta call commit
         sqlManager.session.commit()
 
-        # the experiment already exists, lets check if it needs to be updated (last updated needs to be older than 1 day)
+
+        # check if the experiment already exists, if it does we check if it needs to be updated (last updated needs to be older than 1 day)
         if existingCopy != None:
             last_updated_at = existingCopy.last_updated_at
             days_since_update = datetime.now() - last_updated_at
@@ -179,16 +180,19 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
                 usersExperiments.append(existingCopy.experiment_id)
             else:
                 return AlreadyExistsResponse()
-        else:  # The experiment doesn't exist, lets create it
+        else:  # The experiment doesn't exist, lets create it and compute it
             experiment_id = str(uuid.uuid4())
             dbExperiment = ThresholdExperiment(
                 experiment_id=experiment_id, indicator=experiment["indicator"], threshold=experiment["threshold"], ticker=experiment["ticker"], status="update_requested", directional_bias=experiment["direction_bias"],update_requested_at=datetime.now(), last_updated_at=datetime.now())
             sqlManager.session.add(dbExperiment)
             usersExperiments.append(experiment_id)
-        user.experiments = ','.join(usersExperiments)
-        sqlManager.session.commit()
+            user.experiments = ','.join(usersExperiments)
+            sqlManager.session.commit()
+            def callback(result):
+                history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix = result # unpack result
+                dbExperiment.
 
-        experiments.launch_async_experiment(experiments.get_rsi_threshold_move_distribution(experiment["ticker"], "ALL", experiment["threshold"]))
+            experiments.launch_async_experiment(experiments.get_rsi_threshold_move_distribution, (experiment["ticker"], "ALL", experiment["threshold"]), callback)
     except SQLAlchemyError as e:
         sqlManager.session.rollback()
         return ErrorResponse(str(e))
