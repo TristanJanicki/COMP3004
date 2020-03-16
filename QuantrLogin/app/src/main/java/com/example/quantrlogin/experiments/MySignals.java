@@ -132,7 +132,7 @@ public class MySignals extends Fragment {
                                 .commit();
                     }
                     else if(e instanceof CorrelationExperiment){
-                        DetailedCorrelationView detail_fragment = new DetailedCorrelationView((ThresholdExperiment) e);
+                        DetailedCorrelationView detail_fragment = new DetailedCorrelationView((CorrelationExperiment) e);
                         FragmentManager manager = getFragmentManager();
                         manager.beginTransaction()
                                 .replace(R.id.fragment_container, detail_fragment, detail_fragment.getTag())

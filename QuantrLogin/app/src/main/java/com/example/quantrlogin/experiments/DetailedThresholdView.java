@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +34,7 @@ public class DetailedThresholdView  extends Fragment {
         this.e=e;
     }
     double[] priceDeltas;
+    Button notify;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -86,6 +89,13 @@ public class DetailedThresholdView  extends Fragment {
         set1.setNeutralColor(Color.LTGRAY);
         set1.setDrawValues(false);
 
+        notify = view.findViewById(R.id.button);
+        notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Available in a future update.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 // create a data object with the datasets
