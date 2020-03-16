@@ -615,6 +615,36 @@ paths:
           schema:
             $ref: "#/definitions/errorResponse"
 
+  /v1/TD/callback:
+       post:
+      description: "Submit password recovery parameters to complete the process"
+      operationId: "CompletePasswordRecovery"
+      parameters:
+        - in: "header"
+          name: "X-Request-ID"
+          type: string
+          format: uuid
+          required: true
+          description: "Request id"
+        - in: "body"
+          name: "confirmRecoverPasswordInput"
+          schema:
+            $ref: "#/definitions/confirmRecoverPasswordInput"
+      responses:
+        201:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/okResponse"
+        404:
+          description: "Not found"
+          schema:
+            $ref: "#/definitions/notFoundResponse"
+        500:
+          description: "Internal error"
+          schema:
+            $ref: "#/definitions/errorResponse"
+ 
+
   ###########################
   ##### Standard crud operations
   ###########################

@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import com.example.quantrlogin.data.Result;
 import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
+import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.UUID;
 import java.util.logging.Logger;
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -23,7 +25,6 @@ public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result>
 
     @Override
     protected Result doInBackground(LoggedInUser... users) {
-
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -34,7 +35,6 @@ public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result>
                 .addHeader("user-id", users[0].getUserId())
                 .build();
         Call c = client.newCall(request);
-
         try {
             Response r = c.execute();
             Logger.getGlobal().warning("R.CODE: " + r.code());
@@ -84,4 +84,38 @@ public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result>
 
         return new Result.Success("LAST RETURN STATEMENT");
     }
+
+    public static Experiment[] getSignals(LoggedInUser user){
+        GetExperimentsHandler geh = new GetExperimentsHandler();
+        System.out.println("ABOUT TO EXECUTE GET EXPERIMENTS HANLDER");
+        geh.execute(user);
+        try {
+            Result r = geh.get();
+            if (r instanceof Result.GetExperimentsResult){
+                CorrelationExperiment[] corrs = ((Result.GetExperimentsResult) r).getCorrelationExperiments();
+                ThresholdExperiment[] threshs = ((Result.GetExperimentsResult) r).getThresholdExperiments();
+                Experiment[] allExperiments = new Experiment[corrs.length + threshs.length];
+
+                int i = 0;
+                for(CorrelationExperiment c : corrs){
+                    allExperiments[i] = c;
+                    ++i;
+                }
+                for(ThresholdExperiment t : threshs){
+                    allExperiments[i] = t;
+                    System.out.println(t.price_deltas);
+                    System.out.println(t.event_dates);
+                    ++i;
+                }
+                return allExperiments;
+            }else{
+                System.out.println("NOT SUCCESS: "+ r.toString());
+                return new Experiment[]{};
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new Experiment[]{};
+    }
+
 }

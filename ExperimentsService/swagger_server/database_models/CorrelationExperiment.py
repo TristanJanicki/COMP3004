@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime
+from swagger_server.database_models.StatusEnum import StatusEnum
+from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, Enum
 from sqlalchemy.ext.declarative import declarative_base
 import uuid
 Base = declarative_base()

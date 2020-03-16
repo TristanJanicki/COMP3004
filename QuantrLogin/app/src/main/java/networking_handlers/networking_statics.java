@@ -5,4 +5,6 @@ public final class networking_statics {
     public final static String experiments = "http://080356c9.ngrok.io";
     public final static String userAccounts = "http://98e43cba.ngrok.io";
     public final static String tdaURL = "https://auth.tdameritrade.com/auth?response_type=code&redirect_uri=http%3A%2F%2F8b8f0859.ngrok.io%2Fdata%2FTD%2Fcallback&client_id=JPGIHQGE5ZUUQAEVAKT6JDKWM8WAALL2%40AMER.OAUTHAP";
+    public final static String userAccounts = "http://21680809.ngrok.io";
+    public final static String experimentsService = "http://73ba95a7.ngrok.io";
 }

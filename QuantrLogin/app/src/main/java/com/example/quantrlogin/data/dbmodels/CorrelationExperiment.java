@@ -20,7 +20,7 @@ public class CorrelationExperiment extends Experiment implements Serializable {
         this.correlation = correlation;
     }
 
-    public float getCorrelation() {
+    public double getCorrelation() {
         return correlation;
     }
 

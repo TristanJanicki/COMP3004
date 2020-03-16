@@ -3,6 +3,7 @@ package networking_handlers;
 import android.os.AsyncTask;
 
 import com.example.quantrlogin.data.Result;
+import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 import org.json.JSONException;
@@ -76,6 +77,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                 String refreshToken = responseBody.getString("refreshToken");
                 String accessToken = responseBody.getString("accessToken");
 
+                LoggedInUser user = new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken, new Experiment[1]);
 
                 return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken, decodedIdTokenStr));
             } catch (IOException e) {
@@ -95,5 +97,4 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
         }
 
     }
-
 }

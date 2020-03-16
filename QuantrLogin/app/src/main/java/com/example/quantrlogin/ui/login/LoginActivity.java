@@ -20,12 +20,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 import org.json.JSONException;
 
 import java.util.logging.Logger;
 
+import networking_handlers.GetExperimentsHandler;
 import networking_handlers.output.AuthChallengeRequiredParameters;
 
 public class LoginActivity extends AppCompatActivity {
@@ -88,6 +90,12 @@ public class LoginActivity extends AppCompatActivity {
                     openAuthChallengeActivity(loginResult.getAuthChallenge());
                 }
                 if (loginResult.getSuccess() != null) {
+                    LoggedInUser user = loginResult.getSuccess();
+
+                    Experiment[] experiments = GetExperimentsHandler.getSignals(user);
+                    user.setExperiments(experiments);
+
+
                     openHomeActivity(loginResult.getSuccess());
                     /*
                     //////////////////////////////////////////////////////////// GET EXPERIMENTS EXAMPLE //////////////////////////////////////////////////////////
@@ -230,6 +238,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
     public void openSignUpActivity() {
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
@@ -264,8 +273,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUser user) {
         String welcome = getString(R.string.welcome) + user.getDisplayName();
-
-        // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         openHomeActivity(user);
     }
