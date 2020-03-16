@@ -20,7 +20,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.CandleData;
 import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.CandleEntry;
-import com.example.quantrlogin.data.dbmodels.Experiment;
+
 import java.util.ArrayList;
 import java.util.logging.Logger;
 

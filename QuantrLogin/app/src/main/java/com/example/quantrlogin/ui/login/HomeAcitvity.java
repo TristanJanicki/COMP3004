@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.experiments.MySignals;
+import com.github.mikephil.charting.charts.BarChart;
 
 import networking_handlers.networking_statics;
 
@@ -25,6 +26,8 @@ public class HomeAcitvity extends Fragment {
     private Button mySignal;
     private Button newSignal;
     private Button signalCalender;
+
+    private BarChart barChart;
 
     //private DrawerLayout drawer;
 
@@ -63,6 +66,14 @@ public class HomeAcitvity extends Fragment {
                 Toast.makeText(getActivity(), "Available in a future update.", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+        barChart = view.findViewById(R.id.home_chart_view);
+
+        //barChart
+
+
 
         return view;
     }
