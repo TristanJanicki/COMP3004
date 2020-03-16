@@ -193,17 +193,11 @@ definitions:
     required:
     - "asset_1"
     - "asset_2"
-    - "asset_combo"
     properties:
       asset_1:
         type: "string"
       asset_2:
         type: "string"
-      asset_combo:
-        type: "string"
-        enum:
-        - "equity_currency"
-        - "equity_equity"
   existingCorrelationExperiment:
     type: "object"
     required:
@@ -211,7 +205,6 @@ definitions:
     - "asset_2"
     - "correlation"
     - "experiment_id"
-    - "type"
     properties:
       experiment_id:
         type: "string"
@@ -234,9 +227,6 @@ definitions:
       - 6.02745618307040320615897144307382404804229736328125
       - 6.02745618307040320615897144307382404804229736328125
       correlation: 0.80082819046101150206595775671303272247314453125
-      data:
-      - 6.02745618307040320615897144307382404804229736328125
-      - 6.02745618307040320615897144307382404804229736328125
       experiment_id: "experiment_id"
       asset_2_deltas:
       - 1.46581298050294517310021547018550336360931396484375

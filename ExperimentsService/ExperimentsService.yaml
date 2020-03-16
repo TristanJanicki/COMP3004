@@ -51,15 +51,11 @@ definitions:
     required:
       - asset_1
       - asset_2
-      - asset_combo
     properties:
       asset_1:
         type: string
       asset_2:
         type: string
-      asset_combo:
-        type: string
-        enum: [equity_currency, equity_equity]
 
   existingCorrelationExperiment:
     type: object
@@ -68,7 +64,6 @@ definitions:
       - asset_1
       - asset_2
       - correlation
-      - type
     properties:
       experiment_id:
         type: string
@@ -98,40 +93,23 @@ definitions:
         type: string
       threshold:
         type: string
+      event_dates:
+        type: array
+        items:
+          type: string
       price_deltas:
         type: array
         items:
           type: string
-      directional_bias:
-        type: string
-        enum: [crosses_above, crosses_below]
-      status:
-        type: string
       price_delta_std_dev:
         type: number
       price_delta_mean:
         type: number
       price_delta_mode:
         type: number
-      event_dates:
-        type: array
-        items:
-          type: string
       t_test_p:
         type: number
-      t_test_t:
-        type: number
-      shapiro_p:
-        type: number
-      shapiro_w:
-        type: number
-      volumes:
-        type: array
-        items:
-          type: number
-      volumes_mean:
-        type: number
-      updated_at:
+      direction_bias:
         type: string
 
   getExperimentsResult:

@@ -6,8 +6,6 @@ import pandas as pd
 import numpy as np
 import math
 import scipy.stats as st
-from scipy.stats import kurtosis
-from scipy.stats import skew
 import matplotlib.pyplot as plt
 import graphviz
 from sklearn import svm
@@ -22,99 +20,47 @@ from random import random
 from random import seed
 import seaborn as sns
 import threading
-import concurrent
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-import os
-
-base_path = "../DataService/stock_data/"
+import concurrent.futures
 
 # X = source a list of feature vectors that contain the values of Moving Averages (200, 50), RSI, On-Balance Volume, MACD
 # Y = source a list of price movements in percentage for n (start with 5) day periods
 # fit and see what happens
 
-def getAssetCorrelation(asset_1, asset_2, asset_combo):
-    if asset_combo == "equity_equity":
-        d1 = get_price_delta_distribution(asset_1)
-        d2 = get_price_delta_distribution(asset_2)
-    elif asset_combo == "equity_currency":
-        d1 = get_price_delta_distribution(asset_1)
-        currency_1 = asset_2.split(":")[0]
-        currency_2 = asset_2.split(":")[1]
-        d2 = get_currency_delta_distribution(currency_1, currency_2)
-    elif asset_combo == "currency_currency":
-        currency_11 = asset_1.split(":")[0]
-        currency_12 = asset_1.split(":")[1]
-        d1 = get_currency_delta_distribution(currency_11, currency_12)
-        currency_21 = asset_2.split(":")[0]
-        currency_22 = asset_2.split(":")[1]
-        d2 = get_currency_delta_distribution(currency_21, currency_22)
-    elif asset_combo == "currency_equity":
-        currency_1 = asset_1.split(":")[0]
-        currency_2 = asset_1.split(":")[1]
-        d1 = get_currency_delta_distribution(currency_1, currency_2)
-        d2 = get_price_delta_distribution(asset_2)
-    else:
-        raise Exception("Invalid asset_combo {%s} passed to get asset correlation" % (asset_combo))
+def getAssetCorrelation(asset_1, asset_2):
+    # TODO: add forex support
+    d1 = get_price_delta_distribution(asset_1)
+    d2 = get_price_delta_distribution(asset_2)
     if len(d1) != len(d2):
         new_length = min(len(d1), len(d2))
         d1 = sample_randomly(d1, new_length)
-        d2 = sample_randomly(d2, new_length)
+        d2 = sample_randomly(d2, len(d2))
     corr_matrix = np.corrcoef(d1, d2)
-    return corr_matrix, d1, d2
-
-def get_currency_delta_distribution(currency_1, currency_2, verbose=False):
-    price_deltas = []
-
-    time_series = pd.read_csv(base_path +
-            currency_1 + "_" + currency_2 + "_FXData.csv")
-    
-    last_price = None
-    for series_data in time_series[::-1].iterrows():
-        if last_price == None:
-            last_price = float(series_data[1][2])
-            continue
-
-        # print(series_data)
-        
-        curr_price = float(series_data[1][2])
-        delta = ((curr_price - last_price) / last_price) * 100
-
-        last_price = curr_price
-        price_deltas.append(delta)
-
-    if verbose == True:
-        plot_histo(price_deltas, currency_1 + ":" + currency_2, "% price move day to day")
-
-    return price_deltas
+    return corr_matrix
 
 
 def load_technical_data(ticker, function, extended_function_name=""):
-    try :
-        # print(os.listdir("../../DataSerivce/stock_data")) # The big database
-        # print(os.listdir("../Stock_Data")) # database of personal interest
-        # exit(4)
-        path = base_path + ticker + "_" + function + extended_function_name + "Data.csv"
-        data = pd.read_csv(path)
-        time_period_data = []
+    path = "./Stock_Data/" + ticker + "_" + \
+        function + extended_function_name + "Data.csv"
+    data = pd.read_csv(path)
+    time_period_data = []
 
-        # row[0] is the date of record. row[1] is the value for the technical indicator at the date of record.
-        for row in data[::-1].iterrows():
-            # print(row)
-            # print(data.loc[i])
-            if function == "STOCH":
-                # , row["SlowK"] TODO: work this so it gives buy and sell signals based on the %d crossing the %k
-                time_period_data.append((row[0], row["SlowD"]))
-            else:
-                # print((row[-1]['time']))
-                time_period_data.append((row[-1]['time'], row[-1][function]))
-    except Exception as e:
-        raise e
+    # row[0] is the date of record. row[1] is the value for the technical indicator at the date of record.
+    for row in data[::-1].iterrows():
+        # print(row)
+        # print(data.loc[i])
+        if function == "STOCH":
+            # , row["SlowK"] TODO: work this so it gives buy and sell signals based on the %d crossing the %k
+            time_period_data.append((row[0], row["SlowD"]))
+        else:
+            # print((row[-1]['time']))
+            time_period_data.append((row[-1]['time'], row[-1][function]))
+
     return time_period_data
 
 
 def get_earliest_date(ticker, technicals, extended_function_name=""):
     earliest_date = None
-    time_series = pd.read_csv(base_path +
+    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
                               ticker + "_TIME_SERIES_DAILYData.csv", index_col=0)
 
     for d, _ in time_series[::-1].iterrows():
@@ -125,7 +71,7 @@ def get_earliest_date(ticker, technicals, extended_function_name=""):
         break
 
     for tech in technicals:
-        data = pd.read_csv(base_path + ticker + "_" +
+        data = pd.read_csv("./Stock_Data/" + ticker + "_" +
                            tech + extended_function_name + "Data.csv", index_col=0)
         for d, _ in data[::-1].iterrows():
 
@@ -142,7 +88,7 @@ def get_earliest_date(ticker, technicals, extended_function_name=""):
 
 def get_latest_date(ticker, technicals, extended_function_name=""):
     latest_date = None
-    time_series = pd.read_csv(base_path +
+    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
                               ticker + "_TIME_SERIES_DAILYData.csv", index_col=0)
 
     for d, _ in time_series.iterrows():
@@ -153,7 +99,7 @@ def get_latest_date(ticker, technicals, extended_function_name=""):
         break
 
     for tech in technicals:
-        data = pd.read_csv(base_path + ticker + "_" +
+        data = pd.read_csv("./Stock_Data/" + ticker + "_" +
                            tech + extended_function_name + "Data.csv", index_col=0)
         for d, _ in data.iterrows():
 
@@ -169,7 +115,7 @@ def get_latest_date(ticker, technicals, extended_function_name=""):
 
 
 def get_1std_dev(ticker, year, time_period=5):
-    time_series = pd.read_csv(base_path +
+    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
                               ticker + "_TIME_SERIES_DAILYData.csv", index_col=0)
     price_deltas = []  # clear the price deltas
     i = 0  # clear the counter
@@ -227,7 +173,7 @@ def get_data(tickers, technicals, time_period=5, percent_movement_threshold=None
     i = 0
 
     for ticker in tickers:
-        time_series = pd.read_csv(base_path +
+        time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
                                   ticker + "_TIME_SERIES_DAILYData.csv", index_col=0)
 
         first_price = None
@@ -625,7 +571,7 @@ def binary_search(arr, l, r, key_index, key):
 
 def get_price_delta_distribution_with_threshold(ticker, year="ALL", threshold=0, verbose=False, figure=1):
     price_deltas = []
-    time_series = pd.read_csv(base_path +
+    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
             ticker + "_TIME_SERIES_DAILYData.csv")
     
     last_price = None
@@ -655,7 +601,7 @@ def get_next_day_price_delta_with_threshold(ticker, year="ALL", threshold=0, ver
     prices = []
     nPrice_deltas = []
     price_deltas = []
-    time_series = pd.read_csv(base_path +
+    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
             ticker + "_TIME_SERIES_DAILYData.csv")
     
     for series_data in time_series[::-1].iterrows():
@@ -699,7 +645,7 @@ def get_next_day_price_delta_with_threshold(ticker, year="ALL", threshold=0, ver
 
 def get_price_delta_distribution(ticker, year="ALL", verbose=False, figure=1):
     price_deltas = []
-    time_series = pd.read_csv(base_path +
+    time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
             ticker + "_TIME_SERIES_DAILYData.csv")
     
     last_price = None
@@ -742,7 +688,8 @@ def get_MACD_threshold_move_distribution(tickers, year, macd_threshold):
 	#todo: complete the MACD calculation 
 	return ""
 
-def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False, figure=1, directional_bias="crosses_below"):
+def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False):
+    history = []
     price_deltas = []
     volumes = []
 
@@ -751,13 +698,13 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
 
         data = load_technical_data(ticker, "RSI", "14dailyclose")
         
-        time_series = pd.read_csv(base_path +
+        time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
                                   ticker + "_TIME_SERIES_DAILYData.csv")
         prices = []
         volumes = []
-        event_dates = []
 
         prev_date = ""
+        days_from_invesrion_counter = 0
 
         earliest_date = get_earliest_date(ticker, ["RSI"], "14dailyclose")
         latest_date = get_latest_date(ticker, ["RSI"], "14dailyclose")
@@ -789,9 +736,19 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
                 if index != -1:
 
                     if index + days_from_inversion > len(data):
-                        continue                      
+                        continue
 
                     if data[index-1][1] > rsi_threshold and data[index][1] < rsi_threshold:
+                        # index - 1 == yesterday.
+                        # index == today.
+                        # if the RSI was above 70 yesterday and is below 70 today then record the price movement between today and today + days_from_inversion.
+
+                        # print("Inversion from past ", rsi_threshold , prev_date, " to ", date, " was ", days_from_inversion_threshold, " long")
+
+                        # print("prev_date = ", prev_date, "date = ", date)
+
+                        price_delta = 100 * ((prices[index] - prices[index + days_from_inversion]) / prices[index])
+
                         try:
                             # print(volumes[index-1])
                             one_day_ago_volume = volumes[index-1]
@@ -799,64 +756,82 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
                             three_days_ago_volume = volumes[index-3]
 
                             three_day_avg_volume = (three_days_ago_volume + two_days_ago_volume + one_day_ago_volume) / 3
-                            price_delta = 100 * ((prices[index] - prices[index + days_from_inversion]) / prices[index])
 
                             # print("pd: ", price_delta)
                             # print("days_above_threshold: ", days_above_threshold)
                             # print("three_day_avg_volume: ", three_day_avg_volume)
-                            event_dates.append(date)
                             price_deltas.append(price_delta)
+                            history.append(days_above_threshold)
                             volumes.append(three_day_avg_volume)
-                            
-                        except Exception as e:
-                            print(e)
-                    
+                        except:
+                            print()
 
+                        days_above_threshold = 0
+                        days_from_invesrion_counter = 0
             prev_date = date.split(" ")[0]
 
     # Setting all these to 0 so returning them doesn't throw an error since sometimes the arrays used to determine them are empty.
+    history = np.array(history)
     price_deltas = np.array(price_deltas)
     volumes = np.array(volumes)
+    history_std_dev = 0
+    history_mean = 0
     price_delta_std_dev = 0
     price_delta_mean = 0
     volumes_mean = 0
     volumes_std_dev = 0
-    skewedness = skew(price_deltas)
-    kurt = kurtosis(price_deltas)
-    if len(price_deltas) > 0 and len(volumes) > 0:
+    corr_matrix = [0]
+    if len(history) > 0 and len(price_deltas) > 0 and len(volumes) > 0:
+        history_std_dev = history.std()
+        history_mean = history.mean()
         price_delta_std_dev = price_deltas.std()
         price_delta_mean = price_deltas.mean()
         volumes_mean = volumes.mean()
         volumes_std_dev = volumes.std()
 
-        amalgamation = amalgamate_data(price_deltas, volumes)
+        amalgamation = amalgamate_data(history, price_deltas, volumes)
+        corr_matrix = np.corrcoef(history, price_deltas)
 
         if verbose == True:
             print("latest date: ", latest_date)
             print("earliest date: ", earliest_date)
+            print("len(history):", len(history))
             print("len(price_deltas):", len(price_deltas))
 
+            print("Std_Dev of days above threshold:", history_std_dev)
+
+            print("Mean Days Above " + str(rsi_threshold) + ":", history_mean)
 
             print("Std_Dev Of Price Deltas:", price_delta_std_dev)
 
             print("Mean of Price Deltas:", price_delta_mean)
             print("corrletation of the length of > " + str(rsi_threshold) +
                   " RSI to returns")
+            print(corr_matrix)
+
+            plot_histo(history, "Length of periods of time RSI > " +
+                       str(rsi_threshold), "length of period", figure=1)
 
             plot_histo(price_deltas, 'Histogram of Price Deltas ' + str(days_from_inversion) + " days from inversion",
-                       '%Price Change', figure=figure+2)
+                       '%Price Change', figure=2)
 
+            plot_scatter(history, price_deltas, "length of oversold period", "% price move",
+                         title="Length of Period & Percent Move in That Period", figure=3)
+
+            plot_correlation_matrix(
+                corr_matrix, ["len(period)", "%price change", "volume"], figure=4)
             plt.show()
-    price_delta_mode=st.mode(price_deltas)
-    return price_deltas, price_delta_std_dev, price_delta_mean, price_delta_mode, volumes, volumes_mean, event_dates, kurt, skewedness
 
-def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, verbose=False, figure=1):
+    return history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix
+
+
+def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, verbose=False):
     max_corr = 0
     best_threshold = 0
     # intuition tells me theres no way that an rsi inversion is even remotely relevant > 14 days later.
     for i in range(0, 14):
-        _, _, _, price_deltas, _, _, _, _, _, _ = get_rsi_threshold_move_distribution(
-            ticker, year, rsi_threshold, i, False, figure=figure+1)
+        _, _, _, price_deltas, _, _, _, _ = get_rsi_threshold_move_distribution(
+            ticker, year, rsi_threshold, i, False)
         corr = np.corrcoef(i, price_deltas)
         if abs(corr[0][0]) > max_corr:
             max_corr = abs(corr[0][0])
@@ -865,14 +840,14 @@ def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, v
     return best_threshold
 
 
-def get_optimal_rsi_threshold(ticker, year="ALL", days_from_inversion_threshold=1, verbose=False, figure=1):
+def get_optimal_rsi_threshold(ticker, year="ALL", days_from_inversion_threshold=1, verbose=False):
     pd_mean_history = []
     threshold_history = []
     dispersion_history = []
     # only 100 possible values for the RSI indicator so thats all we need to loop for. Starting at 10 because the rsi is never at 0.
     for i in range(10, 100):
         _, _, _, _, price_delta_std_dev, price_delta_mean, _, _, _ = get_rsi_threshold_move_distribution(
-            [ticker], year, i, days_from_inversion_threshold, False, figure=figure+1)
+            [ticker], year, i, days_from_inversion_threshold, False)
         variance = price_delta_std_dev ** 2
 
         if variance != 0 and price_delta_mean != 0:
@@ -892,6 +867,8 @@ def get_optimal_rsi_threshold(ticker, year="ALL", days_from_inversion_threshold=
         plot_correlation_matrix(
             corr, ["Price Delta History", "Dispersion History", "Threshold History"], 3)
         print("Correlation: ", corr)
+        plt.show()
+
 
 def plot_correlation_matrix(corr, labels, figure=1):
     plt.figure(figure)
@@ -907,8 +884,9 @@ def plot_histo(arr, title, x_label, figure=1):
              bins=int(180/5))
 
     # seaborn histogram
-    sns.distplot(arr, rug=True, hist=True, kde=False,
-                 bins=int(180/5), color='blue')
+    sns.distplot(arr, hist=True, kde=False,
+                 bins=int(180/5), color='blue',
+                 hist_kws={'edgecolor': 'black'})
 
     mean = np.array(arr).mean()
     std_dev = np.array(arr).std()
@@ -960,19 +938,17 @@ def test_many_scenarios(tickers, rsi_start, rsi_end, days_from_inv_range):
     scenario_results = []
     records = []
     futures = []
-    for i in list_of_rsi:  # n different RSI thresholds
+    for i in range(rsi_start, rsi_end + 1):  # n different RSI thresholds
         # m different inversion thresholds, we don't need a start for these because it
         for j in range(1, days_from_inv_range + 1):
 
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 future = executor.submit(get_rsi_threshold_move_distribution, tickers, "ALL",  1 + i, j, False)
                 futures.append(future)
-                moves_distribution = future.result()[0]
-                move_distribution_delta_mean = future.result()[1]
-                import math
-                row_and_col = math.sqrt(len(list_of_rsi))
+                moves_distribution = future.result()[3]
+                    
                 # print("sub", subplot_index)
-                plt.subplot(row_and_col, row_and_col, subplot_index)
+                plt.subplot(5, 5, subplot_index)
 
                 if len(moves_distribution) < 3: # shapiro test requires a length of at least 3.
                     continue
@@ -997,97 +973,48 @@ def sample_randomly(data, n_samples):
         sample.append(data[index])
     return sample
 
-def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", saveToDataBase=False, callback=None):  
-    test_results = []
-    # with ProcessPoolExecutor as pExec: #TODO implement this one too, 1 process per core, (1 / n_cores) * n_jobs, jobs per process
-    with ThreadPoolExecutor(max_workers=1000) as executor:
-        all_price_deltas = get_price_delta_distribution(ticker, verbose=False, figure=1)
-        np_arr = np.array(all_price_deltas)
-        all_prices_std_dev = np_arr.std()
-        all_price_deltas_mean = np_arr.mean()
-        shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:min(len(all_price_deltas), 4000)]) # keep the sample size below 5,000 to avoid p-value warning
-
-        for threshold in range(0, 100):
-            
-            # plot_histo(rsi_price_deltas, "RSI Crosses Below %d Moves", "% Moves" % (i), 4)
-
-            def doWork():
-                rsi_price_deltas, price_delta_std_dev, price_delta_mean, price_delta_mode, volumes, volumes_mean, event_dates, skewness, kurtosis = get_rsi_threshold_move_distribution([ticker], "ALL", threshold, 1, verbose=False, directional_bias=direction_bias)
-                if (len(rsi_price_deltas) < 3):
-                    print("PRICE DELTAS FOR ", threshold, rsi_price_deltas)
-                    return threshold, 0, 0, 0, 0, rsi_price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, event_dates, 0
-                    
-                t_test_t, t_test_p = st.ttest_ind(sample_randomly(all_price_deltas, len(rsi_price_deltas)), rsi_price_deltas, equal_var=False)
-
-                shapiro_w2, shapiro_p2 = st.shapiro(rsi_price_deltas)
-
-                # print("##################################################################   TEST RESULTS FOR %d ##################################################################" % (i))
-                # print("Population_N: ", len(all_price_deltas), "Sample_N: ", len(rsi_price_deltas))
-                # print("Shapiro Test Results")
-                # print("Population W: ", shapiro_w1, " P: ", shapiro_p1)
-                # print("Sample     W: ", shapiro_w2, " P: ", shapiro_p2)
-
-                # print("T Test Results")
-                # print("t = ", t_test_t)
-                # print("p = ", t_test_p)
-
-                if saveToDataBase == True and callback != None:
-                    callback(int(threshold),float(t_test_t),float(t_test_p),float(shapiro_w2),float(shapiro_p2),rsi_price_deltas.tolist(),float(price_delta_std_dev),float(price_delta_mean),volumes.tolist(),float(volumes_mean), event_dates, direction_bias, float(price_delta_mode[0]), skewness, kurtosis)
-                
-
-            future = executor.submit(doWork)
-            res = future.result()
-            if res != None:
-                test_results.append(res)
-
-        def get_test_result_p(elem):
-            return elem[1]
-        def get_test_result_n(elem):
-            return elem[3]
-
-        test_results.sort(key=get_test_result_p)
-        print(test_results)
-        print("All Std Dev", all_prices_std_dev)
-        print("All Mean:", all_price_deltas_mean)
-
-        return test_results
-
-
 if __name__ == "__main__":
-    # test_many_scenarios(["AMD"], [80, 63, 17, 25, 66, 64, 79, 59, 62], 1)
-    population = get_price_delta_distribution("AMD", verbose=True, figure=2)
-    
-    sample = get_rsi_threshold_move_distribution(["AMD"], "ALL", 46)
-    sample_2 = get_rsi_threshold_move_distribution(["AMD"], "ALL", 74)
+    # rsi_start = 74
+    # rsi_end = 76
 
+    # test_many_scenarios(["AMD"], rsi_start, rsi_end, 7)
 
-    # Res1 is: (osm, osr)tuple of ndarrays
-    # Tuple of theoretical quantiles (osm, or order statistic medians) and ordered responses (osr). osr is simply sorted input x. For details on how osm is calculated see the Notes section.
+    # plt.show()
+    # exit(1)
+    all_price_deltas = get_price_delta_distribution("SPY", verbose=True, figure=1)
+    big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=True, figure=2)
+    next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=True, figure=3)
 
-    # Res2 is: (slope, intercept, r)tuple of floats, optional
-    # Tuple containing the result of the least-squares fit, if that is performed by probplot. r is the square root of the coefficient of determination. If fit=False and plot=None, this tuple is not returned.
-    import statsmodels.api as sm 
-    import pylab as py 
-
-    sm.qqplot(np.array(population))
-    sm.qqplot(sample[0], line ='45') 
-    sm.qqplot(sample_2[0], line ='45') 
-    # res1, res2 = st.probplot(results[0], plot=plt, rvalue=True)
-
-    # print("slope %d intercept %d coefficient of determination %f" % res2)
-    
     plt.show()
     exit(1)
-    # all_price_deltas = get_price_delta_distribution_with_threshold("AMD", threshold=0, verbose=True, figure=2)
-    # next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=False, figure=3)
+    sub_sample = sample_randomly(all_price_deltas, 54)
+    plot_histo(all_price_deltas, "All Moves", "% Moves", 1)
+    plot_histo(sub_sample, "Subsample Moves", "% Moves", 2)
+    _, _, _, rsi_price_deltas, _, _, _, _, _ = get_rsi_threshold_move_distribution(["AMD"], "ALL", 75, 1)
+    plot_histo(rsi_price_deltas, "RSI Crosses Below 75 Moves", "% Moves", 3)
+
+    t_test_t, t_test_p = st.ttest_ind(all_price_deltas, rsi_price_deltas)
+
+    shapiro_w1, shapiro_p1 = st.shapiro(all_price_deltas[0:4000]) # keep the sample size below 5,000 to avoid p-value warning
+    shapiro_w2, shapiro_p2 = st.shapiro(rsi_price_deltas)
+
+    print("Population_N: ", len(all_price_deltas), "Sample_N: ", len(rsi_price_deltas))
+    print("Shapiro Test Results")
+    print("Population W: ", shapiro_w1, " P: ", shapiro_p1)
+    print("Sample     W: ", shapiro_w2, " P: ", shapiro_p2)
+
+    print("T Test Results")
+    print("t = ", t_test_t)
+    print("p = ", t_test_p)
+
+    plt.show()
 
     # get_optimal_rsi_threshold("AMD")
 
     # get_optimal_rsi_days_from_inversion("AMD")
 
-    # sub_sample = sample_randomly(all_price_deltas, len(all_price_deltas))
-    # plot_histo(all_price_deltas, "All Moves", "% Moves", 1)
-    # plot_histo(sub_sample, "Subsample Moves", "% Moves", 2)
+    exit(1)
+
     decision_tree = DecisionTreeClassifier(
         criterion="entropy", min_samples_split=20, random_state=99)
     guassian = GaussianNB()

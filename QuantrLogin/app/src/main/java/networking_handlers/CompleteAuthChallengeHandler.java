@@ -3,7 +3,6 @@ package networking_handlers;
 import android.os.AsyncTask;
 
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 import org.json.JSONObject;
@@ -65,7 +64,8 @@ public class CompleteAuthChallengeHandler extends AsyncTask<AuthChallengeRequire
             String userID = cognitoProfile.getString("sub");
             String refreshToken = responseBody.getString("refreshToken");
             String accessToken = responseBody.getString("accessToken");
-            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken, idTokenStr));
+
+            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, idTokenStr, refreshToken, idTokenStr));
         } catch (IOException e) {
             e.printStackTrace();
             return new Result.Error(e);

@@ -47,8 +47,8 @@ public class UpdateExperimentsHandler extends AsyncTask<Object, Void, Result> {
 //                bodyStr = "{\"experiment_id\":" + user.getUserId() + "\",\"indicator\": \"" +  obj.getIndicator() + "\",\"threshold\": " + obj.getThreshold() + ",\"ticker\": \"" + obj.getTicker() + "\"}";
                 jsonBody.put("experiment_id", obj.getId());
                 jsonBody.put("userID", user.getUserId());
-                jsonBody.put("indicator", obj.indicator);
-                jsonBody.put("ticker", obj.ticker);
+                jsonBody.put("indicator", obj.getIndicator());
+                jsonBody.put("ticker", obj.getTicker());
             }else{
                 return new Result.Error(new Exception("Second argument must be of type Experiment"));
             }
