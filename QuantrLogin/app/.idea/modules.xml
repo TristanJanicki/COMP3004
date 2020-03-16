@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../Quant.r Login.iml" filepath="$PROJECT_DIR$/../Quant.r Login.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../QuantrLogin-Quant.r Login.iml" filepath="$PROJECT_DIR$/../QuantrLogin-Quant.r Login.iml" group="Quant.r Login" />
+      <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" group="Quant.r Login/app" />
     </modules>
   </component>
 </project>

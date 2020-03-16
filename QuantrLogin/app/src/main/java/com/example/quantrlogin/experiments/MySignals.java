@@ -106,7 +106,7 @@ public class MySignals extends Fragment {
 
 
 
-    public void addExperimentButton(Experiment e){
+    public void addExperimentButton(final Experiment e){
         if (counter < 6){
             Logger.getGlobal().warning("ADDING EXPERIMENT BUTTON");
             Button newButton = new Button(getContext());
@@ -124,7 +124,7 @@ public class MySignals extends Fragment {
             newButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DetailedThresholdView detail_fragment = new DetailedThresholdView();
+                    DetailedThresholdView detail_fragment = new DetailedThresholdView((ThresholdExperiment) e);
                     FragmentManager manager = getFragmentManager();
                     manager.beginTransaction()
                             .replace(R.id.fragment_container, detail_fragment, detail_fragment.getTag())

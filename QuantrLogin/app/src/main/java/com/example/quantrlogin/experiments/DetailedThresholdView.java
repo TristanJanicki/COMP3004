@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.data.dbmodels.Experiment;
+import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -20,18 +22,19 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.CandleData;
 import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.CandleEntry;
-
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.logging.Logger;
 
 public class DetailedThresholdView  extends Fragment {
     private LinearLayout linearLayout = null;
     private Logger l = Logger.getGlobal();
-
-    public DetailedThresholdView (){
-
+    ThresholdExperiment e;
+    public DetailedThresholdView (ThresholdExperiment e){
+        this.e=e;
     }
-
+    double[] priceDeltas;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,10 +43,9 @@ public class DetailedThresholdView  extends Fragment {
 
         linearLayout = view.findViewById(R.id.linearLayout);
 
-        CandleStickChart candleStickChart = view.findViewById(R.id.);
+        CandleStickChart candleStickChart = view.findViewById(R.id.candle_stick);
         candleStickChart.setHighlightPerDragEnabled(true);
-
-
+        priceDeltas=e.getPrice_deltas();
         candleStickChart.setDrawBorders(true);
 
         candleStickChart.setBorderColor(getResources().getColor(android.R.color.white));
@@ -67,18 +69,13 @@ public class DetailedThresholdView  extends Fragment {
         Legend l = candleStickChart.getLegend();
         l.setEnabled(false);
         ArrayList<CandleEntry> yValsCandleStick= new ArrayList<CandleEntry>();
-        yValsCandleStick.add(new CandleEntry(0, 225, 219, 224, 221));
-        yValsCandleStick.add(new CandleEntry(1, 228, 222, 223, 226));
-        yValsCandleStick.add(new CandleEntry(2, 226,  222, 225, 223));
-        yValsCandleStick.add(new CandleEntry(3, 222, 217, 222, 217));
-        yValsCandleStick.add(new CandleEntry(4, 225, 219, 224, 221));
-        yValsCandleStick.add(new CandleEntry(5, 228, 222, 223, 226));
-        yValsCandleStick.add(new CandleEntry(6, 226,  222, 225, 223));
-        yValsCandleStick.add(new CandleEntry(7, 222, 217, 222, 217));
-        yValsCandleStick.add(new CandleEntry(8, 225, 219, 224, 221));
-        yValsCandleStick.add(new CandleEntry(9, 228, 222, 223, 226));
-        yValsCandleStick.add(new CandleEntry(10, 226,  222, 225, 223));
-        yValsCandleStick.add(new CandleEntry(11, 222, 217, 222, 217));
+
+        for(int i=0;i<priceDeltas.length;i++){
+            Logger.getGlobal().warning("Each Delta " + priceDeltas[i]);
+            yValsCandleStick.add(new CandleEntry(i, 225, 219, 0, Math.round(priceDeltas[i])));
+        }
+
+
 
         CandleDataSet set1 = new CandleDataSet(yValsCandleStick, "DataSet 1");
         set1.setColor(Color.rgb(80, 80, 80));
