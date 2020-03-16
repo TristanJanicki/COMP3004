@@ -145,7 +145,11 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
         try:
             user = sqlManager.session.query(User).filter_by(user_id=userID).one()
         except SQLAlchemyError as e:
-            logger.warning(str(e))
+            err = str(e)
+            logger.warning()
+            if "No row was found for one()" != err: # if its any error other than we didn't find anything then throw something
+                sqlManager.session.rollback()
+                return ErrorResponse(err)
             return NotFoundResponse("user not found")
         usersExperiments = []
         if user.experiments != None:
@@ -178,9 +182,12 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
 
             if existingCopy.experiment_id not in usersExperiments:
                 usersExperiments.append(existingCopy.experiment_id)
+                user.experiments = ','.join(usersExperiments)
+                sqlManager.session.commit()
             else:
                 return AlreadyExistsResponse()
         else:  # The experiment doesn't exist, lets create it and compute it
+            logger.warning("about to create db-th-ex")
             experiment_id = str(uuid.uuid4())
             dbExperiment = ThresholdExperiment(
                 experiment_id=experiment_id, indicator=experiment["indicator"], threshold=experiment["threshold"], ticker=experiment["ticker"], status="update_requested", directional_bias=experiment["direction_bias"],update_requested_at=datetime.now(), last_updated_at=datetime.now())
@@ -190,7 +197,7 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
             sqlManager.session.commit()
             def callback(result):
                 history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix = result # unpack result
-                dbExperiment.
+                
 
             experiments.launch_async_experiment(experiments.get_rsi_threshold_move_distribution, (experiment["ticker"], "ALL", experiment["threshold"]), callback)
     except SQLAlchemyError as e:
