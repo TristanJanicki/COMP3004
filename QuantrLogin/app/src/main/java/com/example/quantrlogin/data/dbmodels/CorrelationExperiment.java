@@ -32,6 +32,14 @@ public class CorrelationExperiment extends Experiment implements Serializable {
         return asset_2;
     }
 
+    public float[] getAsset_1_deltas() {
+        return asset_1_deltas;
+    }
+
+    public float[] getAsset_2_deltas() {
+        return asset_2_deltas;
+    }
+
     public static CorrelationExperiment convertJSONObjectToDbObject(JSONObject obj) throws JSONException{
         String[] a1 = obj.getString("asset_1_deltas").split(",");
         float[] asset_1_deltas = new float[a1.length];
