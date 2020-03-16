@@ -11,12 +11,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.quantrlogin.R;
+import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.experiments.MySignals;
-import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+
+import java.util.ArrayList;
 
 import networking_handlers.networking_statics;
 
@@ -26,8 +37,9 @@ public class HomeAcitvity extends Fragment {
     private Button mySignal;
     private Button newSignal;
     private Button signalCalender;
+    private LoggedInUser user;
 
-    private BarChart barChart;
+    private LineChart lineChart;
 
     //private DrawerLayout drawer;
 
@@ -37,6 +49,7 @@ public class HomeAcitvity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_home, container, false);
+        user = (LoggedInUser) getActivity().getIntent().getSerializableExtra("user");
 
         mySignal = view.findViewById(R.id.mySignals);
         mySignal.setOnClickListener(new View.OnClickListener() {
@@ -67,11 +80,57 @@ public class HomeAcitvity extends Fragment {
             }
         });
 
+        lineChart = view.findViewById(R.id.home_chart_view);
+        lineChart.setTouchEnabled(true);
+        lineChart.setPinchZoom(true);
+
+        //ArrayList<Entry> dataValues = new ArrayList<>();
+
+        LineDataSet homeSet = new LineDataSet(getData(), "Signal 1");
+        homeSet.setColor(ContextCompat.getColor(view.getContext(), R.color.GoldYellow));
+        homeSet.setValueTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        final String[] months = new String[]{"Jan", "Feb", "Mar", "Apr"};
+
+        ValueFormatter formatter = new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                return months[(int) value];
+            }
+        };
+
+        xAxis.setGranularity(1f);
+        xAxis.setTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
+        xAxis.setValueFormatter(formatter);
+
+        YAxis yAxisRight = lineChart.getAxisRight();
+        yAxisRight.setEnabled(false);
+
+        YAxis yAxis = lineChart.getAxisLeft();
+        yAxis.setTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
+        yAxis.setGranularity(1f);
+
+        LineData data = new LineData(homeSet);
+        lineChart.setData(data);
+        lineChart.invalidate();
 
 
-        barChart = view.findViewById(R.id.home_chart_view);
 
-        //barChart
+//        if (lineChart.getData() != null && lineChart.getData().getDataSetCount() > 0) {
+//            homeSet = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+//            homeSet.setValues(dataValues);
+//            lineChart.getData().notifyDataChanged();
+//            lineChart.notifyDataSetChanged();
+//        } else {
+//
+//        }
+
+//        for (int i=0; i < user.experiments.length; i++){
+//            dataValues.add(new Entry(i, user.experiments));
+//        }
 
 
 
@@ -152,6 +211,17 @@ public class HomeAcitvity extends Fragment {
     public void redirectTD(View view){
         Intent tdAmer=new Intent(Intent.ACTION_VIEW, Uri.parse(networking_statics.tdaURL));
         startActivity(tdAmer);
+    }
+
+    private ArrayList getData(){
+        ArrayList<Entry> entries = new ArrayList<>();
+
+        entries.add(new Entry(0f, 4f));
+        entries.add(new Entry(1f, 1f));
+        entries.add(new Entry(2f, 2f));
+        entries.add(new Entry(3f, 4f));
+
+        return entries;
     }
 
 //    private void startNewSignalActivity(LoggedInUser user){
