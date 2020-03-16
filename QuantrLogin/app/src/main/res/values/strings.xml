@@ -51,4 +51,5 @@
     <string name="shortStratRadioButton">Short</string>
     <string name="longStratRadioButton">Long</string>
     <string name="createSignalButtonText">Create Signal</string>
+    <string name="correlText">0</string>
 </resources>
