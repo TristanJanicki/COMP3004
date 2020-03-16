@@ -9,8 +9,8 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quantrlogin.R;
 import com.github.mikephil.charting.charts.CandleStickChart;
@@ -24,23 +24,25 @@ import com.example.quantrlogin.data.dbmodels.Experiment;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-public class DetailedThresholdView extends Fragment {
+public class DetailedThresholdView  extends Fragment {
     private LinearLayout linearLayout = null;
     private Logger l = Logger.getGlobal();
 
-    public DetailedThresholdView() {
-        //Required empty public constructor
+    public DetailedThresholdView (){
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.activity_my_signals, container, false);
 
-        CandleStickChart candleStickChart = view.findViewById(R.id.candle_stick);
-        candleStickChart.setHighlightPerDragEnabled(true);
+        View view = inflater.inflate(R.layout.activity_detailed_threshold_view, container, false);
+
         linearLayout = view.findViewById(R.id.linearLayout);
+
+        CandleStickChart candleStickChart = view.findViewById(R.id.);
+        candleStickChart.setHighlightPerDragEnabled(true);
+
 
         candleStickChart.setDrawBorders(true);
 

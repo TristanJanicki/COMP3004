@@ -124,10 +124,10 @@ public class MySignals extends Fragment {
             newButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DetailedThresholdView detailed_fragment = new DetailedThresholdView();
+                    DetailedThresholdView detail_fragment = new DetailedThresholdView();
                     FragmentManager manager = getFragmentManager();
                     manager.beginTransaction()
-                            .replace(R.id.fragment_container, detailed_fragment, detailed_fragment.getTag())
+                            .replace(R.id.fragment_container, detail_fragment, detail_fragment.getTag())
                             .commit();
                 }
             });
@@ -137,3 +137,9 @@ public class MySignals extends Fragment {
         }
     }
 }
+/*
+error: no suitable constructor found for Intent(MySignals,Class<DetailedThresholdView>)
+        constructor Intent.Intent(String,Uri) is not applicable
+        (argument mismatch; MySignals cannot be converted to String)
+        constructor Intent.Intent(Context,Class<?>) is not applicable
+        (argument mismatch; MySignals cannot be converted to Context)	*/
