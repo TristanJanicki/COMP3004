@@ -9,15 +9,15 @@ Don't forget to initialize the cron task on your production server. To do this r
 `sudo apt-get install postfix`
 `crontab -e`
 
-Don't forget to initialize the cron task on your production server. To do this run 
+Don't forget to initialize the cron task on your production server. To do this either run the python file job_registrar.py or run:
 
 `sudo apt-get install postfix`
 `crontab -e`
 
-and add the line:
+and add the lines:
 
-* */17 * * * /usr/bin/python ~/COMP3004/DataService/scheduled_tasks/dataset_updater.py >> data_updater_output.txt
-* */1 * * * /usr/bin/python ~/COMP3004/DataService/scheduled_tasks/dataset_updater.py >> data_updater_output.txt
+* */17 * * * /usr/bin/python3 ~/COMP3004/DataService/scheduled_tasks/dataset_updater.py >> data_updater_output.txt
+* */1 * * * /usr/bin/python3 ~/COMP3004/DataService/scheduled_tasks/dataset_updater.py >> data_updater_output.txt
 
 ## Usage
 nohup python scheduled_tasks/dataset_updater.py > nohup.out 2>&1 &
