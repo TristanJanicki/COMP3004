@@ -37,6 +37,7 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             if (inputs[1] instanceof CorrelationExperiment){
                 urlPostfix += "/correlation";
                 CorrelationExperiment obj = (CorrelationExperiment) inputs[1];
+
                 bodyStr = "{\"experiment\": {\"asset_1\" : \"" + obj.getAsset_1() + "\",\"asset_2\" : \"" + obj.getAsset_2() + "\"}}";
 //                jsonBody.putOpt("experiment", inputs[1]);
             }else if(inputs[1] instanceof ThresholdExperiment){
@@ -57,7 +58,7 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
                     .method("POST", body)
                     .addHeader("X-Request-ID", UUID.randomUUID().toString())
                     .addHeader("idToken", user.getIdToken())
-                    .addHeader("user-id", user.getUserId())
+//                    .addHeader("user_id", user.getUserId())
                     .addHeader("Content-Type", "application/json")
                     .build();
             Call c = client.newCall(request);

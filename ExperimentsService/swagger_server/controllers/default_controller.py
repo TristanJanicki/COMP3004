@@ -146,7 +146,7 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
             user = sqlManager.session.query(User).filter_by(user_id=userID).one()
         except SQLAlchemyError as e:
             err = str(e)
-            logger.warning()
+            logger.warning(err)
             if "No row was found for one()" != err: # if its any error other than we didn't find anything then throw something
                 sqlManager.session.rollback()
                 return ErrorResponse(err)

@@ -35,7 +35,7 @@ public class DeleteExperimentsHandler extends AsyncTask<Object, Void, Result> {
                 .method("DELETE", null)
                 .addHeader("X-Request-ID", UUID.randomUUID().toString())
                 .addHeader("idToken", user.getIdToken())
-                .addHeader("user-id", user.getUserId())
+//                .addHeader("user-id", user.getUserId())
                 .addHeader("experiment-id", experiment.getId())
                 .build();
         Call c = client.newCall(request);

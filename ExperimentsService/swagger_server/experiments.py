@@ -21,7 +21,7 @@ from random import seed
 import seaborn as sns
 import threading
 import concurrent.futures
-
+base_path = "C:/Users/trist/Desktop/stock_data/"
 # X = source a list of feature vectors that contain the values of Moving Averages (200, 50), RSI, On-Balance Volume, MACD
 # Y = source a list of price movements in percentage for n (start with 5) day periods
 # fit and see what happens
@@ -39,7 +39,7 @@ def getAssetCorrelation(asset_1, asset_2):
 
 
 def load_technical_data(ticker, function, extended_function_name=""):
-    path = "./Stock_Data/" + ticker + "_" + \
+    path = base_path + ticker + "_" + \
         function + extended_function_name + "Data.csv"
     data = pd.read_csv(path)
     time_period_data = []
@@ -71,7 +71,7 @@ def get_earliest_date(ticker, technicals, extended_function_name=""):
         break
 
     for tech in technicals:
-        data = pd.read_csv("./Stock_Data/" + ticker + "_" +
+        data = pd.read_csv(base_path + ticker + "_" +
                            tech + extended_function_name + "Data.csv", index_col=0)
         for d, _ in data[::-1].iterrows():
 
@@ -99,7 +99,7 @@ def get_latest_date(ticker, technicals, extended_function_name=""):
         break
 
     for tech in technicals:
-        data = pd.read_csv("./Stock_Data/" + ticker + "_" +
+        data = pd.read_csv(base_path + ticker + "_" +
                            tech + extended_function_name + "Data.csv", index_col=0)
         for d, _ in data.iterrows():
 
@@ -688,87 +688,87 @@ def get_MACD_threshold_move_distribution(tickers, year, macd_threshold):
 	#todo: complete the MACD calculation 
 	return ""
 
-def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False):
+def get_rsi_threshold_move_distribution(ticker, year, rsi_threshold, days_from_inversion=1, verbose=False):
     history = []
     price_deltas = []
     volumes = []
 
-    for ticker in tickers:
-        days_above_threshold = 0
 
-        data = load_technical_data(ticker, "RSI", "14dailyclose")
-        
-        time_series = pd.read_csv("C:/Users/trist/Desktop/Projects/Stock_Data/" +
-                                  ticker + "_TIME_SERIES_DAILYData.csv")
-        prices = []
-        volumes = []
+    days_above_threshold = 0
 
-        prev_date = ""
-        days_from_invesrion_counter = 0
+    data = load_technical_data(ticker, "RSI", "14dailyclose")
+    
+    time_series = pd.read_csv(base_path +
+                                ticker + "_TIME_SERIES_DAILYData.csv")
+    prices = []
+    volumes = []
 
-        earliest_date = get_earliest_date(ticker, ["RSI"], "14dailyclose")
-        latest_date = get_latest_date(ticker, ["RSI"], "14dailyclose")
-        last_rsi = ""
-        iteration_count = 0
+    prev_date = ""
+    days_from_invesrion_counter = 0
 
-        for series_data in time_series[::-1].iterrows():
-            # print(series_data)
-            prices.append(float(series_data[1][2]))
-            volumes.append(float(series_data[1][5]))
+    earliest_date = get_earliest_date(ticker, ["RSI"], "14dailyclose")
+    latest_date = get_latest_date(ticker, ["RSI"], "14dailyclose")
+    last_rsi = ""
+    iteration_count = 0
 
-        for i in range(len(data)):
-            date = data[i][0]
-            # print(data)
-            iteration_count += 1
-            if data[i][0] < earliest_date:  # skip the first item so we don't get a 0 value
-                prev_date = date.split(" ")[0]
-                index = binary_search(data, 0, len(data), 0, date)
-                if index != -1:
-                    last_rsi = data[index][1]
-                continue
+    for series_data in time_series[::-1].iterrows():
+        # print(series_data)
+        prices.append(float(series_data[1][2]))
+        volumes.append(float(series_data[1][5]))
 
-            if data[i][0] > latest_date:
-                break
-
-            if date.split("-")[0] >= year or year == "ALL":
-                # get the RSI value on the date parameter
-                index = binary_search(data, 0, len(data), 0, date)
-                if index != -1:
-
-                    if index + days_from_inversion > len(data):
-                        continue
-
-                    if data[index-1][1] > rsi_threshold and data[index][1] < rsi_threshold:
-                        # index - 1 == yesterday.
-                        # index == today.
-                        # if the RSI was above 70 yesterday and is below 70 today then record the price movement between today and today + days_from_inversion.
-
-                        # print("Inversion from past ", rsi_threshold , prev_date, " to ", date, " was ", days_from_inversion_threshold, " long")
-
-                        # print("prev_date = ", prev_date, "date = ", date)
-
-                        price_delta = 100 * ((prices[index] - prices[index + days_from_inversion]) / prices[index])
-
-                        try:
-                            # print(volumes[index-1])
-                            one_day_ago_volume = volumes[index-1]
-                            two_days_ago_volume = volumes[index-2]
-                            three_days_ago_volume = volumes[index-3]
-
-                            three_day_avg_volume = (three_days_ago_volume + two_days_ago_volume + one_day_ago_volume) / 3
-
-                            # print("pd: ", price_delta)
-                            # print("days_above_threshold: ", days_above_threshold)
-                            # print("three_day_avg_volume: ", three_day_avg_volume)
-                            price_deltas.append(price_delta)
-                            history.append(days_above_threshold)
-                            volumes.append(three_day_avg_volume)
-                        except:
-                            print()
-
-                        days_above_threshold = 0
-                        days_from_invesrion_counter = 0
+    for i in range(len(data)):
+        date = data[i][0]
+        # print(data)
+        iteration_count += 1
+        if data[i][0] < earliest_date:  # skip the first item so we don't get a 0 value
             prev_date = date.split(" ")[0]
+            index = binary_search(data, 0, len(data), 0, date)
+            if index != -1:
+                last_rsi = data[index][1]
+            continue
+
+        if data[i][0] > latest_date:
+            break
+
+        if date.split("-")[0] >= year or year == "ALL":
+            # get the RSI value on the date parameter
+            index = binary_search(data, 0, len(data), 0, date)
+            if index != -1:
+
+                if index + days_from_inversion > len(data):
+                    continue
+
+                if data[index-1][1] > rsi_threshold and data[index][1] < rsi_threshold:
+                    # index - 1 == yesterday.
+                    # index == today.
+                    # if the RSI was above 70 yesterday and is below 70 today then record the price movement between today and today + days_from_inversion.
+
+                    # print("Inversion from past ", rsi_threshold , prev_date, " to ", date, " was ", days_from_inversion_threshold, " long")
+
+                    # print("prev_date = ", prev_date, "date = ", date)
+
+                    price_delta = 100 * ((prices[index] - prices[index + days_from_inversion]) / prices[index])
+
+                    try:
+                        # print(volumes[index-1])
+                        one_day_ago_volume = volumes[index-1]
+                        two_days_ago_volume = volumes[index-2]
+                        three_days_ago_volume = volumes[index-3]
+
+                        three_day_avg_volume = (three_days_ago_volume + two_days_ago_volume + one_day_ago_volume) / 3
+
+                        # print("pd: ", price_delta)
+                        # print("days_above_threshold: ", days_above_threshold)
+                        # print("three_day_avg_volume: ", three_day_avg_volume)
+                        price_deltas.append(price_delta)
+                        history.append(days_above_threshold)
+                        volumes.append(three_day_avg_volume)
+                    except:
+                        print()
+
+                    days_above_threshold = 0
+                    days_from_invesrion_counter = 0
+        prev_date = date.split(" ")[0]
 
     # Setting all these to 0 so returning them doesn't throw an error since sometimes the arrays used to determine them are empty.
     history = np.array(history)
@@ -825,18 +825,29 @@ def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_
     return history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix
 
 
-def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, verbose=False):
-    max_corr = 0
+def get_optimal_rsi_days_from_inversion(ticker, year="2019", rsi_threshold=70, verbose=True):
+    lowest_p = 100 
     best_threshold = 0
-    # intuition tells me theres no way that an rsi inversion is even remotely relevant > 14 days later.
-    for i in range(0, 14):
-        _, _, _, price_deltas, _, _, _, _ = get_rsi_threshold_move_distribution(
+    best_threshold_deltas = []
+    population = get_price_delta_distribution(ticker)
+
+    # intuition tells me theres no way that an rsi inversion is even remotely relevant > 365 days later.
+    for i in range(0, 365):
+        history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix = get_rsi_threshold_move_distribution(
             ticker, year, rsi_threshold, i, False)
-        corr = np.corrcoef(i, price_deltas)
-        if abs(corr[0][0]) > max_corr:
-            max_corr = abs(corr[0][0])
+        
+        # sample == price_deltas
+        t, p = st.ttest_ind(price_deltas, population, equal_var=False)
+        if p < lowest_p:
+            lowest_p = p
             best_threshold = i
-    print("Best Correlation(", max_corr,") was for Days From Inversion = ", best_threshold)
+            best_threshold_deltas = price_deltas
+            print("best threshold is now %d with p = %f" % (i, p))
+
+
+    if verbose == True:
+        plot_histo(best_threshold_deltas, "Best RSI Threshold DI = %d" %(best_threshold))
+    print("Lowest P Score: (", lowest_p,") was for Days From Inversion = ", best_threshold)
     return best_threshold
 
 
@@ -978,9 +989,9 @@ if __name__ == "__main__":
     # rsi_end = 76
 
     # test_many_scenarios(["AMD"], rsi_start, rsi_end, 7)
-
-    # plt.show()
-    # exit(1)
+    get_optimal_rsi_days_from_inversion("AMD", "ALL", rsi_threshold=70, verbose=True)
+    plt.show()
+    exit(1)
     all_price_deltas = get_price_delta_distribution("SPY", verbose=True, figure=1)
     big_price_deltas = get_price_delta_distribution_with_threshold("SPY", threshold=4, verbose=True, figure=2)
     next_day_price_deltas = get_next_day_price_delta_with_threshold("SPY", threshold=4, verbose=True, figure=3)
