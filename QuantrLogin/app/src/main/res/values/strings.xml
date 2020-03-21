@@ -52,4 +52,6 @@
     <string name="longStratRadioButton">Long</string>
     <string name="createSignalButtonText">Create Signal</string>
     <string name="correlText">0</string>
+    <string name="assetSearch1">Enter first asset</string>
+    <string name="assetSearch2">Enter second asset</string>
 </resources>

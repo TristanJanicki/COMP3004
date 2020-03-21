@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/createSig"
+    android:id="@+id/createCorrelSig"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".experiments.NewSignal">
+    tools:context=".experiments.NewCorrelSignal">
 
     <!--    <SearchView-->
     <!--        android:id="@+id/searchStock"-->
@@ -20,107 +20,68 @@
 
 
     <EditText
-        android:id="@+id/searchStock"
+        android:id="@+id/searchAsset"
         android:layout_width="270dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="96dp"
         android:autofillHints="enter your favorite ticker"
         android:background="#fff"
-        android:hint="@string/tickerSearchHint"
+        android:hint="@string/assetSearch1"
         android:inputType="text"
         android:queryHint="StockName"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintHorizontal_bias="0.274"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/experimentTitle" />
+
+    <EditText
+        android:id="@+id/searchAsset2"
+        android:layout_width="270dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="176dp"
+        android:autofillHints="enter your favorite ticker"
+        android:background="#fff"
+        android:hint="@string/assetSearch2"
+        android:inputType="text"
+        android:queryHint="StockName"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.274"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/experimentTitle" />
+
 
     <Spinner
         android:id="@+id/indicatorChooser"
         android:layout_width="270dp"
         android:layout_height="35dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="71dp"
+        android:layout_marginEnd="95dp"
         android:background="#fff"
         android:contentDescription="@string/indicatorSpinnerText"
         android:dropDownWidth="wrap_content"
         android:queryHint="Indicator"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/searchStock"
-        app:layout_constraintTop_toBottomOf="@+id/searchStock" />
-
-    <Spinner
-        android:id="@+id/directionChooser"
-        android:layout_width="150dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="100dp"
-        android:background="#fff"
-        android:contentDescription="@string/directionalBiasDescription"
-        android:dropDownWidth="wrap_content"
-        android:queryHint="threshold"
-        android:spinnerMode="dropdown"
-        app:layout_constraintStart_toStartOf="@+id/indicatorChooser"
-        app:layout_constraintTop_toBottomOf="@+id/indicatorChooser" />
-
-
-    <EditText
-        android:id="@+id/setNewSignalThreshold"
-        android:layout_width="122dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="81dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="65dp"
-        android:autofillHints="Enter the threshold you'd like to test for"
-        android:ems="10"
-        android:inputType="number"
-        android:labelFor="@+id/directionChooser"
-        android:text="@string/defaultThresholdDescription"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.595"
-        app:layout_constraintStart_toEndOf="@+id/directionChooser"
-        app:layout_constraintTop_toBottomOf="@+id/indicatorChooser" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="325dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/directionChooser"
-        app:layout_constraintTop_toBottomOf="@+id/directionChooser">
-
-        <RadioButton
-            android:id="@+id/longButt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/longStratRadioButton"
-            android:textColor="#FFF" />
-
-        <RadioButton
-            android:id="@+id/shortButt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/shortStratRadioButton"
-            android:textColor="#FFF" />
-
-    </RadioGroup>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchAsset2" />
 
     <Button
         android:id="@+id/createSignalButotn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="163dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="105dp"
+        android:layout_marginEnd="156dp"
         android:backgroundTint="@color/GoldYellow"
         android:text="@string/createSignalButtonText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/indicatorChooser" />
 
     <TextView
         android:id="@+id/experimentTitle"
@@ -141,8 +102,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="16dp"
-        android:text="Correlation"
+        android:text="Threshold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/experimentTitle"

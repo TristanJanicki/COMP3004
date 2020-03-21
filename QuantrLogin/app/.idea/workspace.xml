@@ -11,13 +11,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="283c198d-7cb6-4f8f-a510-d6ca8cf6b08d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/NewCorrelSignal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/new_correl_signal_activity.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/DetailedThresholdView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/DetailedThresholdView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/MySignals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/MySignals.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_detailed_threshold_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_detailed_threshold_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/NewSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/NewSignal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/new_signal_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/new_signal_activity.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +26,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_R" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -45,6 +47,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Class" />
         <option value="layoutResourceFile" />
       </list>
     </option>
@@ -57,10 +60,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
-    <option name="width" value="1280" />
-    <option name="height" value="800" />
-  </component>
   <component name="ProjectId" id="1ZBp0QXqKE8LJ74Eojs0FAStVya" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
@@ -70,6 +69,11 @@
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.quantrlogin.experiments" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">

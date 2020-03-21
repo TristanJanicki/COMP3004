@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
+import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.swagger_models.ThresholdExperiment;
 
@@ -21,49 +22,43 @@ import java.util.logging.Logger;
 
 import networking_handlers.CreateExperimentsHandler;
 
-public class NewSignal extends AppCompatActivity{
+public class NewCorrelSignal extends AppCompatActivity{
     Button createSignalButton;
-    Button createCorrelation;
-    EditText tickerSearch, thresholdField;
-    Spinner indicatorChooser, directionChooser;
-    RadioButton longStrat, shortStrat;
-    String[] availableTickers = new String[]{"TSLA", "AMD", "NVDA", "SPCE"};
+    Button createThreshold;
+    EditText asset1,asset2;
+    Spinner indicatorChooser;
     LoggedInUser user;
     Logger l = Logger.getGlobal();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_signal_activity);
+        setContentView(R.layout.new_correl_signal_activity);
         createSignalButton = findViewById(R.id.createSignalButotn);
-        tickerSearch = findViewById(R.id.searchStock);
+        //tickerSearch = findViewById(R.id.searchStock);
+       // asset1=findViewById(R.id.asset1);
+        //asset2=findViewById(R.id.asset2);
         indicatorChooser = findViewById(R.id.indicatorChooser);
-        directionChooser = findViewById(R.id.directionChooser);
-        thresholdField = findViewById(R.id.setNewSignalThreshold);
 
-        String[] indicatorChoices = new String[]{"RSI", "SMA 10", "SMA 20", "SMA 50", "SMA 100", "SMA 200"};
+
+        String[] indicatorChoices = new String[]{"equity_currency", "currency_equity","currency_currency"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, indicatorChoices);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         indicatorChooser.setAdapter(adapter);
 
-
-        String[] directionChoices = new String[]{"Crosses Above", "Crosses Below"};
-        ArrayAdapter<String> dirAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, directionChoices);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        directionChooser.setAdapter(dirAdapter);
-
-        createCorrelation=findViewById(R.id.button2);
-        createCorrelation.setOnClickListener(new View.OnClickListener() {
+        createThreshold=findViewById(R.id.button2);
+        createThreshold.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(NewSignal.this,NewCorrelSignal.class);
+                Intent intent=new Intent(NewCorrelSignal.this,NewSignal.class);
                 startActivity(intent);
             }
         });
 
-        Arrays.sort(availableTickers);
+
+
+     //   Arrays.sort(availableTickers);
         final Bundle b = getIntent().getExtras();
 
         if (b == null){
@@ -76,18 +71,15 @@ public class NewSignal extends AppCompatActivity{
         }
         user = (LoggedInUser) b.get("user");
 
-        createSignalButton.setOnClickListener(new View.OnClickListener() {
+      /*  createSignalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ticker = tickerSearch.getText().toString();
-                String indicator = indicatorChooser.getSelectedItem().toString();
-                float threshold = Float.parseFloat(thresholdField.getText().toString());
-                String directional_bias = (directionChooser.getSelectedItem().toString().contains("Above") ? "crosses_above" : "crosses_below");
+         //       String ticker = tickerSearch.getText().toString();
 
-                ThresholdExperiment input = new ThresholdExperiment(indicator, ticker, threshold, directional_bias);
-//                CorrelationExperiment input = new CorrelationExperiment("GBP", "EUR", 0);
+               // CorrelationExperiment input = new CorrelationExperiment();
+                //CorrelationExperiment input = new CorrelationExperiment("GBP", "EUR", 0);
                 CreateExperimentsHandler ceh = new CreateExperimentsHandler();
-                ceh.execute(user, input);
+              //  ceh.execute(user, input);
                 try{
                     Result r = ceh.get();
                     if (r instanceof Result.Success){
@@ -106,7 +98,7 @@ public class NewSignal extends AppCompatActivity{
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 
     }
 
