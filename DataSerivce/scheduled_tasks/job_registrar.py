@@ -1,4 +1,3 @@
-import options
 import os
 from crontab import CronTab
 import time

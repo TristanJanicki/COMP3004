@@ -3,6 +3,10 @@ import json
 import matplotlib
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
+import datetime
+import time
+import logging
+
 
 def get_options_commissions(price_per_option, num_contracts, strike_price, brokerage="TD"):
     
@@ -54,6 +58,12 @@ def sortByHistoricalVolatility(elem):
 def sortOptionsByIV(elem):
     return elem[9]
 
+def generate_all_strategies_for(ticker="SPY"):
+    strategies = ["SINGLE", "ANALYTICAL", "COVERED", "VERTICAL", "CALENDAR", "STRANGLE", "STRADDLE", "BUTTERFLY", "CONDOR", "DIAGONAL", "COLLAR", "ROLL"]
+    r = requests.get("https://api.tdameritrade.com/v1/marketdata/chains?apikey=JPGIHQGE5ZUUQAEVAKT6JDKWM8WAALL2&strategy=ANALYTICAL&strikeCount="+str(strike_count)+"&symbol="+ticker+"&contractType="+option_type+"&range="+option_range+"&daysToExpiration="+str(days_til_expiry))
+    response = json.loads(r.content)
+
+
 def get_options_chain(ticker, option_type="PUT", option_range="NTM", strike_count=3, days_til_expiry=5):
     
     options = []
@@ -73,12 +83,9 @@ def get_options_chain(ticker, option_type="PUT", option_range="NTM", strike_coun
     for expiry_date in response[option_type.lower()+"ExpDateMap"]:
         for strike_price in response[option_type.lower()+"ExpDateMap"][expiry_date]:
             for option in response[option_type.lower()+"ExpDateMap"][expiry_date][strike_price]:
-                description = option["description"]
                 ask = float(option["ask"])
                 strike_price = float(option["strikePrice"])
-                impliedVolatility = float(option["volatility"])
-                volatility = float(option["theoreticalVolatility"])
-                
+
                 cps, total_comission, breakEven = get_options_commissions(ask, 1, strike_price, brokerage="TDA")
                 price_at_expiration = breakEven * 0.99 # assume 1% profit
                 pps, total_profit, be, rrr = get_put_profits(ask, 1, strike_price, price_at_expiration) 
@@ -86,9 +93,9 @@ def get_options_chain(ticker, option_type="PUT", option_range="NTM", strike_coun
 
                 required_move_from_last_price = 1 - (breakEven / float(last_price))
 
-                options.append([description, ask, strike_price, total_comission, be, rrr, total_profit, required_move_from_last_price, volatility, impliedVolatility])
+                options.append([total_comission, be, rrr, total_profit, required_move_from_last_price])
 
-    return options
+    return options, response
 
 def printChain(oChain):
     for o in oChain:
@@ -140,20 +147,19 @@ if __name__ == '__main__':
     # print("PPS: ", profits[0], "Total Profits:", profits[1], "Break Even:", profits[2])
 
     # exit(1)
-
-    strategies = ["SINGLE", "ANALYTICAL", "COVERED", "VERTICAL", "CALENDAR", "STRANGLE", "STRADDLE", "BUTTERFLY", "CONDOR", "DIAGONAL", "COLLAR", "ROLL"]
     
-    oChain = get_options_chain("SPY", option_type="PUT", days_til_expiry=30)
-    # oChain.sort(key=sortOptionsByRewardToRisk, reverse=True)
-    # print("Sorted By Reward to Risk:")
-    # printChain(oChain)
-    # oChain.sort(key=sortOptionsByTotalProfit, reverse=True)
-    # print("Sorted By Total Profit:")
-    # printChain(oChain)
-    print("Sorted by implied volatility")
-    oChain.sort(key=sortOptionsByIV)
-    # printChain(oChain)
-    saveChainToCSV(oChain, "SPY Put Data")
+    for ticker in ["SPY", "AMD"]:
+        oChain = get_options_chain(ticker, option_type="PUT", days_til_expiry=30, strategy=strategy)
+        # oChain.sort(key=sortOptionsByRewardToRisk, reverse=True)
+        # print("Sorted By Reward to Risk:")
+        # printChain(oChain)
+        # oChain.sort(key=sortOptionsByTotalProfit, reverse=True)
+        # print("Sorted By Total Profit:")
+        # printChain(oChain)
+        # print("Sorted by implied volatility")
+        # oChain.sort(key=sortOptionsByIV)
+        # printChain(oChain)
+        saveChainToCSV(oChain, ticker + put_or_call + "  Data")
 
     exit(1)
 
