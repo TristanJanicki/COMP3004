@@ -1,0 +1,1 @@
+Created detailed experiemental and server views and debugged them 
