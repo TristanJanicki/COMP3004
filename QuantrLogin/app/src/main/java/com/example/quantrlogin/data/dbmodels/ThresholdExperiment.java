@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class ThresholdExperiment extends Experiment implements Serializable {
@@ -73,6 +74,8 @@ public class ThresholdExperiment extends Experiment implements Serializable {
         double[] price_deltas;
 
         String[] deltas = obj.getString("price_deltas").split(",");
+        Logger.getGlobal().warning(obj.toString());
+        Logger.getGlobal().warning(obj.getString("price_deltas"));
         price_deltas = new double[deltas.length];
         for (int i = 0; i < deltas.length; i++) {
             try{
@@ -81,7 +84,7 @@ public class ThresholdExperiment extends Experiment implements Serializable {
                 Logger.getGlobal().warning("unable to parse price delta into threshold object");
             }
         }
-
+        Logger.getGlobal().warning("Price Deltas " + Arrays.toString(price_deltas));
         return new ThresholdExperiment(
                 obj.getString("experiment_id"),
                 obj.getString("indicator"),

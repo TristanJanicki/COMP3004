@@ -38,12 +38,12 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
                 urlPostfix += "/correlation";
                 CorrelationExperiment obj = (CorrelationExperiment) inputs[1];
 
-                bodyStr = "{\"experiment\": {\"asset_1\" : \"" + obj.getAsset_1() + "\",\"asset_2\" : \"" + obj.getAsset_2() + "\"}}";
+                bodyStr = "{\"experiment\": {\"asset_1\" : \"" + obj.getAsset_1().toUpperCase() + "\",\"asset_2\" : \"" + obj.getAsset_2().toUpperCase() + "\"}}";
 //                jsonBody.putOpt("experiment", inputs[1]);
             }else if(inputs[1] instanceof ThresholdExperiment){
                 urlPostfix += "/threshold";
                 ThresholdExperiment obj = (ThresholdExperiment) inputs[1];
-                bodyStr = "{\"experiment\": {\"indicator\": \"" +  obj.getIndicator() + "\",\"threshold\": " + obj.getThreshold() + ",\"ticker\": \"" + obj.getTicker() + "\", \"direction_bias\": \"" + obj.getDirectionBias() + "\"}}";
+                bodyStr = "{\"experiment\": {\"indicator\": \"" +  obj.getIndicator() + "\",\"threshold\": " + obj.getThreshold() + ",\"ticker\": \"" + obj.getTicker().toUpperCase() + "\", \"direction_bias\": \"" + obj.getDirectionBias() + "\"}}";
 //                jsonBody.putOpt("experiment", inputs[1]);
             }else{
                 return new Result.Error(new Exception("Second argument must be of type Experiment"));
@@ -70,7 +70,7 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
                 case 200:
                     return new Result.Success(200);
                 case 400:
-                    return new Result.Error(new Exception("Something went wrong"));
+                    return new Result.Error(new Exception("Something went wrong: " + r.message()));
                 case 401:
                     return new Result.NotAllowed(r.message());
                 case 409:

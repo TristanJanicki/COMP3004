@@ -56,7 +56,9 @@ public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result>
                 }
 
                 for(int i = 0; i < thresholds.length(); i ++){
+                    Logger.getGlobal().warning("parsing threshold exp");
                     try{
+                        Logger.getGlobal().warning("try");
                         dbThresholds[i] = ThresholdExperiment.convertJSONObjectToDbObject(thresholds.getJSONObject(i));
                     }catch (JSONException j){
                         Logger.getGlobal().warning("unable to parse ThresholdExperiment # " + i);

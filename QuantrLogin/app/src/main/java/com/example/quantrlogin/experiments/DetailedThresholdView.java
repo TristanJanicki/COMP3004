@@ -24,6 +24,7 @@ import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.CandleEntry;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class DetailedThresholdView  extends Fragment {
@@ -46,6 +47,7 @@ public class DetailedThresholdView  extends Fragment {
         CandleStickChart candleStickChart = view.findViewById(R.id.candle_stick);
         candleStickChart.setHighlightPerDragEnabled(true);
         priceDeltas=e.getPrice_deltas();
+        Logger.getGlobal().warning(Arrays.toString(e.getPrice_deltas()));
         candleStickChart.setDrawBorders(true);
 
         candleStickChart.setBorderColor(getResources().getColor(android.R.color.white));

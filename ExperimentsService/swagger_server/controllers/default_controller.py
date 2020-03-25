@@ -195,12 +195,20 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
             usersExperiments.append(experiment_id)
             user.experiments = ','.join(usersExperiments)
             sqlManager.session.commit()
-            def callback(result):
-                history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix = result # unpack result
-                
-
-            experiments.launch_async_experiment(experiments.get_rsi_threshold_move_distribution, (experiment["ticker"], "ALL", experiment["threshold"]), callback)
+            def saveToDatabase(result):
+                history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix = result # unpack result                
+                thExp = ThresholdExperiment(
+                    uuid.uuid4(),
+                    experiment["indicator"],
+                    experiment["threshold"],
+                    experiment["ticker"],
+                    status="up_to_date",
+                    # TODO: Finish this
+                )
+            
+            experiments.launch_async_experiment(experiments.get_rsi_threshold_move_distribution, (experiment["ticker"], "ALL", experiment["threshold"]), saveToDatabase)
     except SQLAlchemyError as e:
+        logger.warning(str(e))
         sqlManager.session.rollback()
         return ErrorResponse(str(e))
 
