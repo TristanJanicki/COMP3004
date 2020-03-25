@@ -1,0 +1,2 @@
+Working with Farzal to redesign the UI/UX.
+Debugging and making sure everything works as expected
