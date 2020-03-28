@@ -1,0 +1,3 @@
+Debugging
+QA testing 
+tried help finding a bug but couldn't find what was wrong 
