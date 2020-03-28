@@ -1,1 +1,1 @@
-Debugging and assisted with some server side and appside technicalities 
+Debugging and assisted with server side and appside technicalities 
