@@ -8,8 +8,8 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".experiments.DetailedThresholdView">
 
-        <com.github.mikephil.charting.charts.CandleStickChart
-            android:id="@+id/candle_stick"
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barchart"
             android:layout_width="330dp"
             android:layout_height="225dp"
             android:background="#000000"
@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/candle_stick" />
+            app:layout_constraintTop_toBottomOf="@+id/barchart" />
 
         <EditText
             android:id="@+id/editText2"
@@ -50,7 +50,7 @@
             android:textColor="#F1EDED"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/candle_stick" />
+            app:layout_constraintTop_toBottomOf="@+id/barchart" />
 
         <EditText
             android:id="@+id/editText3"
@@ -68,5 +68,5 @@
             android:textColor="#F1ECEC"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editText2"
-            app:layout_constraintTop_toBottomOf="@+id/candle_stick" />
+            app:layout_constraintTop_toBottomOf="@+id/barchart" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,18 +15,21 @@ import androidx.fragment.app.Fragment;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
-import com.github.mikephil.charting.charts.CandleStickChart;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.CandleData;
-import com.github.mikephil.charting.data.CandleDataSet;
-import com.github.mikephil.charting.data.CandleEntry;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.logging.Logger;
-
+import java.lang.Math;
 public class DetailedThresholdView  extends Fragment {
     private LinearLayout linearLayout = null;
     private Logger l = Logger.getGlobal();
@@ -44,21 +47,21 @@ public class DetailedThresholdView  extends Fragment {
 
         linearLayout = view.findViewById(R.id.linearLayout);
 
-        CandleStickChart candleStickChart = view.findViewById(R.id.candle_stick);
-        candleStickChart.setHighlightPerDragEnabled(true);
+        BarChart barChart = view.findViewById(R.id.barchart);
+        barChart.setHighlightPerDragEnabled(true);
         priceDeltas=e.getPrice_deltas();
         Logger.getGlobal().warning(Arrays.toString(e.getPrice_deltas()));
-        candleStickChart.setDrawBorders(true);
+        barChart.setDrawBorders(true);
 
-        candleStickChart.setBorderColor(getResources().getColor(android.R.color.white));
+        barChart.setBorderColor(getResources().getColor(android.R.color.white));
 
-        YAxis yAxis = candleStickChart.getAxisLeft();
-        YAxis rightAxis = candleStickChart.getAxisRight();
+        YAxis yAxis = barChart.getAxisLeft();
+        YAxis rightAxis = barChart.getAxisRight();
         yAxis.setDrawGridLines(false);
         rightAxis.setDrawGridLines(false);
-        candleStickChart.requestDisallowInterceptTouchEvent(true);
+        barChart.requestDisallowInterceptTouchEvent(true);
 
-        XAxis xAxis = candleStickChart.getXAxis();
+        XAxis xAxis = barChart.getXAxis();
 
         xAxis.setDrawGridLines(false);// disable x axis grid lines
         xAxis.setDrawLabels(false);
@@ -68,27 +71,44 @@ public class DetailedThresholdView  extends Fragment {
         xAxis.setGranularityEnabled(true);
         xAxis.setAvoidFirstLastClipping(true);
 
-        Legend l = candleStickChart.getLegend();
+        Legend l = barChart.getLegend();
         l.setEnabled(false);
-        ArrayList<CandleEntry> yValsCandleStick= new ArrayList<CandleEntry>();
-
-        for(int i=0;i<priceDeltas.length;i++){
-            Logger.getGlobal().warning("Each Delta " + priceDeltas[i]);
-            Logger.getGlobal().warning("testing" + e.getTicker());
-            yValsCandleStick.add(new CandleEntry(i, 225, 219, 0, Math.round(priceDeltas[i])));
+        ArrayList<BarEntry> xValsBar= new ArrayList<BarEntry>();
+        double x=-1/3;
+        Arrays.sort(priceDeltas);
+        //int h= (int) (2*IQR(priceDeltas,priceDeltas.length)*(Math.pow(priceDeltas.length,x)));
+        int bins=(int)Math.ceil(Math.sqrt(priceDeltas.length));
+        int h=(int)(priceDeltas[priceDeltas.length-1]-priceDeltas[0])/bins;
+        ArrayList data = new ArrayList();
+        bins=bins*2;
+        Logger.getGlobal().warning("Bin width:" +h);
+        Logger.getGlobal().warning(" deltas length:" + priceDeltas.length);
+        Logger.getGlobal().warning("bins:" + bins);
+        int temp=-bins/2;
+        int curr=0;
+        for(int i=0;i<bins;i++){
+            int occur=0;
+            for(int a=curr;a<priceDeltas.length;a++){
+                if(temp+1>=priceDeltas[curr]){
+                    occur+=1;
+                }
+                else{
+                    temp+=1;
+                }
+                curr+=1;
+            }
+            data.add(new BarEntry(occur,i));
+        }
+        ArrayList xAx = new ArrayList();
+        for(int i=-bins/2;i<bins+1;i++){
+            xAx.add(i);
         }
 
 
-
-        CandleDataSet set1 = new CandleDataSet(yValsCandleStick, "DataSet 1");
+        BarDataSet set1 = new BarDataSet(data, "Data");
         set1.setColor(Color.rgb(80, 80, 80));
-        set1.setShadowColor(getResources().getColor(R.color.colorPrimaryDark));
-        set1.setShadowWidth(0.8f);
-        set1.setDecreasingColor(getResources().getColor(android.R.color.holo_green_dark));
-        set1.setDecreasingPaintStyle(Paint.Style.FILL);
-        set1.setIncreasingColor(getResources().getColor(R.color.colorAccent));
-        set1.setIncreasingPaintStyle(Paint.Style.FILL);
-        set1.setNeutralColor(Color.LTGRAY);
+        set1.setBarBorderColor(getResources().getColor(R.color.colorPrimaryDark));
+        set1.setBarBorderWidth(0.8f);
         set1.setDrawValues(false);
 
         notify = view.findViewById(R.id.button);
@@ -101,13 +121,25 @@ public class DetailedThresholdView  extends Fragment {
 
 
 // create a data object with the datasets
-        CandleData data = new CandleData(set1);
+        BarData dat = new BarData((IBarDataSet) xAx,set1);
 
 
 // set data
-        candleStickChart.setData(data);
-        candleStickChart.invalidate();
+        barChart.setData(dat);
+        barChart.invalidate();
         return view;
     }
+    public int median(double a[], int l, int r) {
+        int n = r - l + 1;
+        n = (n + 1) / 2 - 1;
+        return n + l;
+    }
 
+
+    public double IQR(double [] a, int n) {
+        int mid_index = median(a, 0, n);
+        double Q1 = a[median(a, 0, mid_index)];
+        double Q3 = a[median(a, mid_index + 1, n)];
+        return (Q3 - Q1);
+    }
 }

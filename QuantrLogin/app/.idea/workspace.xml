@@ -11,14 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="283c198d-7cb6-4f8f-a510-d6ca8cf6b08d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/NewCorrelSignal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/new_correl_signal_activity.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/NewSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/NewSignal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/new_signal_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/new_signal_activity.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/DetailedThresholdView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/quantrlogin/experiments/DetailedThresholdView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/networking_handlers/networking_statics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/networking_handlers/networking_statics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_detailed_threshold_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_detailed_threshold_view.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,11 +48,6 @@
         <option value="layoutResourceFile" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>new user</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
