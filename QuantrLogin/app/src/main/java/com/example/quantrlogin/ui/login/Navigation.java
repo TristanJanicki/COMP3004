@@ -4,20 +4,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.experiments.MySignals;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import networking_handlers.networking_statics;
@@ -27,37 +28,77 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     private LoggedInUser user;
     //private TextView nav_email;
     private TextView nav_name;
+    private ActionBar toolbar;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nav_main);
+        setContentView(R.layout.bottom_nav_main);
+
+        toolbar = getSupportActionBar();
 
         user = (LoggedInUser) getIntent().getSerializableExtra("user");
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-        nav_name = headerView.findViewById(R.id.nav_userName);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+        setFragment(new HomeAcitvity());
+        //getSupportFragmentManager().beginTransaction().replace(R.id.bottom_nav_fragment_container, new HomeAcitvity()).commit();
+
+        //setContentView(R.layout.nav_main);
+
+        //NavigationView navigationView = findViewById(R.id.nav_view);
+        //View headerView = navigationView.getHeaderView(0);
+        //nav_name = headerView.findViewById(R.id.nav_userName);
         //nav_email = headerView.findViewById(R.id.nav_userEmail);
 
-        nav_name.setText(user.getDisplayName());
+        //nav_name.setText(user.getDisplayName());
         //nav_email.setText(user.getProfileAttribute("user"));
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
-        drawer = findViewById(R.id.draw_layout);
-        navigationView.setNavigationItemSelectedListener(this);
+        //drawer = findViewById(R.id.draw_layout);
+        //navigationView.setNavigationItemSelectedListener(this);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeAcitvity()).commit();
-            navigationView.setCheckedItem(R.id.nav_home);
-        }
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeAcitvity()).commit();
+//            navigationView.setCheckedItem(R.id.nav_home);
+//        }
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    switch (menuItem.getItemId()) {
+                        case R.id.bottomNav_home:
+                            setFragment(new HomeAcitvity());
+                            break;
+
+                        case R.id.bottomNav_my_signals:
+                            MySignals signalsFragment = new MySignals();
+                            signalsFragment.setArguments(getIntent().getExtras());
+                            setFragment(signalsFragment);
+                            break;
+
+                        case R.id.bottomNav_calendar:
+                            //setFragment(new CalendarActivity());
+                            Toast.makeText(Navigation.this, "Available in a future update.", Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case R.id.bottomNav_settings:
+                            //setFragment(new SettingsActivity());
+                            Toast.makeText(Navigation.this, "Available in a future update.", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                    return true;
+                }
+            };
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -73,7 +114,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 break;
 
             case R.id.nav_calendar:
-               // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment()).commit(); //might not work because of "new Fragment()", supposed to be "new MessageFragment()"
+                // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment()).commit(); //might not work because of "new Fragment()", supposed to be "new MessageFragment()"
                 Toast.makeText(this, "Available in a future update.", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -90,13 +131,21 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+//    @Override
+//    public void onBackPressed() {
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
+
+
+    public void setFragment (Fragment fragment){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.bottom_nav_fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     public void redirectTD(){

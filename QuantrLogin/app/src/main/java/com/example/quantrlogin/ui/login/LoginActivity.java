@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final Button dummyLogin = findViewById(R.id.dummyLogin);
+//        final Button dummyLogin = findViewById(R.id.dummyLogin);
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
@@ -214,12 +214,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        dummyLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDummyHomeActivity();
-            }
-        });
+//        dummyLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openDummyHomeActivity();
+//            }
+//        });
 
         button_SignUp = findViewById(R.id.signUp);
         button_SignUp.setOnClickListener(new View.OnClickListener() {
@@ -246,10 +246,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openDummyHomeActivity() {
-        Intent intent = new Intent(this, Navigation.class);
-        startActivity(intent);
-    }
+//    public void openDummyHomeActivity() {
+//        Intent intent = new Intent(this, Navigation.class);
+//        startActivity(intent);
+//    }
 
     public void openAuthChallengeActivity(AuthChallengeRequiredParameters params){
         Bundle data = new Bundle();

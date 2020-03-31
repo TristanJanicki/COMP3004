@@ -7,17 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
-import com.example.quantrlogin.experiments.MySignals;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -51,17 +48,17 @@ public class HomeAcitvity extends Fragment {
         View view = inflater.inflate(R.layout.activity_home, container, false);
         user = (LoggedInUser) getActivity().getIntent().getSerializableExtra("user");
 
-        mySignal = view.findViewById(R.id.mySignals);
-        mySignal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MySignals mySignals_fragment = new MySignals();
-                FragmentManager manager = getFragmentManager();
-                manager.beginTransaction()
-                        .replace(R.id.fragment_container, mySignals_fragment, mySignals_fragment.getTag())
-                        .commit();
-            }
-        });
+//        mySignal = view.findViewById(R.id.mySignals);
+//        mySignal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MySignals mySignals_fragment = new MySignals();
+//                FragmentManager manager = getFragmentManager();
+//                manager.beginTransaction()
+//                        .replace(R.id.fragment_container, mySignals_fragment, mySignals_fragment.getTag())
+//                        .commit();
+//            }
+//        });
 
 //        newSignal = view.findViewById(R.id.newSignals);
 //        newSignal.setOnClickListener(new View.OnClickListener() {
@@ -72,13 +69,13 @@ public class HomeAcitvity extends Fragment {
 //            }
 //        });
 
-        signalCalender = view.findViewById(R.id.signalCalender);
-        signalCalender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Available in a future update.", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        signalCalender = view.findViewById(R.id.signalCalender);
+//        signalCalender.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getActivity(), "Available in a future update.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         lineChart = view.findViewById(R.id.home_chart_view);
         lineChart.setTouchEnabled(true);
