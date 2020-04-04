@@ -4,44 +4,8 @@
     android:id="@+id/home_relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark">
+    android:background="@drawable/profile_background_light">
 <!--    tools:context=".ui.login.HomeAcitvity">-->
-
-<!--    <Button-->
-<!--        android:id="@+id/mySignals"-->
-<!--        android:layout_width="140dp"-->
-<!--        android:layout_height="56dp"-->
-<!--        android:layout_marginTop="340dp"-->
-<!--        android:backgroundTint="@color/GoldYellow"-->
-<!--        android:text="@string/mySignals"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/newSignals"-->
-<!--        android:layout_width="140dp"-->
-<!--        android:layout_height="56dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:backgroundTint="@color/GoldYellow"-->
-<!--        android:text="@string/newSignals"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/mySignals" />-->
-
-<!--    <Button-->
-<!--        android:id="@+id/signalCalender"-->
-<!--        android:layout_width="140dp"-->
-<!--        android:layout_height="56dp"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:backgroundTint="@color/GoldYellow"-->
-<!--        android:text="@string/signalCalender"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/mySignals" />-->
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/home_chart_view"
@@ -51,13 +15,92 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="413dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginTop="385dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.11" />
+
+    <Switch
+        android:id="@+id/profile_dark_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profile_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginBottom="655dp"
+        android:fontFamily="monospace"
+        android:text="Profile"
+        android:textColor="@color/Grey"
+        android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="380dp"
+        android:textColor="@color/Grey"
+        android:textSize="15sp"
+        android:text="NameGoesHere" />
+
+    <TextView
+        android:id="@+id/profile_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="380dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/Grey"
+        android:textSize="15sp"
+        android:text="EmailGoesHere" />
+
+    <ImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="140dp"
+        android:layout_height="130dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="136dp"
+        app:srcCompat="@drawable/ic_account_circle" />
+
+    <TextView
+        android:id="@+id/investor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_picture"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="182dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="177dp"
+        android:text="Investor" />
 
 </RelativeLayout>

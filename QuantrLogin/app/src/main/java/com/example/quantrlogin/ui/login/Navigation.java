@@ -10,8 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -19,12 +17,11 @@ import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.experiments.MySignals;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 
 import networking_handlers.networking_statics;
 
-public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private DrawerLayout drawer;
+public class Navigation extends AppCompatActivity /*implements NavigationView.OnNavigationItemSelectedListener*/ {
+    //private DrawerLayout drawer;
     private LoggedInUser user;
     //private TextView nav_email;
     private TextView nav_name;
@@ -43,6 +40,9 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         setFragment(new HomeAcitvity());
+
+        nav_name = findViewById(R.id.profile_name);
+        nav_name.setText(user.getDisplayName());
 
         //setContentView(R.layout.nav_main);
 
@@ -94,36 +94,36 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 }
             };
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeAcitvity()).commit(); //need to change HomeActivity into a fragment class
-                break;
-
-            case R.id.nav_my_signals:
-                MySignals signalsFragment = new MySignals();
-                signalsFragment.setArguments(getIntent().getExtras());
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, signalsFragment).commit(); //need to change MySignals into a fragment class
-                break;
-
-            case R.id.nav_calendar:
-                // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment()).commit(); //might not work because of "new Fragment()", supposed to be "new MessageFragment()"
-                Toast.makeText(this, "Available in a future update.", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.nav_share:
-                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.nav_td_ameritrade:
-                Toast.makeText(this, "Connecting...", Toast.LENGTH_SHORT).show();
-                redirectTD();
-                break;
-        }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//        switch (menuItem.getItemId()) {
+//            case R.id.nav_home:
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeAcitvity()).commit(); //need to change HomeActivity into a fragment class
+//                break;
+//
+//            case R.id.nav_my_signals:
+//                MySignals signalsFragment = new MySignals();
+//                signalsFragment.setArguments(getIntent().getExtras());
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, signalsFragment).commit(); //need to change MySignals into a fragment class
+//                break;
+//
+//            case R.id.nav_calendar:
+//                // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment()).commit(); //might not work because of "new Fragment()", supposed to be "new MessageFragment()"
+//                Toast.makeText(this, "Available in a future update.", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.nav_share:
+//                Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+//                break;
+//
+//            case R.id.nav_td_ameritrade:
+//                Toast.makeText(this, "Connecting...", Toast.LENGTH_SHORT).show();
+//                redirectTD();
+//                break;
+//        }
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
 
 //    @Override
 //    public void onBackPressed() {

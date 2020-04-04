@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,21 +25,20 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 import networking_handlers.networking_statics;
 
 public class HomeAcitvity extends Fragment {
 
-    private Button newSignalB;
-    private Button mySignal;
-    private Button newSignal;
-    private Button signalCalender;
     private LoggedInUser user;
-
     private LineChart lineChart;
-
-    //private DrawerLayout drawer;
+    private RelativeLayout homeLayout;
+    private boolean checkDarkMode;
+    private TextView username;
+    private TextView email;
 
 
     @Nullable
@@ -47,6 +47,22 @@ public class HomeAcitvity extends Fragment {
 
         View view = inflater.inflate(R.layout.activity_home, container, false);
         user = (LoggedInUser) getActivity().getIntent().getSerializableExtra("user");
+
+        username = view.findViewById(R.id.profile_name);
+        email = view.findViewById(R.id.profile_email);
+
+        //set username text of user
+        username.setText(user.getDisplayName());
+
+        //set email text of user
+        try {
+            email.setText(user.getProfileAttribute("user"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        checkDarkMode = LoginActivity.getDarkMode();
+        updateDarkMode(view);
 
 //        mySignal = view.findViewById(R.id.mySignals);
 //        mySignal.setOnClickListener(new View.OnClickListener() {
@@ -208,6 +224,23 @@ public class HomeAcitvity extends Fragment {
     public void redirectTD(View view){
         Intent tdAmer=new Intent(Intent.ACTION_VIEW, Uri.parse(networking_statics.tdaURL));
         startActivity(tdAmer);
+    }
+
+    public void updateDarkMode(View view) {
+        homeLayout = view.findViewById(R.id.home_relativeLayout);
+
+        if (checkDarkMode) { //if in light mode
+            //make necessary changes to convert to dark mode
+            homeLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.profile_background_dark));
+            username.setTextColor(getResources().getColor(R.color.LightGrey));
+            email.setTextColor(getResources().getColor(R.color.LightGrey));
+
+        } else { //else in dark mode
+            //make necessary changes to convert to dark mode
+            homeLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.profile_background_light));
+            username.setTextColor(getResources().getColor(R.color.Grey));
+            email.setTextColor(getResources().getColor(R.color.Grey));
+        }
     }
 
     private ArrayList getData(){
