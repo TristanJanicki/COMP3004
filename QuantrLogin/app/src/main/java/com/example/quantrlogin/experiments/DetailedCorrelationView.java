@@ -4,15 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
+import com.example.quantrlogin.ui.login.LoginActivity;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -33,13 +36,22 @@ public class DetailedCorrelationView extends Fragment {
     float[] priceDeltas;
     float[] priceDeltas1;
     private ScatterChart scatterChart;
+    private EditText correlTitle, correlVal;
+    private ConstraintLayout detailedCorrelConstraint;
+    private boolean checkDarkMode;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_detailed_correlation_view, container, false);
         ((TextView)view.findViewById(R.id.editText3)).setText(String.valueOf(e.getCorrelation()));
         linearLayout = view.findViewById(R.id.linearLayout);
+        correlTitle = view.findViewById(R.id.editText2);
+        correlVal = view.findViewById(R.id.editText3);
         float correlation= e.getCorrelation();
+
+        checkDarkMode = LoginActivity.getDarkMode();
+        updateDarkMode(view);
 
        // ArrayList<CandleEntry> yValsCandleStick= new ArrayList<CandleEntry>();
 
@@ -64,6 +76,27 @@ public class DetailedCorrelationView extends Fragment {
         scatterChart.animateXY(5000, 5000);
         scatterChart.invalidate();
         return view;
+    }
+
+    public void updateDarkMode(View view) {
+        detailedCorrelConstraint = view.findViewById(R.id.detailedCorrelationView);
+
+        if (checkDarkMode) { //if in light mode
+            //make necessary changes to convert to dark mode
+            detailedCorrelConstraint.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
+            correlTitle.setTextColor(getResources().getColor(R.color.LightGrey));
+            correlVal.setTextColor(getResources().getColor(R.color.LightGrey));
+            correlTitle.setBackgroundTintList(getResources().getColorStateList(R.color.LightGrey));
+            correlVal.setBackgroundTintList(getResources().getColorStateList(R.color.LightGrey));
+
+        } else { //else in dark mode
+            //make necessary changes to convert to dark mode
+            detailedCorrelConstraint.setBackgroundColor(getResources().getColor(R.color.White));
+            correlTitle.setTextColor(getResources().getColor(R.color.Grey));
+            correlVal.setTextColor(getResources().getColor(R.color.Grey));
+            correlTitle.setBackgroundTintList(getResources().getColorStateList(R.color.Grey));
+            correlVal.setBackgroundTintList(getResources().getColorStateList(R.color.Grey));
+        }
     }
 
 }

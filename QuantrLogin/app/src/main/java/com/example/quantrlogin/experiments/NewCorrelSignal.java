@@ -3,30 +3,33 @@ package com.example.quantrlogin.experiments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.swagger_models.CorrelationExperiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
+import com.example.quantrlogin.data.swagger_models.CorrelationExperiment;
+import com.example.quantrlogin.ui.login.LoginActivity;
 
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 import networking_handlers.CreateExperimentsHandler;
 
+
+
 public class NewCorrelSignal extends AppCompatActivity{
     Button createSignalButton;
     Button createThreshold;
-    EditText asset1,asset2,correlation;
+    EditText asset1,asset2,correlation,correlValue;
     LoggedInUser user;
     Logger l = Logger.getGlobal();
+
+    private ConstraintLayout newCorrelConstraint;
+    private boolean checkDarkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,10 @@ public class NewCorrelSignal extends AppCompatActivity{
         asset1=findViewById(R.id.searchAsset);
         asset2=findViewById(R.id.searchAsset2);
         correlation = findViewById(R.id.correlation);
+        correlValue = findViewById(R.id.correl);
 
+        checkDarkMode = LoginActivity.getDarkMode();
+        updateDarkMode();
 
 
         createThreshold=findViewById(R.id.button2);
@@ -100,6 +106,35 @@ public class NewCorrelSignal extends AppCompatActivity{
         Intent intent = new Intent(this, c);
         intent.putExtra("user", user);
         startActivity(intent);
+    }
+
+    public void updateDarkMode() {
+        newCorrelConstraint = findViewById(R.id.createCorrelSig);
+
+        if (checkDarkMode) { //if in light mode
+            //make necessary changes to convert to dark mode
+            newCorrelConstraint.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
+            asset1.setTextColor(getResources().getColor(R.color.LightGrey));
+            asset2.setTextColor(getResources().getColor(R.color.LightGrey));
+            correlation.setTextColor(getResources().getColor(R.color.LightGrey));
+            correlValue.setTextColor(getResources().getColor(R.color.LightGrey));
+            asset1.setBackgroundTintList(getResources().getColorStateList(R.color.LightGrey));
+            asset2.setBackgroundTintList(getResources().getColorStateList(R.color.LightGrey));
+            correlation.setBackgroundTintList(getResources().getColorStateList(R.color.LightGrey));
+            correlValue.setBackgroundTintList(getResources().getColorStateList(R.color.LightGrey));
+
+        } else { //else in dark mode
+            //make necessary changes to convert to dark mode
+            newCorrelConstraint.setBackgroundColor(getResources().getColor(R.color.White));
+            asset1.setTextColor(getResources().getColor(R.color.Grey));
+            asset2.setTextColor(getResources().getColor(R.color.Grey));
+            correlation.setTextColor(getResources().getColor(R.color.Grey));
+            correlValue.setTextColor(getResources().getColor(R.color.Grey));
+            asset1.setBackgroundTintList(getResources().getColorStateList(R.color.Grey));
+            asset2.setBackgroundTintList(getResources().getColorStateList(R.color.Grey));
+            correlation.setBackgroundTintList(getResources().getColorStateList(R.color.Grey));
+            correlValue.setBackgroundTintList(getResources().getColorStateList(R.color.Grey));
+        }
     }
 
 }

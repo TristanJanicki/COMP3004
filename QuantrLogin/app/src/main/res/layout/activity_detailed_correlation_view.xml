@@ -5,7 +5,7 @@
     android:id="@+id/detailedCorrelationView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/White"
     tools:context=".experiments.DetailedCorrelationView">
 
         <com.github.mikephil.charting.charts.ScatterChart
@@ -32,7 +32,8 @@
             android:inputType="textPersonName"
             android:background="@null"
             android:text="Correlation"
-            android:textColor="#F1EDED"
+            android:textColor="@color/Grey"
+            android:backgroundTint="@color/Grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scatterChart" />
@@ -48,7 +49,8 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/correlText"
-            android:textColor="#F1ECEC"
+            android:textColor="@color/Grey"
+            android:backgroundTint="@color/Grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editText2"
             app:layout_constraintTop_toBottomOf="@+id/scatterChart" />

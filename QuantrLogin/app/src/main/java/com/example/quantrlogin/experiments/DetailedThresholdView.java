@@ -1,20 +1,22 @@
 package com.example.quantrlogin.experiments;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
+import com.example.quantrlogin.ui.login.LoginActivity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -26,10 +28,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.logging.Logger;
-import java.lang.Math;
 public class DetailedThresholdView  extends Fragment {
     private LinearLayout linearLayout = null;
     private Logger l = Logger.getGlobal();
@@ -39,6 +38,10 @@ public class DetailedThresholdView  extends Fragment {
     }
     double[] priceDeltas;
     Button notify;
+    private EditText threshTitle, threshVal;
+    private ConstraintLayout detailedThreshConstraint;
+    private boolean checkDarkMode;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,8 +49,13 @@ public class DetailedThresholdView  extends Fragment {
         View view = inflater.inflate(R.layout.activity_detailed_threshold_view, container, false);
 
         linearLayout = view.findViewById(R.id.linearLayout);
-
+        threshTitle = view.findViewById(R.id.editText2);
+        threshVal = view.findViewById(R.id.editText3);
         BarChart barChart = view.findViewById(R.id.barchart);
+
+        checkDarkMode = LoginActivity.getDarkMode();
+        updateDarkMode(view);
+
         barChart.setHighlightPerDragEnabled(true);
         priceDeltas=e.getPrice_deltas();
         Logger.getGlobal().warning(Arrays.toString(e.getPrice_deltas()));
@@ -141,5 +149,26 @@ public class DetailedThresholdView  extends Fragment {
         double Q1 = a[median(a, 0, mid_index)];
         double Q3 = a[median(a, mid_index + 1, n)];
         return (Q3 - Q1);
+    }
+
+    public void updateDarkMode(View view) {
+        detailedThreshConstraint = view.findViewById(R.id.detailedThresholdView);
+
+        if (checkDarkMode) { //if in light mode
+            //make necessary changes to convert to dark mode
+            detailedThreshConstraint.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
+            threshTitle.setTextColor(getResources().getColor(R.color.LightGrey));
+            threshVal.setTextColor(getResources().getColor(R.color.LightGrey));
+            threshTitle.setBackgroundTintList(getResources().getColorStateList(R.color.LightGrey));
+            threshVal.setBackgroundTintList(getResources().getColorStateList(R.color.LightGrey));
+
+        } else { //else in dark mode
+            //make necessary changes to convert to dark mode
+            detailedThreshConstraint.setBackgroundColor(getResources().getColor(R.color.White));
+            threshTitle.setTextColor(getResources().getColor(R.color.Grey));
+            threshVal.setTextColor(getResources().getColor(R.color.Grey));
+            threshTitle.setBackgroundTintList(getResources().getColorStateList(R.color.Grey));
+            threshVal.setBackgroundTintList(getResources().getColorStateList(R.color.Grey));
+        }
     }
 }
