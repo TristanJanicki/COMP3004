@@ -13,9 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
+import com.example.quantrlogin.data.swagger_models.CorrelationExperiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
-import com.example.quantrlogin.data.swagger_models.ThresholdExperiment;
 
 import java.util.Arrays;
 import java.util.logging.Logger;
@@ -25,8 +24,7 @@ import networking_handlers.CreateExperimentsHandler;
 public class NewCorrelSignal extends AppCompatActivity{
     Button createSignalButton;
     Button createThreshold;
-    EditText asset1,asset2;
-    Spinner indicatorChooser;
+    EditText asset1,asset2,correlation;
     LoggedInUser user;
     Logger l = Logger.getGlobal();
 
@@ -36,16 +34,11 @@ public class NewCorrelSignal extends AppCompatActivity{
         setContentView(R.layout.new_correl_signal_activity);
         createSignalButton = findViewById(R.id.createSignalButotn);
         //tickerSearch = findViewById(R.id.searchStock);
-       // asset1=findViewById(R.id.asset1);
-        //asset2=findViewById(R.id.asset2);
-        indicatorChooser = findViewById(R.id.indicatorChooser);
+        asset1=findViewById(R.id.searchAsset);
+        asset2=findViewById(R.id.searchAsset2);
+        correlation = findViewById(R.id.correlation);
 
 
-        String[] indicatorChoices = new String[]{"equity_currency", "currency_equity","currency_currency"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, indicatorChoices);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        indicatorChooser.setAdapter(adapter);
 
         createThreshold=findViewById(R.id.button2);
         createThreshold.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +51,7 @@ public class NewCorrelSignal extends AppCompatActivity{
 
 
 
-     //   Arrays.sort(availableTickers);
+        //   Arrays.sort(availableTickers);
         final Bundle b = getIntent().getExtras();
 
         if (b == null){
@@ -71,15 +64,16 @@ public class NewCorrelSignal extends AppCompatActivity{
         }
         user = (LoggedInUser) b.get("user");
 
-      /*  createSignalButton.setOnClickListener(new View.OnClickListener() {
+        createSignalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-         //       String ticker = tickerSearch.getText().toString();
-
-               // CorrelationExperiment input = new CorrelationExperiment();
+                float correl = Float.valueOf(correlation.getText().toString());
+                String ass1=asset1.getText().toString();
+                String ass2= asset2.getText().toString();
+                CorrelationExperiment input = new CorrelationExperiment(ass1,ass2,correl);
                 //CorrelationExperiment input = new CorrelationExperiment("GBP", "EUR", 0);
                 CreateExperimentsHandler ceh = new CreateExperimentsHandler();
-              //  ceh.execute(user, input);
+                //  ceh.execute(user, input);
                 try{
                     Result r = ceh.get();
                     if (r instanceof Result.Success){
@@ -98,7 +92,7 @@ public class NewCorrelSignal extends AppCompatActivity{
                     e.printStackTrace();
                 }
             }
-        });*/
+        });
 
     }
 

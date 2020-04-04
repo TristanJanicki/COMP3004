@@ -54,19 +54,38 @@
         app:layout_constraintTop_toBottomOf="@+id/experimentTitle" />
 
 
-    <Spinner
-        android:id="@+id/indicatorChooser"
-        android:layout_width="270dp"
-        android:layout_height="35dp"
+    <EditText
+        android:id="@+id/correlation"
+        android:layout_width="28dp"
+        android:layout_height="30dp"
         android:layout_marginStart="46dp"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="95dp"
+        android:autofillHints="enter your favorite ticker"
         android:background="#fff"
-        android:contentDescription="@string/indicatorSpinnerText"
-        android:dropDownWidth="wrap_content"
-        android:queryHint="Indicator"
-        android:spinnerMode="dropdown"
+        android:inputType="text"
+        android:queryHint="StockName"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchAsset2" />
+
+    <EditText
+        android:id="@+id/correl"
+        android:layout_width="176dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="95dp"
+        android:autofillHints="enter your favorite ticker"
+        android:background="#fff"
+        android:clickable="false"
+        android:queryHint="StockName"
+        android:text="Correlation Value:"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchAsset2" />
 
@@ -80,8 +99,9 @@
         android:backgroundTint="@color/GoldYellow"
         android:text="@string/createSignalButtonText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indicatorChooser" />
+        app:layout_constraintTop_toBottomOf="@+id/correlation" />
 
     <TextView
         android:id="@+id/experimentTitle"
