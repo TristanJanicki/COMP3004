@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
@@ -27,6 +28,8 @@ public class SignUp extends AppCompatActivity {
     private CheckBox termsOfService;
     private String tag;
     private boolean isPremium;
+    private ConstraintLayout signupConstraint;
+    private boolean checkDarkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,13 @@ public class SignUp extends AppCompatActivity {
         email.setText("tt700joe@gmail.com");
         username.setText("Tristan G. J.");
 
+        premiumButton = findViewById(R.id.paidSubscription);
+        freemiumButton = findViewById(R.id.freeSubscription);
+
+
+        checkDarkMode = LoginActivity.getDarkMode();
+        updateDarkMode();
+
         //send POST Sign up request
         //after that works
         //then proceed to redirect to the authorization page
@@ -48,8 +58,7 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v) {
                 selectedSubscription = findViewById(rg.getCheckedRadioButtonId());
                 if (selectedSubscription == null){
-                    premiumButton = findViewById(R.id.paidSubscription);
-                    freemiumButton = findViewById(R.id.freeSubscription);
+
                     freemiumButton.setError("Required Field");
                     premiumButton.setError("Required Field");
                 }
@@ -91,6 +100,31 @@ public class SignUp extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void updateDarkMode() {
+        signupConstraint = findViewById(R.id.signup_container);
+
+        if (checkDarkMode) { //if in light mode
+            //make necessary changes to convert to dark mode
+            signupConstraint.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
+            username.setTextColor(getResources().getColor(R.color.LightGrey));
+            username.setBackgroundTintList(getColorStateList(R.color.LightGrey));
+            email.setTextColor(getResources().getColor(R.color.LightGrey));
+            email.setBackgroundTintList(getColorStateList(R.color.LightGrey));
+            termsOfService.setTextColor(getResources().getColor(R.color.LightGrey));
+            freemiumButton.setTextColor(getResources().getColor(R.color.LightGrey));
+
+        } else { //else in dark mode
+            //make necessary changes to convert to dark mode
+            signupConstraint.setBackgroundColor(getResources().getColor(R.color.White));
+            username.setTextColor(getResources().getColor(R.color.Grey));
+            username.setBackgroundTintList(getColorStateList(R.color.Grey));
+            email.setTextColor(getResources().getColor(R.color.Grey));
+            email.setBackgroundTintList(getColorStateList(R.color.LightGrey));
+            termsOfService.setTextColor(getResources().getColor(R.color.Grey));
+            freemiumButton.setTextColor(getResources().getColor(R.color.Grey));
+        }
     }
 
     //goes to authorization for now, until we have main screen setup

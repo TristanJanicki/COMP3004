@@ -43,7 +43,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         setFragment(new HomeAcitvity());
-        //getSupportFragmentManager().beginTransaction().replace(R.id.bottom_nav_fragment_container, new HomeAcitvity()).commit();
 
         //setContentView(R.layout.nav_main);
 
@@ -88,11 +87,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
                         case R.id.bottomNav_calendar:
                             //setFragment(new CalendarActivity());
-                            Toast.makeText(Navigation.this, "Available in a future update.", Toast.LENGTH_SHORT).show();
-                            break;
-
-                        case R.id.bottomNav_settings:
-                            //setFragment(new SettingsActivity());
                             Toast.makeText(Navigation.this, "Available in a future update.", Toast.LENGTH_SHORT).show();
                             break;
                     }

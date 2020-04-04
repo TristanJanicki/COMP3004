@@ -5,4 +5,9 @@
     <color name="colorAccent">#19601C</color>
     <color name="GoldYellow">#F1BB23</color>
     <color name="White">#FFFFFF</color>
+    <color name="Grey">#313132</color>
+    <color name="LightGrey">#D0D1D3</color>
+    <color name="DarkNavy">#141D26</color>
+    <color name="Mint">#21CE99</color>
+<!--    #040D14-->
 </resources>

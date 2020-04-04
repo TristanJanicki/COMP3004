@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
@@ -23,6 +24,8 @@ public class Authorization extends AppCompatActivity {
 
     Button confirm;
     EditText newPassword;
+    private ConstraintLayout authConstraint;
+    private boolean checkDarkMode;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -39,6 +42,9 @@ public class Authorization extends AppCompatActivity {
         confirm = findViewById(R.id.submitAuthChallenge);
         newPassword = findViewById(R.id.authChallengePassword);
         newPassword.setText("newPassword1");
+
+        checkDarkMode = LoginActivity.getDarkMode();
+        updateDarkMode();
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +81,21 @@ public class Authorization extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void updateDarkMode() {
+        authConstraint = findViewById(R.id.signup_container);
+
+        if (checkDarkMode) { //if in light mode
+            //make necessary changes to convert to dark mode
+            authConstraint.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
+            newPassword.setTextColor(getResources().getColor(R.color.LightGrey));
+
+        } else { //else in dark mode
+            //make necessary changes to convert to dark mode
+            authConstraint.setBackgroundColor(getResources().getColor(R.color.White));
+            newPassword.setTextColor(getResources().getColor(R.color.Grey));
+        }
     }
 
     public void showHomeScreen(LoggedInUser user) {

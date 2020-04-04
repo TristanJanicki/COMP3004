@@ -10,12 +10,15 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -33,6 +36,11 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     private Button button_SignUp;
     private Button button_Login;
+    private Switch dark_mode;
+    private ConstraintLayout loginConstraint;
+    private EditText username;
+    private EditText password;
+    public static boolean darkModeOn = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -228,6 +236,46 @@ public class LoginActivity extends AppCompatActivity {
                 openSignUpActivity();
             }
         });
+
+        dark_mode = findViewById(R.id.dark_mode);
+        dark_mode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDarkMode();
+            }
+        });
+
+
+    }
+
+    public static Boolean getDarkMode(){
+        return darkModeOn;
+    }
+
+    public void setDarkMode() {
+        loginConstraint = findViewById(R.id.container);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        button_Login = findViewById(R.id.login);
+        button_SignUp = findViewById(R.id.signUp);
+
+        if (dark_mode.isChecked()) { //if in light mode
+            //make necessary changes to convert to dark mode
+            darkModeOn = true;
+            loginConstraint.setBackground(ContextCompat.getDrawable(this, R.drawable.login_background_dark));
+            username.setTextColor(getResources().getColor(R.color.LightGrey));
+            username.setBackgroundTintList(getColorStateList(R.color.LightGrey));
+            password.setTextColor(getResources().getColor(R.color.LightGrey));
+            password.setBackgroundTintList(getColorStateList(R.color.LightGrey));
+        } else { //else in dark mode
+            //make necessary changes to convert to dark mode
+            darkModeOn = false;
+            loginConstraint.setBackground(ContextCompat.getDrawable(this, R.drawable.login_background));
+            username.setTextColor(getResources().getColor(R.color.Grey));
+            username.setBackgroundTintList(getColorStateList(R.color.Grey));
+            password.setTextColor(getResources().getColor(R.color.Grey));
+            password.setBackgroundTintList(getColorStateList(R.color.Grey));
+        }
     }
 
     public void openSignUpActivity() {
