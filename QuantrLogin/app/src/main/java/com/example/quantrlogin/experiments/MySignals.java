@@ -1,7 +1,6 @@
 package com.example.quantrlogin.experiments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -22,6 +22,7 @@ import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
 import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
+import com.example.quantrlogin.ui.login.LoginActivity;
 
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
@@ -37,6 +38,9 @@ public class MySignals extends Fragment {
     private LinearLayout linearLayout = null;
     private Logger l = Logger.getGlobal();
 
+    private ConstraintLayout mySignalsLayout;
+    private boolean checkDarkMode;
+
     public MySignals() {
         //Required empty public constructor
     }
@@ -49,14 +53,18 @@ public class MySignals extends Fragment {
 
         getSignals(user);
 
-
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
+        checkDarkMode = LoginActivity.getDarkMode();
+        updateDarkMode(view);
+
         linearLayout = view.findViewById(R.id.linearLayout);
         l.warning("EXPERIMENTS LENGTH " + user.experiments.length);
         l.warning(Arrays.toString(user.experiments));
         for (Experiment e : user.experiments) {
             addExperimentButton(e);
         }
+
+
 
 
         editSignal = view.findViewById(R.id.addNewSignal);
@@ -71,6 +79,21 @@ public class MySignals extends Fragment {
 
         return view;
     }
+
+
+    public void updateDarkMode(View view) {
+        mySignalsLayout = view.findViewById(R.id.mySignals_Container);
+
+        if (checkDarkMode) { //if in light mode
+            //make necessary changes to convert to dark mode
+            mySignalsLayout.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
+
+        } else { //else in dark mode
+            //make necessary changes to convert to dark mode
+            mySignalsLayout.setBackgroundColor(getResources().getColor(R.color.White));
+        }
+    }
+
 
     private Experiment[] getSignals(LoggedInUser user){
         GetExperimentsHandler geh = new GetExperimentsHandler();
@@ -119,7 +142,9 @@ public class MySignals extends Fragment {
                 newButton.setText(c.getAsset_1() + " Correlation With " + c.getAsset_2());
             }
             newButton.setId(counter);
-            newButton.setBackgroundColor(Color.parseColor("#80B0B0"));
+            newButton.setBackgroundColor(getResources().getColor(R.color.Mint));
+            newButton.setBackgroundResource(R.drawable.rounded_corners);
+            newButton.setTextColor(getResources().getColor(R.color.DarkNavy));
             linearLayout.addView(newButton);
             newButton.setOnClickListener(new View.OnClickListener() {
                 @Override
