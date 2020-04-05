@@ -1,0 +1,3 @@
+Set the goals for d4
+Met with group to self-assign tasks for d4 and remind them to make sure to finish up any missing deliverables from d3.
+Refined cron job registrar.

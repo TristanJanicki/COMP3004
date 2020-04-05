@@ -11,9 +11,9 @@ import (
 )
 
 type SqlDbManager struct {
-	log        *logrus.Entry
+	log *logrus.Entry
 
-	Db         *gorm.DB
+	Db *gorm.DB
 
 	dbName     string
 	dbHost     string
@@ -28,7 +28,6 @@ func New(config httpservice.ServiceConfig) (*SqlDbManager, error) {
 	dbName := config[httpservice.SqlDbName].(string)
 	dbUser := config[httpservice.SqlDbUser].(string)
 	dbPassword := config[httpservice.SqlDbPassword].(string)
-
 	dbUri := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true", dbUser, dbPassword, dbHost, dbPort, dbName)
 	db, err := gorm.Open("mysql", dbUri)
 	if err != nil {
@@ -37,7 +36,7 @@ func New(config httpservice.ServiceConfig) (*SqlDbManager, error) {
 	// Disable pluralizing table names
 	db.SingularTable(false)
 
-	return &SqlDbManager {
+	return &SqlDbManager{
 		log:        logrus.StandardLogger().WithField("type", "db_manager"),
 		Db:         db,
 		dbName:     dbName,
@@ -62,6 +61,3 @@ func (m SqlDbManager) Close() error {
 	}
 	return err
 }
-
-
-
