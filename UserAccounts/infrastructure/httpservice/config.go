@@ -70,7 +70,6 @@ var DefaultServiceConfig = ServiceConfig{
 	SqlDbPort:     3306,
 	SqlDbName:     "quantr",
 	SqlDbUser:     "admin",
-	SqlDbPassword: "5efPemPEwZrBfhvQ",
 	SqlDbPassword: "7Ovh916zXFjHdAV0",
 
 	DynamoDbDbEndpoint: "http://localhost:8000",
