@@ -68,7 +68,6 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/LoginRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/Result.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/data/model/LoggedInUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/experiments/NewSignal.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/experiments/NewSignal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoggedInUserView.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quantrlogin/ui/login/LoginResult.java" afterDir="false" />

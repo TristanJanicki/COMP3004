@@ -24,7 +24,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,7 +86,7 @@ public class DetailedThresholdView  extends Fragment {
         //int h= (int) (2*IQR(priceDeltas,priceDeltas.length)*(Math.pow(priceDeltas.length,x)));
         int bins=(int)Math.ceil(Math.sqrt(priceDeltas.length));
         int h=(int)(priceDeltas[priceDeltas.length-1]-priceDeltas[0])/bins;
-        ArrayList data = new ArrayList();
+        ArrayList<BarEntry> data = new ArrayList<>();
         bins=bins*2;
         Logger.getGlobal().warning("Bin width:" +h);
         Logger.getGlobal().warning(" deltas length:" + priceDeltas.length);
@@ -129,7 +128,7 @@ public class DetailedThresholdView  extends Fragment {
 
 
 // create a data object with the datasets
-        BarData dat = new BarData((IBarDataSet) xAx, set1);
+        BarData dat = new BarData(set1); //(IBarDataSet) xAx,
 
 
 // set data
