@@ -26,7 +26,8 @@ import concurrent
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import os
 
-base_path = "../DataService/stock_data/"
+# base_path = "../DataService/stock_data/"
+base_path = "C:/Users/trist/Desktop/stock_data/"
 
 # X = source a list of feature vectors that contain the values of Moving Averages (200, 50), RSI, On-Balance Volume, MACD
 # Y = source a list of price movements in percentage for n (start with 5) day periods
@@ -1026,14 +1027,17 @@ def get_all_rsi_price_distributions(ticker = "AMD", direction_bias="bearish", sa
 
         return test_results
 
-
 if __name__ == "__main__":
     # test_many_scenarios(["AMD"], [80, 63, 17, 25, 66, 64, 79, 59, 62], 1)
-    population = get_price_delta_distribution("AMD", verbose=True, figure=2)
+    # population = get_price_delta_distribution("AMD", verbose=True, figure=2)
     
-    sample = get_rsi_threshold_move_distribution(["AMD"], "ALL", 46)
-    sample_2 = get_rsi_threshold_move_distribution(["AMD"], "ALL", 74)
-
+    # sample = get_rsi_threshold_move_distribution(["AMD"], "ALL", 46)
+    sample_2 = get_rsi_threshold_move_distribution(["AMD"], "ALL", 17)
+    print("Std Dev:", sample_2[1])
+    print("Mean:", sample_2[2])
+    print("% of Scores Below 0:", st.percentileofscore(sample_2[0], 0, kind='mean'))
+    exit(1)
+    # st.probplot(sample[0], sparams=(sample[1], sample[2]))
 
     # Res1 is: (osm, osr)tuple of ndarrays
     # Tuple of theoretical quantiles (osm, or order statistic medians) and ordered responses (osr). osr is simply sorted input x. For details on how osm is calculated see the Notes section.
