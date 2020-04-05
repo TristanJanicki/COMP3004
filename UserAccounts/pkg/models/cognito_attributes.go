@@ -124,11 +124,8 @@ func CognitoSearchUserResultsToSwaggerModel(user *cognitoidentityprovider.UserTy
 		case "Email":
 			userProfile.Email = emailToPointer(strfmt.Email(*user.Attributes[i].Value))
 			break
-		case "given_name":
-			userProfile.FirstName = user.Attributes[i].Value
-			break
-		case "family_name":
-			userProfile.LastName = user.Attributes[i].Value
+		case "name":
+			userProfile.Name = user.Attributes[i].Value
 			break
 		case "nickname":
 			userProfile.NickName = *user.Attributes[i].Value

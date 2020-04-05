@@ -12,10 +12,10 @@ type UserAccount struct {
 	UserId string `gorm:"primary_key;column:user_id"`
 
 	// Profile
-	FirstName *string `gorm:"type:nvarchar(50);not null;column:first_name"`
-	LastName  *string `gorm:"type:nvarchar(50);not null;column:last_name"`
-	Email     *string `gorm:"type:nvarchar(320);not null;column:email"`
-	NickName  *string `gorm:"type:varchar(50);column:nickname"`
+	Name        *string `gorm:"type:varvar(50);not null;column:name"`
+	Email       *string `gorm:"type:nvarchar(320);not null;column:email"`
+	NickName    *string `gorm:"type:varchar(50);column:nickname"`
+	AccountType *string `gorm:"type:varchar(50);column:account_type"`
 
 	Title *string `gorm:"type:varchar(100);column:title"`
 
@@ -35,10 +35,9 @@ func ConvertToDbModelUserAccount(userId string, account *models.UserAccount) (*U
 
 	email := account.Profile.Email.String()
 	modelDb := &UserAccount{
-		UserId:    userId,
-		FirstName: account.Profile.FirstName,
-		LastName:  account.Profile.LastName,
-		Email:     &email,
+		UserId: userId,
+		Name:   account.Profile.Name,
+		Email:  &email,
 	}
 
 	if len(account.Profile.NickName) > 0 {
@@ -65,11 +64,8 @@ func ConvertToDbModelExistingUserAccount(userId string, account *models.Existing
 		UserId: userId,
 	}
 
-	if len(account.Profile.FirstName) > 0 {
-		modelDb.FirstName = &account.Profile.FirstName
-	}
-	if len(account.Profile.LastName) > 0 {
-		modelDb.LastName = &account.Profile.LastName
+	if len(account.Profile.Name) > 0 {
+		modelDb.Name = &account.Profile.Name
 	}
 
 	if len(account.Profile.NickName) > 0 {
@@ -95,10 +91,10 @@ func ConvertToDbModelExistingUserAccount(userId string, account *models.Existing
 func ConvertToDbModelUserAccountSignUp(userId string, signUpData *models.SignUpData) *UserAccount {
 	email := signUpData.Email.String()
 	return &UserAccount{
-		UserId:    userId,
-		FirstName: signUpData.FirstName,
-		LastName:  signUpData.LastName,
-		Email:     &email,
+		UserId:      userId,
+		Name:        signUpData.Name,
+		Email:       &email,
+		AccountType: signUpData.AccountType,
 	}
 }
 
@@ -107,9 +103,8 @@ func ConvertToSwaggerModelUserAccount(profileDb *UserAccount) *models.UserAccoun
 	email := strfmt.Email(*profileDb.Email)
 
 	userProfile := &models.UserProfile{
-		Email:     &email,
-		FirstName: profileDb.FirstName,
-		LastName:  profileDb.LastName,
+		Email: &email,
+		Name:  profileDb.Name,
 	}
 
 	if profileDb.NickName != nil {

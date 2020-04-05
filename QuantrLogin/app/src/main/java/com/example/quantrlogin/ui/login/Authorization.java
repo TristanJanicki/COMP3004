@@ -1,15 +1,21 @@
 package com.example.quantrlogin.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
+
+import org.json.JSONException;
+
+import java.util.logging.Logger;
 
 import networking_handlers.CompleteAuthChallengeHandler;
 import networking_handlers.output.AuthChallengeRequiredParameters;
@@ -18,6 +24,8 @@ public class Authorization extends AppCompatActivity {
 
     Button confirm;
     EditText newPassword;
+    private ConstraintLayout authConstraint;
+    private boolean checkDarkMode;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -27,13 +35,16 @@ public class Authorization extends AppCompatActivity {
         final Bundle b = getIntent().getExtras();
 
         if (b == null){
-            System.out.println("GET INTENT EXTRAS IS NULL");
+            Logger.getGlobal().warning("GET INTENT EXTRAS IS NULL");
             return;
         }
 
         confirm = findViewById(R.id.submitAuthChallenge);
         newPassword = findViewById(R.id.authChallengePassword);
         newPassword.setText("newPassword1");
+
+        checkDarkMode = LoginActivity.getDarkMode();
+        updateDarkMode();
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +70,7 @@ public class Authorization extends AppCompatActivity {
                         confirm.setError("Something went wrong, try logging in again");
                         return;
                     }else if (result instanceof Result.Success){
-                        System.out.println(result.toString());
+                        Logger.getGlobal().warning(result.toString());
                         LoggedInUser user = (LoggedInUser) ((Result.Success) result).getData();
                         showHomeScreen(user);
                     }
@@ -72,9 +83,29 @@ public class Authorization extends AppCompatActivity {
 
     }
 
-    private void showHomeScreen(LoggedInUser user){
-        System.out.println("Showing Home Screen for: " + user.toString());
-//        Intent intent = new Intent(this, HomeScreen.class);
-//        Bundle b = new Bundle();
+    public void updateDarkMode() {
+        authConstraint = findViewById(R.id.signup_container);
+
+        if (checkDarkMode) { //if in light mode
+            //make necessary changes to convert to dark mode
+            authConstraint.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
+            newPassword.setTextColor(getResources().getColor(R.color.LightGrey));
+
+        } else { //else in dark mode
+            //make necessary changes to convert to dark mode
+            authConstraint.setBackgroundColor(getResources().getColor(R.color.White));
+            newPassword.setTextColor(getResources().getColor(R.color.Grey));
+        }
+    }
+
+    public void showHomeScreen(LoggedInUser user) {
+        try {
+            Logger.getGlobal().warning("showing homescreen for = " + user.getProfileAttribute("name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Intent intent = new Intent(this, Navigation.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 }

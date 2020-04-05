@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottomNav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/bottomNav_calendar"
+        android:icon="@drawable/ic_calender"
+        android:title="Calendar" />
+
+    <item
+        android:id="@+id/bottomNav_my_signals"
+        android:icon="@drawable/ic_my_signals"
+        android:title="My Signals" />
+
+</menu>

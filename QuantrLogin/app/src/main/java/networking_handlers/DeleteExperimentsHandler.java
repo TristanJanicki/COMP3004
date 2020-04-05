@@ -31,11 +31,11 @@ public class DeleteExperimentsHandler extends AsyncTask<Object, Void, Result> {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
-                .url(networking_statics.experimentsService + "/v1/users/experiments")
+                .url(networking_statics.experiments + "/v1/users/experiments")
                 .method("DELETE", null)
                 .addHeader("X-Request-ID", UUID.randomUUID().toString())
                 .addHeader("idToken", user.getIdToken())
-                .addHeader("user-id", user.getUserId())
+//                .addHeader("user-id", user.getUserId())
                 .addHeader("experiment-id", experiment.getId())
                 .build();
         Call c = client.newCall(request);

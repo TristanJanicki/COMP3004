@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/createCorrelSig"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    tools:context=".experiments.NewCorrelSignal">
+
+    <!--    <SearchView-->
+    <!--        android:id="@+id/searchStock"-->
+    <!--        android:layout_width="325dp"-->
+    <!--        android:layout_height="53dp"-->
+    <!--        android:layout_marginTop="148dp"-->
+    <!--        android:background="#808080"-->
+    <!--        android:queryHint="StockName"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/indicatorChooser"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+    <EditText
+        android:id="@+id/searchAsset"
+        android:layout_width="270dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="96dp"
+        android:autofillHints="enter your favorite ticker"
+        android:hint="@string/assetSearch1"
+        android:inputType="text"
+        android:queryHint="StockName"
+        android:textSize="15sp"
+        android:textColor="@color/Grey"
+        android:backgroundTint="@color/Grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.274"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/experimentTitle" />
+
+    <EditText
+        android:id="@+id/searchAsset2"
+        android:layout_width="270dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="176dp"
+        android:autofillHints="enter your favorite ticker"
+        android:hint="@string/assetSearch2"
+        android:inputType="text"
+        android:queryHint="StockName"
+        android:textSize="15sp"
+        android:textColor="@color/Grey"
+        android:backgroundTint="@color/Grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.274"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/experimentTitle" />
+
+
+    <EditText
+        android:id="@+id/correlation"
+        android:layout_width="30dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="95dp"
+        android:autofillHints="enter your favorite ticker"
+        android:inputType="text"
+        android:queryHint="StockName"
+        android:textSize="15sp"
+        android:textColor="@color/Grey"
+        android:backgroundTint="@color/Grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintStart_toEndOf="@+id/correl"
+        app:layout_constraintTop_toBottomOf="@+id/searchAsset2" />
+
+    <EditText
+        android:id="@+id/correl"
+        android:layout_width="176dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="95dp"
+        android:autofillHints="enter your favorite ticker"
+        android:clickable="false"
+        android:queryHint="StockName"
+        android:text="Correlation Value:"
+        android:textSize="15sp"
+        android:textColor="@color/Grey"
+        android:backgroundTint="@color/Grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchAsset2" />
+
+    <Button
+        android:id="@+id/createSignalButotn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="105dp"
+        android:layout_marginEnd="156dp"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/Mint"
+        android:text="@string/createSignalButtonText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/correlation" />
+
+    <TextView
+        android:id="@+id/experimentTitle"
+        android:layout_width="330dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/createYourExperiment"
+        android:textColor="@color/Mint"
+        android:textSize="27sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:text="Threshold"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/Mint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/experimentTitle"
+        app:layout_constraintTop_toBottomOf="@+id/experimentTitle" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

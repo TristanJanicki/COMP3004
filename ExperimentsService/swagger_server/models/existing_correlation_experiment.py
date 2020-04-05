@@ -15,7 +15,7 @@ class ExistingCorrelationExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, asset_1: str=None, asset_2: str=None, correlation: float=None, data: List[float]=None, type: str=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, asset_1: str=None, asset_2: str=None, correlation: float=None, asset_1_deltas: List[float]=None, asset_2_deltas: List[float]=None):  # noqa: E501
         """ExistingCorrelationExperiment - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingCorrelationExperiment.  # noqa: E501
@@ -26,18 +26,18 @@ class ExistingCorrelationExperiment(Model):
         :type asset_2: str
         :param correlation: The correlation of this ExistingCorrelationExperiment.  # noqa: E501
         :type correlation: float
-        :param data: The data of this ExistingCorrelationExperiment.  # noqa: E501
-        :type data: List[float]
-        :param type: The type of this ExistingCorrelationExperiment.  # noqa: E501
-        :type type: str
+        :param asset_1_deltas: The asset_1_deltas of this ExistingCorrelationExperiment.  # noqa: E501
+        :type asset_1_deltas: List[float]
+        :param asset_2_deltas: The asset_2_deltas of this ExistingCorrelationExperiment.  # noqa: E501
+        :type asset_2_deltas: List[float]
         """
         self.swagger_types = {
             'experiment_id': str,
             'asset_1': str,
             'asset_2': str,
             'correlation': float,
-            'data': List[float],
-            'type': str
+            'asset_1_deltas': List[float],
+            'asset_2_deltas': List[float]
         }
 
         self.attribute_map = {
@@ -45,16 +45,16 @@ class ExistingCorrelationExperiment(Model):
             'asset_1': 'asset_1',
             'asset_2': 'asset_2',
             'correlation': 'correlation',
-            'data': 'data',
-            'type': 'type'
+            'asset_1_deltas': 'asset_1_deltas',
+            'asset_2_deltas': 'asset_2_deltas'
         }
 
         self._experiment_id = experiment_id
         self._asset_1 = asset_1
         self._asset_2 = asset_2
         self._correlation = correlation
-        self._data = data
-        self._type = type
+        self._asset_1_deltas = asset_1_deltas
+        self._asset_2_deltas = asset_2_deltas
 
     @classmethod
     def from_dict(cls, dikt) -> 'ExistingCorrelationExperiment':
@@ -160,49 +160,43 @@ class ExistingCorrelationExperiment(Model):
         self._correlation = correlation
 
     @property
-    def data(self) -> List[float]:
-        """Gets the data of this ExistingCorrelationExperiment.
+    def asset_1_deltas(self) -> List[float]:
+        """Gets the asset_1_deltas of this ExistingCorrelationExperiment.
 
 
-        :return: The data of this ExistingCorrelationExperiment.
+        :return: The asset_1_deltas of this ExistingCorrelationExperiment.
         :rtype: List[float]
         """
-        return self._data
+        return self._asset_1_deltas
 
-    @data.setter
-    def data(self, data: List[float]):
-        """Sets the data of this ExistingCorrelationExperiment.
+    @asset_1_deltas.setter
+    def asset_1_deltas(self, asset_1_deltas: List[float]):
+        """Sets the asset_1_deltas of this ExistingCorrelationExperiment.
 
 
-        :param data: The data of this ExistingCorrelationExperiment.
-        :type data: List[float]
+        :param asset_1_deltas: The asset_1_deltas of this ExistingCorrelationExperiment.
+        :type asset_1_deltas: List[float]
         """
 
-        self._data = data
+        self._asset_1_deltas = asset_1_deltas
 
     @property
-    def type(self) -> str:
-        """Gets the type of this ExistingCorrelationExperiment.
+    def asset_2_deltas(self) -> List[float]:
+        """Gets the asset_2_deltas of this ExistingCorrelationExperiment.
 
 
-        :return: The type of this ExistingCorrelationExperiment.
-        :rtype: str
+        :return: The asset_2_deltas of this ExistingCorrelationExperiment.
+        :rtype: List[float]
         """
-        return self._type
+        return self._asset_2_deltas
 
-    @type.setter
-    def type(self, type: str):
-        """Sets the type of this ExistingCorrelationExperiment.
+    @asset_2_deltas.setter
+    def asset_2_deltas(self, asset_2_deltas: List[float]):
+        """Sets the asset_2_deltas of this ExistingCorrelationExperiment.
 
 
-        :param type: The type of this ExistingCorrelationExperiment.
-        :type type: str
+        :param asset_2_deltas: The asset_2_deltas of this ExistingCorrelationExperiment.
+        :type asset_2_deltas: List[float]
         """
-        allowed_values = ["stock", "forex"]  # noqa: E501
-        if type not in allowed_values:
-            raise ValueError(
-                "Invalid value for `type` ({0}), must be one of {1}"
-                .format(type, allowed_values)
-            )
 
-        self._type = type
+        self._asset_2_deltas = asset_2_deltas

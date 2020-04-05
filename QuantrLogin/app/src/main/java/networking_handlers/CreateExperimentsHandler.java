@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -36,12 +37,13 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             if (inputs[1] instanceof CorrelationExperiment){
                 urlPostfix += "/correlation";
                 CorrelationExperiment obj = (CorrelationExperiment) inputs[1];
-                bodyStr = "{\"experiment\": {\"asset_1\" : \"" + obj.getAsset_1() + "\",\"asset_2\" : \"" + obj.getAsset_2() + "\"}}";
+
+                bodyStr = "{\"experiment\": {\"asset_1\" : \"" + obj.getAsset_1().toUpperCase() + "\",\"asset_2\" : \"" + obj.getAsset_2().toUpperCase() + "\"}}";
 //                jsonBody.putOpt("experiment", inputs[1]);
             }else if(inputs[1] instanceof ThresholdExperiment){
                 urlPostfix += "/threshold";
                 ThresholdExperiment obj = (ThresholdExperiment) inputs[1];
-                bodyStr = "{\"experiment\": {\"indicator\": \"" +  obj.getIndicator() + "\",\"threshold\": " + obj.getThreshold() + ",\"ticker\": \"" + obj.getTicker() + "\"}}";
+                bodyStr = "{\"experiment\": {\"indicator\": \"" +  obj.getIndicator() + "\",\"threshold\": " + obj.getThreshold() + ",\"ticker\": \"" + obj.getTicker().toUpperCase() + "\", \"direction_bias\": \"" + obj.getDirectionBias() + "\"}}";
 //                jsonBody.putOpt("experiment", inputs[1]);
             }else{
                 return new Result.Error(new Exception("Second argument must be of type Experiment"));
@@ -52,23 +54,23 @@ public class CreateExperimentsHandler extends AsyncTask<Object, Void, Result> {
 //            RequestBody body = RequestBody.create(mediaType, jsonBody.toString()); TODO: find out why this line doesn't work
             RequestBody body = RequestBody.create(mediaType, bodyStr);
             Request request = new Request.Builder()
-                    .url(networking_statics.experimentsService + urlPostfix)
+                    .url(networking_statics.experiments + urlPostfix)
                     .method("POST", body)
                     .addHeader("X-Request-ID", UUID.randomUUID().toString())
                     .addHeader("idToken", user.getIdToken())
-                    .addHeader("user-id", user.getUserId())
+//                    .addHeader("user_id", user.getUserId())
                     .addHeader("Content-Type", "application/json")
                     .build();
             Call c = client.newCall(request);
 
             Response r = c.execute();
-            System.out.println("CODE: "+ r.code());
-            System.out.println("Message: " + r.message());
+            Logger.getGlobal().warning("CODE: "+ r.code());
+            Logger.getGlobal().warning("Message: " + r.message());
             switch (r.code()){
                 case 200:
                     return new Result.Success(200);
                 case 400:
-                    return new Result.Error(new Exception("Something went wrong"));
+                    return new Result.Error(new Exception("Something went wrong: " + r.message()));
                 case 401:
                     return new Result.NotAllowed(r.message());
                 case 409:

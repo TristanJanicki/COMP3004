@@ -17,15 +17,10 @@ import (
 // swagger:model existingUserProfile
 type ExistingUserProfile struct {
 
-	// first name
+	// name
 	// Max Length: 50
 	// Min Length: 1
-	FirstName string `json:"firstName,omitempty"`
-
-	// last name
-	// Max Length: 50
-	// Min Length: 1
-	LastName string `json:"lastName,omitempty"`
+	Name string `json:"name,omitempty"`
 
 	// nick name
 	// Max Length: 50
@@ -44,11 +39,7 @@ type ExistingUserProfile struct {
 func (m *ExistingUserProfile) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateFirstName(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateLastName(formats); err != nil {
+	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -70,34 +61,17 @@ func (m *ExistingUserProfile) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ExistingUserProfile) validateFirstName(formats strfmt.Registry) error {
+func (m *ExistingUserProfile) validateName(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.FirstName) { // not required
+	if swag.IsZero(m.Name) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("firstName", "body", string(m.FirstName), 1); err != nil {
+	if err := validate.MinLength("name", "body", string(m.Name), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("firstName", "body", string(m.FirstName), 50); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ExistingUserProfile) validateLastName(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.LastName) { // not required
-		return nil
-	}
-
-	if err := validate.MinLength("lastName", "body", string(m.LastName), 1); err != nil {
-		return err
-	}
-
-	if err := validate.MaxLength("lastName", "body", string(m.LastName), 50); err != nil {
+	if err := validate.MaxLength("name", "body", string(m.Name), 50); err != nil {
 		return err
 	}
 

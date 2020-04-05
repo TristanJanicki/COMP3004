@@ -30,7 +30,7 @@ func NewAwsCognitoHandler(awsSession *session.Session, awsConfig *aws.Config, us
 }
 
 // RegisterUserWithCognito handles the logic for creating a user profile with AWS cognito
-func (c *AwsCognitoHandler) RegisterUserWithCognito(email *string) (*string, error) {
+func (c *AwsCognitoHandler) RegisterUserWithCognito(email *string, name *string, accountType *string) (*string, error) {
 	log := c.log.WithFields(logrus.Fields{
 		"method": "RegisterUserWithCognito",
 	})
@@ -42,6 +42,16 @@ func (c *AwsCognitoHandler) RegisterUserWithCognito(email *string) (*string, err
 		},
 		Username:   email,
 		UserPoolId: c.userPoolId,
+		UserAttributes: []*cognitoidentityprovider.AttributeType{
+			{
+				Name:  aws.String("custom:account_type"),
+				Value: accountType,
+			},
+			{
+				Name:  aws.String("name"),
+				Value: name,
+			},
+		},
 	}
 
 	out, err := c.identityProvider.AdminCreateUser(newUserData)
@@ -157,7 +167,7 @@ func (c *AwsCognitoHandler) PasswordChallenge(sessionId *string, username *strin
 		"method": "PasswordChallenge",
 	})
 
-	responses := map[string]*string{"NEW_PASSWORD": newPassword, "USERNAME": username, "userAttributes.name": username}
+	responses := map[string]*string{"NEW_PASSWORD": newPassword, "USERNAME": username}
 
 	input := &cognitoidentityprovider.AdminRespondToAuthChallengeInput{
 		ChallengeName:      aws.String("NEW_PASSWORD_REQUIRED"),

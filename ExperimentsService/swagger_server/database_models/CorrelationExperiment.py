@@ -1,11 +1,11 @@
-from swagger_server.database_models.StatusEnum import StatusEnum
-from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, Enum
+from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+import uuid
 Base = declarative_base()
 
 class CorrelationExperiment(Base):
     __tablename__ = 'correlation_experiments'
-    experiment_id = Column(Integer, primary_key=True)
+    experiment_id = Column(String, primary_key=True)
     asset_1 = Column(String)
     asset_2 = Column(String)
     asset_1_deltas = Column(String)

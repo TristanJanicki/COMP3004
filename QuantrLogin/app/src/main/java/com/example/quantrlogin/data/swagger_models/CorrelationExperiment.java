@@ -5,17 +5,17 @@ import androidx.annotation.NonNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CorrelationExperiment implements java.io.Serializable{
+public class CorrelationExperiment {
     private String asset_1, asset_2;
-    private double correlation;
+    float correlation;
 
-    public CorrelationExperiment(String asset_1, String asset_2, double correlation){
+    public CorrelationExperiment(String asset_1, String asset_2, float correlation){
         this.asset_1 = asset_1;
         this.asset_2 = asset_2;
         this.correlation = correlation;
     }
 
-    public double getCorrelation() {
+    public float getCorrelation() {
         return correlation;
     }
 

@@ -3,7 +3,6 @@ package networking_handlers;
 import android.os.AsyncTask;
 
 import com.example.quantrlogin.data.Result;
-import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 
 import org.json.JSONObject;
@@ -13,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import networking_handlers.output.AuthChallengeRequiredParameters;
 import okhttp3.Call;
@@ -45,27 +45,27 @@ public class CompleteAuthChallengeHandler extends AsyncTask<AuthChallengeRequire
                     .build();
             Call c = client.newCall(request);//
 
-            System.out.println("About to get response");
+            Logger.getGlobal().warning("About to get response");
             Response r = c.execute();
 
             JSONObject responseBody = new JSONObject(r.body().string());
 
             if (r.code() != 201){
-                System.out.println("NOT 201 for AUTH CHALLENGE");
-                System.out.println(responseBody.toString());
+                Logger.getGlobal().warning("NOT 201 for AUTH CHALLENGE");
+                Logger.getGlobal().warning(responseBody.toString());
             }
 
             String[] tokenParts = responseBody.getString("idToken").split("\\.");
 
-            System.out.println(Arrays.toString(tokenParts));
+            Logger.getGlobal().warning(Arrays.toString(tokenParts));
             String idTokenStr = new String(Base64.getDecoder().decode(tokenParts[1]), StandardCharsets.UTF_8);// TODO: ask Tristan what this does
             JSONObject cognitoProfile = new JSONObject(idTokenStr);
-            System.out.println(cognitoProfile.toString());
+            Logger.getGlobal().warning(cognitoProfile.toString());
             String userID = cognitoProfile.getString("sub");
             String refreshToken = responseBody.getString("refreshToken");
             String accessToken = responseBody.getString("accessToken");
 
-            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, idTokenStr, refreshToken, new Experiment[1]));
+            return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken, idTokenStr));
         } catch (IOException e) {
             e.printStackTrace();
             return new Result.Error(e);

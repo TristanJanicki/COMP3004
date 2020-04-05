@@ -40,15 +40,11 @@ definitions:
   userProfile:
     type: object
     required:
-      - firstName
-      - lastName
+      - name
       - email
+      - accountType
     properties:
-      firstName:
-        type: string
-        minLength: 1
-        maxLength: 50
-      lastName:
+      name:
         type: string
         minLength: 1
         maxLength: 50
@@ -62,17 +58,16 @@ definitions:
       title:
         type: string
         maxLength: 50
+      accountType:
+        type: string
+        enum: ["premium", "freemium"]
       phone:
         $ref: "#/definitions/phoneNumber"
 
   existingUserProfile:
     type: object
     properties:
-      firstName:
-        type: string
-        minLength: 1
-        maxLength: 50
-      lastName:
+      name:
         type: string
         minLength: 1
         maxLength: 50
@@ -164,16 +159,18 @@ definitions:
     type: object
     required:
       - email
-      - firstName
-      - lastName
+      - name
+      - accountType
     properties:
       email:
         type: string
         format: email
-      firstName:
+      name:
         type: string
-      lastName:
+      accountType:
         type: string
+        enum: ["premium", "freemium"]
+
 
   ###########################
   ##### Auth challenge and password change definitions
@@ -464,11 +461,11 @@ paths:
       description: "Validates a JWT Token"
       operationId: "VerifyJwt"
       parameters:
-        - in: "header"
-          name: "X-Request-ID"
-          type: string
-          format: uuid
-          required: true
+        # - in: "header"
+        #   name: "X-Request-ID"
+        #   type: string
+        #   format: uuid
+        #   required: true
         - in: "header"
           name: "token"
           type: string
@@ -617,36 +614,6 @@ paths:
           description: "Internal error"
           schema:
             $ref: "#/definitions/errorResponse"
-
-  /v1/TD/callback:
-       post:
-      description: "Submit password recovery parameters to complete the process"
-      operationId: "CompletePasswordRecovery"
-      parameters:
-        - in: "header"
-          name: "X-Request-ID"
-          type: string
-          format: uuid
-          required: true
-          description: "Request id"
-        - in: "body"
-          name: "confirmRecoverPasswordInput"
-          schema:
-            $ref: "#/definitions/confirmRecoverPasswordInput"
-      responses:
-        201:
-          description: "OK"
-          schema:
-            $ref: "#/definitions/okResponse"
-        404:
-          description: "Not found"
-          schema:
-            $ref: "#/definitions/notFoundResponse"
-        500:
-          description: "Internal error"
-          schema:
-            $ref: "#/definitions/errorResponse"
- 
 
   ###########################
   ##### Standard crud operations

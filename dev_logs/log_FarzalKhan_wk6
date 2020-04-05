@@ -1,6 +1,0 @@
-Updated signin/login/authentication GUI's
-  some minor adjustments to layout and colour scheme
-Helped setup Login sign up API workability
-Created app home page view, visible after successful login
-Worked with AnyChart library to produced a test graph of what our graphs could look like in the future
-Created a rough visual of the MySignals view

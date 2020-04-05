@@ -15,7 +15,7 @@ class ExistingThresholdExperiment(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None, threshold: str=None, directional_bias: str=None, status: str=None, price_deltas: List[float]=None, price_delta_std_dev: float=None, price_delta_mean: float=None, event_dates: List[str]=None, t_test_p: float=None, t_test_t: float=None, shapiro_p: float=None, shapiro_w: float=None, volumes: List[float]=None, volumes_mean: float=None, updated_at: str=None):  # noqa: E501
+    def __init__(self, experiment_id: str=None, indicator: str=None, ticker: str=None, threshold: str=None, event_dates: List[str]=None, price_deltas: List[str]=None, price_delta_std_dev: float=None, price_delta_mean: float=None, price_delta_mode: float=None, t_test_p: float=None, direction_bias: str=None):  # noqa: E501
         """ExistingThresholdExperiment - a model defined in Swagger
 
         :param experiment_id: The experiment_id of this ExistingThresholdExperiment.  # noqa: E501
@@ -26,51 +26,33 @@ class ExistingThresholdExperiment(Model):
         :type ticker: str
         :param threshold: The threshold of this ExistingThresholdExperiment.  # noqa: E501
         :type threshold: str
-        :param directional_bias: The directional_bias of this ExistingThresholdExperiment.  # noqa: E501
-        :type directional_bias: str
-        :param status: The status of this ExistingThresholdExperiment.  # noqa: E501
-        :type status: str
+        :param event_dates: The event_dates of this ExistingThresholdExperiment.  # noqa: E501
+        :type event_dates: List[str]
         :param price_deltas: The price_deltas of this ExistingThresholdExperiment.  # noqa: E501
-        :type price_deltas: List[float]
+        :type price_deltas: List[str]
         :param price_delta_std_dev: The price_delta_std_dev of this ExistingThresholdExperiment.  # noqa: E501
         :type price_delta_std_dev: float
         :param price_delta_mean: The price_delta_mean of this ExistingThresholdExperiment.  # noqa: E501
         :type price_delta_mean: float
-        :param event_dates: The event_dates of this ExistingThresholdExperiment.  # noqa: E501
-        :type event_dates: List[str]
+        :param price_delta_mode: The price_delta_mode of this ExistingThresholdExperiment.  # noqa: E501
+        :type price_delta_mode: float
         :param t_test_p: The t_test_p of this ExistingThresholdExperiment.  # noqa: E501
         :type t_test_p: float
-        :param t_test_t: The t_test_t of this ExistingThresholdExperiment.  # noqa: E501
-        :type t_test_t: float
-        :param shapiro_p: The shapiro_p of this ExistingThresholdExperiment.  # noqa: E501
-        :type shapiro_p: float
-        :param shapiro_w: The shapiro_w of this ExistingThresholdExperiment.  # noqa: E501
-        :type shapiro_w: float
-        :param volumes: The volumes of this ExistingThresholdExperiment.  # noqa: E501
-        :type volumes: List[float]
-        :param volumes_mean: The volumes_mean of this ExistingThresholdExperiment.  # noqa: E501
-        :type volumes_mean: float
-        :param updated_at: The updated_at of this ExistingThresholdExperiment.  # noqa: E501
-        :type updated_at: str
+        :param direction_bias: The direction_bias of this ExistingThresholdExperiment.  # noqa: E501
+        :type direction_bias: str
         """
         self.swagger_types = {
             'experiment_id': str,
             'indicator': str,
             'ticker': str,
             'threshold': str,
-            'directional_bias': str,
-            'status': str,
-            'price_deltas': List[float],
+            'event_dates': List[str],
+            'price_deltas': List[str],
             'price_delta_std_dev': float,
             'price_delta_mean': float,
-            'event_dates': List[str],
+            'price_delta_mode': float,
             't_test_p': float,
-            't_test_t': float,
-            'shapiro_p': float,
-            'shapiro_w': float,
-            'volumes': List[float],
-            'volumes_mean': float,
-            'updated_at': str
+            'direction_bias': str
         }
 
         self.attribute_map = {
@@ -78,38 +60,26 @@ class ExistingThresholdExperiment(Model):
             'indicator': 'indicator',
             'ticker': 'ticker',
             'threshold': 'threshold',
-            'directional_bias': 'directional_bias',
-            'status': 'status',
+            'event_dates': 'event_dates',
             'price_deltas': 'price_deltas',
             'price_delta_std_dev': 'price_delta_std_dev',
             'price_delta_mean': 'price_delta_mean',
-            'event_dates': 'event_dates',
+            'price_delta_mode': 'price_delta_mode',
             't_test_p': 't_test_p',
-            't_test_t': 't_test_t',
-            'shapiro_p': 'shapiro_p',
-            'shapiro_w': 'shapiro_w',
-            'volumes': 'volumes',
-            'volumes_mean': 'volumes_mean',
-            'updated_at': 'updated_at'
+            'direction_bias': 'direction_bias'
         }
 
         self._experiment_id = experiment_id
         self._indicator = indicator
         self._ticker = ticker
         self._threshold = threshold
-        self._directional_bias = directional_bias
-        self._status = status
+        self._event_dates = event_dates
         self._price_deltas = price_deltas
         self._price_delta_std_dev = price_delta_std_dev
         self._price_delta_mean = price_delta_mean
-        self._event_dates = event_dates
+        self._price_delta_mode = price_delta_mode
         self._t_test_p = t_test_p
-        self._t_test_t = t_test_t
-        self._shapiro_p = shapiro_p
-        self._shapiro_w = shapiro_w
-        self._volumes = volumes
-        self._volumes_mean = volumes_mean
-        self._updated_at = updated_at
+        self._direction_bias = direction_bias
 
     @classmethod
     def from_dict(cls, dikt) -> 'ExistingThresholdExperiment':
@@ -207,70 +177,43 @@ class ExistingThresholdExperiment(Model):
         self._threshold = threshold
 
     @property
-    def directional_bias(self) -> str:
-        """Gets the directional_bias of this ExistingThresholdExperiment.
+    def event_dates(self) -> List[str]:
+        """Gets the event_dates of this ExistingThresholdExperiment.
 
 
-        :return: The directional_bias of this ExistingThresholdExperiment.
-        :rtype: str
+        :return: The event_dates of this ExistingThresholdExperiment.
+        :rtype: List[str]
         """
-        return self._directional_bias
+        return self._event_dates
 
-    @directional_bias.setter
-    def directional_bias(self, directional_bias: str):
-        """Sets the directional_bias of this ExistingThresholdExperiment.
+    @event_dates.setter
+    def event_dates(self, event_dates: List[str]):
+        """Sets the event_dates of this ExistingThresholdExperiment.
 
 
-        :param directional_bias: The directional_bias of this ExistingThresholdExperiment.
-        :type directional_bias: str
+        :param event_dates: The event_dates of this ExistingThresholdExperiment.
+        :type event_dates: List[str]
         """
-        allowed_values = ["crosses_above", "crosses_below"]  # noqa: E501
-        if directional_bias not in allowed_values:
-            raise ValueError(
-                "Invalid value for `directional_bias` ({0}), must be one of {1}"
-                .format(directional_bias, allowed_values)
-            )
 
-        self._directional_bias = directional_bias
+        self._event_dates = event_dates
 
     @property
-    def status(self) -> str:
-        """Gets the status of this ExistingThresholdExperiment.
-
-
-        :return: The status of this ExistingThresholdExperiment.
-        :rtype: str
-        """
-        return self._status
-
-    @status.setter
-    def status(self, status: str):
-        """Sets the status of this ExistingThresholdExperiment.
-
-
-        :param status: The status of this ExistingThresholdExperiment.
-        :type status: str
-        """
-
-        self._status = status
-
-    @property
-    def price_deltas(self) -> List[float]:
+    def price_deltas(self) -> List[str]:
         """Gets the price_deltas of this ExistingThresholdExperiment.
 
 
         :return: The price_deltas of this ExistingThresholdExperiment.
-        :rtype: List[float]
+        :rtype: List[str]
         """
         return self._price_deltas
 
     @price_deltas.setter
-    def price_deltas(self, price_deltas: List[float]):
+    def price_deltas(self, price_deltas: List[str]):
         """Sets the price_deltas of this ExistingThresholdExperiment.
 
 
         :param price_deltas: The price_deltas of this ExistingThresholdExperiment.
-        :type price_deltas: List[float]
+        :type price_deltas: List[str]
         """
 
         self._price_deltas = price_deltas
@@ -318,25 +261,25 @@ class ExistingThresholdExperiment(Model):
         self._price_delta_mean = price_delta_mean
 
     @property
-    def event_dates(self) -> List[str]:
-        """Gets the event_dates of this ExistingThresholdExperiment.
+    def price_delta_mode(self) -> float:
+        """Gets the price_delta_mode of this ExistingThresholdExperiment.
 
 
-        :return: The event_dates of this ExistingThresholdExperiment.
-        :rtype: List[str]
+        :return: The price_delta_mode of this ExistingThresholdExperiment.
+        :rtype: float
         """
-        return self._event_dates
+        return self._price_delta_mode
 
-    @event_dates.setter
-    def event_dates(self, event_dates: List[str]):
-        """Sets the event_dates of this ExistingThresholdExperiment.
+    @price_delta_mode.setter
+    def price_delta_mode(self, price_delta_mode: float):
+        """Sets the price_delta_mode of this ExistingThresholdExperiment.
 
 
-        :param event_dates: The event_dates of this ExistingThresholdExperiment.
-        :type event_dates: List[str]
+        :param price_delta_mode: The price_delta_mode of this ExistingThresholdExperiment.
+        :type price_delta_mode: float
         """
 
-        self._event_dates = event_dates
+        self._price_delta_mode = price_delta_mode
 
     @property
     def t_test_p(self) -> float:
@@ -360,127 +303,22 @@ class ExistingThresholdExperiment(Model):
         self._t_test_p = t_test_p
 
     @property
-    def t_test_t(self) -> float:
-        """Gets the t_test_t of this ExistingThresholdExperiment.
+    def direction_bias(self) -> str:
+        """Gets the direction_bias of this ExistingThresholdExperiment.
 
 
-        :return: The t_test_t of this ExistingThresholdExperiment.
-        :rtype: float
-        """
-        return self._t_test_t
-
-    @t_test_t.setter
-    def t_test_t(self, t_test_t: float):
-        """Sets the t_test_t of this ExistingThresholdExperiment.
-
-
-        :param t_test_t: The t_test_t of this ExistingThresholdExperiment.
-        :type t_test_t: float
-        """
-
-        self._t_test_t = t_test_t
-
-    @property
-    def shapiro_p(self) -> float:
-        """Gets the shapiro_p of this ExistingThresholdExperiment.
-
-
-        :return: The shapiro_p of this ExistingThresholdExperiment.
-        :rtype: float
-        """
-        return self._shapiro_p
-
-    @shapiro_p.setter
-    def shapiro_p(self, shapiro_p: float):
-        """Sets the shapiro_p of this ExistingThresholdExperiment.
-
-
-        :param shapiro_p: The shapiro_p of this ExistingThresholdExperiment.
-        :type shapiro_p: float
-        """
-
-        self._shapiro_p = shapiro_p
-
-    @property
-    def shapiro_w(self) -> float:
-        """Gets the shapiro_w of this ExistingThresholdExperiment.
-
-
-        :return: The shapiro_w of this ExistingThresholdExperiment.
-        :rtype: float
-        """
-        return self._shapiro_w
-
-    @shapiro_w.setter
-    def shapiro_w(self, shapiro_w: float):
-        """Sets the shapiro_w of this ExistingThresholdExperiment.
-
-
-        :param shapiro_w: The shapiro_w of this ExistingThresholdExperiment.
-        :type shapiro_w: float
-        """
-
-        self._shapiro_w = shapiro_w
-
-    @property
-    def volumes(self) -> List[float]:
-        """Gets the volumes of this ExistingThresholdExperiment.
-
-
-        :return: The volumes of this ExistingThresholdExperiment.
-        :rtype: List[float]
-        """
-        return self._volumes
-
-    @volumes.setter
-    def volumes(self, volumes: List[float]):
-        """Sets the volumes of this ExistingThresholdExperiment.
-
-
-        :param volumes: The volumes of this ExistingThresholdExperiment.
-        :type volumes: List[float]
-        """
-
-        self._volumes = volumes
-
-    @property
-    def volumes_mean(self) -> float:
-        """Gets the volumes_mean of this ExistingThresholdExperiment.
-
-
-        :return: The volumes_mean of this ExistingThresholdExperiment.
-        :rtype: float
-        """
-        return self._volumes_mean
-
-    @volumes_mean.setter
-    def volumes_mean(self, volumes_mean: float):
-        """Sets the volumes_mean of this ExistingThresholdExperiment.
-
-
-        :param volumes_mean: The volumes_mean of this ExistingThresholdExperiment.
-        :type volumes_mean: float
-        """
-
-        self._volumes_mean = volumes_mean
-
-    @property
-    def updated_at(self) -> str:
-        """Gets the updated_at of this ExistingThresholdExperiment.
-
-
-        :return: The updated_at of this ExistingThresholdExperiment.
+        :return: The direction_bias of this ExistingThresholdExperiment.
         :rtype: str
         """
-        return self._updated_at
+        return self._direction_bias
 
-    @updated_at.setter
-    def updated_at(self, updated_at: str):
-        """Sets the updated_at of this ExistingThresholdExperiment.
+    @direction_bias.setter
+    def direction_bias(self, direction_bias: str):
+        """Sets the direction_bias of this ExistingThresholdExperiment.
 
 
-        :param updated_at: The updated_at of this ExistingThresholdExperiment.
-        :type updated_at: str
+        :param direction_bias: The direction_bias of this ExistingThresholdExperiment.
+        :type direction_bias: str
         """
 
-        self._updated_at = updated_at
+        self._direction_bias = direction_bias

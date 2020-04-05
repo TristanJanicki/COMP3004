@@ -37,4 +37,22 @@
     <string name="signal3">Signal 3</string>
     <string name="subscribe">Subscribe</string>
     <string name="tdAmeritrade">Connect TD Ameritrade</string>
+    <string name="dummyLogin">Dummy Login</string>
+    <string name="nav_drawer_open">Open Navigation Drawer</string>
+    <string name="nav_drawer_close">Close Navigation Drawer</string>
+    <string name="createYourExperiment"> Create Your Experiment </string>
+    <string name="notifyUser">Notify Me</string>
+    <string name="register">Register</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="indicatorSpinnerText">Indicators</string>
+    <string name="directionalBiasDescription">Crosses above or below threshold</string>
+    <string name="defaultThresholdDescription">50</string>
+    <string name="shortStratRadioButton">Short</string>
+    <string name="longStratRadioButton">Long</string>
+    <string name="createSignalButtonText">Create Signal</string>
+    <string name="correlText">0</string>
+    <string name="assetSearch1">Enter first asset</string>
+    <string name="assetSearch2">Enter second asset</string>
 </resources>

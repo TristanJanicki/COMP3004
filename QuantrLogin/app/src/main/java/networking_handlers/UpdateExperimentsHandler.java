@@ -10,6 +10,7 @@ import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 import org.json.JSONObject;
 
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -46,8 +47,8 @@ public class UpdateExperimentsHandler extends AsyncTask<Object, Void, Result> {
 //                bodyStr = "{\"experiment_id\":" + user.getUserId() + "\",\"indicator\": \"" +  obj.getIndicator() + "\",\"threshold\": " + obj.getThreshold() + ",\"ticker\": \"" + obj.getTicker() + "\"}";
                 jsonBody.put("experiment_id", obj.getId());
                 jsonBody.put("userID", user.getUserId());
-                jsonBody.put("indicator", obj.indicator);
-                jsonBody.put("ticker", obj.ticker);
+                jsonBody.put("indicator", obj.getIndicator());
+                jsonBody.put("ticker", obj.getTicker());
             }else{
                 return new Result.Error(new Exception("Second argument must be of type Experiment"));
             }
@@ -57,7 +58,7 @@ public class UpdateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             RequestBody body = RequestBody.create(mediaType, jsonBody.toString());
 //            RequestBody body = RequestBody.create(mediaType, bodyStr);
             Request request = new Request.Builder()
-                    .url(networking_statics.experimentsService + urlPostfix)
+                    .url(networking_statics.experiments + urlPostfix)
                     .method("POST", body)
                     .addHeader("X-Request-ID", UUID.randomUUID().toString())
                     .addHeader("idToken", user.getIdToken())
@@ -67,8 +68,8 @@ public class UpdateExperimentsHandler extends AsyncTask<Object, Void, Result> {
             Call c = client.newCall(request);
 
             Response r = c.execute();
-            System.out.println("CODE: "+ r.code());
-            System.out.println("Message: " + r.message());
+            Logger.getGlobal().warning("CODE: "+ r.code());
+            Logger.getGlobal().warning("Message: " + r.message());
             switch (r.code()){
                 case 200:
                     return new Result.Success(200);

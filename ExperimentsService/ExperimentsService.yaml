@@ -35,6 +35,7 @@ definitions:
       - indicator
       - threshold
       - ticker
+      - direction_bias
     properties:
       indicator:
         type: string
@@ -42,21 +43,19 @@ definitions:
         type: integer
       ticker:
         type: string
+      direction_bias:
+        type: string
 
   newCorrelationExperiment:
     type: object
     required:
       - asset_1
       - asset_2
-      - asset_combo
     properties:
       asset_1:
         type: string
       asset_2:
         type: string
-      asset_combo:
-        type: string
-        enum: [equity_currency, equity_equity]
 
   existingCorrelationExperiment:
     type: object
@@ -65,7 +64,6 @@ definitions:
       - asset_1
       - asset_2
       - correlation
-      - type
     properties:
       experiment_id:
         type: string
@@ -75,13 +73,15 @@ definitions:
         type: string
       correlation:
         type: number
-      data:
+      asset_1_deltas:
         type: array
-        items: 
+        items:
           type: number
-      type:
-        type: string
-        enum: [stock, forex]
+      asset_2_deltas:
+        type: array
+        items:
+          type: number
+
   existingThresholdExperiment:
     type: object
     properties:
@@ -93,38 +93,23 @@ definitions:
         type: string
       threshold:
         type: string
-      directional_bias:
-        type: string
-        enum: [crosses_above, crosses_below]
-      status:
-        type: string
-      price_deltas:
-        type: array
-        items:
-          type: number
-      price_delta_std_dev:
-        type: number
-      price_delta_mean:
-        type: number
       event_dates:
         type: array
         items:
           type: string
-      t_test_p:
-        type: number
-      t_test_t:
-        type: number
-      shapiro_p:
-        type: number
-      shapiro_w:
-        type: number
-      volumes:
+      price_deltas:
         type: array
         items:
-          type: number
-      volumes_mean:
+          type: string
+      price_delta_std_dev:
         type: number
-      updated_at:
+      price_delta_mean:
+        type: number
+      price_delta_mode:
+        type: number
+      t_test_p:
+        type: number
+      direction_bias:
         type: string
 
   getExperimentsResult:
