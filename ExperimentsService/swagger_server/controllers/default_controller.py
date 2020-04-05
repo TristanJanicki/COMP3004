@@ -101,26 +101,6 @@ def experiments_correlation_create(experiment=None):  # noqa: E501
         return ErrorResponse()
     return OkResponse()
 
-
-def experiments_correlation_update(experiment=None):  # noqa: E501
-    """experiments_correlation_update
-
-    Update a experiment # noqa: E501
-
-    :param idToken: access token obtained from AWS Cognito
-    :type idToken: str
-    :param user_id: the users ID to associate the experiment with
-    :type user_id: str
-    :param experiment: 
-    :type experiment: dict | bytes
-
-    :rtype: OkResponse
-    """
-    if connexion.request.is_json:
-        experiment = ExistingCorrelationExperiment.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
-
-
 def experiments_threshold_create(experiment=None):  # noqa: E501
     """experiments_threshold_create
 
@@ -151,16 +131,15 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
         existingCopy = None
         try:
             existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(
-                ticker=experiment["ticker"], threshold=experiment["threshold"], indicator=experiment["indicator"]).one()
+                ticker=experiment["ticker"].upper(), threshold=experiment["threshold"], indicator=experiment["indicator"]).one()
         except SQLAlchemyError as e:
+            sqlManager.session.rollback()
             error = str(e)
-            if not "No row was found" in str(e):
+            if not "No row was found" in str(e): # check if this 
                 return ErrorResponse(str(e))
-        # fill existing copy with a value from the db if there is one
-        sqlManager.session.commit()
+        sqlManager.session.commit() # fill existing copy with a value from the db if there is one
 
-        # the experiment already exists, lets check if it needs to be updated (last updated needs to be older than 1 day)
-        if existingCopy != None:
+        if existingCopy != None: # the experiment already exists, lets check if it needs to be updated (last updated needs to be older than 1 day)
             last_updated_at = existingCopy.last_updated_at
             days_since_update = datetime.now() - last_updated_at
 
@@ -168,7 +147,7 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
                 existingCopy.status = "update_requested"
                 existingCopy.update_requested_at = datetime.now()
 
-            if existingCopy.experiment_id not in usersExperiments:
+            if existingCopy.experiment_id not in usersExperiments: # check if the user is already subscribed to this experiment
                 usersExperiments.append(existingCopy.experiment_id)
             else:
                 return AlreadyExistsResponse()

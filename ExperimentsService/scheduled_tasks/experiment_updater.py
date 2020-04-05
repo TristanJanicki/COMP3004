@@ -16,7 +16,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 # internal library imports
 from swagger_server.infrastructure.db.mysql import mysql
-import swagger_server.experiments as exp
+from swagger_server.experiments import correlation_experiments, threshold_experiments, moving_averages_experiments as correlation_experiments, threshold_experiments, moving_averages_experiments
 from swagger_server.database_models.CorrelationExperiment import CorrelationExperiment
 from swagger_server.database_models.ThresholdExperiment import ThresholdExperiment
 
@@ -79,7 +79,7 @@ with Pool(processes=cpu_count) as pool:
         if thExp.indicator == "RSI":  # have an elif for each indicator
             try:
                 print("EXP: ", thExp)
-                res = pool.apply_async(exp.get_rsi_threshold_move_distribution, args=(
+                res = pool.apply_async(threshold_experiments.get_rsi_threshold_move_distribution, args=(
                     [thExp.ticker], "ALL", thExp.threshold, 1, False))
                 history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix, event_dates = res.get()
                 thExp.price_deltas = ','.join(str(v)
@@ -101,7 +101,7 @@ with Pool(processes=cpu_count) as pool:
     for corrExp in sqlManager.session.query(CorrelationExperiment).filter_by(status="update_requested"):
         print("EXP", corrExp)
         try:
-            res = pool.apply_async(exp.getAssetCorrelation, args=(
+            res = pool.apply_async(correlation_experiments.getAssetCorrelation, args=(
                 corrExp.asset_1, corrExp.asset_2, corrExp.asset_combo))
             results = res.get()
             # initializing variables for readability
