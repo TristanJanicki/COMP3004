@@ -24,7 +24,6 @@ import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 import com.example.quantrlogin.ui.login.HomeAcitvity;
 
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
@@ -58,8 +57,6 @@ public class MySignals extends Fragment {
         updateDarkMode(view);
 
         linearLayout = view.findViewById(R.id.linearLayout);
-        l.warning("EXPERIMENTS LENGTH " + user.experiments.length);
-        l.warning(Arrays.toString(user.experiments));
         for (Experiment e : user.experiments) {
             addExperimentButton(e);
         }
