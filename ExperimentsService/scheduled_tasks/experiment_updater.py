@@ -18,7 +18,6 @@ from sqlalchemy.exc import SQLAlchemyError
 from swagger_server.infrastructure.db.mysql import mysql
 import swagger_server.experiments as exp
 from swagger_server.database_models.CorrelationExperiment import CorrelationExperiment
-from swagger_server.database_models.StatusEnum import StatusEnum
 from swagger_server.database_models.ThresholdExperiment import ThresholdExperiment
 
 
