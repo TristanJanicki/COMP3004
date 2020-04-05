@@ -1,6 +1,5 @@
 # Run this file to register the experiment update checker cron job
 
-import options
 import os
 from crontab import CronTab
 import time
