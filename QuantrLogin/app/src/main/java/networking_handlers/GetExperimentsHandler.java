@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import okhttp3.Call;
@@ -21,24 +22,26 @@ import okhttp3.Response;
 
 public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result> {
 
-    @Override
-    protected Result doInBackground(LoggedInUser... users) {
+    private int MAXIMUM_RETRIES = 5;
 
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
+    private Result doWork(LoggedInUser user, int tries){
+        OkHttpClient.Builder builder =  new OkHttpClient().newBuilder();
+        builder.readTimeout(5, TimeUnit.SECONDS);
+        OkHttpClient client = builder.build();
         Request request = new Request.Builder()
                 .url(networking_statics.experiments + "/v1/users/experiments")
                 .method("GET", null)
                 .addHeader("X-Request-ID", UUID.randomUUID().toString())
-                .addHeader("idToken", users[0].getIdToken())
-                .addHeader("user-id", users[0].getUserId())
+                .addHeader("idToken", user.getIdToken())
+                .addHeader("user-id", user.getUserId())
                 .build();
         Call c = client.newCall(request);
 
-        try {
-            Response r = c.execute();
+        try (Response r = c.execute()) {
+
             Logger.getGlobal().warning("R.CODE: " + r.code());
             if (r.code() == 200) {
+                Logger.getGlobal().warning(r.headers().toString());
                 JSONObject responseBody = new JSONObject(r.body().string());
                 JSONArray correlations = responseBody.getJSONArray("correlations");
                 JSONArray thresholds = responseBody.getJSONArray("thresholds");
@@ -66,24 +69,36 @@ public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result>
                     }
                 }
 
+                r.close();
                 return new Result.GetExperimentsResult(dbThresholds, dbCorrelations);
             } else if (r.code() == 401) {
                 Logger.getGlobal().warning("NOT ALLOWED, MOST LIKELY A INVALID TOKEN");
+                r.close();
                 return new Result.NotAllowed(r.message());
             } else if (r.code() == 404){
                 Logger.getGlobal().warning("NOT FOUND");
+                r.close();
                 return new Result.GenericNetworkResult(404, r.body().toString());
             }else if(r.code() == 409){
                 Logger.getGlobal().warning("CONFLICT?");
+                r.close();
                 return new Result.GenericNetworkResult(r.code(), r.message());
             } else if (r.code() == 500) {
+                r.close();
                 return new Result.Error(new Exception(r.body().toString()));
             }
         }catch (Exception e){
             e.printStackTrace();
+            if (tries < MAXIMUM_RETRIES){
+                return doWork(user, tries + 1);
+            }
             return new Result.Error(e);
         }
-
         return new Result.Success("LAST RETURN STATEMENT");
+    }
+
+    @Override
+    protected Result doInBackground(LoggedInUser... users) {
+        return doWork(users[0], 0);
     }
 }

@@ -50,8 +50,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                     .build();
             Call c = client.newCall(request);//
 
-            try {
-                Response r = c.execute();
+            try (Response r = c.execute()){
                 JSONObject responseBody = new JSONObject(r.body().string());
                 if (r.code() == 307){
                     AuthChallengeRequiredParameters params = new AuthChallengeRequiredParameters(
@@ -75,7 +74,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                 String userID = cognitoProfile.getString("sub");
                 String refreshToken = responseBody.getString("refreshToken");
                 String accessToken = responseBody.getString("accessToken");
-
+                r.close();
 
                 return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken, decodedIdTokenStr));
             } catch (IOException e) {
