@@ -150,14 +150,14 @@ public class MySignals extends Fragment {
                         DetailedThresholdView detail_fragment = new DetailedThresholdView((ThresholdExperiment) e);
                         FragmentManager manager = getFragmentManager();
                         manager.beginTransaction()
-                                .replace(R.id.fragment_container, detail_fragment, detail_fragment.getTag())
+                                .replace(R.id.bottom_nav_fragment_container, detail_fragment, detail_fragment.getTag())
                                 .commit();
                     }
                     else if(e instanceof CorrelationExperiment){
                         DetailedCorrelationView detail_fragment = new DetailedCorrelationView((CorrelationExperiment) e);
                         FragmentManager manager = getFragmentManager();
                         manager.beginTransaction()
-                                .replace(R.id.fragment_container, detail_fragment, detail_fragment.getTag())
+                                .replace(R.id.bottom_nav_fragment_container, detail_fragment, detail_fragment.getTag())
                                 .commit();
                     }
                 }

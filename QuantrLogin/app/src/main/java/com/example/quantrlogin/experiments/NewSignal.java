@@ -48,7 +48,7 @@ public class NewSignal extends AppCompatActivity{
         longStrat = findViewById(R.id.longButt);
         shortStrat = findViewById(R.id.shortButt);
 
-        checkDarkMode = checkDarkMode = HomeAcitvity.getDarkMode();
+        checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode();
 
         String[] indicatorChoices = new String[]{"RSI", "SMA 10", "SMA 20", "SMA 50", "SMA 100", "SMA 200"};

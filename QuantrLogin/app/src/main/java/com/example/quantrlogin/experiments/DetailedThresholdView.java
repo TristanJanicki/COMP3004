@@ -129,7 +129,7 @@ public class DetailedThresholdView  extends Fragment {
 
 
 // create a data object with the datasets
-        BarData dat = new BarData((IBarDataSet) xAx,set1);
+        BarData dat = new BarData((IBarDataSet) xAx, set1);
 
 
 // set data
