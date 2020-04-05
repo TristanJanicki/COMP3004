@@ -1,3 +1,10 @@
 DataService/stock_data/
 QuantrLogin/.idea/workspace.xml
 QuantrLogin/.idea/workspace.xml
+UserAccounts/pkg/gen/models/existing_user_profile.go
+UserAccounts/pkg/gen/models/existing_user_profile.go
+UserAccounts/pkg/gen/models/sign_up_data.go
+UserAccounts/pkg/gen/models/user_profile.go
+UserAccounts/pkg/gen/restapi/embedded_spec.go
+UserAccounts/pkg/gen/restapi/operations/complete_auth_challenge_responses.go
+UserAccounts/pkg/gen/restapi/operations/verify_jwt_parameters.go
