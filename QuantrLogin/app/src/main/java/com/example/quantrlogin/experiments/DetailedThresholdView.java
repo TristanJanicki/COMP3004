@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
-import com.example.quantrlogin.ui.login.LoginActivity;
+import com.example.quantrlogin.ui.login.HomeAcitvity;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -53,7 +53,7 @@ public class DetailedThresholdView  extends Fragment {
         threshVal = view.findViewById(R.id.editText3);
         BarChart barChart = view.findViewById(R.id.barchart);
 
-        checkDarkMode = LoginActivity.getDarkMode();
+        checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode(view);
 
         barChart.setHighlightPerDragEnabled(true);

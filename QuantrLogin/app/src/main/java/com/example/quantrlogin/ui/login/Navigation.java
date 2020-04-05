@@ -26,6 +26,7 @@ public class Navigation extends AppCompatActivity /*implements NavigationView.On
     //private TextView nav_email;
     private TextView nav_name;
     private ActionBar toolbar;
+    private BottomNavigationView bottomNav;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,12 +37,12 @@ public class Navigation extends AppCompatActivity /*implements NavigationView.On
 
         user = (LoggedInUser) getIntent().getSerializableExtra("user");
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         setFragment(new HomeAcitvity());
 
-        nav_name = findViewById(R.id.profile_name);
-        nav_name.setText(user.getDisplayName());
+//        nav_name = findViewById(R.id.profile_name);
+//        nav_name.setText(user.getDisplayName());
 
         //setContentView(R.layout.nav_main);
 
@@ -133,6 +134,15 @@ public class Navigation extends AppCompatActivity /*implements NavigationView.On
 //        }
 //    }
 
+        @Override
+    public void onBackPressed() {
+            int selectedItemID = bottomNav.getSelectedItemId();
+            if (R.id.bottomNav_home != selectedItemID) {
+                setFragment(new HomeAcitvity());
+            } else {
+                super.onBackPressed();
+            }
+    }
 
     public void setFragment (Fragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

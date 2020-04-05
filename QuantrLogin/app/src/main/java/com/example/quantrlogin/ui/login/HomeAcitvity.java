@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,10 +37,12 @@ public class HomeAcitvity extends Fragment {
     private LoggedInUser user;
     private LineChart lineChart;
     private RelativeLayout homeLayout;
+    private Switch dark_mode;
     private boolean checkDarkMode;
     private TextView username;
     private TextView email;
-
+    private boolean loggedIn = false;
+    public static boolean profileDarkModeOn = false;
 
     @Nullable
     @Override
@@ -48,21 +51,33 @@ public class HomeAcitvity extends Fragment {
         View view = inflater.inflate(R.layout.activity_home, container, false);
         user = (LoggedInUser) getActivity().getIntent().getSerializableExtra("user");
 
+        homeLayout = view.findViewById(R.id.home_relativeLayout);
         username = view.findViewById(R.id.profile_name);
         email = view.findViewById(R.id.profile_email);
+        dark_mode = view.findViewById(R.id.profile_dark_mode);
 
         //set username text of user
-        username.setText(user.getDisplayName());
+        email.setText(user.getDisplayName());
 
         //set email text of user
         try {
-            email.setText(user.getProfileAttribute("user"));
+            username.setText(user.getProfileAttribute("user"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        checkDarkMode = LoginActivity.getDarkMode();
-        updateDarkMode(view);
+//        checkDarkMode = LoginActivity.getDarkMode();
+
+        //basically just want to check if we are in dark or light mode upon logging in
+//        if (checkDarkMode) {
+//            dark_mode.setChecked(true);
+//            loggedIn = true;
+//        } else {
+//            dark_mode.setChecked(false);
+//            loggedIn = true;
+//        }
+
+        setDarkMode();
 
 //        mySignal = view.findViewById(R.id.mySignals);
 //        mySignal.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +160,12 @@ public class HomeAcitvity extends Fragment {
 //            dataValues.add(new Entry(i, user.experiments));
 //        }
 
+        dark_mode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDarkMode();
+            }
+        });
 
 
         return view;
@@ -226,17 +247,21 @@ public class HomeAcitvity extends Fragment {
         startActivity(tdAmer);
     }
 
-    public void updateDarkMode(View view) {
-        homeLayout = view.findViewById(R.id.home_relativeLayout);
+    public static Boolean getDarkMode(){
+        return profileDarkModeOn;
+    }
 
-        if (checkDarkMode) { //if in light mode
+    public void setDarkMode(){
+        if (dark_mode.isChecked()) { //if in light mode
             //make necessary changes to convert to dark mode
+            profileDarkModeOn = true;
             homeLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.profile_background_dark));
             username.setTextColor(getResources().getColor(R.color.LightGrey));
             email.setTextColor(getResources().getColor(R.color.LightGrey));
 
         } else { //else in dark mode
             //make necessary changes to convert to dark mode
+            profileDarkModeOn = false;
             homeLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.profile_background_light));
             username.setTextColor(getResources().getColor(R.color.Grey));
             email.setTextColor(getResources().getColor(R.color.Grey));

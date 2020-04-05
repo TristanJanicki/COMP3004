@@ -43,8 +43,8 @@ public class Authorization extends AppCompatActivity {
         newPassword = findViewById(R.id.authChallengePassword);
         newPassword.setText("newPassword1");
 
-        checkDarkMode = LoginActivity.getDarkMode();
-        updateDarkMode();
+//        checkDarkMode = LoginActivity.getDarkMode();
+//        updateDarkMode();
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,20 +83,20 @@ public class Authorization extends AppCompatActivity {
 
     }
 
-    public void updateDarkMode() {
-        authConstraint = findViewById(R.id.signup_container);
-
-        if (checkDarkMode) { //if in light mode
-            //make necessary changes to convert to dark mode
-            authConstraint.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
-            newPassword.setTextColor(getResources().getColor(R.color.LightGrey));
-
-        } else { //else in dark mode
-            //make necessary changes to convert to dark mode
-            authConstraint.setBackgroundColor(getResources().getColor(R.color.White));
-            newPassword.setTextColor(getResources().getColor(R.color.Grey));
-        }
-    }
+//    public void updateDarkMode() {
+//        authConstraint = findViewById(R.id.signup_container);
+//
+//        if (checkDarkMode) { //if in light mode
+//            //make necessary changes to convert to dark mode
+//            authConstraint.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
+//            newPassword.setTextColor(getResources().getColor(R.color.LightGrey));
+//
+//        } else { //else in dark mode
+//            //make necessary changes to convert to dark mode
+//            authConstraint.setBackgroundColor(getResources().getColor(R.color.White));
+//            newPassword.setTextColor(getResources().getColor(R.color.Grey));
+//        }
+//    }
 
     public void showHomeScreen(LoggedInUser user) {
         try {
