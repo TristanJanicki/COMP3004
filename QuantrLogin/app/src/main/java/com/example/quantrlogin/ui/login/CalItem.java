@@ -1,4 +1,4 @@
-package com.example.quantrlogin;
+package com.example.quantrlogin.ui.login;
 
 public class CalItem {
     private int mImageResource;
