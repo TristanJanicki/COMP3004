@@ -27,7 +27,6 @@ public class Navigation extends AppCompatActivity /*implements NavigationView.On
     private TextView nav_name;
     private ActionBar toolbar;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
