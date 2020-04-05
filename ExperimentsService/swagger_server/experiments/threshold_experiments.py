@@ -6,6 +6,7 @@ import concurrent
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import numpy as np
 import scipy.stats as st
+from scipy.stats import kurtosis, skew
 
 def get_rsi_threshold_move_distribution(tickers, year, rsi_threshold, days_from_inversion=1, verbose=False, figure=1, directional_bias="crosses_below"):
     price_deltas = []
