@@ -1,0 +1,2 @@
+- Finalized and Submitted Report for D3
+- Drafter relevant UML Diagrams and documentation for D3
