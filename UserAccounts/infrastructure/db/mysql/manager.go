@@ -27,6 +27,7 @@ func New(config httpservice.ServiceConfig) (*SqlDbManager, error) {
 	dbPort := config[httpservice.SqlDbPort].(int)
 	dbName := config[httpservice.SqlDbName].(string)
 	dbUser := config[httpservice.SqlDbUser].(string)
+	fmt.Println(config[httpservice.SqlDbPassword].(string))
 	dbPassword := config[httpservice.SqlDbPassword].(string)
 	dbUri := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true", dbUser, dbPassword, dbHost, dbPort, dbName)
 	db, err := gorm.Open("mysql", dbUri)

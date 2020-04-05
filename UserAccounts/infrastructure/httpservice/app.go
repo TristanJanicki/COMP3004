@@ -3,7 +3,6 @@ package httpservice
 import (
 	"expvar"
 	"flag"
-	"fmt"
 	"net/http"
 	"net/http/pprof"
 	"os"
@@ -161,7 +160,6 @@ func Run(service Service) error {
 	}
 
 	// Initialize service
-	fmt.Println(DefaultServiceConfig.SqlDbPassword)
 	if err = service.Init(DefaultServiceConfig, config.ListenAddress, config.ListenPort); err != nil {
 		logger.WithError(err).Error("Failed to initialize service")
 		os.Exit(1)
