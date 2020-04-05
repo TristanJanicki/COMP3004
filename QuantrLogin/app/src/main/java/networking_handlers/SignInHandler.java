@@ -31,8 +31,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
         this.password = password;
     }
 
-    @Override
-    protected Result doInBackground(Void... voids) {
+    private Result doWork(int tries) {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
@@ -90,9 +89,14 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
             }
         }catch (JSONException j){
             j.printStackTrace();
+            doWork(tries + 1);
             return new Result.Error(j);
         }
+    }
 
+    @Override
+    protected Result doInBackground(Void... voids) {
+        return doWork(0);
     }
 
 }

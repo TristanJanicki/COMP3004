@@ -20,9 +20,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result> {
+import static networking_handlers.networking_statics.MAXIMUM_RETRIES;
 
-    private int MAXIMUM_RETRIES = 5;
+public class GetExperimentsHandler extends AsyncTask<LoggedInUser, Void, Result> {
 
     private Result doWork(LoggedInUser user, int tries){
         OkHttpClient.Builder builder =  new OkHttpClient().newBuilder();
