@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
-import com.example.quantrlogin.ui.login.LoginActivity;
+import com.example.quantrlogin.ui.login.HomeAcitvity;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -50,7 +50,7 @@ public class DetailedCorrelationView extends Fragment {
         correlVal = view.findViewById(R.id.editText3);
         float correlation= e.getCorrelation();
 
-        checkDarkMode = LoginActivity.getDarkMode();
+        checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode(view);
 
        // ArrayList<CandleEntry> yValsCandleStick= new ArrayList<CandleEntry>();

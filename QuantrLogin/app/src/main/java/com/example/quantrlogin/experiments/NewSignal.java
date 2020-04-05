@@ -16,7 +16,7 @@ import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.swagger_models.ThresholdExperiment;
-import com.example.quantrlogin.ui.login.LoginActivity;
+import com.example.quantrlogin.ui.login.HomeAcitvity;
 
 import java.util.Arrays;
 import java.util.logging.Logger;
@@ -39,6 +39,7 @@ public class NewSignal extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_signal_activity);
+        newSignalConstraint = findViewById(R.id.createSig);
         createSignalButton = findViewById(R.id.createSignalButotn);
         createCorrelation=findViewById(R.id.button2);
         tickerSearch = findViewById(R.id.searchStock);
@@ -48,7 +49,7 @@ public class NewSignal extends AppCompatActivity{
         longStrat = findViewById(R.id.longButt);
         shortStrat = findViewById(R.id.shortButt);
 
-        checkDarkMode = LoginActivity.getDarkMode();
+        checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode();
 
         String[] indicatorChoices = new String[]{"RSI", "SMA 10", "SMA 20", "SMA 50", "SMA 100", "SMA 200"};
@@ -127,7 +128,6 @@ public class NewSignal extends AppCompatActivity{
     }
 
     public void updateDarkMode() {
-        newSignalConstraint = findViewById(R.id.createCorrelSig);
 
         if (checkDarkMode) { //if in light mode
             //make necessary changes to convert to dark mode

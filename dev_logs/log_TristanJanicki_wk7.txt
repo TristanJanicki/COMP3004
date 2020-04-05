@@ -1,0 +1,3 @@
+Worked on making sure everything was ready for the D3 demo.
+Tried to get teammates to make sure their deliverables are done.
+Testsed using ngrok for fully local development of services.

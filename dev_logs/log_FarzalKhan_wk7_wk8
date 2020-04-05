@@ -1,0 +1,6 @@
+Setup a drawer that can be used once logged into the app
+  drawer allows you to easily navigate to the home screen, the my signals view, the calendar, 
+  and allows you to redirect to the TD Ameritrade login page
+  
+Setting up the drawer required me to also change the classes inside the drawer from appCompatActivities to Fragments
+  this itself took a bit of time as coding in a fragment is differnt from an activity
