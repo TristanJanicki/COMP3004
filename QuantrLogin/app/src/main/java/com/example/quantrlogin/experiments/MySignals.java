@@ -22,7 +22,7 @@ import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
 import com.example.quantrlogin.data.dbmodels.Experiment;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
-import com.example.quantrlogin.ui.login.LoginActivity;
+import com.example.quantrlogin.ui.login.HomeAcitvity;
 
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
@@ -54,7 +54,8 @@ public class MySignals extends Fragment {
         getSignals(user);
 
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
-        checkDarkMode = LoginActivity.getDarkMode();
+
+        checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode(view);
 
         linearLayout = view.findViewById(R.id.linearLayout);

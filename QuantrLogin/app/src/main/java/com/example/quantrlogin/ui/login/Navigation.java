@@ -21,11 +21,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import networking_handlers.networking_statics;
 
 public class Navigation extends AppCompatActivity /*implements NavigationView.OnNavigationItemSelectedListener*/ {
-    //private DrawerLayout drawer;
     private LoggedInUser user;
     //private TextView nav_email;
     private TextView nav_name;
     private ActionBar toolbar;
+    private TextView thing;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class Navigation extends AppCompatActivity /*implements NavigationView.On
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         setFragment(new HomeAcitvity());
 
-        nav_name = findViewById(R.id.profile_name);
-        nav_name.setText(user.getDisplayName());
+        //nav_name = findViewById(R.id.profile_name);
+        //nav_name.setText(user.getDisplayName());
 
         //setContentView(R.layout.nav_main);
 

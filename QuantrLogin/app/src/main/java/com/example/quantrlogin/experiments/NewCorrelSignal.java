@@ -13,7 +13,7 @@ import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.Result;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.swagger_models.CorrelationExperiment;
-import com.example.quantrlogin.ui.login.LoginActivity;
+import com.example.quantrlogin.ui.login.HomeAcitvity;
 
 import java.util.logging.Logger;
 
@@ -42,7 +42,7 @@ public class NewCorrelSignal extends AppCompatActivity{
         correlation = findViewById(R.id.correlation);
         correlValue = findViewById(R.id.correl);
 
-        checkDarkMode = LoginActivity.getDarkMode();
+        checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode();
 
 
