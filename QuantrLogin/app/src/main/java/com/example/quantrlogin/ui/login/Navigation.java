@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -42,7 +41,7 @@ public class Navigation extends AppCompatActivity /*implements NavigationView.On
         setFragment(new HomeAcitvity());
 
         nav_name = findViewById(R.id.profile_name);
-        nav_name.setText(user.getDisplayName());
+//        nav_name.setText(user.getDisplayName());
 
         //setContentView(R.layout.nav_main);
 
@@ -86,8 +85,7 @@ public class Navigation extends AppCompatActivity /*implements NavigationView.On
                             break;
 
                         case R.id.bottomNav_calendar:
-                            //setFragment(new CalendarActivity());
-                            Toast.makeText(Navigation.this, "Available in a future update.", Toast.LENGTH_SHORT).show();
+                            setFragment(new CalendarPage());
                             break;
                     }
                     return true;
