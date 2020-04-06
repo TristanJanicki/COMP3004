@@ -1,6 +1,7 @@
 package com.example.quantrlogin.ui.login;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,8 +34,7 @@ public class HomeAcitvity extends Fragment {
     private ConstraintLayout homeLayout;
     private Switch dark_mode;
     private boolean checkDarkMode;
-    private TextView username;
-    private TextView email;
+    private TextView username, email, notifsLabel;
     private boolean loggedIn = false;
     public static boolean profileDarkModeOn = false;
 
@@ -49,7 +49,7 @@ public class HomeAcitvity extends Fragment {
         username = view.findViewById(R.id.profile_name);
         email = view.findViewById(R.id.profile_email);
         dark_mode = view.findViewById(R.id.profile_dark_mode);
-
+        notifsLabel = view.findViewById(R.id.subscribeToNotifsTextView);
         //set username text of user
         email.setText(user.getDisplayName());
 
@@ -93,13 +93,14 @@ public class HomeAcitvity extends Fragment {
             //make necessary changes to convert to dark mode
             profileDarkModeOn = true;
             homeLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.profile_background_dark));
-            username.setTextColor(getResources().getColor(R.color.LightGrey));
-            email.setTextColor(getResources().getColor(R.color.LightGrey));
-
+//            username.setTextColor(getResources().getColor(R.color.LightGrey));
+//            email.setTextColor(getResources().getColor(R.color.LightGrey));
+            notifsLabel.setTextColor(getResources().getColor(R.color.White));
         } else { //else in dark mode
             //make necessary changes to convert to dark mode
             profileDarkModeOn = false;
             homeLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.profile_background_light));
+            notifsLabel.setTextColor(Color.BLACK);
 
             username.setTextColor(getResources().getColor(R.color.Grey));
             email.setTextColor(getResources().getColor(R.color.Grey));
