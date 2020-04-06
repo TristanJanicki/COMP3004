@@ -62,6 +62,7 @@ public class HomeAcitvity extends Fragment {
         //set email text of user
         try {
             username.setText(user.getProfileAttribute("name"));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

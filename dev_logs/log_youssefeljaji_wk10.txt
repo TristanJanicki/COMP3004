@@ -1,0 +1,2 @@
+Refactored code to allowed data from server to run more efficiently meaning less loading time for clients.
+Debugged detailed threshold view and createNewCorrelationSignal

@@ -1,0 +1,3 @@
+- Met with team for D4 assignments
+- Began work on Database updater
+- Set up requirements for using TD Ameritrade API

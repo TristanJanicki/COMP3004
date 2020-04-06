@@ -53,7 +53,7 @@ public class MySignals extends Fragment {
         getSignals(user);
 
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
-        checkDarkMode = checkDarkMode = HomeAcitvity.getDarkMode();
+        checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode(view);
 
         linearLayout = view.findViewById(R.id.linearLayout);

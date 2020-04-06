@@ -1,0 +1,2 @@
+- Working on Debugging Calendar View for D4 demo video
+- Refactoring Database updater

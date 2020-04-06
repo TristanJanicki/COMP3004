@@ -39,6 +39,7 @@ public class NewSignal extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_signal_activity);
+        newSignalConstraint = findViewById(R.id.createSig);
         createSignalButton = findViewById(R.id.createSignalButotn);
         createCorrelation=findViewById(R.id.button2);
         tickerSearch = findViewById(R.id.searchStock);
@@ -47,7 +48,6 @@ public class NewSignal extends AppCompatActivity{
         thresholdField = findViewById(R.id.setNewSignalThreshold);
         longStrat = findViewById(R.id.longButt);
         shortStrat = findViewById(R.id.shortButt);
-
 
         checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode();
@@ -129,6 +129,7 @@ public class NewSignal extends AppCompatActivity{
 
     public void updateDarkMode() {
         newSignalConstraint = findViewById(R.id.createSig);
+
 
         if (checkDarkMode) { //if in light mode
             //make necessary changes to convert to dark mode

@@ -49,6 +49,8 @@ public class DetailedThresholdView  extends Fragment {
 
     private BarChart setUpChart(View view){
         BarChart barChart = view.findViewById(R.id.barchart);
+        checkDarkMode = HomeAcitvity.getDarkMode();
+        updateDarkMode(view);
         barChart.setHighlightPerDragEnabled(true);
         barChart.setDrawBorders(true);
 
