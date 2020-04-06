@@ -31,8 +31,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
         this.password = password;
     }
 
-    @Override
-    protected Result doInBackground(Void... voids) {
+    private Result doWork(int tries) {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
@@ -50,8 +49,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                     .build();
             Call c = client.newCall(request);//
 
-            try {
-                Response r = c.execute();
+            try (Response r = c.execute()){
                 JSONObject responseBody = new JSONObject(r.body().string());
                 if (r.code() == 307){
                     AuthChallengeRequiredParameters params = new AuthChallengeRequiredParameters(
@@ -75,7 +73,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
                 String userID = cognitoProfile.getString("sub");
                 String refreshToken = responseBody.getString("refreshToken");
                 String accessToken = responseBody.getString("accessToken");
-
+                r.close();
 
                 return new Result.Success<LoggedInUser> (new LoggedInUser(userID, cognitoProfile.getString("name"), accessToken, responseBody.getString("idToken"), refreshToken, decodedIdTokenStr));
             } catch (IOException e) {
@@ -91,9 +89,14 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
             }
         }catch (JSONException j){
             j.printStackTrace();
+            doWork(tries + 1);
             return new Result.Error(j);
         }
+    }
 
+    @Override
+    protected Result doInBackground(Void... voids) {
+        return doWork(0);
     }
 
 }

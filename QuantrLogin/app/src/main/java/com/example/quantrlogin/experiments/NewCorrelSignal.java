@@ -41,7 +41,6 @@ public class NewCorrelSignal extends AppCompatActivity{
         asset2=findViewById(R.id.searchAsset2);
         correlation = findViewById(R.id.correlation);
         correlValue = findViewById(R.id.correl);
-
         checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode();
 

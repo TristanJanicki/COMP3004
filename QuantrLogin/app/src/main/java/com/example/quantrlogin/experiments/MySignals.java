@@ -24,7 +24,6 @@ import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 import com.example.quantrlogin.ui.login.HomeAcitvity;
 
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
@@ -54,13 +53,10 @@ public class MySignals extends Fragment {
         getSignals(user);
 
         View view = inflater.inflate(R.layout.activity_my_signals, container, false);
-
         checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode(view);
 
         linearLayout = view.findViewById(R.id.linearLayout);
-        l.warning("EXPERIMENTS LENGTH " + user.experiments.length);
-        l.warning(Arrays.toString(user.experiments));
         for (Experiment e : user.experiments) {
             addExperimentButton(e);
         }
@@ -154,14 +150,14 @@ public class MySignals extends Fragment {
                         DetailedThresholdView detail_fragment = new DetailedThresholdView((ThresholdExperiment) e);
                         FragmentManager manager = getFragmentManager();
                         manager.beginTransaction()
-                                .replace(R.id.fragment_container, detail_fragment, detail_fragment.getTag())
+                                .replace(R.id.bottom_nav_fragment_container, detail_fragment, detail_fragment.getTag())
                                 .commit();
                     }
                     else if(e instanceof CorrelationExperiment){
                         DetailedCorrelationView detail_fragment = new DetailedCorrelationView((CorrelationExperiment) e);
                         FragmentManager manager = getFragmentManager();
                         manager.beginTransaction()
-                                .replace(R.id.fragment_container, detail_fragment, detail_fragment.getTag())
+                                .replace(R.id.bottom_nav_fragment_container, detail_fragment, detail_fragment.getTag())
                                 .commit();
                     }
                 }

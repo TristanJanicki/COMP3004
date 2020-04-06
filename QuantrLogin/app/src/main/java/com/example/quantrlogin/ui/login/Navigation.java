@@ -24,22 +24,28 @@ public class Navigation extends AppCompatActivity /*implements NavigationView.On
     //private TextView nav_email;
     private TextView nav_name;
     private ActionBar toolbar;
-    private TextView thing;
+    private BottomNavigationView bottomNav;
+    private boolean checkDarkMode;
+    public static boolean darkModeValue;
+    public HomeAcitvity homeAcitvity = new HomeAcitvity();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_nav_main);
 
+        checkDarkMode = HomeAcitvity.getDarkMode();
+
         toolbar = getSupportActionBar();
 
         user = (LoggedInUser) getIntent().getSerializableExtra("user");
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         setFragment(new HomeAcitvity());
 
-        nav_name = findViewById(R.id.profile_name);
+//        nav_name = findViewById(R.id.profile_name);
+
 //        nav_name.setText(user.getDisplayName());
 
         //setContentView(R.layout.nav_main);
@@ -72,9 +78,10 @@ public class Navigation extends AppCompatActivity /*implements NavigationView.On
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
                     switch (menuItem.getItemId()) {
                         case R.id.bottomNav_home:
-                            setFragment(new HomeAcitvity());
+                            setFragment(homeAcitvity);
                             break;
 
                         case R.id.bottomNav_my_signals:
@@ -122,20 +129,20 @@ public class Navigation extends AppCompatActivity /*implements NavigationView.On
 //        return true;
 //    }
 
-//    @Override
-//    public void onBackPressed() {
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
-
+    @Override
+    public void onBackPressed() {
+            int selectedItemID = bottomNav.getSelectedItemId();
+            if (R.id.bottomNav_home != selectedItemID) {
+                setFragment(homeAcitvity);
+            } else {
+                super.onBackPressed();
+            }
+    }
 
     public void setFragment (Fragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.bottom_nav_fragment_container, fragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 

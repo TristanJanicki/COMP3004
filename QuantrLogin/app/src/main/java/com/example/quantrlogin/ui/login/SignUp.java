@@ -40,15 +40,15 @@ public class SignUp extends AppCompatActivity {
         username = findViewById(R.id.signup_username);
         termsOfService = findViewById(R.id.termsOfService);
         button_SignUp = findViewById(R.id.signUp2);
-        email.setText("tt700joe@gmail.com");
-        username.setText("Tristan G. J.");
+//        email.setText("tt700joe@gmail.com");
+//        username.setText("Tristan G. J.");
 
         premiumButton = findViewById(R.id.paidSubscription);
         freemiumButton = findViewById(R.id.freeSubscription);
 
 
-        checkDarkMode = LoginActivity.getDarkMode();
-        updateDarkMode();
+//        checkDarkMode = LoginActivity.getDarkMode();
+//        updateDarkMode();
 
         //send POST Sign up request
         //after that works
@@ -102,30 +102,30 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    public void updateDarkMode() {
-        signupConstraint = findViewById(R.id.signup_container);
-
-        if (checkDarkMode) { //if in light mode
-            //make necessary changes to convert to dark mode
-            signupConstraint.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
-            username.setTextColor(getResources().getColor(R.color.LightGrey));
-            username.setBackgroundTintList(getColorStateList(R.color.LightGrey));
-            email.setTextColor(getResources().getColor(R.color.LightGrey));
-            email.setBackgroundTintList(getColorStateList(R.color.LightGrey));
-            termsOfService.setTextColor(getResources().getColor(R.color.LightGrey));
-            freemiumButton.setTextColor(getResources().getColor(R.color.LightGrey));
-
-        } else { //else in dark mode
-            //make necessary changes to convert to dark mode
-            signupConstraint.setBackgroundColor(getResources().getColor(R.color.White));
-            username.setTextColor(getResources().getColor(R.color.Grey));
-            username.setBackgroundTintList(getColorStateList(R.color.Grey));
-            email.setTextColor(getResources().getColor(R.color.Grey));
-            email.setBackgroundTintList(getColorStateList(R.color.LightGrey));
-            termsOfService.setTextColor(getResources().getColor(R.color.Grey));
-            freemiumButton.setTextColor(getResources().getColor(R.color.Grey));
-        }
-    }
+//    public void updateDarkMode() {
+//        signupConstraint = findViewById(R.id.signup_container);
+//
+//        if (checkDarkMode) { //if in light mode
+//            //make necessary changes to convert to dark mode
+//            signupConstraint.setBackgroundColor(getResources().getColor(R.color.DarkNavy));
+//            username.setTextColor(getResources().getColor(R.color.LightGrey));
+//            username.setBackgroundTintList(getColorStateList(R.color.LightGrey));
+//            email.setTextColor(getResources().getColor(R.color.LightGrey));
+//            email.setBackgroundTintList(getColorStateList(R.color.LightGrey));
+//            termsOfService.setTextColor(getResources().getColor(R.color.LightGrey));
+//            freemiumButton.setTextColor(getResources().getColor(R.color.LightGrey));
+//
+//        } else { //else in dark mode
+//            //make necessary changes to convert to dark mode
+//            signupConstraint.setBackgroundColor(getResources().getColor(R.color.White));
+//            username.setTextColor(getResources().getColor(R.color.Grey));
+//            username.setBackgroundTintList(getColorStateList(R.color.Grey));
+//            email.setTextColor(getResources().getColor(R.color.Grey));
+//            email.setBackgroundTintList(getColorStateList(R.color.LightGrey));
+//            termsOfService.setTextColor(getResources().getColor(R.color.Grey));
+//            freemiumButton.setTextColor(getResources().getColor(R.color.Grey));
+//        }
+//    }
 
     //goes to authorization for now, until we have main screen setup
     public void openSignInActivity() {

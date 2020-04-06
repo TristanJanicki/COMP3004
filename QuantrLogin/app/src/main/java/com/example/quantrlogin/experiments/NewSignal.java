@@ -128,6 +128,8 @@ public class NewSignal extends AppCompatActivity{
     }
 
     public void updateDarkMode() {
+        newSignalConstraint = findViewById(R.id.createSig);
+
 
         if (checkDarkMode) { //if in light mode
             //make necessary changes to convert to dark mode

@@ -61,21 +61,22 @@ public class HomeAcitvity extends Fragment {
 
         //set email text of user
         try {
-            username.setText(user.getProfileAttribute("user"));
+            username.setText(user.getProfileAttribute("name"));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        checkDarkMode = LoginActivity.getDarkMode();
+//        checkDarkMode = LoginActivity.getDarkMode();
 
         //basically just want to check if we are in dark or light mode upon logging in
-        if (checkDarkMode) {
-            dark_mode.setChecked(true);
-            loggedIn = true;
-        } else {
-            dark_mode.setChecked(false);
-            loggedIn = true;
-        }
+//        if (checkDarkMode) {
+//            dark_mode.setChecked(true);
+//            loggedIn = true;
+//        } else {
+//            dark_mode.setChecked(false);
+//            loggedIn = true;
+//        }
 
         setDarkMode();
 
