@@ -1,0 +1,5 @@
+- Completed Calendar Module (deriving data from the Databse)
+- Completed Video for D4
+- Colaberated on and Submitted D4 report
+- Changed App server settings on 'awab_calendar' branch
+- Team Code Review: Merged various branches and refactored code
