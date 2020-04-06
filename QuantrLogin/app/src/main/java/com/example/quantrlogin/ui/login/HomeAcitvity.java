@@ -63,56 +63,6 @@ public class HomeAcitvity extends Fragment {
 
         setDarkMode();
 
-//        lineChart = view.findViewById(R.id.home_chart_view);
-//        lineChart.setTouchEnabled(true);
-//        lineChart.setPinchZoom(true);
-
-//        LineDataSet homeSet = new LineDataSet(getData(), "Signal 1");
-//        homeSet.setColor(ContextCompat.getColor(view.getContext(), R.color.GoldYellow));
-//        homeSet.setValueTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
-//
-//        XAxis xAxis = lineChart.getXAxis();
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//
-//        final String[] months = new String[]{"Jan", "Feb", "Mar", "Apr"};
-//
-//        ValueFormatter formatter = new ValueFormatter() {
-//            @Override
-//            public String getAxisLabel(float value, AxisBase axis) {
-//                return months[(int) value];
-//    }
-//        };
-
-//        xAxis.setGranularity(1f);
-//        xAxis.setTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
-//        xAxis.setValueFormatter(formatter);
-//
-//        YAxis yAxisRight = lineChart.getAxisRight();
-//        yAxisRight.setEnabled(false);
-//
-//        YAxis yAxis = lineChart.getAxisLeft();
-//        yAxis.setTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
-//        yAxis.setGranularity(1f);
-//
-//        LineData data = new LineData(homeSet);
-//        lineChart.setData(data);
-//        lineChart.invalidate();
-
-
-
-//        if (lineChart.getData() != null && lineChart.getData().getDataSetCount() > 0) {
-//            homeSet = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
-//            homeSet.setValues(dataValues);
-//            lineChart.getData().notifyDataChanged();
-//            lineChart.notifyDataSetChanged();
-//        } else {
-//
-//        }
-
-//        for (int i=0; i < user.experiments.length; i++){
-//            dataValues.add(new Entry(i, user.experiments));
-//        }
-
         dark_mode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,72 +77,6 @@ public class HomeAcitvity extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_home);
-
-        //need to do this in onCreateView probably?
-//        final Bundle b = getIntent().getExtras();
-//
-//        if (b == null){
-//            Logger.getGlobal().warning("GET INTENT EXTRAS IS NULL");
-//            return;
-//        }
-//        if (!b.containsKey("user")){
-//            Logger.getGlobal().warning("Trying to start home activity without passing in a user!");
-//            return;
-//        }
-
-        //need to find a better way to display charts
-//        Cartesian cartesian = AnyChart.cartesian();
-//        //LinearGauge lg = AnyChart.linear();
-//        //Pie pie = AnyChart.pie();
-//
-//        cartesian.title("MSFT Market Summary 2019-Present");
-//
-//        cartesian.yAxis(0).title("Cost per share ($)");
-//        cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
-//        cartesian.background().fill("#141D26");
-//
-//        List<DataEntry> data = new ArrayList<>();
-//        data.add(new ValueDataEntry("Mar", 112.6));
-//        data.add(new ValueDataEntry("Apr", 119.02));
-//        data.add(new ValueDataEntry("May", 127.88));
-//        data.add(new ValueDataEntry("June", 119.84));
-//        data.add(new ValueDataEntry("July", 135.68));
-//        data.add(new ValueDataEntry("Aug", 138.06));
-//        data.add(new ValueDataEntry("Sept", 136.04));
-//        data.add(new ValueDataEntry("Oct", 137.07));
-//        data.add(new ValueDataEntry("Nov", 143.72));
-//        data.add(new ValueDataEntry("Dec", 149.55));
-//        data.add(new ValueDataEntry("Jan", 160.62));
-//        data.add(new ValueDataEntry("Feb", 174.38));
-//        data.add(new ValueDataEntry("Mar", 167.29));
-//
-//        cartesian.data(data);
-//
-//        AnyChartView anyChartView = (AnyChartView) findViewById(R.id.any_chart_view);
-
-
-        //in the drawer now, but drawer doesn't carry user tags yet
-//        newSignalB = findViewById(R.id.newSignals);
-//        //mySignal = findViewById(R.id.mySignals2);
-//
-//        newSignalB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startNewSignalActivity((LoggedInUser) b.get("user"));
-//            }
-//        });
-
-//        mySignal = findViewById(R.id.mySignals);
-//        mySignal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                openMySignalsActivity((LoggedInUser) b.get("user"));
-//            }
-//        });
-
-        //anyChartView.setChart(cartesian);
-
     }
 
     public void redirectTD(View view){
@@ -216,6 +100,7 @@ public class HomeAcitvity extends Fragment {
             //make necessary changes to convert to dark mode
             profileDarkModeOn = false;
             homeLayout.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.profile_background_light));
+
             username.setTextColor(getResources().getColor(R.color.Grey));
             email.setTextColor(getResources().getColor(R.color.Grey));
         }
