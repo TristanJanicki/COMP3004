@@ -24,6 +24,8 @@ import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 import com.example.quantrlogin.ui.login.HomeAcitvity;
 
+import org.json.JSONException;
+
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
@@ -31,12 +33,12 @@ import networking_handlers.GetExperimentsHandler;
 
 public class MySignals extends Fragment {
     private LoggedInUser user;
-    private Button editSignal;
+    private Button newSignalButton;
     private ImageButton newSignal;
     private int counter = 1;
     private LinearLayout linearLayout = null;
     private Logger l = Logger.getGlobal();
-
+    int MAX_SIGNALS = 5;
     private ConstraintLayout mySignalsLayout;
     private boolean checkDarkMode;
 
@@ -56,21 +58,32 @@ public class MySignals extends Fragment {
         checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode(view);
 
-        linearLayout = view.findViewById(R.id.linearLayout);
-        for (Experiment e : user.experiments) {
-            addExperimentButton(e);
+        linearLayout = view.findViewById(R.id.linearLayout); // default max signals
+
+        try{
+            MAX_SIGNALS = (user.getProfileAttribute("account_type") == "premium" ? 10 : 5); // update max signals to match the appropriate level for the account type.
+        } catch(JSONException j){
+            j.printStackTrace();
+        }
+
+        for (int i = 0; i < MAX_SIGNALS; i ++) {
+            addExperimentButton(user.experiments[i]);
         }
 
 
 
-
-        editSignal = view.findViewById(R.id.addNewSignal);
-        editSignal.setOnClickListener(new View.OnClickListener() {
+        final int FINAL_MAX_SIGNAL = MAX_SIGNALS; // need this so the variable is accessible from inside the inner class below
+        newSignalButton = view.findViewById(R.id.addNewSignal);
+        newSignalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewSignal.class);
-                intent.putExtras(getActivity().getIntent().getExtras());
-                startActivity(intent);
+                if (user.experiments.length < FINAL_MAX_SIGNAL){
+                    Intent intent = new Intent(getActivity(), NewSignal.class);
+                    intent.putExtras(getActivity().getIntent().getExtras());
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getActivity(), "Upgrade to premium to add more signals.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -127,7 +140,7 @@ public class MySignals extends Fragment {
 
 
     public void addExperimentButton(final Experiment e){
-        if (counter < 6){
+        if (counter < MAX_SIGNALS){
             Logger.getGlobal().warning("ADDING EXPERIMENT BUTTON");
             Button newButton = new Button(getContext());
             newButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -168,9 +181,3 @@ public class MySignals extends Fragment {
         }
     }
 }
-/*
-error: no suitable constructor found for Intent(MySignals,Class<DetailedThresholdView>)
-        constructor Intent.Intent(String,Uri) is not applicable
-        (argument mismatch; MySignals cannot be converted to String)
-        constructor Intent.Intent(Context,Class<?>) is not applicable
-        (argument mismatch; MySignals cannot be converted to Context)	*/

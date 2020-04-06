@@ -68,11 +68,11 @@ public class CalendarPage extends Fragment {
                 for(int i = 0; i < Math.min(dates.length, 10); i++){
                     int random = ThreadLocalRandom.current().nextInt(1, 4);
                     if (random == 1) {
-                        calList.add(new CalItem(R.drawable.ic_emai, t.getTicker() + " " + t.getIndicator() + " " + t.getThreshold(), dates[i]));
+                        calList.add(new CalItem(R.drawable.ic_emai, dates[i], t.getTicker() + " " + t.getIndicator() + " " + t.getThreshold()));
                     } else if (random == 2) {
-                        calList.add(new CalItem(R.drawable.ic_notifications_active_black_24dp, t.getTicker() + " " + t.getIndicator() + " " + t.getThreshold(), dates[i]));
+                        calList.add(new CalItem(R.drawable.ic_notifications_active_black_24dp, dates[i], t.getTicker() + " " + t.getIndicator() + " " + t.getThreshold()));
                     } else {
-                        calList.add(new CalItem(R.drawable.ic_twitter, t.getTicker() + " " + t.getIndicator() + " " + t.getThreshold(), dates[i]));
+                        calList.add(new CalItem(R.drawable.ic_twitter, dates[i], t.getTicker() + " " + t.getIndicator() + " " + t.getThreshold()));
                     }
                 }
 

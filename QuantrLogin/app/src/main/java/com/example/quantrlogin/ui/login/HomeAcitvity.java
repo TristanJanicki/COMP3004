@@ -6,25 +6,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.LoggedInUser;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import org.json.JSONException;
 
@@ -36,7 +30,7 @@ public class HomeAcitvity extends Fragment {
 
     private LoggedInUser user;
     private LineChart lineChart;
-    private RelativeLayout homeLayout;
+    private ConstraintLayout homeLayout;
     private Switch dark_mode;
     private boolean checkDarkMode;
     private TextView username;
@@ -67,84 +61,42 @@ public class HomeAcitvity extends Fragment {
             e.printStackTrace();
         }
 
-//        checkDarkMode = LoginActivity.getDarkMode();
-
-        //basically just want to check if we are in dark or light mode upon logging in
-//        if (checkDarkMode) {
-//            dark_mode.setChecked(true);
-//            loggedIn = true;
-//        } else {
-//            dark_mode.setChecked(false);
-//            loggedIn = true;
-//        }
-
         setDarkMode();
 
-//        mySignal = view.findViewById(R.id.mySignals);
-//        mySignal.setOnClickListener(new View.OnClickListener() {
+//        lineChart = view.findViewById(R.id.home_chart_view);
+//        lineChart.setTouchEnabled(true);
+//        lineChart.setPinchZoom(true);
+
+//        LineDataSet homeSet = new LineDataSet(getData(), "Signal 1");
+//        homeSet.setColor(ContextCompat.getColor(view.getContext(), R.color.GoldYellow));
+//        homeSet.setValueTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
+//
+//        XAxis xAxis = lineChart.getXAxis();
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//
+//        final String[] months = new String[]{"Jan", "Feb", "Mar", "Apr"};
+//
+//        ValueFormatter formatter = new ValueFormatter() {
 //            @Override
-//            public void onClick(View v) {
-//                MySignals mySignals_fragment = new MySignals();
-//                FragmentManager manager = getFragmentManager();
-//                manager.beginTransaction()
-//                        .replace(R.id.fragment_container, mySignals_fragment, mySignals_fragment.getTag())
-//                        .commit();
-//            }
-//        });
+//            public String getAxisLabel(float value, AxisBase axis) {
+//                return months[(int) value];
+//    }
+//        };
 
-//        newSignal = view.findViewById(R.id.newSignals);
-//        newSignal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), NewSignal.class);
-//                startActivity(intent);
-//            }
-//        });
-
-//        signalCalender = view.findViewById(R.id.signalCalender);
-//        signalCalender.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getActivity(), "Available in a future update.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        lineChart = view.findViewById(R.id.home_chart_view);
-        lineChart.setTouchEnabled(true);
-        lineChart.setPinchZoom(true);
-
-        //ArrayList<Entry> dataValues = new ArrayList<>();
-
-        LineDataSet homeSet = new LineDataSet(getData(), "Signal 1");
-        homeSet.setColor(ContextCompat.getColor(view.getContext(), R.color.GoldYellow));
-        homeSet.setValueTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
-
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-        final String[] months = new String[]{"Jan", "Feb", "Mar", "Apr"};
-
-        ValueFormatter formatter = new ValueFormatter() {
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                return months[(int) value];
-            }
-        };
-
-        xAxis.setGranularity(1f);
-        xAxis.setTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
-        xAxis.setValueFormatter(formatter);
-
-        YAxis yAxisRight = lineChart.getAxisRight();
-        yAxisRight.setEnabled(false);
-
-        YAxis yAxis = lineChart.getAxisLeft();
-        yAxis.setTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
-        yAxis.setGranularity(1f);
-
-        LineData data = new LineData(homeSet);
-        lineChart.setData(data);
-        lineChart.invalidate();
+//        xAxis.setGranularity(1f);
+//        xAxis.setTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
+//        xAxis.setValueFormatter(formatter);
+//
+//        YAxis yAxisRight = lineChart.getAxisRight();
+//        yAxisRight.setEnabled(false);
+//
+//        YAxis yAxis = lineChart.getAxisLeft();
+//        yAxis.setTextColor(ContextCompat.getColor(view.getContext(), R.color.White));
+//        yAxis.setGranularity(1f);
+//
+//        LineData data = new LineData(homeSet);
+//        lineChart.setData(data);
+//        lineChart.invalidate();
 
 
 
