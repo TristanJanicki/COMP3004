@@ -1,5 +1,4 @@
 package com.example.quantrlogin.experiments;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,14 +56,15 @@ public class DetailedCorrelationView extends Fragment {
 
         priceDeltas=e.getAsset_1_deltas();
         priceDeltas1=e.getAsset_2_deltas();
-        ArrayList<Entry> entries= new ArrayList<>();
-        for(int i=0;i<priceDeltas.length;i++){
-            entries.add(new Entry(priceDeltas[i],priceDeltas1[i]));
-        }
+//        ArrayList<Entry> entries= new ArrayList<>();
+//        for(int i=0;i<priceDeltas.length;i++){
+//            entries.add(new Entry(priceDeltas[i],priceDeltas1[i]));
+//        }
 
         scatterChart = (ScatterChart) view.findViewById(R.id.scatterChart);
-        ScatterDataSet scatterDataSet = new ScatterDataSet(entries, e.getAsset_1());
-        scatterDataSet.setColors(Color.blue(1));
+        ScatterDataSet scatterDataSet = new ScatterDataSet(getData(), e.getAsset_1());
+        scatterDataSet.setColors(R.color.Mint);
+
         ScatterData scatterData = new ScatterData(scatterDataSet);
         XAxis xAxis = scatterChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -76,6 +76,14 @@ public class DetailedCorrelationView extends Fragment {
         scatterChart.animateXY(5000, 5000);
         scatterChart.invalidate();
         return view;
+    }
+
+    public ArrayList getData() {
+        ArrayList<Entry> entries= new ArrayList<>();
+        for(int i=0; i<priceDeltas.length; i++){
+            entries.add(new Entry(priceDeltas[i],priceDeltas1[i]));
+        }
+        return entries;
     }
 
     public void updateDarkMode(View view) {

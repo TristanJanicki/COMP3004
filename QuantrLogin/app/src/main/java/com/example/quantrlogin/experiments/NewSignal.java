@@ -48,6 +48,7 @@ public class NewSignal extends AppCompatActivity{
         longStrat = findViewById(R.id.longButt);
         shortStrat = findViewById(R.id.shortButt);
 
+
         checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode();
 
@@ -127,7 +128,7 @@ public class NewSignal extends AppCompatActivity{
     }
 
     public void updateDarkMode() {
-        newSignalConstraint = findViewById(R.id.createCorrelSig);
+        newSignalConstraint = findViewById(R.id.createSig);
 
         if (checkDarkMode) { //if in light mode
             //make necessary changes to convert to dark mode
