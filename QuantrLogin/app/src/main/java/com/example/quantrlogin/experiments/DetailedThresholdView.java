@@ -32,32 +32,20 @@ public class DetailedThresholdView  extends Fragment {
     private LinearLayout linearLayout = null;
     private Logger l = Logger.getGlobal();
     ThresholdExperiment e;
-    public DetailedThresholdView (ThresholdExperiment e){
-        this.e=e;
-    }
     double[] priceDeltas;
     Button notify;
     private EditText threshTitle, threshVal;
     private ConstraintLayout detailedThreshConstraint;
     private boolean checkDarkMode;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public DetailedThresholdView (ThresholdExperiment e){
+        this.e=e;
+        this.priceDeltas = e.getPrice_deltas();
+    }
 
-        View view = inflater.inflate(R.layout.activity_detailed_threshold_view, container, false);
-
-        linearLayout = view.findViewById(R.id.linearLayout);
-        threshTitle = view.findViewById(R.id.editText2);
-        threshVal = view.findViewById(R.id.editText3);
+    private BarChart setUpChart(View view){
         BarChart barChart = view.findViewById(R.id.barchart);
-
-        checkDarkMode = HomeAcitvity.getDarkMode();
-        updateDarkMode(view);
-
         barChart.setHighlightPerDragEnabled(true);
-        priceDeltas=e.getPrice_deltas();
-        Logger.getGlobal().warning(Arrays.toString(e.getPrice_deltas()));
         barChart.setDrawBorders(true);
 
         barChart.setBorderColor(getResources().getColor(android.R.color.white));
@@ -69,7 +57,6 @@ public class DetailedThresholdView  extends Fragment {
         barChart.requestDisallowInterceptTouchEvent(true);
 
         XAxis xAxis = barChart.getXAxis();
-
         xAxis.setDrawGridLines(false);// disable x axis grid lines
         xAxis.setDrawLabels(false);
         rightAxis.setTextColor(Color.WHITE);
@@ -77,46 +64,58 @@ public class DetailedThresholdView  extends Fragment {
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         xAxis.setAvoidFirstLastClipping(true);
-
         Legend l = barChart.getLegend();
         l.setEnabled(false);
-        ArrayList<BarEntry> xValsBar= new ArrayList<BarEntry>();
-        double x=-1/3;
-        Arrays.sort(priceDeltas);
-        //int h= (int) (2*IQR(priceDeltas,priceDeltas.length)*(Math.pow(priceDeltas.length,x)));
-        int bins=(int)Math.ceil(Math.sqrt(priceDeltas.length));
-        int h=(int)(priceDeltas[priceDeltas.length-1]-priceDeltas[0])/bins;
-        ArrayList<BarEntry> data = new ArrayList<>();
-        bins=bins*2;
-        Logger.getGlobal().warning("Bin width:" +h);
-        Logger.getGlobal().warning(" deltas length:" + priceDeltas.length);
-        Logger.getGlobal().warning("bins:" + bins);
-        int temp=-bins/2;
-        int curr=0;
-        for(int i=0;i<bins;i++){
-            int occur=0;
-            for(int a=curr;a<priceDeltas.length;a++){
-                if(temp+1>=priceDeltas[curr]){
-                    occur+=1;
-                }
-                else{
-                    temp+=1;
-                }
-                curr+=1;
-            }
-            data.add(new BarEntry(occur,i));
-        }
-        ArrayList xAx = new ArrayList();
-        for(int i=-bins/2;i<bins+1;i++){
-            xAx.add(i);
-        }
 
 
-        BarDataSet set1 = new BarDataSet(data, "Data");
+        BarDataSet set1 = new BarDataSet(getData(), "% Price Changes");
+
         set1.setColor(Color.rgb(80, 80, 80));
         set1.setBarBorderColor(getResources().getColor(R.color.colorPrimaryDark));
         set1.setBarBorderWidth(0.8f);
         set1.setDrawValues(false);
+        BarData dat = new BarData(set1);
+        // set data
+        barChart.setData(dat);
+        barChart.invalidate();
+        return barChart;
+    }
+
+    ArrayList<BarEntry> getData(){
+        ArrayList<BarEntry> data = new ArrayList<>();
+        float[] buckets = new float[]{-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        float[] bucketCounts = new float[buckets.length]; // the i-th element in here will be the count of how many data points from priceDeltas is within i-th and i-th + 1 element range.
+        Arrays.fill(bucketCounts, 0); // fill the array with all 0's so we can do maths easily.
+        // 1 entry in data for each % change from -10% to +10%
+        // then we count how many price deltas are between bucket[i] and bucket[i+1]
+        for (int i = 0; i < buckets.length - 1; i ++){ // this loop counts how many price deltas fall within each bucket
+            for (double d : priceDeltas){
+                if (d >= buckets[i] && d <= buckets[i + 1]) {
+                    bucketCounts[i] ++;
+                }
+            }
+        }
+
+        for (int i = 0; i < buckets.length; i ++){
+            data.add(new BarEntry(buckets[i], bucketCounts[i]));
+        }
+
+        return data;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.activity_detailed_threshold_view, container, false);
+
+        linearLayout = view.findViewById(R.id.linearLayout);
+        threshTitle = view.findViewById(R.id.editText2);
+        threshVal = view.findViewById(R.id.editText3);
+
+        checkDarkMode = HomeAcitvity.getDarkMode();
+        updateDarkMode(view);
+        setUpChart(view);
 
         notify = view.findViewById(R.id.button);
         notify.setOnClickListener(new View.OnClickListener() {
@@ -126,14 +125,6 @@ public class DetailedThresholdView  extends Fragment {
             }
         });
 
-
-// create a data object with the datasets
-        BarData dat = new BarData(set1); //(IBarDataSet) xAx,
-
-
-// set data
-        barChart.setData(dat);
-        barChart.invalidate();
         return view;
     }
     public int median(double a[], int l, int r) {
