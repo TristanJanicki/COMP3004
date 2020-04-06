@@ -53,7 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/barchart" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/occurancesCount"
             android:layout_width="125dp"
             android:layout_height="48dp"
             android:layout_marginStart="9dp"

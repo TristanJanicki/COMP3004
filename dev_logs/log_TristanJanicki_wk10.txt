@@ -1,0 +1,3 @@
+Fixed the incomplete threshold and correlations views with Farzal.
+Refractored smelly code in the experiments service experiments.py file. Broke the file out into 6 new files with seperated responsabilities.
+worked on d4 document with Farzal and Awab.

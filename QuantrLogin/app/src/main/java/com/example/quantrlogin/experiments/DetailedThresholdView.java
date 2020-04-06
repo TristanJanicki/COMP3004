@@ -1,5 +1,7 @@
 package com.example.quantrlogin.experiments;
+
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,15 +20,17 @@ import com.example.quantrlogin.R;
 import com.example.quantrlogin.data.dbmodels.ThresholdExperiment;
 import com.example.quantrlogin.ui.login.HomeAcitvity;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.logging.Logger;
 public class DetailedThresholdView  extends Fragment {
     private LinearLayout linearLayout = null;
@@ -50,6 +54,7 @@ public class DetailedThresholdView  extends Fragment {
 
         barChart.setBorderColor(getResources().getColor(android.R.color.white));
 
+
         YAxis yAxis = barChart.getAxisLeft();
         YAxis rightAxis = barChart.getAxisRight();
         yAxis.setDrawGridLines(false);
@@ -58,23 +63,26 @@ public class DetailedThresholdView  extends Fragment {
 
         XAxis xAxis = barChart.getXAxis();
         xAxis.setDrawGridLines(false);// disable x axis grid lines
-        xAxis.setDrawLabels(false);
         rightAxis.setTextColor(Color.WHITE);
-        yAxis.setDrawLabels(false);
+        yAxis.setTextColor(Color.WHITE);
+        yAxis.setDrawLabels(true);
+        xAxis.setTextColor(Color.WHITE);
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         xAxis.setAvoidFirstLastClipping(true);
-        Legend l = barChart.getLegend();
-        l.setEnabled(false);
-
-
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"-10", "-9", "-8", "-7", "-6", "-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
         BarDataSet set1 = new BarDataSet(getData(), "% Price Changes");
 
         set1.setColor(Color.rgb(80, 80, 80));
         set1.setBarBorderColor(getResources().getColor(R.color.colorPrimaryDark));
         set1.setBarBorderWidth(0.8f);
-        set1.setDrawValues(false);
+        set1.setDrawValues(true);
         BarData dat = new BarData(set1);
+        Description desc = new Description();
+        desc.setText("% Price Changes");
+        desc.setTextSize(15);
+        desc.setTextAlign(Paint.Align.RIGHT);
+        barChart.setDescription(desc);
         // set data
         barChart.setData(dat);
         barChart.invalidate();
@@ -103,6 +111,21 @@ public class DetailedThresholdView  extends Fragment {
         return data;
     }
 
+    String getOccurancesThisYear(){
+        int occurances = 0;
+        for (String s : e.getEvent_dates()){
+            String[] dateParts = s.split("-");
+            if (dateParts.length < 3) continue; // skip this iteration.
+            String yearStr = dateParts[0];
+            int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+            int yearInt = Integer.parseInt(yearStr);
+            if (thisYear == yearInt){
+                occurances ++;
+            }
+        }
+        return occurances + "";
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -111,7 +134,9 @@ public class DetailedThresholdView  extends Fragment {
 
         linearLayout = view.findViewById(R.id.linearLayout);
         threshTitle = view.findViewById(R.id.editText2);
-        threshVal = view.findViewById(R.id.editText3);
+        threshVal = view.findViewById(R.id.occurancesCount);
+
+        threshVal.setText(getOccurancesThisYear());
 
         checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode(view);
@@ -127,6 +152,7 @@ public class DetailedThresholdView  extends Fragment {
 
         return view;
     }
+
     public int median(double a[], int l, int r) {
         int n = r - l + 1;
         n = (n + 1) / 2 - 1;
