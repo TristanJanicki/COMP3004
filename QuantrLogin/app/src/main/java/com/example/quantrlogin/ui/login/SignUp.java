@@ -40,8 +40,8 @@ public class SignUp extends AppCompatActivity {
         username = findViewById(R.id.signup_username);
         termsOfService = findViewById(R.id.termsOfService);
         button_SignUp = findViewById(R.id.signUp2);
-        email.setText("tt700joe@gmail.com");
-        username.setText("Tristan G. J.");
+//        email.setText("tt700joe@gmail.com");
+//        username.setText("Tristan G. J.");
 
         premiumButton = findViewById(R.id.paidSubscription);
         freemiumButton = findViewById(R.id.freeSubscription);
