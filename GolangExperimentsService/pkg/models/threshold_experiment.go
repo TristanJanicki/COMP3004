@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	genModels "github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/gen/models"
+	genModels "github.com/COMP3004/GolangExperimentsService/pkg/gen/models"
 )
 
 type ThresholdExperiment struct {

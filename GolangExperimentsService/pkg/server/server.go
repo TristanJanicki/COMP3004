@@ -6,9 +6,9 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/infrastructure/httpservice"
-	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/gen/restapi"
-	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/gen/restapi/operations"
+	"github.com/COMP3004/GolangExperimentsService/infrastructure/httpservice"
+	"github.com/COMP3004/GolangExperimentsService/pkg/gen/restapi"
+	"github.com/COMP3004/GolangExperimentsService/pkg/gen/restapi/operations"
 )
 
 type HttpServer struct {
