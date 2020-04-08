@@ -85,7 +85,8 @@ public class DetailedCorrelationView extends Fragment {
         priceDeltas=e.getAsset_1_deltas();
         priceDeltas1=e.getAsset_2_deltas();
 
-        title.setText(e.getAsset_1() + " Correlation With " + e.getAsset_2());
+        String titleStr = e.getAsset_1() + " Correlation With " + e.getAsset_2();
+        title.setText(titleStr);
 
         setUpChart(view);
         return view;
