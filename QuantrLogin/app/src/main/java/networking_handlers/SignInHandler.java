@@ -51,6 +51,7 @@ public class SignInHandler extends AsyncTask<Void, Void, Result> {
 
             try (Response r = c.execute()){
                 JSONObject responseBody = new JSONObject(r.body().string());
+                r.close();
                 if (r.code() == 307){
                     AuthChallengeRequiredParameters params = new AuthChallengeRequiredParameters(
                             username,

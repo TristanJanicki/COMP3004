@@ -66,7 +66,7 @@ public class MySignals extends Fragment {
             j.printStackTrace();
         }
 
-        for (int i = 0; i < MAX_SIGNALS; i ++) {
+        for (int i = 0; i < Math.min(MAX_SIGNALS, user.experiments.length); i ++) {
             addExperimentButton(user.experiments[i]);
         }
 
