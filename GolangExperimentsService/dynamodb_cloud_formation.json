@@ -1,0 +1,30 @@
+{
+  "Resources": {
+    "mytable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties" : {
+        "TableName": "CachedTokens",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "token",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "token",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "5",
+          "WriteCapacityUnits": "5"
+        },
+        "TimeToLiveSpecification": {
+          "AttributeName": "expiry",
+          "Enabled": "TRUE"
+        }
+      }
+    }
+  }
+}
