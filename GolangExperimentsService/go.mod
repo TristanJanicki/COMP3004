@@ -3,6 +3,7 @@ module github.com/TristanJanicki/3004/GolangExperimentsService
 go 1.13
 
 require (
+	github.com/TristanJanicki/COMP3004/GolangExperimentsService v0.0.0-20200408114017-cf90c7879960 // indirect
 	github.com/aws/aws-sdk-go v1.30.6
 	github.com/aws/aws-sdk-go-v2 v0.20.0
 	github.com/go-openapi/errors v0.19.3

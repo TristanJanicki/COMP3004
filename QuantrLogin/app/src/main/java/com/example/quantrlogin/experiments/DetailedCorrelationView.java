@@ -1,4 +1,6 @@
 package com.example.quantrlogin.experiments;
+
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +19,13 @@ import com.example.quantrlogin.data.dbmodels.CorrelationExperiment;
 import com.example.quantrlogin.ui.login.HomeAcitvity;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 public class DetailedCorrelationView extends Fragment {
@@ -39,6 +42,33 @@ public class DetailedCorrelationView extends Fragment {
     private ConstraintLayout detailedCorrelConstraint;
     private boolean checkDarkMode;
 
+    ScatterChart setUpChart (View view) {
+        scatterChart = (ScatterChart) view.findViewById(R.id.scatterChart);
+        ScatterDataSet scatterDataSet = new ScatterDataSet(getData(), e.getAsset_1() + ":" + e.getAsset_2());
+
+        ScatterData scatterData = new ScatterData(scatterDataSet);
+        scatterChart.setData(scatterData);
+
+        scatterDataSet.setColor(getResources().getColor(R.color.Mint));
+        Typeface tf = Typeface.DEFAULT;
+
+        scatterData.setValueTextColor(R.color.White);
+        scatterChart.setData(scatterData);
+        XAxis xAxis = scatterChart.getXAxis();
+        xAxis.setEnabled(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(getResources().getColor(R.color.White));
+
+        YAxis leftAxis = scatterChart.getAxisLeft();
+        leftAxis.setTypeface(tf);
+
+        YAxis rightAxis = scatterChart.getAxisRight();
+        rightAxis.setTypeface(tf);
+        rightAxis.setTextColor(getResources().getColor(R.color.White));
+
+        return scatterChart;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,42 +77,37 @@ public class DetailedCorrelationView extends Fragment {
         linearLayout = view.findViewById(R.id.linearLayout);
         correlTitle = view.findViewById(R.id.editText2);
         correlVal = view.findViewById(R.id.editText3);
-        float correlation= e.getCorrelation();
 
         checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode(view);
 
-       // ArrayList<CandleEntry> yValsCandleStick= new ArrayList<CandleEntry>();
-
         priceDeltas=e.getAsset_1_deltas();
         priceDeltas1=e.getAsset_2_deltas();
-//        ArrayList<Entry> entries= new ArrayList<>();
-//        for(int i=0;i<priceDeltas.length;i++){
-//            entries.add(new Entry(priceDeltas[i],priceDeltas1[i]));
-//        }
 
-        scatterChart = (ScatterChart) view.findViewById(R.id.scatterChart);
-        ScatterDataSet scatterDataSet = new ScatterDataSet(getData(), e.getAsset_1());
-        scatterDataSet.setColors(R.color.Mint);
-
-        ScatterData scatterData = new ScatterData(scatterDataSet);
-        XAxis xAxis = scatterChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        final String[] deltas = new String[]{"0", ".15", ".30", ".45",".60",".75", ".90" , "1"};
-        IndexAxisValueFormatter formatter = new IndexAxisValueFormatter(deltas);
-        xAxis.setGranularity(.15f);
-        xAxis.setValueFormatter(formatter);
-        scatterChart.setData(scatterData);
-        scatterChart.animateXY(5000, 5000);
-        scatterChart.invalidate();
+        setUpChart(view);
         return view;
     }
 
-    public ArrayList getData() {
+    public ArrayList<Entry> getData() {
         ArrayList<Entry> entries= new ArrayList<>();
         for(int i=0; i<priceDeltas.length; i++){
-            entries.add(new Entry(priceDeltas[i],priceDeltas1[i]));
+            entries.add(new Entry(priceDeltas[i], priceDeltas1[i]));
         }
+
+        entries.sort(new Comparator<Entry>() {
+            @Override
+            public int compare(Entry o1, Entry o2) {
+                if (o1.getX() == o2.getX()){
+                    return 0;
+                }else if(o1.getX() < o2.getX()){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
+        });
+
+        Logger.getGlobal().warning("GET DATA LENGTH " + entries.size());
         return entries;
     }
 

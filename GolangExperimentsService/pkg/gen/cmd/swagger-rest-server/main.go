@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/TristanJanicki/COMP3004/pkg/gen/restapi"
-	"github.com/TristanJanicki/COMP3004/pkg/gen/restapi/operations"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/gen/restapi"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/gen/restapi/operations"
 	loads "github.com/go-openapi/loads"
 	flags "github.com/jessevdk/go-flags"
 )
