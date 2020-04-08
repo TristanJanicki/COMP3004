@@ -39,13 +39,45 @@ for thExp in sqlManager.session.query(ThresholdExperiment):
 for corrExp in sqlManager.session.query(CorrelationExperiment):
     correlations.append((corrExp.asset_1, corrExp.asset_2))
 
-experiment_results = []
-records = []
-futures = []
-q = Queue()
+with Pool(processes=cpu_count) as pool:
+    for thExp in sqlManager.session.query(ThresholdExperiment).filter_by(status="update_requested"):
+        print("EXP: ", thExp)
+        if thExp.indicator == "RSI":  # have an elif for each indicator
+            try:
+                print("EXP: ", thExp)
+                res = pool.apply_async(threshold_experiments.get_rsi_threshold_move_distribution, args=(
+                    [thExp.ticker], "ALL", thExp.threshold, 1, False))
+                history, history_std_dev, history_mean, price_deltas, price_delta_std_dev, price_delta_mean, volumes, volumes_mean, corr_matrix, event_dates = res.get()
+                thExp.price_deltas = ','.join(str(v)
+                                              for v in list(price_deltas))
+                thExp.price_delta_mean = float(price_delta_mean)
+                thExp.price_delta_std_dev = float(price_delta_std_dev)
+                thExp.event_dates = ",".join(event_dates)
+                thExp.status = "updated"
+                ts = time.time()
+                stringTimeStamp = datetime.datetime.fromtimestamp(
+                    ts).strftime('%Y-%m-%d %H:%M:%S')
+                thExp.last_updated_at = stringTimeStamp
+                sqlManager.session.commit()
+            except SQLAlchemyError as e:
+                logger.warning(e)
+                sqlManager.session.rollback()
 
-pool = Pool(processes=cpu_count)
-res1 = pool.apply_async(exp.getAssetCorrelation, correlations)
-res2 = pool.apply_async(exp.get_rsi_threshold_move_distribution, thresholds)
-print(res1.get())
-print("END")
+    # TODO: make it so that the correlation experiment is done within a time frame not the whole dataset.
+    for corrExp in sqlManager.session.query(CorrelationExperiment).filter_by(status="update_requested"):
+        print("EXP", corrExp)
+        try:
+            res = pool.apply_async(correlation_experiments.getAssetCorrelation, args=(
+                corrExp.asset_1, corrExp.asset_2, corrExp.asset_combo))
+            results = res.get()
+            # initializing variables for readability
+            # corrMatrix = results[0]            
+            # print("CORR:", corrMatrix)
+            corrExp.correlation = float(results[0][0][1])
+            corrExp.asset_1_deltas = ','.join(str(v) for v in list(results[1]))
+            corrExp.asset_2_deltas = ','.join(str(v) for v in list(results[2]))
+            sqlManager.session.commit()
+        except Exception as e:
+            raise e
+            logger.warning(e)
+            sqlManager.session.rollback()

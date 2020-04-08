@@ -101,26 +101,6 @@ def experiments_correlation_create(experiment=None):  # noqa: E501
         return ErrorResponse()
     return OkResponse()
 
-
-def experiments_correlation_update(experiment=None):  # noqa: E501
-    """experiments_correlation_update
-
-    Update a experiment # noqa: E501
-
-    :param idToken: access token obtained from AWS Cognito
-    :type idToken: str
-    :param user_id: the users ID to associate the experiment with
-    :type user_id: str
-    :param experiment: 
-    :type experiment: dict | bytes
-
-    :rtype: OkResponse
-    """
-    if connexion.request.is_json:
-        experiment = ExistingCorrelationExperiment.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
-
-
 def experiments_threshold_create(experiment=None):  # noqa: E501
     """experiments_threshold_create
 
@@ -162,6 +142,7 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
             existingCopy = sqlManager.session.query(ThresholdExperiment).filter_by(
                 ticker=experiment["ticker"], threshold=experiment["threshold"], indicator=experiment["indicator"], directional_bias=experiment["direction_bias"]).one()
         except SQLAlchemyError as e:
+            sqlManager.session.rollback()
             error = str(e)
             logger.warning(error)
             if "No row was found for one()" != error: # if its any error other than we didn't find anything then throw something
@@ -180,7 +161,7 @@ def experiments_threshold_create(experiment=None):  # noqa: E501
                 existingCopy.status = "update_requested"
                 existingCopy.update_requested_at = datetime.now()
 
-            if existingCopy.experiment_id not in usersExperiments:
+            if existingCopy.experiment_id not in usersExperiments: # check if the user is already subscribed to this experiment
                 usersExperiments.append(existingCopy.experiment_id)
                 user.experiments = ','.join(usersExperiments)
                 sqlManager.session.commit()

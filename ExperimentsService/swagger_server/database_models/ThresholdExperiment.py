@@ -58,4 +58,4 @@ class ThresholdExperiment(Base):
         self.last_updated_at = last_updated_at
 
     def __repr__(self):  # TODO: make proper print statement
-        return "<ThresholdExperiment(experiment_id='%s', indicator='%s', threshold='%s')>" % (self.experiment_id, self.indicator, self.threshold)
+        return "<ThresholdExperiment(experiment_id='%s', ticker= '%s', indicator='%s', threshold='%s')>" % (self.experiment_id, self.ticker, self.indicator, self.threshold)
