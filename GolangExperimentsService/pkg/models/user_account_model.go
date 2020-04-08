@@ -44,17 +44,17 @@ func ConvertToDbModelUserAccount(userId string, account *models.UserAccount) (*U
 		Email:     &email,
 	}
 
-	if len(account.Profile.NickName) > 0 {
-		modelDb.NickName = &account.Profile.NickName
+	if len(*account.Profile.NickName) > 0 {
+		modelDb.NickName = *account.Profile.NickName
 	}
 	if len(account.Profile.Title) > 0 {
-		modelDb.Title = &account.Profile.Title
+		modelDb.Title = *account.Profile.Title
 	}
 	// TODO Phone number validation
 	if account.Profile.Phone != nil {
-		modelDb.Country = account.Profile.Phone.Country
-		modelDb.CountryCode = account.Profile.Phone.Code
-		modelDb.PhoneNumber = account.Profile.Phone.Number
+		modelDb.Country = *account.Profile.Phone.Country
+		modelDb.CountryCode = *account.Profile.Phone.Code
+		modelDb.PhoneNumber = *account.Profile.Phone.Number
 	}
 	if account.Settings != nil {
 		modelDb.sendDailyDigest = account.Settings.SendDailyDigest
@@ -83,9 +83,9 @@ func ConvertToDbModelExistingUserAccount(userId string, account *models.Existing
 	}
 	// TODO Phone number validation
 	if account.Profile.Phone != nil {
-		modelDb.Country = account.Profile.Phone.Country
-		modelDb.CountryCode = account.Profile.Phone.Code
-		modelDb.PhoneNumber = account.Profile.Phone.Number
+		modelDb.Country = *account.Profile.Phone.Country
+		modelDb.CountryCode = *account.Profile.Phone.Code
+		modelDb.PhoneNumber = *account.Profile.Phone.Number
 	}
 	if account.Settings != nil {
 		modelDb.sendDailyDigest = account.Settings.SendDailyDigest
@@ -124,9 +124,9 @@ func ConvertToSwaggerModelUserAccount(profileDb *UserAccount) *models.UserAccoun
 
 	if len(profileDb.PhoneNumber) != 0 {
 		userProfile.Phone = &models.PhoneNumber{
-			Code:    profileDb.CountryCode,
-			Country: profileDb.Country,
-			Number:  profileDb.PhoneNumber,
+			Code:    &profileDb.CountryCode,
+			Country: &profileDb.Country,
+			Number:  &profileDb.PhoneNumber,
 		}
 	}
 
