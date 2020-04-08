@@ -6,11 +6,11 @@ import (
 	uuid "github.com/satori/go.uuid"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/COMP3004/GolangExperimentsService/infrastructure/db/mysql"
-	"github.com/COMP3004/GolangExperimentsService/pkg/gen/restapi/operations"
-	dbModels "github.com/COMP3004/GolangExperimentsService/pkg/models"
-	genModels "github.com/COMP3004/GolangExperimentsService/pkg/gen/models"
-	"github.com/COMP3004/GolangExperimentsService/pkg/utils"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/infrastructure/db/mysql"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/gen/restapi/operations"
+	dbModels "github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/models"
+	genModels "github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/gen/models"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/utils"
 	"github.com/go-openapi/runtime/middleware"
 )
 

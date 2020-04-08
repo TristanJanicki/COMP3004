@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-openapi/strfmt"
 
-	"github.com/COMP3004/GolangExperimentsService/pkg/gen/models"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/gen/models"
 )
 
 type UserAccount struct {
