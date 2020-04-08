@@ -1,4 +1,4 @@
-module github.com/COMP3004/GolangExperimentsService
+module github.com/TristanJanicki/COMP3004
 
 go 1.13
 
