@@ -1,0 +1,6 @@
+refractored the python web server into a golang web server. 
+
+  - improved performance and reliabilitiy
+  - more strict error checking and type matching
+  - reduction of smelly code, ambigous functions, and overly long functions
+  - seperation of concerns.
