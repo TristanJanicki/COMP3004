@@ -8,3 +8,4 @@ UserAccounts/pkg/gen/models/user_profile.go
 UserAccounts/pkg/gen/restapi/embedded_spec.go
 UserAccounts/pkg/gen/restapi/operations/complete_auth_challenge_responses.go
 UserAccounts/pkg/gen/restapi/operations/verify_jwt_parameters.go
+GolangExperimentsService/pkg/gen
