@@ -16,11 +16,7 @@
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ee98cf0-83d7-4c02-88de-5dbee5b540f1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../GolangExperimentsService/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../GolangExperimentsService/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GolangExperimentsService/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../GolangExperimentsService/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GolangExperimentsService/pkg/gen/cmd/swagger-rest-server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../GolangExperimentsService/pkg/gen/cmd/swagger-rest-server/main.go" afterDir="false" />
-    </list>
+    <list default="true" id="6ee98cf0-83d7-4c02-88de-5dbee5b540f1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

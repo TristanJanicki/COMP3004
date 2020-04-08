@@ -38,6 +38,7 @@ public class DetailedCorrelationView extends Fragment {
     float[] priceDeltas;
     float[] priceDeltas1;
     private ScatterChart scatterChart;
+    private TextView title;
     private EditText correlTitle, correlVal;
     private ConstraintLayout detailedCorrelConstraint;
     private boolean checkDarkMode;
@@ -77,12 +78,14 @@ public class DetailedCorrelationView extends Fragment {
         linearLayout = view.findViewById(R.id.linearLayout);
         correlTitle = view.findViewById(R.id.editText2);
         correlVal = view.findViewById(R.id.editText3);
-
+        title = view.findViewById(R.id.correlationViewTitle);
         checkDarkMode = HomeAcitvity.getDarkMode();
         updateDarkMode(view);
 
         priceDeltas=e.getAsset_1_deltas();
         priceDeltas1=e.getAsset_2_deltas();
+
+        title.setText(e.getAsset_1() + " Correlation With " + e.getAsset_2());
 
         setUpChart(view);
         return view;
