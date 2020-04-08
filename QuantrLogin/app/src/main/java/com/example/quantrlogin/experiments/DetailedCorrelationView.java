@@ -104,9 +104,9 @@ public class DetailedCorrelationView extends Fragment {
                 if (o1.getX() == o2.getX()){
                     return 0;
                 }else if(o1.getX() < o2.getX()){
-                    return 1;
-                }else{
                     return -1;
+                }else{
+                    return 1;
                 }
             }
         });
