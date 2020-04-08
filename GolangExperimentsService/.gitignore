@@ -1,5 +1,4 @@
 .DS_Store
-pkg/gen/
 target/
 build/
 bin/
