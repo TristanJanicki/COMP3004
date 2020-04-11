@@ -1,2 +1,0 @@
-include ':app'
-rootProject.name='Quant.r Login'

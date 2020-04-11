@@ -1,7 +1,0 @@
-ConfigVersion: "1.0"
-
-Service:
-  DeploymentType: "docker"
-  ServiceName: "mgmt-user-accounts-service"
-  ServiceVersion: "1.0"
-  Owner: "tristan janicki"
