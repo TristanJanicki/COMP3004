@@ -8,12 +8,12 @@ import (
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/COMP3004/GolangExperimentsService/infrastructure/db/mysql"
-	"github.com/COMP3004/GolangExperimentsService/infrastructure/httpservice"
-	"github.com/COMP3004/GolangExperimentsService/pkg/gen/restapi"
-	"github.com/COMP3004/GolangExperimentsService/pkg/gen/restapi/operations"
-	"github.com/COMP3004/GolangExperimentsService/pkg/handlers"
-	"github.com/COMP3004/GolangExperimentsService/pkg/server"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/infrastructure/db/mysql"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/infrastructure/httpservice"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/gen/restapi"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/gen/restapi/operations"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/handlers"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/pkg/server"
 )
 
 type GolangExperimentsServiceService struct {

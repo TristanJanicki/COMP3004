@@ -8,6 +8,7 @@ github.com/PuerkitoBio/purell v1.1.1/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbt
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 h1:d+Bc7a5rLufV/sSk/8dngufqelfh6jnri85riMAaF/M=
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578/go.mod h1:uGdkoq3SwY9Y+13GIhn11/XLaGBb4BfwItxLd5jeuXE=
 github.com/TristanJanicki/COMP3004 v0.0.0-20200408112627-09862791ecb3 h1:kDSK0qvDWi/rqfJreIwrH9r9BXQd4MfYn9f8vRKossQ=
+github.com/TristanJanicki/COMP3004 v0.0.0-20200408225516-db652d4da723 h1:276apOacntDllnTtUqbeuPEsy8fxDO+/zC3Ga5WM4c8=
 github.com/TristanJanicki/COMP3004/GolangExperimentsService v0.0.0-20200408114017-cf90c7879960 h1:4abJ9X3mAfj6UEWHp1nYdM9Lyat73Z7CpFKO4bJAHIg=
 github.com/TristanJanicki/COMP3004/GolangExperimentsService v0.0.0-20200408114017-cf90c7879960/go.mod h1:cW8lyP8tTUZda39b9lJrGnVm2YLXOF3FqXeytRuiFlg=
 github.com/agnivade/levenshtein v1.0.1/go.mod h1:CURSv5d9Uaml+FovSIICkLbAUZ9S4RqaHDIsdSBg7lM=

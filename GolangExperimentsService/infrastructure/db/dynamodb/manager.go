@@ -5,7 +5,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws/external"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 
-	"github.com/COMP3004/GolangExperimentsService/infrastructure/httpservice"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/infrastructure/httpservice"
 )
 
 func NewClient(config httpservice.ServiceConfig) *dynamodb.Client {

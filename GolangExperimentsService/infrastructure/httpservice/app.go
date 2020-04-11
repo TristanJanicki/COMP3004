@@ -14,7 +14,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
-	"github.com/COMP3004/GolangExperimentsService/infrastructure/env"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/infrastructure/env"
 )
 
 type Service interface {

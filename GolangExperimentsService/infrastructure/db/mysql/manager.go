@@ -7,7 +7,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/sirupsen/logrus"
 
-	"github.com/COMP3004/GolangExperimentsService/infrastructure/httpservice"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/infrastructure/httpservice"
 )
 
 type SqlDbManager struct {

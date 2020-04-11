@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/COMP3004/GolangExperimentsService/infrastructure/env"
+	"github.com/TristanJanicki/COMP3004/GolangExperimentsService/infrastructure/env"
 )
 
 func RegisterConsul(listenPort int) (*Client, string, error) {
